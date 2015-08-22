@@ -1,0 +1,8 @@
+# Ignora o diretorio de cache
+app/cache/
+
+# Ignora o diretorio de logs
+app/logs/
+
+# Ignora arquivos de backup
+*~
