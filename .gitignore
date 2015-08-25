@@ -4,5 +4,8 @@ app/cache/
 # Ignora o diretorio de logs
 app/logs/
 
+# Ignora o diretorio de documentacao
+doc/
+
 # Ignora arquivos de backup
 *~

@@ -17,7 +17,7 @@ class PessoaController extends Controller
     /**
      * Index Controller's action
      * 
-     * @return Response A Response instance
+     * @return Response Uma instancia de Response
      */
     public function indexAction()
     {
@@ -27,9 +27,9 @@ class PessoaController extends Controller
     }
 
     /**
-     * Lists all records and renders a template
+     * Lista todos os registro e renderiza um template
      * 
-     * @return Response A Response instance
+     * @return Response Uma instancia de Response
      */
     public function listAction()
     {
@@ -37,24 +37,50 @@ class PessoaController extends Controller
     }
     
     /**
-     * Register a new record
+     * Cadastra um novo registro no bd
      * 
-     * Create a form and handles its submission
+     * Cria um formulario e manupula os dados submetidos
      * 
-     * @return Response A Response instance
+     * @param Request $request A requisicao http
+     * @return Response Uma instancia de Response
      */
     public function newAction()
     {
         return $this->render('CadpazBundle:Pessoa:index.html.twig');
     }
     
-    public function editAction()
+    /**
+     * Edita o registro
+     * 
+     * @param Request $request A requisicao http
+     * @param int $id O id do registro
+     * @return Response Uma instancia de Response
+     */
+    public function editAction(/*Request $request, int $id*/)
     {
         return $this->render('CadpazBundle:Pessoa:index.html.twig');
     }
     
+    /**
+     * Remove o registro
+     * 
+     * @param Request $request A requisicao http
+     * @param int $id O id do registro
+     * @return Response Uma instancia de Response
+     */
     public function deleteAction()
     {
         $this->render('CadpazBundle:Pessoa:index.html.twig');
+    }
+    
+    /**
+     * Cria o formulario
+     * 
+     * @param Pessoa $pessoa Um objeto da Entidade Pessoa
+     * @return Form O formulario criado
+     */
+    private function createForm()
+    {
+        
     }
 }
