@@ -9,3 +9,7 @@ pessoa_list:
 pessoa_new:
     path:     /pessoa/new
     defaults: { _controller: CadpazBundle:Pessoa:new }
+
+atendimento_index:
+    path:     /atendimento
+    defaults: { _controller: CadpazBundle:Atendimento:index }
