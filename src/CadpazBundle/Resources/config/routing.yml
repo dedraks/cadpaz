@@ -1,3 +1,11 @@
-cadpaz_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: CadpazBundle:Default:index }
+pessoa_index:
+    path:     /pessoa
+    defaults: { _controller: CadpazBundle:Pessoa:index }
+
+pessoa_list:
+    path:     /pessoa/list
+    defaults: { _controller: CadpazBundle:Pessoa:list }
+
+pessoa_new:
+    path:     /pessoa/new
+    defaults: { _controller: CadpazBundle:Pessoa:new }
