@@ -714,6 +714,7 @@ class Pessoa
         return $this->enderecos;
     }
     
+    // Comentário de teste
     public function isPessoa()
     {
         return $this->nome;
