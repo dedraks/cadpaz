@@ -4,4 +4,31 @@
 
 {% block body %}
 <h1>Welcome to the Pessoa:index page</h1>
+
+Nome
+<input id="searchNome" type="text" name="search" />
+-
+CPF
+<input id="searchCPF" type="text" name="search" />
+<br />
+<div id="searchResults"></div>
+
+{% endblock %}
+{% block javascripts %}
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>    
+    <script type="text/javascript">
+    $('#searchNome').keyup(function(event) {
+
+        if (event.which == 27 || event.which == 13)
+        {
+            event.preventDefault();
+            return;
+        }
+
+        searchText = $(this).val();
+
+        //alert(searchText);
+        $('#searchResults').html('<h2>'+searchText+'</h2>');
+   });
+    </script>
 {% endblock %}

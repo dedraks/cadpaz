@@ -79,7 +79,7 @@ class PessoaController extends Controller
      * @param Pessoa $pessoa Um objeto da Entidade Pessoa
      * @return Form O formulario criado
      */
-    private function createForm()
+    private function createPessoaForm($pessoa)
     {
         
     }
