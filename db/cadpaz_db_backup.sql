@@ -16,6 +16,38 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `endereco`
+--
+
+DROP TABLE IF EXISTS `endereco`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `endereco` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `padrao` tinyint(1) NOT NULL,
+  `logradouro` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `numero` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `complemento` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `bairro` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `municipio` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `cep` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `uf` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `obs` longtext COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `endereco`
+--
+
+LOCK TABLES `endereco` WRITE;
+/*!40000 ALTER TABLE `endereco` DISABLE KEYS */;
+/*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pessoa`
 --
 
@@ -57,6 +89,31 @@ LOCK TABLES `pessoa` WRITE;
 INSERT INTO `pessoa` VALUES (1,'João Carlos da Silva','1974-10-01','M','11111111111','MG12345678','1990-01-30','SSP-MG','1234123412341234','123','1234','12023362999','1234567','1234',1,0,1,'SOLTEIRO','Maria da Silva','NEGRO','nao@tenho.com');
 /*!40000 ALTER TABLE `pessoa` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `telefone`
+--
+
+DROP TABLE IF EXISTS `telefone`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `telefone` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `numero` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
+  `obs` longtext COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `telefone`
+--
+
+LOCK TABLES `telefone` WRITE;
+/*!40000 ALTER TABLE `telefone` DISABLE KEYS */;
+/*!40000 ALTER TABLE `telefone` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -67,4 +124,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-25 22:08:16
+-- Dump completed on 2015-08-26 15:38:39
