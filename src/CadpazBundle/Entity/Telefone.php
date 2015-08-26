@@ -121,4 +121,33 @@ class Telefone
     {
         return $this->obs;
     }
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Pessoa", inversedBy="telefones")
+     * @ORM\JoinColumn(name="pessoa_id", referencedColumnName="id")
+     */
+    protected $pessoa;
+
+    /**
+     * Set pessoa
+     *
+     * @param \CadpazBundle\Entity\Pessoa $pessoa
+     * @return Telefone
+     */
+    public function setPessoa(\CadpazBundle\Entity\Pessoa $pessoa = null)
+    {
+        $this->pessoa = $pessoa;
+    
+        return $this;
+    }
+
+    /**
+     * Get pessoa
+     *
+     * @return \CadpazBundle\Entity\Pessoa 
+     */
+    public function getPessoa()
+    {
+        return $this->pessoa;
+    }
 }

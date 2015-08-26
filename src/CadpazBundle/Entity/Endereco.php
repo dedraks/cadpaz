@@ -331,4 +331,33 @@ class Endereco
     {
         return $this->obs;
     }
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Pessoa", inversedBy="enderecos")
+     * @ORM\JoinColumn(name="pessoa_id", referencedColumnName="id")
+     */
+    protected $category;
+
+    /**
+     * Set category
+     *
+     * @param \CadpazBundle\Entity\Pessoa $category
+     * @return Endereco
+     */
+    public function setCategory(\CadpazBundle\Entity\Pessoa $category = null)
+    {
+        $this->category = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \CadpazBundle\Entity\Pessoa 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
 }

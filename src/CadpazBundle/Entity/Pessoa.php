@@ -1,6 +1,7 @@
 <?php
 
 namespace CadpazBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -629,5 +630,92 @@ class Pessoa
     public function getEmail()
     {
         return $this->email;
+    }
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Telefone", mappedBy="pessoa")
+     */
+    protected $telefones;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Endereco", mappedBy="pessoa")
+     */
+    protected $enderecos;
+    
+    public function __construct()
+    {
+        $this->telefones = new ArrayCollection();
+        $this->enderecos = new ArrayCollection();
+    }
+
+    /**
+     * Add telefones
+     *
+     * @param \CadpazBundle\Entity\Telefone $telefones
+     * @return Pessoa
+     */
+    public function addTelefone(\CadpazBundle\Entity\Telefone $telefones)
+    {
+        $this->telefones[] = $telefones;
+    
+        return $this;
+    }
+
+    /**
+     * Remove telefones
+     *
+     * @param \CadpazBundle\Entity\Telefone $telefones
+     */
+    public function removeTelefone(\CadpazBundle\Entity\Telefone $telefones)
+    {
+        $this->telefones->removeElement($telefones);
+    }
+
+    /**
+     * Get telefones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTelefones()
+    {
+        return $this->telefones;
+    }
+
+    /**
+     * Add enderecos
+     *
+     * @param \CadpazBundle\Entity\Endereco $enderecos
+     * @return Pessoa
+     */
+    public function addEndereco(\CadpazBundle\Entity\Endereco $enderecos)
+    {
+        $this->enderecos[] = $enderecos;
+    
+        return $this;
+    }
+
+    /**
+     * Remove enderecos
+     *
+     * @param \CadpazBundle\Entity\Endereco $enderecos
+     */
+    public function removeEndereco(\CadpazBundle\Entity\Endereco $enderecos)
+    {
+        $this->enderecos->removeElement($enderecos);
+    }
+
+    /**
+     * Get enderecos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEnderecos()
+    {
+        return $this->enderecos;
+    }
+    
+    public function isPessoa()
+    {
+        return $this->nome;
     }
 }
