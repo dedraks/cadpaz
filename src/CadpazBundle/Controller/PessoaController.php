@@ -36,6 +36,18 @@ class PessoaController extends Controller
         return $this->render('CadpazBundle:Pessoa:index.html.twig');
     }
     
+    public function buscaAction($id)
+    {
+        $pessoa = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Pessoa')
+            ->find($id);
+        
+        $serializer = JMS\Serializer\SerializerBuilder::create()->build();
+        $json = $serializer->serialize($pessoa, 'json');
+        
+        return new \Symfony\Component\HttpFoundation\JsonResponse($json);
+    }
+    
     /**
      * Cadastra um novo registro no bd
      * 
