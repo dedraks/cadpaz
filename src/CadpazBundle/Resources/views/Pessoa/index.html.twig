@@ -14,7 +14,7 @@
 {% block body %}
 <h1>Welcome to the Pessoa:index page</h1>
 
-    <form id="form1" class="form-wrapper cf" method="post">
+    <form id="form1" class="form-wrapper cf" method="get" action="/cadpaz/web/pessoa/busca">
         <input id="cpf" class="saida" name="cpf" type="text" placeholder="Pesquisar CPF..." required>
         <button id="botaoValidarCPF">Pesquisar</button>
     </form> 
@@ -33,7 +33,49 @@ CPF
 {% block javascripts %}
     {% javascripts '@CadpazBundle/Resources/public/js/*' %}
         <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}      
+    {% endjavascripts %}
+    <script type="text/javascript">
+        // prepare the form when the DOM is ready 
+        $(document).ready(function() { 
+            var options = { 
+                target:        '#saida',   // target element(s) to be updated with server response 
+                //beforeSubmit:  showRequest,  // pre-submit callback 
+                success:       showResponse  // post-submit callback 
+
+                // other available options: 
+                //url:       {{ path('pessoa_busca', {'id':'11111111111'}) }}         // override for form's 'action' attribute 
+                //type:      type        // 'get' or 'post', override for form's 'method' attribute 
+                //dataType:  null        // 'xml', 'script', or 'json' (expected server response type) 
+                //clearForm: true        // clear all form fields after successful submit 
+                //resetForm: true        // reset the form after successful submit 
+
+                // $.ajax options can be used here too, for example: 
+                //timeout:   3000 
+            }; 
+
+            // bind form using 'ajaxForm' 
+            $('#form1').ajaxForm(options); 
+        }); 
+        
+        // post-submit callback 
+        function showResponse(responseText, statusText, xhr, $form)  { 
+            // for normal html responses, the first argument to the success callback 
+            // is the XMLHttpRequest object's responseText property 
+
+            // if the ajaxForm method was passed an Options Object with the dataType 
+            // property set to 'xml' then the first argument to the success callback 
+            // is the XMLHttpRequest object's responseXML property 
+
+            // if the ajaxForm method was passed an Options Object with the dataType 
+            // property set to 'json' then the first argument to the success callback 
+            // is the json data object returned by the server 
+
+            alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
+                '\n\nThe output div should have already been updated with the responseText.'); 
+        } 
+    </script>
+    
+    
     <script type="text/javascript">
     $('#searchNome').keyup(function(event) {
 
@@ -58,7 +100,7 @@ document.getElementById('botaoValidarCPF').onclick = function(){
     document.getElementById('saida').innerHTML = CPF.valida(document.getElementById('cpf').value);
 };*/
 
-
+/*
 $( "#form1" ).submit(function( event ) {
     var inputtedPhoneNumber = $( "#cpf" ).val();
  
@@ -73,6 +115,6 @@ $( "#form1" ).submit(function( event ) {
  
         // Run $.ajax() here
     }
-});
+});*/
     </script>
 {% endblock %}

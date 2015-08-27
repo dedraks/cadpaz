@@ -4,6 +4,7 @@
 namespace CadpazBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use \JMS\Serializer\SerializerBuilder;
 
 /**
  * Pessoa Controller
@@ -36,13 +37,13 @@ class PessoaController extends Controller
         return $this->render('CadpazBundle:Pessoa:index.html.twig');
     }
     
-    public function buscaAction($id)
+    public function buscaAction(Request $request)
     {
         $pessoa = $this->getDoctrine()
             ->getRepository('CadpazBundle:Pessoa')
-            ->find($id);
+            ->findOneBy(array('cpf'=>$id));
         
-        $serializer = JMS\Serializer\SerializerBuilder::create()->build();
+        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
         $json = $serializer->serialize($pessoa, 'json');
         
         return new \Symfony\Component\HttpFoundation\JsonResponse($json);
