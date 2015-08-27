@@ -6,6 +6,10 @@ pessoa_list:
     path:     /pessoa/list
     defaults: { _controller: CadpazBundle:Pessoa:list }
 
+pessoa_busca:
+    path:     /pessoa/busca/{id}
+    defaults: { _controller: CadpazBundle:Pessoa:busca }
+
 pessoa_new:
     path:     /pessoa/new
     defaults: { _controller: CadpazBundle:Pessoa:new }
