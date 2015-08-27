@@ -1,9 +1,25 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}CadpazBundle:Pessoa:index{% endblock %}
+{% block stylesheets %}
+    {% stylesheets '@CadpazBundle/Resources/public/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">$(document).ready(function(){	$("#cpf").mask("999.999.999-99");	$("#botaoValidarCPF").click(function() {	   if($("#cpf").val() == '') {			$("#saida").html("Informe um CPF");			return false;	   }	   if(validarCPF($("#cpf").val())) {			$("#saida").html("<span style='color: green'>CPF Válido!</span>");	   } else {			$("#saida").html("<span style='color: red'>CPF Inválido!</span>");	   }	});});</script>
+{% endblock %}
 
 {% block body %}
 <h1>Welcome to the Pessoa:index page</h1>
+
+    <form id="form1" class="form-wrapper cf" method="post">
+        <input id="cpf" class="saida" name="cpf" type="text" placeholder="Pesquisar CPF..." required>
+        <button id="botaoValidarCPF">Pesquisar</button>
+    </form> 
+<div id="saida"></div>
+<br /><br />
 
 Nome
 <input id="searchNome" type="text" name="search" />
@@ -15,7 +31,9 @@ CPF
 
 {% endblock %}
 {% block javascripts %}
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>    
+    {% javascripts '@CadpazBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}      
     <script type="text/javascript">
     $('#searchNome').keyup(function(event) {
 
@@ -30,5 +48,31 @@ CPF
         //alert(searchText);
         $('#searchResults').html('<h2>'+searchText+'</h2>');
    });
+    </script>
+
+    
+    <script type="text/javascript">
+    /*var CPF = new CPF();
+    document.getElementById('cpf').mas
+document.getElementById('botaoValidarCPF').onclick = function(){
+    document.getElementById('saida').innerHTML = CPF.valida(document.getElementById('cpf').value);
+};*/
+
+
+$( "#form1" ).submit(function( event ) {
+    var inputtedPhoneNumber = $( "#cpf" ).val();
+ 
+ 
+ 
+    // If the phone number doesn't match the regex
+    if ( !isCPF( inputtedPhoneNumber ) ) {
+ 
+        $("#saida").html('CPF Inválido!');
+        event.preventDefault();
+    } else {
+ 
+        // Run $.ajax() here
+    }
+});
     </script>
 {% endblock %}
