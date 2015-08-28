@@ -50,15 +50,45 @@ class PessoaController extends Controller
     
     public function buscaAction(Request $request)
     {
-        $cpf = $request->get('cpf');
         
-        $pessoa = $this->getDoctrine()
-            ->getRepository('CadpazBundle:Pessoa')
-            ->findOneBy(array('cpf'=>$cpf));
+        $cpf = $request->get('cpf');
+        if (!empty($cpf))
+        {
+            $cpf = str_replace(".","", $cpf);
+            $cpf = str_replace("-","", $cpf);
+
+            $pessoa = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Pessoa')
+                ->findOneBy(array('cpf'=>$cpf));
+        }
+        else
+        {
+            $nome = $request->get('nome');
+            /*$pessoa = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Pessoa')
+                ->findBy(array('nome'=>$nome));*/
+            /*
+            $pessoa = $this->getDoctrine()->getRepository('CadpazBundle:Pessoa')->createQueryBuilder('p')
+                ->where('p.nome LIKE :nome')
+                ->setParameter('nome', $nome)
+                ->getQuery()
+                ->getResult();*/
+            
+            $em = $this->getDoctrine()->getManager();
+                $query = $em->createQuery(
+                    'SELECT p
+                    FROM CadpazBundle:Pessoa p
+                    WHERE p.nome LIKE :nome'
+                )->setParameter('nome', '%'.$nome.'%');
+
+                $pessoa = $query->getResult();
+            
+            dump($pessoa);
+        }
         
         $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
         $json = $serializer->serialize($pessoa, 'json');
-        
+        dump($json);
         return new \Symfony\Component\HttpFoundation\JsonResponse($json);
     }
     
