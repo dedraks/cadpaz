@@ -125,10 +125,40 @@ h2 {
 }
 
 
+.example {
+    visibility: hidden;
+    width: 100%;
+    padding: 15px;
+    /*margin: 50px auto 50px auto;*/
+    background: #444;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+}
+
+.example thead {
+    /*margin: 50px auto 50px auto;*/
+    background: #ddeeff;
+    
+    
+    box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+}
+.example tbody {
+    /*margin: 50px auto 50px auto;*/
+    background: #f0f0f0;
+    border: 1px solid;
+    
+    box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+}
+tr:hover td {
+    background:#fff;
+        cursor: pointer;
+};
+
+/*
 
 #example {
     border: 1px solid;
-    /*border-color: #FF0000;*/
     background-color: #00FF00;
     visibility: hidden;
 }
@@ -136,4 +166,4 @@ h2 {
 #example tbody{
     background-color: #ff0000;
     cursor: pointer;
-}
+}*/
