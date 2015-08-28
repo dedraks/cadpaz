@@ -7,18 +7,31 @@
     {% endstylesheets %}
 {% endblock %}
 
-{% block js %}
-<script type="text/javascript">$(document).ready(function(){	$("#cpf").mask("999.999.999-99");	$("#botaoValidarCPF").click(function() {	   if($("#cpf").val() == '') {			$("#saida").html("Informe um CPF");			return false;	   }	   if(validarCPF($("#cpf").val())) {			$("#saida").html("<span style='color: green'>CPF Válido!</span>");	   } else {			$("#saida").html("<span style='color: red'>CPF Inválido!</span>");	   }	});});</script>
-{% endblock %}
-
 {% block body %}
 <h1>Welcome to the Pessoa:index page</h1>
 
-    <form id="form1" class="form-wrapper cf" method="get" action="/cadpaz/web/pessoa/busca">
+    <form id="form1" class="form-wrapper cf" action="{{ path('pessoa_busca') }}">
         <input id="cpf" class="saida" name="cpf" type="text" placeholder="Pesquisar CPF..." required>
         <button id="botaoValidarCPF">Pesquisar</button>
     </form> 
 <div id="saida"></div>
+
+
+
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Data de Nascimento</th>
+                <th>Email</th>
+                <th>CPF</th>
+            </tr>
+        </thead>
+ 
+    </table>
+
+
+
 <br /><br />
 
 Nome
@@ -34,18 +47,30 @@ CPF
     {% javascripts '@CadpazBundle/Resources/public/js/*' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
         // prepare the form when the DOM is ready 
-        $(document).ready(function() { 
+        $(document).ready(function() {
+            
+           
+            
+            
+            
+            
+            
+            
+            
             var options = { 
-                target:        '#saida',   // target element(s) to be updated with server response 
+                //target:        '#saida',   // target element(s) to be updated with server response 
                 //beforeSubmit:  showRequest,  // pre-submit callback 
-                success:       showResponse  // post-submit callback 
+                success:       showResponse,  // post-submit callback 
 
                 // other available options: 
-                //url:       {{ path('pessoa_busca', {'id':'11111111111'}) }}         // override for form's 'action' attribute 
-                //type:      type        // 'get' or 'post', override for form's 'method' attribute 
-                //dataType:  null        // 'xml', 'script', or 'json' (expected server response type) 
+                //url:       Routing.generate('pessoa_busca', {id: '11111111111'})         // override for form's 'action' attribute 
+                type:      'post',        // 'get' or 'post', override for form's 'method' attribute 
+                dataType:  'json'        // 'xml', 'script', or 'json' (expected server response type) 
                 //clearForm: true        // clear all form fields after successful submit 
                 //resetForm: true        // reset the form after successful submit 
 
@@ -70,8 +95,33 @@ CPF
             // property set to 'json' then the first argument to the success callback 
             // is the json data object returned by the server 
 
-            alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
-                '\n\nThe output div should have already been updated with the responseText.'); 
+            //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
+            //    '\n\nThe output div should have already been updated with the responseText.'); 
+        
+        
+        /*
+            if (statusText!='success') {
+                $("#saida").html('Nenhum registro encontrado');
+                alert('Nenhum registro encontrado');
+                return;
+            }*/
+        
+            
+                $('#example').css('visibility','hidden');
+                $('#example').html('<thead><tr><th>Nome</th><th>Data de Nascimento</th><th>Email</th><th>CPF</th></tr></thead>');
+                var item = $.parseJSON(responseText);
+                
+                
+                
+                
+                
+                var trHTML = '';
+                trHTML += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item.id}) + '\">' + item.nome + '</a></td><td>' + item.data_nascimento + '</td><td>' + item.email + '</td><td>' + item.cpf + '</td></tr>';
+                
+                $('#example').append(trHTML);
+                $('#example').css('visibility','visible');
+
+            
         } 
     </script>
     

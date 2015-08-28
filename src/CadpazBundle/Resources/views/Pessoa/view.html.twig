@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}CadpazBundle:Pessoa:view{% endblock %}
+{% block body %}
+<h1>Welcome to the Pessoa:view page</h1>
+{{ pessoa.nome }}<br />
+{{ pessoa.dataNascimento|date('d/m/Y') }}<br />
+{{ pessoa.email }}<br />
+{{ pessoa.sexo }}<br />
+{{ pessoa.cpf }}<br />
+{{ pessoa.rgNumero }}<br />
+{{ pessoa.rgDataExpedicao|date('d/m/Y') }}<br />
+{{ pessoa.rgOrgaoExpedidor }}<br />
+{{ pessoa.tituloEleitoralNumero }}<br />
+{{ pessoa.tituloEleitoralZona }}<br />
+{{ pessoa.tituloEleitoralSecao }}<br />
+{{ pessoa.pis }}<br />
+{{ pessoa.ctpsNumero }}<br />
+{{ pessoa.ctpsSerie }}<br />
+{{ pessoa.certidaoNascimento }}<br />
+{{ pessoa.certidaoCasamento }}<br />
+{{ pessoa.cartaoVacina }}<br />
+{{ pessoa.estadoCivil }}<br />
+{{ pessoa.nomeMae }}<br />
+{{ pessoa.corInformada }}<br />
+{{ pessoa.email }}<br />
+{% endblock %}

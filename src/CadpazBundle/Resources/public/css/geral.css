@@ -123,3 +123,17 @@ h2 {
     border: 0;
     padding: 0;
 }
+
+
+
+#example {
+    border: 1px solid;
+    /*border-color: #FF0000;*/
+    background-color: #00FF00;
+    visibility: hidden;
+}
+
+#example tbody{
+    background-color: #ff0000;
+    cursor: pointer;
+}

@@ -3,6 +3,8 @@
 
 namespace CadpazBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \JMS\Serializer\SerializerBuilder;
 
@@ -34,14 +36,25 @@ class PessoaController extends Controller
      */
     public function listAction()
     {
-        return $this->render('CadpazBundle:Pessoa:index.html.twig');
+        $pessoa = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Pessoa')
+            ->findAll();
+        
+        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+        $json = $serializer->serialize($pessoa, 'json');
+        
+        
+        
+        return new \Symfony\Component\HttpFoundation\JsonResponse($json);
     }
     
     public function buscaAction(Request $request)
     {
+        $cpf = $request->get('cpf');
+        
         $pessoa = $this->getDoctrine()
             ->getRepository('CadpazBundle:Pessoa')
-            ->findOneBy(array('cpf'=>$id));
+            ->findOneBy(array('cpf'=>$cpf));
         
         $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
         $json = $serializer->serialize($pessoa, 'json');
@@ -60,6 +73,15 @@ class PessoaController extends Controller
     public function newAction()
     {
         return $this->render('CadpazBundle:Pessoa:index.html.twig');
+    }
+    
+    public function viewAction($id)
+    {
+        $pessoa = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Pessoa')
+            ->find($id);
+        
+        return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
     }
     
     /**
