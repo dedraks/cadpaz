@@ -37,11 +37,6 @@
     </table>
 </div>
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> maskedinput
 {% endblock %}
 {% block javascripts %}
     {% javascripts '@CadpazBundle/Resources/public/js/*' %}
@@ -135,23 +130,13 @@
                 var item = $.parseJSON(responseText);
                 
                 
-<<<<<<< HEAD
-                var date = new Date(item.data_nascimento)
-                
-                
-                var trHTML = '';
-                trHTML += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item.id}) + '\">' + item.nome + '</a></td><td>' + date.getDay()+'/'+(date.getMonth()+2)+'/'+date.getYear() + '</td><td>' + item.email + '</td><td>' + item.cpf + '</td></tr>';
-                
-                $('#example').append(trHTML);
-                $('#example').css('visibility','visible');
-
-=======
                 if ($.isArray(item))
                 {
                     for (i=0; i<item.length; i++)
                     {
+                        var date = new Date(item[i].data_nascimento)
                         var trHTML = '';
-                        trHTML += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item[i].id}) + '\">' + item[i].nome + '</a></td><td>' + item[i].data_nascimento + '</td><td>' + item[i].email + '</td><td>' + item[i].cpf + '</td></tr>';
+                        trHTML += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item[i].id}) + '\">' + item[i].nome + '</a></td><td>' + date.getDay()+'/'+(date.getMonth()+2)+'/'+date.getYear() + '</td><td>' + item[i].email + '</td><td>' + item[i].cpf + '</td></tr>';
 
                         $('#example').append(trHTML);
                         $('#example').css('visibility','visible');
@@ -165,9 +150,9 @@
                     $('#example').append(trHTML);
                     $('#example').css('visibility','visible');
                 }
->>>>>>> maskedinput
+
             
-                            $('#example tr').click(function() {
+                        $('#example tr').click(function() {
                 var href = $(this).find("a").attr("href");
                 if(href) {
                     window.location = href;
