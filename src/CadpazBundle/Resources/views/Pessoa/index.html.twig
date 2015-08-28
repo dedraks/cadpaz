@@ -10,6 +10,12 @@
 {% block body %}
 <h1>Welcome to the Pessoa:index page</h1>
 
+<div id="container">
+<form id="form2" class="form-wrapper2 cf" action="{{ path('pessoa_busca') }}">
+        <input id="nome" class="saida" name="nome" type="text" placeholder="Pesquisar Nome..." required>
+        <button id="botaoBuscar">Pesquisar</button>
+    </form> 
+        
     <form id="form1" class="form-wrapper cf" action="{{ path('pessoa_busca') }}">
         <input id="cpf" class="saida" name="cpf" type="text" placeholder="Pesquisar CPF..." required>
         <button id="botaoValidarCPF">Pesquisar</button>
@@ -29,18 +35,9 @@
         </thead>
  
     </table>
+</div>
 
 
-
-<br /><br />
-
-Nome
-<input id="searchNome" type="text" name="search" />
--
-CPF
-<input id="searchCPF" type="text" name="search" />
-<br />
-<div id="searchResults"></div>
 
 {% endblock %}
 {% block javascripts %}
@@ -56,15 +53,18 @@ CPF
             
            
             
+            jQuery(function($){
+                $("#cpf").mask("999.999.999-99",{placeholder:"___.___.___-__"});
+             });
             
             
-            
-            
+
+
             
             
             var options = { 
                 //target:        '#saida',   // target element(s) to be updated with server response 
-                //beforeSubmit:  showRequest,  // pre-submit callback 
+                beforeSubmit:  showRequest,  // pre-submit callback 
                 success:       showResponse,  // post-submit callback 
 
                 // other available options: 
@@ -82,8 +82,28 @@ CPF
             $('#form1').ajaxForm(options); 
         }); 
         
+        function showRequest(formData, jqForm, options)
+        {
+            var text = $.param(formData); 
+            
+            text = text.replace(".", "");
+            text = text.replace(".", "");
+            text = text.replace("-", "");
+            text = text.replace("cpf=", "");
+            //alert(text);
+        }
+        
+        
+        function itemToTr(item)
+        {
+            
+        }
+        
         // post-submit callback 
         function showResponse(responseText, statusText, xhr, $form)  { 
+            ok(responseText);
+        }
+        function ok(responseText){
             // for normal html responses, the first argument to the success callback 
             // is the XMLHttpRequest object's responseText property 
 
@@ -112,22 +132,41 @@ CPF
                 var item = $.parseJSON(responseText);
                 
                 
-                
-                
-                
-                var trHTML = '';
-                trHTML += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item.id}) + '\">' + item.nome + '</a></td><td>' + item.data_nascimento + '</td><td>' + item.email + '</td><td>' + item.cpf + '</td></tr>';
-                
-                $('#example').append(trHTML);
-                $('#example').css('visibility','visible');
+                if ($.isArray(item))
+                {
+                    for (i=0; i<item.length; i++)
+                    {
+                        var trHTML = '';
+                        trHTML += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item[i].id}) + '\">' + item[i].nome + '</a></td><td>' + item[i].data_nascimento + '</td><td>' + item[i].email + '</td><td>' + item[i].cpf + '</td></tr>';
 
+                        $('#example').append(trHTML);
+                        $('#example').css('visibility','visible');
+                    }
+                }
+                else
+                {
+                    var trHTML = '';
+                    trHTML += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item.id}) + '\">' + item.nome + '</a></td><td>' + item.data_nascimento + '</td><td>' + item.email + '</td><td>' + item.cpf + '</td></tr>';
+
+                    $('#example').append(trHTML);
+                    $('#example').css('visibility','visible');
+                }
             
+                            $('#example tr').click(function() {
+                var href = $(this).find("a").attr("href");
+                if(href) {
+                    window.location = href;
+                    //alert(href);
+                }
+            });
         } 
     </script>
     
     
     <script type="text/javascript">
-    $('#searchNome').keyup(function(event) {
+    $('#form2').keyup(function(event) {
+
+        
 
         if (event.which == 27 || event.which == 13)
         {
@@ -135,10 +174,10 @@ CPF
             return;
         }
 
-        searchText = $(this).val();
+       var searchText = $("#nome").val();
+      if (searchText.length < 5) return;
 
-        //alert(searchText);
-        $('#searchResults').html('<h2>'+searchText+'</h2>');
+        $.ajax({url: Routing.generate('pessoa_busca'), data: {'nome':searchText}, success: showResponse, type: 'post'});
    });
     </script>
 
