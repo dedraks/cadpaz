@@ -3,25 +3,53 @@
 {% block title %}CadpazBundle:Pessoa:view{% endblock %}
 {% block body %}
 <h1>Welcome to the Pessoa:view page</h1>
-{{ pessoa.nome }}<br />
-{{ pessoa.dataNascimento|date('d/m/Y') }}<br />
-{{ pessoa.email }}<br />
-{{ pessoa.sexo }}<br />
-{{ pessoa.cpf }}<br />
-{{ pessoa.rgNumero }}<br />
-{{ pessoa.rgDataExpedicao|date('d/m/Y') }}<br />
-{{ pessoa.rgOrgaoExpedidor }}<br />
-{{ pessoa.tituloEleitoralNumero }}<br />
-{{ pessoa.tituloEleitoralZona }}<br />
-{{ pessoa.tituloEleitoralSecao }}<br />
-{{ pessoa.pis }}<br />
-{{ pessoa.ctpsNumero }}<br />
-{{ pessoa.ctpsSerie }}<br />
-{{ pessoa.certidaoNascimento }}<br />
-{{ pessoa.certidaoCasamento }}<br />
-{{ pessoa.cartaoVacina }}<br />
-{{ pessoa.estadoCivil }}<br />
-{{ pessoa.nomeMae }}<br />
-{{ pessoa.corInformada }}<br />
-{{ pessoa.email }}<br />
+Nome: {{ pessoa.nome }}<br />
+Data de nascimento: {{ pessoa.dataNascimento|date('d/m/Y') }}<br />
+Email: {{ pessoa.email }}<br />
+Sexo: {{ pessoa.sexo }}<br />
+CPF: {{ pessoa.cpf }}<br />
+RG:
+{% if pessoa.rg is null %}
+    Não cadastrado<br />
+{% else %}
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.rg.numero }}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Data de expedição: {{ pessoa.rg.dataExpedicao | date('d/m/Y') }}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Órgão expedidor: {{ pessoa.rg.orgaoExpedidor }}<br />
+{% endif %}
+Título Eleitoral:
+{% if pessoa.titulo is null %}
+    Não cadastrado<br />
+{% else %}
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.titulo.numero | default("Não cadastrado")}}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Zona: {{ pessoa.titulo.zona | default("Não cadastrado")}}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Seção: {{ pessoa.titulo.secao | default("Não cadastrado")}}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Data de emissão: {{ pessoa.titulo.dataEmissao | date('d/m/Y') }}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Município: {{ pessoa.titulo.municipio | default("Não cadastrado")}}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;UF: {{ pessoa.titulo.uf | default("Não cadastrado")}}<br />
+{% endif %}
+PIS:
+{% if pessoa.pis is null %}
+    Não cadastrado<br />
+{% else %}
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.pis.numero | default("Não cadastrado")}}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Data de emissão: {{ pessoa.pis.dataEmissao | date('d/m/Y') }}<br />
+{% endif %}
+CTPS:
+{% if pessoa.ctps is null %}
+    Não cadastrado<br />
+{% else %}
+    &nbsp;&nbsp;&nbsp;&nbsp;{{ pessoa.ctps.numero | default("Não cadastrado")}}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{{ pessoa.ctps.serie | default("Não cadastrado")}}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{{ pessoa.ctps.uf | default("Não cadastrado")}}<br />
+{% endif %}
+Possui certidão de nascimento: {{ pessoa.certidaoNascimento }}<br />
+Possui certidão de casamento: {{ pessoa.certidaoCasamento }}<br />
+Possui cartão de vacina: {{ pessoa.cartaoVacina }}<br />
+Estado Civil: {{ pessoa.estadoCivil }}<br />
+Nome da mãe: {{ pessoa.nomeMae }}<br />
+Cor infomada: {{ pessoa.corInformada }}<br />
+Email: {{ pessoa.email }}<br />
 {% endblock %}

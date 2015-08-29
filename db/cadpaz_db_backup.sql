@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `ctps`
+--
+
+DROP TABLE IF EXISTS `ctps`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ctps` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pessoa_id` int(11) DEFAULT NULL,
+  `numero` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `serie` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `uf` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_BD1C1E0DDF6FA0A5` (`pessoa_id`),
+  CONSTRAINT `FK_BD1C1E0DDF6FA0A5` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ctps`
+--
+
+LOCK TABLES `ctps` WRITE;
+/*!40000 ALTER TABLE `ctps` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ctps` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `endereco`
 --
 
@@ -24,6 +52,7 @@ DROP TABLE IF EXISTS `endereco`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `endereco` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pessoa_id` int(11) DEFAULT NULL,
   `nome` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `padrao` tinyint(1) NOT NULL,
   `logradouro` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -34,7 +63,9 @@ CREATE TABLE `endereco` (
   `cep` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   `uf` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `obs` longtext COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_F8E0D60EDF6FA0A5` (`pessoa_id`),
+  CONSTRAINT `FK_F8E0D60EDF6FA0A5` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -60,15 +91,6 @@ CREATE TABLE `pessoa` (
   `dataNascimento` date NOT NULL,
   `sexo` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   `cpf` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  `rgNumero` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `rgDataExpedicao` date NOT NULL,
-  `rgOrgaoExpedidor` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `tituloEleitoralNumero` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `tituloEleitoralZona` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `tituloEleitoralSecao` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `pis` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `ctpsNumero` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `ctpsSerie` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `certidaoNascimento` tinyint(1) NOT NULL,
   `certidaoCasamento` tinyint(1) NOT NULL,
   `cartaoVacina` tinyint(1) NOT NULL,
@@ -77,7 +99,7 @@ CREATE TABLE `pessoa` (
   `corInformada` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,8 +108,65 @@ CREATE TABLE `pessoa` (
 
 LOCK TABLES `pessoa` WRITE;
 /*!40000 ALTER TABLE `pessoa` DISABLE KEYS */;
-INSERT INTO `pessoa` VALUES (1,'João Carlos da Silva','1974-10-01','M','11111111111','MG12345678','1990-01-30','SSP-MG','1234123412341234','123','1234','12023362999','1234567','1234',1,0,1,'SOLTEIRO','Maria da Silva','NEGRO','nao@tenho.com');
+INSERT INTO `pessoa` VALUES (1,'Carlos da Silva','1974-10-01','M','11111111111',1,0,1,'SOLTEIRO','Maria da Silva','NEGRO','nao@tenho.com'),(2,'João da Silva','1950-05-28','M','22222222222',0,1,1,'CASADO','Joana da Silva Souza','PARDO','nao@tenho.com');
 /*!40000 ALTER TABLE `pessoa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pis`
+--
+
+DROP TABLE IF EXISTS `pis`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pis` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pessoa_id` int(11) DEFAULT NULL,
+  `numero` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `dataEmissao` date NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_D683412ADF6FA0A5` (`pessoa_id`),
+  CONSTRAINT `FK_D683412ADF6FA0A5` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pis`
+--
+
+LOCK TABLES `pis` WRITE;
+/*!40000 ALTER TABLE `pis` DISABLE KEYS */;
+INSERT INTO `pis` VALUES (1,1,'1234568569','2015-08-31');
+/*!40000 ALTER TABLE `pis` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rg`
+--
+
+DROP TABLE IF EXISTS `rg`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rg` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pessoa_id` int(11) DEFAULT NULL,
+  `numero` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `dataExpedicao` date NOT NULL,
+  `orgaoExpedidor` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_8F06FD70DF6FA0A5` (`pessoa_id`),
+  CONSTRAINT `FK_8F06FD70DF6FA0A5` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rg`
+--
+
+LOCK TABLES `rg` WRITE;
+/*!40000 ALTER TABLE `rg` DISABLE KEYS */;
+INSERT INTO `rg` VALUES (1,1,'M-123.456.789','2015-08-05','SSP-MG');
+/*!40000 ALTER TABLE `rg` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -99,10 +178,13 @@ DROP TABLE IF EXISTS `telefone`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `telefone` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pessoa_id` int(11) DEFAULT NULL,
   `numero` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `tipo` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   `obs` longtext COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_2132E361DF6FA0A5` (`pessoa_id`),
+  CONSTRAINT `FK_2132E361DF6FA0A5` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -114,6 +196,38 @@ LOCK TABLES `telefone` WRITE;
 /*!40000 ALTER TABLE `telefone` DISABLE KEYS */;
 /*!40000 ALTER TABLE `telefone` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `titulo`
+--
+
+DROP TABLE IF EXISTS `titulo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `titulo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pessoa_id` int(11) DEFAULT NULL,
+  `numero` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `zona` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `secao` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `dataEmissao` date NOT NULL,
+  `municipio` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `uf` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_17713E5ADF6FA0A5` (`pessoa_id`),
+  CONSTRAINT `FK_17713E5ADF6FA0A5` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `titulo`
+--
+
+LOCK TABLES `titulo` WRITE;
+/*!40000 ALTER TABLE `titulo` DISABLE KEYS */;
+INSERT INTO `titulo` VALUES (1,1,'1234568569','123','1234','2015-08-01','Belo Horizonte','MG');
+/*!40000 ALTER TABLE `titulo` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -124,4 +238,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-26 15:38:39
+-- Dump completed on 2015-08-28 22:55:37

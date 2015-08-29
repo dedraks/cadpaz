@@ -51,69 +51,6 @@ class Pessoa
     private $cpf;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="rgNumero", type="string", length=20)
-     */
-    private $rgNumero;
-    
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="rgDataExpedicao", type="date")
-     */
-    private $rgDataExpedicao;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="rgOrgaoExpedidor", type="string", length=20)
-     */
-    private $rgOrgaoExpedidor;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tituloEleitoralNumero", type="string", length=30)
-     */
-    private $tituloEleitoralNumero;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tituloEleitoralZona", type="string", length=10)
-     */
-    private $tituloEleitoralZona;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tituloEleitoralSecao", type="string", length=10)
-     */
-    private $tituloEleitoralSecao;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pis", type="string", length=20)
-     */
-    private $pis;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ctpsNumero", type="string", length=20)
-     */
-    private $ctpsNumero;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ctpsSerie", type="string", length=10)
-     */
-    private $ctpsSerie;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="certidaoNascimento", type="boolean")
@@ -240,237 +177,7 @@ class Pessoa
     {
         return $this->sexo;
     }
-
-    /**
-     * Set cpf
-     *
-     * @param string $cpf
-     * @return Pessoa
-     */
-    public function setCpf($cpf)
-    {
-        $this->cpf = $cpf;
-    
-        return $this;
-    }
-
-    /**
-     * Get cpf
-     *
-     * @return string 
-     */
-    public function getCpf()
-    {
-        return $this->cpf;
-    }
-
-    /**
-     * Set rgNumero
-     *
-     * @param string $rgNumero
-     * @return Pessoa
-     */
-    public function setRgNumero($rgNumero)
-    {
-        $this->rgNumero = $rgNumero;
-    
-        return $this;
-    }
-
-    /**
-     * Get rgNumero
-     *
-     * @return string 
-     */
-    public function getRgNumero()
-    {
-        return $this->rgNumero;
-    }
-
-    /**
-     * Set rgDataExpedicao
-     *
-     * @param \DateTime $rgDataExpedicao
-     * @return Pessoa
-     */
-    public function setRgDataExpedicao($rgDataExpedicao)
-    {
-        $this->rgDataExpedicao = $rgDataExpedicao;
-    
-        return $this;
-    }
-
-    /**
-     * Get rgDataExpedicao
-     *
-     * @return \DateTime 
-     */
-    public function getRgDataExpedicao()
-    {
-        return $this->rgDataExpedicao;
-    }
-
-    /**
-     * Set rgOrgaoExpedidor
-     *
-     * @param string $rgOrgaoExpedidor
-     * @return Pessoa
-     */
-    public function setRgOrgaoExpedidor($rgOrgaoExpedidor)
-    {
-        $this->rgOrgaoExpedidor = $rgOrgaoExpedidor;
-    
-        return $this;
-    }
-
-    /**
-     * Get rgOrgaoExpedidor
-     *
-     * @return string 
-     */
-    public function getRgOrgaoExpedidor()
-    {
-        return $this->rgOrgaoExpedidor;
-    }
-    
-    /**
-     * Set tiuloEleitoralNumero
-     *
-     * @param string $tiuloEleitoralNumero
-     * @return Pessoa
-     */
-    public function setTituloEleitoralNumero($tituloEleitoralNumero)
-    {
-        $this->tituloEleitoralNumero = $tituloEleitoralNumero;
-    
-        return $this;
-    }
-
-    /**
-     * Get tituloEleitoralNumero
-     *
-     * @return string 
-     */
-    public function getTituloEleitoralNumero()
-    {
-        return $this->tituloEleitoralNumero;
-    }
-
-    /**
-     * Set tituloEleitoralZona
-     *
-     * @param string $tituloEleitoralZona
-     * @return Pessoa
-     */
-    public function setTituloEleitoralZona($tituloEleitoralZona)
-    {
-        $this->tituloEleitoralZona = $tituloEleitoralZona;
-    
-        return $this;
-    }
-
-    /**
-     * Get tituloEleitoralZona
-     *
-     * @return string 
-     */
-    public function getTituloEleitoralZona()
-    {
-        return $this->tituloEleitoralZona;
-    }
-
-    /**
-     * Set tituloEleitoralSecao
-     *
-     * @param string $tituloEleitoralSecao
-     * @return Pessoa
-     */
-    public function setTituloEleitoralSecao($tituloEleitoralSecao)
-    {
-        $this->tituloEleitoralSecao = $tituloEleitoralSecao;
-    
-        return $this;
-    }
-
-    /**
-     * Get tituloEleitoralSecao
-     *
-     * @return string 
-     */
-    public function getTituloEleitoralSecao()
-    {
-        return $this->tituloEleitoralSecao;
-    }
-
-    /**
-     * Set pis
-     *
-     * @param string $pis
-     * @return Pessoa
-     */
-    public function setPis($pis)
-    {
-        $this->pis = $pis;
-    
-        return $this;
-    }
-
-    /**
-     * Get pis
-     *
-     * @return string 
-     */
-    public function getPis()
-    {
-        return $this->pis;
-    }
-
-    /**
-     * Set ctpsNumero
-     *
-     * @param string $ctpsNumero
-     * @return Pessoa
-     */
-    public function setCtpsNumero($ctpsNumero)
-    {
-        $this->ctpsNumero = $ctpsNumero;
-    
-        return $this;
-    }
-
-    /**
-     * Get ctpsNumero
-     *
-     * @return string 
-     */
-    public function getCtpsNumero()
-    {
-        return $this->ctpsNumero;
-    }
-
-    /**
-     * Set ctpsSerie
-     *
-     * @param string $ctpsSerie
-     * @return Pessoa
-     */
-    public function setCtpsSerie($ctpsSerie)
-    {
-        $this->ctpsSerie = $ctpsSerie;
-    
-        return $this;
-    }
-
-    /**
-     * Get ctpsSerie
-     *
-     * @return string 
-     */
-    public function getCtpsSerie()
-    {
-        return $this->ctpsSerie;
-    }
-    
+   
     /**
      * Set certidaoNascimento
      *
@@ -714,9 +421,144 @@ class Pessoa
         return $this->enderecos;
     }
     
+    /**
+     * @ORM\OneToOne(targetEntity="RG", mappedBy="pessoa")
+     */
+    protected $rg;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Titulo", mappedBy="pessoa")
+     */
+    protected $titulo;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="CTPS", mappedBy="pessoa")
+     */
+    protected $ctps;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="PIS", mappedBy="pessoa")
+     */
+    protected $pis;
+    
     // Comentário de teste
     public function isPessoa()
     {
         return $this->nome;
+    }
+
+    /**
+     * Set rg
+     *
+     * @param \CadpazBundle\Entity\RG $rg
+     * @return Pessoa
+     */
+    public function setRg(\CadpazBundle\Entity\RG $rg = null)
+    {
+        $this->rg = $rg;
+    
+        return $this;
+    }
+
+    /**
+     * Get rg
+     *
+     * @return \CadpazBundle\Entity\RG 
+     */
+    public function getRg()
+    {
+        return $this->rg;
+    }
+
+    /**
+     * Set cpf
+     *
+     * @param string $cpf
+     * @return Pessoa
+     */
+    public function setCpf($cpf)
+    {
+        $this->cpf = $cpf;
+    
+        return $this;
+    }
+
+    /**
+     * Get cpf
+     *
+     * @return string 
+     */
+    public function getCpf()
+    {
+        return $this->cpf;
+    }
+
+    /**
+     * Set titulo
+     *
+     * @param \CadpazBundle\Entity\Titulo $titulo
+     * @return Pessoa
+     */
+    public function setTitulo(\CadpazBundle\Entity\Titulo $titulo = null)
+    {
+        $this->titulo = $titulo;
+    
+        return $this;
+    }
+
+    /**
+     * Get titulo
+     *
+     * @return \CadpazBundle\Entity\Titulo 
+     */
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    /**
+     * Set ctps
+     *
+     * @param \CadpazBundle\Entity\CTPS $ctps
+     * @return Pessoa
+     */
+    public function setCtps(\CadpazBundle\Entity\CTPS $ctps = null)
+    {
+        $this->ctps = $ctps;
+    
+        return $this;
+    }
+
+    /**
+     * Get ctps
+     *
+     * @return \CadpazBundle\Entity\CTPS 
+     */
+    public function getCtps()
+    {
+        return $this->ctps;
+    }
+
+    /**
+     * Set pis
+     *
+     * @param \CadpazBundle\Entity\PIS $pis
+     * @return Pessoa
+     */
+    public function setPis(\CadpazBundle\Entity\PIS $pis = null)
+    {
+        $this->pis = $pis;
+    
+        return $this;
+    }
+
+    /**
+     * Get pis
+     *
+     * @return \CadpazBundle\Entity\PIS 
+     */
+    public function getPis()
+    {
+        return $this->pis;
     }
 }

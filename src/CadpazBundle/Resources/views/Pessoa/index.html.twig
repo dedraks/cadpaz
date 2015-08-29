@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}CadpazBundle:Pessoa:index{% endblock %}
+{% block title %}Cadpaz - Cadastro de Pessoas{% endblock %}
 {% block stylesheets %}
     {% stylesheets '@CadpazBundle/Resources/public/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -8,9 +8,10 @@
 {% endblock %}
 
 {% block body %}
-<h1>Welcome to the Pessoa:index page</h1>
+<h1>Cadpaz - Cadastro de Pessoas</h1>
 
 <div id="container">
+    <div id="formArea">
 <form id="form2" class="form-wrapper2 cf" action="{{ path('pessoa_busca') }}">
         <input id="nome" class="saida" name="nome" type="text" placeholder="Pesquisar Nome..." required>
         <button id="botaoBuscar">Pesquisar</button>
@@ -20,10 +21,10 @@
         <input id="cpf" class="saida" name="cpf" type="text" placeholder="Pesquisar CPF..." required>
         <button id="botaoValidarCPF">Pesquisar</button>
     </form> 
-<div id="saida"></div>
+    </div>
 
-<br />
-
+<div id="tableArea">
+    <div id="spacer"></div>
 <table id="example" class="example" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -36,7 +37,7 @@
  
     </table>
 </div>
-
+</div>
 {% endblock %}
 {% block javascripts %}
     {% javascripts '@CadpazBundle/Resources/public/js/*' %}
@@ -78,6 +79,7 @@
 
             // bind form using 'ajaxForm' 
             $('#form1').ajaxForm(options); 
+            $('#form2').ajaxForm(options); 
         }); 
         
         function showRequest(formData, jqForm, options)
@@ -94,9 +96,13 @@
         
         function itemToTr(item)
         {
-            
+            var str = '';
+            var date = new Date(item.data_nascimento);
+            var m = (date.getMonth()+2);
+            var d = date.getDay();
+            str += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item.id}) + '\">' + item.nome + '</a></td><td>' + (d<10?'0'+d:d) +'/'+ (m<10?'0'+m:m) +'/'+date.getFullYear() + '</td><td>' + item.email + '</td><td>' + item.cpf + '</td></tr>';
+            return str;
         }
-        
         // post-submit callback 
         function showResponse(responseText, statusText, xhr, $form)  { 
             ok(responseText);
@@ -134,9 +140,8 @@
                 {
                     for (i=0; i<item.length; i++)
                     {
-                        var date = new Date(item[i].data_nascimento)
-                        var trHTML = '';
-                        trHTML += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item[i].id}) + '\">' + item[i].nome + '</a></td><td>' + date.getDay()+'/'+(date.getMonth()+2)+'/'+date.getYear() + '</td><td>' + item[i].email + '</td><td>' + item[i].cpf + '</td></tr>';
+                        
+                        var trHTML = itemToTr(item[i]);
 
                         $('#example').append(trHTML);
                         $('#example').css('visibility','visible');
@@ -144,8 +149,8 @@
                 }
                 else
                 {
-                    var trHTML = '';
-                    trHTML += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item.id}) + '\">' + item.nome + '</a></td><td>' + item.data_nascimento + '</td><td>' + item.email + '</td><td>' + item.cpf + '</td></tr>';
+                    var trHTML = itemToTr(item);
+                    
 
                     $('#example').append(trHTML);
                     $('#example').css('visibility','visible');

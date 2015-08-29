@@ -129,7 +129,7 @@ h2 {
 /* Form wrapper styling */
 .form-wrapper2 {
     float: left;
-    width: 500px;
+    width: 520px;
     padding: 15px;
     /*margin: 50px auto 50px auto;*/
     background: #444;
@@ -141,7 +141,7 @@ h2 {
 /* Form text input */
  
 .form-wrapper2 input {
-    width: 380px;
+    width: 400px;
     height: 20px;
     padding: 10px 5px;
     float: left;    
@@ -266,11 +266,13 @@ tr:hover td {
     visibility: hidden;
     width: 100%;
     padding: 15px;
+    
     /*margin: 50px auto 50px auto;*/
     background: #444;
     background: rgba(0,0,0,.2);
     border-radius: 10px;
     box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+    margin-top: 15px;
 }
 #example tbody tr:nth-child(odd)		{ background-color:#ddd; }
 #example tbody tr:nth-child(even)	{ background-color:#eee; }
@@ -296,3 +298,9 @@ a:visited{
     width: 850px;
 }
 
+#spacer {
+    height: 10px;
+    width: 100%;
+    /*background: #f00;*/
+    clear: both;
+}
