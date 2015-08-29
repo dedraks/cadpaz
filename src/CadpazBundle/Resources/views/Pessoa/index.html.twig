@@ -8,9 +8,15 @@
 {% endblock %}
 
 {% block body %}
-<h1>Cadpaz - Cadastro de Pessoas</h1>
+
 
 <div id="container">
+
+<div id="titleArea">
+<h1>Cadpaz - Cadastro de Pessoas</h1>
+</div>
+<div class="spacer"></div>
+
     <div id="formArea">
 <form id="form2" class="form-wrapper2 cf" action="{{ path('pessoa_busca') }}">
         <input id="nome" class="saida" name="nome" type="text" placeholder="Pesquisar Nome..." required>
@@ -24,7 +30,7 @@
     </div>
 
 <div id="tableArea">
-    <div id="spacer"></div>
+    <div class="spacer"></div>
 <table id="example" class="example" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -98,7 +104,7 @@
         {
             var str = '';
             var date = new Date(item.data_nascimento);
-            var m = (date.getMonth()+2);
+            var m = (date.getMonth()+1);
             var d = date.getDay();
             str += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item.id}) + '\">' + item.nome + '</a></td><td>' + (d<10?'0'+d:d) +'/'+ (m<10?'0'+m:m) +'/'+date.getFullYear() + '</td><td>' + item.email + '</td><td>' + item.cpf + '</td></tr>';
             return str;

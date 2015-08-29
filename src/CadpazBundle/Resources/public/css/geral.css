@@ -92,7 +92,7 @@ h2 {
 }   
    
 .form-wrapper button:hover{     
-    background: #e54040;
+    background: #f54040;
 }   
    
 .form-wrapper button:active,
@@ -296,11 +296,16 @@ a:visited{
 
 #container {
     width: 850px;
+    margin: auto;
 }
 
-#spacer {
+.spacer {
     height: 10px;
     width: 100%;
     /*background: #f00;*/
     clear: both;
+}
+
+#titleArea h1 {
+    text-align: center;
 }
