@@ -5,6 +5,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use CadpazBundle\Entity\Pessoa;
 use CadpazBundle\Entity\RG;
+use CadpazBundle\Entity\Titulo;
 use CadpazBundle\Entity\CTPS;
 use CadpazBundle\Entity\PIS;
 use CadpazBundle\Entity\Telefone;
@@ -29,13 +30,41 @@ class LoadPessoaData implements FixtureInterface
         $pessoa->setNomeMae('Maria da Silva');
         $pessoa->setCorInformada('NEGRO');
         $pessoa->setEmail('nao1@tenho.com');
+        
+        $pis = new PIS();
+        $pis->setNumero('1234567890');
+        $pis->setDataEmissao(new \DateTime('1998-10-01'));
+        $pis->setPessoa($pessoa);
+        $pessoa->setPis($pis);
+        
         $rg = new RG();
         $rg->setNumero('M-1.111.111');
         $rg->setDataExpedicao(new \DateTime('2000-10-01'));
         $rg->setOrgaoExpedidor('SSP-MG');
         $rg->setPessoa($pessoa);
-        $pessoa->setRg($rg);        
+        $pessoa->setRg($rg);
+        
+        $titulo = new Titulo();
+        $titulo->setNumero('1234567890');
+        $titulo->setZona('123');
+        $titulo->setSecao('1234');
+        $titulo->setMunicipio('Belo Horizonte');
+        $titulo->setUf('MG');
+        $titulo->setDataEmissao(new \DateTime('2001-03-31'));
+        $titulo->setPessoa($pessoa);
+        $pessoa->setTitulo($titulo);
+        
+        $ctps = new CTPS();
+        $ctps->setNumero('12345');
+        $ctps->setSerie('1234');
+        $ctps->setUf('MG');
+        $ctps->setPessoa($pessoa);
+        $pessoa->setCtps($ctps);
+        
         $manager->persist($rg);
+        $manager->persist($titulo);
+        $manager->persist($pis);
+        $manager->persist($ctps);
         $manager->persist($pessoa);
         
         $pessoa = new Pessoa();

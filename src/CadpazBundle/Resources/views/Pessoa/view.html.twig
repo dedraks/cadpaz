@@ -41,13 +41,14 @@ CTPS:
 {% if pessoa.ctps is null %}
     Não cadastrado<br />
 {% else %}
-    &nbsp;&nbsp;&nbsp;&nbsp;{{ pessoa.ctps.numero | default("Não cadastrado")}}<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;{{ pessoa.ctps.serie | default("Não cadastrado")}}<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;{{ pessoa.ctps.uf | default("Não cadastrado")}}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.ctps.numero | default("Não cadastrado")}}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Série: {{ pessoa.ctps.serie | default("Não cadastrado")}}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;UF: {{ pessoa.ctps.uf | default("Não cadastrado")}}<br />
 {% endif %}
-Possui certidão de nascimento: {{ pessoa.certidaoNascimento }}<br />
-Possui certidão de casamento: {{ pessoa.certidaoCasamento }}<br />
-Possui cartão de vacina: {{ pessoa.cartaoVacina }}<br />
+Possui certidão de nascimento: {% if pessoa.certidaoNascimento %}Sim{% else %}Não{% endif %}<br />
+Possui certidão de casamento: {% if pessoa.certidaoCasamento %}Sim{% else %}Não{% endif %}<br />
+Possui cartão de vacina: {% if pessoa.cartaoVacina %}Sim{% else %}Não{% endif %}<br />
 Estado Civil: {{ pessoa.estadoCivil }}<br />
 Nome da mãe: {{ pessoa.nomeMae }}<br />
 Cor infomada: {{ pessoa.corInformada }}<br />
