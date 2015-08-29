@@ -30,7 +30,7 @@ class PessoaController extends Controller
     }
 
     /**
-     * Lista todos os registro e renderiza um template
+     * Lista todos os registros e renderiza um template
      * 
      * @return Response Uma instancia de Response
      */
