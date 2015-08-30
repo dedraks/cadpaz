@@ -78,7 +78,8 @@ class PessoaController extends Controller
                 $query = $em->createQuery(
                     'SELECT p
                     FROM CadpazBundle:Pessoa p
-                    WHERE p.nome LIKE :nome'
+                    WHERE p.nome LIKE :nome
+                    ORDER BY p.nome ASC'
                 )->setParameter('nome', '%'.$nome.'%');
 
                 $pessoa = $query->getResult();

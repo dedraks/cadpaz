@@ -309,3 +309,53 @@ a:visited{
 #titleArea h1 {
     text-align: center;
 }
+
+#userDetails {
+    visibility: hidden;
+    width: 97%;
+}
+#userDetails .meio {
+    background: #eee;
+}
+
+#titleArea {
+
+    /*visibility: hidden;*/
+    width: 97%;
+    padding: 15px;
+    
+    /*margin: 50px auto 50px auto;*/
+    background: #444;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+    /*margin-top: 15px;*/
+}
+#title {
+    background: #eee;
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#userArea {
+
+    /*visibility: hidden;*/
+    width: 97%;
+    padding: 15px;
+    
+    /*margin: 50px auto 50px auto;*/
+    background: #444;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+    /*margin-top: 15px;*/
+}
+#userArea div {
+    background: #eee;
+    
+    font-weight: bold;
+    
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}

@@ -109,6 +109,48 @@ class LoadPessoaData implements FixtureInterface
         $manager->persist($rg);
         $manager->persist($pessoa);
         
+        $pessoa = new Pessoa();
+        $pessoa->setNome('José Carlos da Silva e Souza');
+        $pessoa->setCpf('44444444444');
+        $pessoa->setDataNascimento( new \DateTime('1960-09-13'));
+        $pessoa->setSexo('M');
+        $pessoa->setCertidaoNascimento(false);
+        $pessoa->setCertidaoCasamento(true);
+        $pessoa->setCartaoVacina(true);
+        $pessoa->setEstadoCivil('CASADO');
+        $pessoa->setNomeMae('Fernanda de Souza e Silva');
+        $pessoa->setCorInformada('PARDO');
+        $pessoa->setEmail('nao4@tenho.com');
+        $rg = new RG();
+        $rg->setNumero('M-4.444.444');
+        $rg->setDataExpedicao(new \DateTime('1980-09-13'));
+        $rg->setOrgaoExpedidor('SSP-SP');
+        $rg->setPessoa($pessoa);
+        $pessoa->setRg($rg);        
+        $manager->persist($rg);
+        $manager->persist($pessoa);
+        
+        $pessoa = new Pessoa();
+        $pessoa->setNome('Antônio Carlos da Silva e Bragança');
+        $pessoa->setCpf('55555555555');
+        $pessoa->setDataNascimento( new \DateTime('1985-03-17'));
+        $pessoa->setSexo('M');
+        $pessoa->setCertidaoNascimento(true);
+        $pessoa->setCertidaoCasamento(false);
+        $pessoa->setCartaoVacina(true);
+        $pessoa->setEstadoCivil('SOLTEIRO');
+        $pessoa->setNomeMae('Maria Bragança da Silva');
+        $pessoa->setCorInformada('BRANCO');
+        $pessoa->setEmail('nao5@tenho.com');
+        $rg = new RG();
+        $rg->setNumero('M-5.555.555');
+        $rg->setDataExpedicao(new \DateTime('2005-03-17'));
+        $rg->setOrgaoExpedidor('SSP-RJ');
+        $rg->setPessoa($pessoa);
+        $pessoa->setRg($rg);        
+        $manager->persist($rg);
+        $manager->persist($pessoa);
+        
         $manager->flush();
     }
 }

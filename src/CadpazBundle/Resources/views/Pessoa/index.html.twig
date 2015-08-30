@@ -11,38 +11,39 @@
 
 
 <div id="container">
-
-<div id="titleArea">
-<h1>Cadpaz - Cadastro de Pessoas</h1>
-</div>
-<div class="spacer"></div>
-
-    <div id="formArea">
-<form id="form2" class="form-wrapper2 cf" action="{{ path('pessoa_busca') }}">
-        <input id="nome" class="saida" name="nome" type="text" placeholder="Pesquisar Nome..." required>
-        <button id="botaoBuscar">Pesquisar</button>
-    </form> 
-        
-    <form id="form1" class="form-wrapper cf" action="{{ path('pessoa_busca') }}">
-        <input id="cpf" class="saida" name="cpf" type="text" placeholder="Pesquisar CPF..." required>
-        <button id="botaoValidarCPF">Pesquisar</button>
-    </form> 
+    <div id="titleArea">
+        <div id="title">Cadpaz</div>
     </div>
-
-<div id="tableArea">
     <div class="spacer"></div>
-<table id="example" class="example" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Data de Nascimento</th>
-                <th>Email</th>
-                <th>CPF</th>
-            </tr>
-        </thead>
- 
-    </table>
-</div>
+    <div id="userArea">
+        <div>Olá Carlos (Sair)</div>
+    </div>
+    <div class="spacer"></div>
+    <div id="formArea">
+        <form id="form2" class="form-wrapper2 cf" action="{{ path('pessoa_busca') }}">
+            <input id="nome" class="saida" name="nome" type="text" placeholder="Pesquisar Nome..." required>
+            <button id="botaoBuscar">Pesquisar</button>
+        </form> 
+        <form id="form1" class="form-wrapper cf" action="{{ path('pessoa_busca') }}">
+            <input id="cpf" class="saida" name="cpf" type="text" placeholder="Pesquisar CPF..." required>
+            <button id="botaoValidarCPF">Pesquisar</button>
+        </form> 
+    </div>
+    <div class="spacer"></div>
+    <div id="tableArea">
+        <table id="example" class="example" cellspacing="2" width="100%">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Nome da mãe</th>
+                    <th>Email</th>
+                    <th>CPF</th>
+                </tr>
+            </thead>
+
+        </table>
+        <div id="userDetails" class="example"></div>
+    </div>
 </div>
 {% endblock %}
 {% block javascripts %}
@@ -53,19 +54,12 @@
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
-        // prepare the form when the DOM is ready 
+        // prepare the form when the DOM is ready
+        var ids = new Array();
         $(document).ready(function() {
-            
-           
-            
             jQuery(function($){
                 $("#cpf").mask("999.999.999-99",{placeholder:"___.___.___-__"});
-             });
-            
-            
-
-
-            
+            });
             
             var options = { 
                 //target:        '#saida',   // target element(s) to be updated with server response 
@@ -106,7 +100,7 @@
             var date = new Date(item.data_nascimento);
             var m = (date.getMonth()+1);
             var d = date.getDay();
-            str += '<tr><td><a href=\"' + Routing.generate('pessoa_view', {id: item.id}) + '\">' + item.nome + '</a></td><td>' + (d<10?'0'+d:d) +'/'+ (m<10?'0'+m:m) +'/'+date.getFullYear() + '</td><td>' + item.email + '</td><td>' + item.cpf + '</td></tr>';
+            str += '<tr id=\"tr'+item.id+'\"><td><a class=\"trlink\" href=\"' + Routing.generate('pessoa_view', {id: item.id}) + '\">' + item.nome + '</a></td><td>' + item.nome_mae + '</td><td>' + item.email + '</td><td>' + item.cpf + '</td></tr>';
             return str;
         }
         // post-submit callback 
@@ -129,48 +123,61 @@
             //    '\n\nThe output div should have already been updated with the responseText.'); 
         
         
-        /*
+            /*
             if (statusText!='success') {
                 $("#saida").html('Nenhum registro encontrado');
                 alert('Nenhum registro encontrado');
                 return;
             }*/
         
-            
-                $('#example').css('visibility','hidden');
-                $('#example').html('<thead><tr><th>Nome</th><th>Data de Nascimento</th><th>Email</th><th>CPF</th></tr></thead>');
-                var item = $.parseJSON(responseText);
+            $('#userDetails').css('visibility','hidden');
+            $('#example').css('visibility','hidden');
+            $('#example').html('<thead><tr><th>Nome</th><th>Data de Nascimento</th><th>Email</th><th>CPF</th></tr></thead>');
+            var item = $.parseJSON(responseText);
                 
-                
-                if ($.isArray(item))
-                {
-                    for (i=0; i<item.length; i++)
-                    {
-                        
-                        var trHTML = itemToTr(item[i]);
-
-                        $('#example').append(trHTML);
-                        $('#example').css('visibility','visible');
-                    }
-                }
-                else
-                {
-                    var trHTML = itemToTr(item);
+            if ($.isArray(item)) {
                     
+                for (i=0; i<item.length; i++) {
+                    
+                    ids.push(item[i].id);
+                        
+                    var trHTML = itemToTr(item[i]);
 
                     $('#example').append(trHTML);
                     $('#example').css('visibility','visible');
                 }
+            }
+            else {
+                    
+                var trHTML = itemToTr(item);
+                    
+                $('#example').append(trHTML);
+                $('#example').css('visibility','visible');
+            }
 
+            $('#example tr').click(function() {
             
-                        $('#example tr').click(function() {
                 var href = $(this).find("a").attr("href");
+                
                 if(href) {
-                    window.location = href;
+                    
+                    //window.location = href;
                     //alert(href);
+                    $(this).find("a").attr("href","#");
+                    //$(this).click(function(){
+                        $.ajax({url: href, success: function(result){
+                            $("#userDetails").html('<div class=\"meio\">'+result+'</div>');
+                            $("#example").css('visibility','hidden');
+                            $("#example").empty();
+                            $("#userDetails").css('visibility','visible');
+                            $("#nome").val('');
+                            $("#cpf").val('');
+                        }});
+                    //}); 
                 }
             });
-        } 
+        
+        }
     </script>
     
     
