@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : carlos
 */
 
+body {
+    font: 'lucida sans', 'trebuchet MS', 'Tahoma';
+}
+
 h2 {
     color: #FF0000;
 }

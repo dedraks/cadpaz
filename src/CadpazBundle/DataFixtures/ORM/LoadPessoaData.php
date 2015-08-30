@@ -31,6 +31,20 @@ class LoadPessoaData implements FixtureInterface
         $pessoa->setCorInformada('NEGRO');
         $pessoa->setEmail('nao1@tenho.com');
         
+        $endereco = new Endereco();
+        $endereco->setNome('Casa');
+        $endereco->setLogradouro('Rua das Flores');
+        $endereco->setNumero('1537');
+        $endereco->setComplemento('Casa dos fundos');
+        $endereco->setBairro('Bananal');
+        $endereco->setCep('99999-999');
+        $endereco->setMunicipio('Belo Horizonte');
+        $endereco->setUf('MG');
+        $endereco->setObs('Em frente ao Supermercado do Povo');
+        $endereco->setPadrao(true);
+        $pessoa->addEndereco($endereco);
+        $endereco->setPessoa($pessoa);
+        
         $pis = new PIS();
         $pis->setNumero('1234567890');
         $pis->setDataEmissao(new \DateTime('1998-10-01'));
@@ -61,6 +75,7 @@ class LoadPessoaData implements FixtureInterface
         $ctps->setPessoa($pessoa);
         $pessoa->setCtps($ctps);
         
+        $manager->persist($endereco);
         $manager->persist($rg);
         $manager->persist($titulo);
         $manager->persist($pis);
