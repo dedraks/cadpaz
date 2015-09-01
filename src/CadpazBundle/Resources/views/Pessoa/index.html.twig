@@ -130,12 +130,21 @@
                 return;
             }*/
         
-            $('#userDetails').css('visibility','hidden');
+            //$('#userDetails').css('visibility','hidden');
+            $('#userDetails').slideUp('slow');
+            
+            
             $('#example').css('visibility','hidden');
             $('#example').html('<thead><tr><th>Nome</th><th>Data de Nascimento</th><th>Email</th><th>CPF</th></tr></thead>');
             var item = $.parseJSON(responseText);
                 
+            $('#example').slideUp(200);
             if ($.isArray(item)) {
+                
+                $('#example').css('visibility','visible');
+                    
+                if (item.length>0)
+                    $('#example').slideDown(200);
                     
                 for (i=0; i<item.length; i++) {
                     
@@ -144,7 +153,11 @@
                     var trHTML = itemToTr(item[i]);
 
                     $('#example').append(trHTML);
-                    $('#example').css('visibility','visible');
+                    //$('#example').hide();
+                    //$('#example').css('visibility','visible');
+                    //$('#example').show('slow');
+                    //$('#example').clearQueue();
+                    
                 }
             }
             else {
@@ -152,7 +165,11 @@
                 var trHTML = itemToTr(item);
                     
                 $('#example').append(trHTML);
+                $('#example').hide();
                 $('#example').css('visibility','visible');
+                //$('#example').show('slow');
+                $('#userDetails').slideUp('slow');
+                $('#example').delay(500).slideDown(400);
             }
 
             $('#example tr').click(function() {
@@ -167,9 +184,13 @@
                     //$(this).click(function(){
                         $.ajax({url: href, success: function(result){
                             $("#userDetails").html('<div class=\"meio\">'+result+'</div>');
-                            $("#example").css('visibility','hidden');
-                            $("#example").empty();
+                            //$("#example").css('visibility','hidden');
+                            $("#userDetails").hide();
                             $("#userDetails").css('visibility','visible');
+                            //$("#example").hide('slow', function() {$("#userDetails").show('slow');});
+                            //$("#example").empty();
+                            $("#example").slideUp(400);
+                            $("#userDetails").delay(600).slideDown(400);
                             $("#nome").val('');
                             $("#cpf").val('');
                         }});
@@ -182,21 +203,26 @@
     
     
     <script type="text/javascript">
-    $('#form2').keyup(function(event) {
+        $('#form2').keyup(function(event) {
 
-        
+            if (event.which == 27 || event.which == 13)
+            {
+                event.preventDefault();
+                return;
+            }
 
-        if (event.which == 27 || event.which == 13)
-        {
-            event.preventDefault();
-            return;
-        }
+            var searchText = $("#nome").val();
 
-       var searchText = $("#nome").val();
-      if (searchText.length < 5) return;
+            if (searchText.length < 5)
+                return;
 
-        $.ajax({url: Routing.generate('pessoa_busca'), data: {'nome':searchText}, success: showResponse, type: 'post'});
-   });
+            $.ajax({
+                url: Routing.generate('pessoa_busca'),
+                data: {'nome':searchText},
+                success: showResponse,
+                type: 'post'
+            });
+       });
     </script>
 
     

@@ -22,6 +22,13 @@ class Telefone
     private $id;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="padrao", type="boolean")
+     */
+    private $padrao;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="numero", type="string", length=20)
@@ -31,7 +38,7 @@ class Telefone
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo", type="string", length=1)
+     * @ORM\Column(name="tipo", type="string", length=20)
      */
     private $tipo;
 
@@ -149,5 +156,51 @@ class Telefone
     public function getPessoa()
     {
         return $this->pessoa;
+    }
+
+    /**
+     * Set nome
+     *
+     * @param string $nome
+     * @return Telefone
+     */
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+
+        return $this;
+    }
+
+    /**
+     * Get nome
+     *
+     * @return string 
+     */
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    /**
+     * Set padrao
+     *
+     * @param boolean $padrao
+     * @return Telefone
+     */
+    public function setPadrao($padrao)
+    {
+        $this->padrao = $padrao;
+
+        return $this;
+    }
+
+    /**
+     * Get padrao
+     *
+     * @return boolean 
+     */
+    public function getPadrao()
+    {
+        return $this->padrao;
     }
 }

@@ -73,7 +73,7 @@ class Endereco
     /**
      * @var string
      *
-     * @ORM\Column(name="cep", type="string", length=2)
+     * @ORM\Column(name="cep", type="string", length=20)
      */
     private $cep;
 
