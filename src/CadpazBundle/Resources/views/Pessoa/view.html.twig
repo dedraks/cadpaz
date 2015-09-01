@@ -1,4 +1,22 @@
-<div class="example" style="width: 96%; float: left; background: #eee; visibility: visible;">
+
+
+
+
+
+
+
+
+<div class="tabs">
+    <ul class="tab-links">
+        <li class="active"><a href="#tab1">Dados Pessoais</a></li>
+        <li><a href="#tab2">Telefones e Endereços</a></li>
+        <li><a href="#tab3">Dados Sócio Econômicos</a></li>
+        <li><a href="#tab4">Atendimentos</a></li>
+    </ul>
+ 
+    <div class="tab-content">
+        <div id="tab1" class="tab active"> {# Tab principal #}
+            <div class="example" style="width: 96%; background: #eee; visibility: visible;">
     <strong>Dados Pessoais</strong><br />
     Nome: {{ pessoa.nome }}<br />
     Data de nascimento: {{ pessoa.dataNascimento|date('d/m/Y') }}<br />
@@ -50,41 +68,72 @@
     Nome da mãe: {{ pessoa.nomeMae }}<br />
     Cor infomada: {{ pessoa.corInformada }}<br />
 </div>
-
-<div style="width: 49%; float: right; background: #eee;">
-    <strong>Telefones</strong><br />
-    {% set fone = null %}
-    {% for telefone in pessoa.telefones %}
-        <div style="padding-bottom: 15px;  background: #ddf;">
-            Numero: {{ telefone.numero }}<br />
-            Tipo: {{ telefone.tipo }}<br />
-            Obs: {{ telefone.obs }}
         </div>
-        <div class="spacer"></div>
-        {% set fone = 1 %}
-    {% endfor %}
-    {% if fone is null %}Nenhum telefone cadastrado.<br />{% endif %}
-    <strong>Endereços</strong><br />
-    {% set end = null %}
-    {% for endereco in pessoa.enderecos %}
-        <div  style="word-wrap: break-word;  background: #ddf;">
-            {{ endereco.nome }}<br />
-            {{ endereco.logradouro }}, {{ endereco.numero }}<br />
-            {{ endereco.bairro }}<br />
-            {{ endereco.cep }}<br />
-            {{ endereco.municipio }} - {{ endereco.uf }}<br />
-            {{ endereco.obs }}
-            {% set end = 1 %}
+ 
+        <div id="tab2" class="tab">
+            <div style="width: 96%; background: #eee; visibility: visible" class="example">
+                <strong>Telefones</strong><br />
+                {% set fone = null %}
+                {% for telefone in pessoa.telefones %}
+                    <div class="example" style="visibility: visible; width: 96%; padding-bottom: 15px;  background: #ddf;">
+                        Numero: {{ telefone.numero }}<br />
+                        Tipo: {{ telefone.tipo }}<br />
+                        Obs: {{ telefone.obs }}
+                    </div>
+                    <div class="spacer"></div>
+                    {% set fone = 1 %}
+                {% endfor %}
+                {% if fone is null %}Nenhum telefone cadastrado.<br />{% endif %}
+                <strong>Endereços</strong><br />
+                {% set end = null %}
+                {% for endereco in pessoa.enderecos %}
+                    <div class="example" style="visibility: visible; width: 96%; word-wrap: break-word;  background: #ddf;">
+                        {{ endereco.nome }}<br />
+                        {{ endereco.logradouro }}, {{ endereco.numero }}<br />
+                        {{ endereco.bairro }}<br />
+                        {{ endereco.cep }}<br />
+                        {{ endereco.municipio }} - {{ endereco.uf }}<br />
+                        {{ endereco.obs }}
+                        {% set end = 1 %}
+                    </div>
+                     <div class="spacer"></div>
+                {% endfor %}
+                {% if end is null %}Nenhum endereço cadastrado.<br>{% endif %}
+            </div>
         </div>
-         <div class="spacer"></div>
-    {% endfor %}
-    {% if end is null %}Nenhum endereço cadastrado.<br>{% endif %}
+ 
+        <div id="tab3" class="tab">
+            <div class="example" style="visibility: visible; background: #eee; width: 96% ">
+                <p>Tab #3 content goes here!</p>
+                <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum ri.</p>
+            </div>
+        </div>
+ 
+        <div id="tab4" class="tab">
+            <div class="example" style="visibility: visible; background: #eee; width: 96%">
+                <p>Tab #4 content goes here!</p>
+                <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 
-
-
-
-
-
-
+<script>
+    jQuery('.tabs .tab-links a').on('click', function(e)  {
+        var currentAttrValue = jQuery(this).attr('href');
+ 
+        // Show/Hide Tabs
+        jQuery('.tabs ' + currentAttrValue).siblings().slideUp(400);
+        jQuery('.tabs ' + currentAttrValue).delay(400).slideDown(400);
+ 
+        // Change/remove current tab to active
+        jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+ 
+        e.preventDefault();
+        
+        setTimeout(function(){
+                window.scrollTo("#userDetails",document.body.scrollHeight);
+            }, 1200);
+    });
+</script>
