@@ -61,6 +61,13 @@
                 $("#cpf").mask("999.999.999-99",{placeholder:"___.___.___-__"});
             });
             
+            
+            var myTimer = setTimeout(function(){
+                alert('Boom!');
+            }, 10000);
+            clearTimeout(myTimer);
+            
+            
             var options = { 
                 //target:        '#saida',   // target element(s) to be updated with server response 
                 beforeSubmit:  showRequest,  // pre-submit callback 
