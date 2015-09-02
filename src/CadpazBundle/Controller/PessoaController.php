@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \JMS\Serializer\SerializerBuilder;
+use CadpazBundle\Entity\Pessoa;
 
 /**
  * Pessoa Controller
@@ -101,9 +102,44 @@ class PessoaController extends Controller
      * @param Request $request A requisicao http
      * @return Response Uma instancia de Response
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
-        return $this->render('CadpazBundle:Pessoa:index.html.twig');
+        $pessoa = new Pessoa();
+        
+            $form = $this->createFormBuilder($pessoa)
+            ->add('nome', 'text')
+            ->add('email', 'text')
+            ->add('sexo', 'choice', array(
+                'choices' => array(
+                    'M'   => 'Masculino',
+                    'F' => 'Feminino',
+                ),
+                'multiple' => false,
+            ))
+            ->add('cartaoVacina', 'checkbox', array(
+                'label'    => 'Possui cartão de vacina?',
+                'required' => false,
+            ))
+            ->add('estadoCivil', 'choice', array(
+                'choices' => array(
+                    'CASADO'   => 'Casado',
+                    'SOLTEIRO' => 'Solteiro',
+                    'OUTROS' => 'Outros',
+                ),
+                'multiple' => false,
+            ))
+            ->add('save', 'submit', array('label' => 'Create Task'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            // perform some action, such as saving the task to the database
+
+            return $this->redirectToRoute('pessoa_view');
+        }
+        
+        return $this->render('CadpazBundle:Pessoa:new.html.twig',array('form' => $form->createView()));
     }
     
     public function viewAction($id)
