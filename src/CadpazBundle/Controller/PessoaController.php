@@ -41,7 +41,7 @@ class PessoaController extends Controller
             ->getRepository('CadpazBundle:Pessoa')
             ->findAll();
         
-        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+        $serializer = SerializerBuilder::create()->build();
         $json = $serializer->serialize($pessoa, 'json');
         
         
@@ -104,44 +104,32 @@ class PessoaController extends Controller
      */
     public function newAction(Request $request)
     {
+        // Instancia um objeto do tipo Pessoa
         $pessoa = new Pessoa();
         
-            $form = $this->createFormBuilder($pessoa)
-            ->add('nome', 'text')
-            ->add('email', 'text')
-            ->add('sexo', 'choice', array(
-                'choices' => array(
-                    'M'   => 'Masculino',
-                    'F' => 'Feminino',
-                ),
-                'multiple' => false,
-            ))
-            ->add('cartaoVacina', 'checkbox', array(
-                'label'    => 'Possui cartão de vacina?',
-                'required' => false,
-            ))
-            ->add('estadoCivil', 'choice', array(
-                'choices' => array(
-                    'CASADO'   => 'Casado',
-                    'SOLTEIRO' => 'Solteiro',
-                    'OUTROS' => 'Outros',
-                ),
-                'multiple' => false,
-            ))
-            ->add('save', 'submit', array('label' => 'Create Task'))
-            ->getForm();
+        // Chama a funcao para criar o formulário
+        $form = $this->createPessoaForm($pessoa);
 
+        // Manipula os dados enviados pelo formulário
         $form->handleRequest($request);
 
+        // Se forem válidos, executa as operações no BD e exibe os
+        // dados salvos
         if ($form->isValid()) {
             // perform some action, such as saving the task to the database
 
-            return $this->redirectToRoute('pessoa_view');
+            return $this->render('CadpazBundle:Pessoa:view.html.twig', array('pessoa' => $pessoa));
         }
         
         return $this->render('CadpazBundle:Pessoa:new.html.twig',array('form' => $form->createView()));
     }
     
+    /**
+     * Visualiza uma pessoa
+     * 
+     * @param type $id
+     * @return Response Uma instancia de Response
+     */
     public function viewAction($id)
     {
         $pessoa = $this->getDoctrine()
@@ -183,6 +171,62 @@ class PessoaController extends Controller
      */
     private function createPessoaForm($pessoa)
     {
+        $d = getdate();
+        $anos = array();
+        $ano = $d['year'];
+        for($i=$ano; $i > $ano-100; $i--)
+        {
+            $anos[$i] = $i;
+        }
         
+        return $this->createFormBuilder($pessoa)
+            ->add('nome', 'text')
+            ->add('email', 'text')
+            ->add('sexo', 'choice', array(
+                'choices' => array(
+                    'M'   => 'Masculino',
+                    'F' => 'Feminino',
+                ),
+                'multiple' => false,
+            ))
+            ->add('dataNascimento', 'date', array(
+                'input'  => 'datetime',
+                //'widget' => 'choice',
+                'format' => 'dd/MM/yyyy',
+                'label' => 'Data de nascimento',
+                'years' => $anos
+            ))
+            ->add('cpf', 'text', array('label'=>'CPF'))
+            ->add('cartaoVacina', 'checkbox', array(
+                'label'    => 'Possui cartão de vacina?',
+                'required' => false,
+            ))
+            ->add('certidaoNascimento', 'checkbox', array(
+                'label'    => 'Possui certidão de nascimento?',
+                'required' => false,
+            ))
+            ->add('certidaoCasamento', 'checkbox', array(
+                'label'    => 'Possui certidão de casamento?',
+                'required' => false,
+            ))
+            ->add('estadoCivil', 'choice', array(
+                'choices' => array(
+                    'CASADO'   => 'Casado',
+                    'SOLTEIRO' => 'Solteiro',
+                    'OUTROS' => 'Outros',
+                ),
+                'multiple' => false,
+            ))
+            ->add('nomeMae', 'text', array('label'=>'Nome da mãe'))
+            ->add('corInformada', 'choice', array(
+                'choices' => array(
+                    'BRANCO'   => 'Branco',
+                    'NEGRO' => 'Negro',
+                    'PARDO' => 'Pardo',
+                ),
+                'multiple' => false,
+            ))
+            ->add('save', 'submit', array('label' => 'Salvar'))
+            ->getForm();
     }
 }

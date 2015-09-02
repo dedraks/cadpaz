@@ -45,7 +45,7 @@
         /**
          * @var string
          *
-         * @ORM\Column(name="cpf", type="string", length=11)
+         * @ORM\Column(name="cpf", type="string", length=11, unique=true)
          */
         private $cpf;
 

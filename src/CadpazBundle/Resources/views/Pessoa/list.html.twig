@@ -1,0 +1,8 @@
+{% for pessoa in pessoas %}
+    <tr id="tr{{ pessoa.id }}">
+        <td><a class="trlink" href="{{ path('pessoa_view', {id: item.id}) }}">{{ pessoa.nome }}</a></td>
+        <td>{{ pessoa.nome_mae }}</td>
+        <td>{{ pessoa.email }}</td>
+        <td>{{ pessoa.cpf }}</td>
+    </tr>
+{% endfor %}
