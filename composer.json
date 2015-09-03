@@ -20,7 +20,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "^2.2",
         "friendsofsymfony/jsrouting-bundle": "^1.5",
-        "jms/serializer-bundle": "^1.0"
+        "jms/serializer-bundle": "^1.0",
+        "friendsofsymfony/user-bundle": "~2.0@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

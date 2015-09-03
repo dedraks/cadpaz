@@ -41,6 +41,12 @@ class Atendimento
      */
     protected $pessoa;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="atendimentos")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+    
     
     /**
      * Get id
@@ -119,5 +125,28 @@ class Atendimento
     public function getPessoa()
     {
         return $this->pessoa;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \CadpazBundle\Entity\User $user
+     * @return Atendimento
+     */
+    public function setUser(\CadpazBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \CadpazBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

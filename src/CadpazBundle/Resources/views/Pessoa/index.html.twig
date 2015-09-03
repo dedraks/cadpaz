@@ -16,7 +16,16 @@
     </div>
     <div class="spacer"></div>
     <div id="userArea">
-        <div>Olá Carlos (Sair)</div>
+        <div>Olá
+            <a href="{{ path('fos_user_profile_edit') }}">
+            {% if app.user.nomeCompleto is null %}
+                {{ app.user.username }}
+            {% else %}
+                {{ app.user.nomeCompleto }}
+            {% endif %}
+            </a>
+            (<a href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
+            (<a href="{{ path('fos_user_security_logout') }}">Sair</a>)</div>
     </div>
     <div class="spacer"></div>
     <div id="formArea">
