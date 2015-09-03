@@ -1,7 +1,7 @@
 <?php
     namespace CadpazBundle\Entity;
     use Doctrine\Common\Collections\ArrayCollection;
-
+    use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     use Doctrine\ORM\Mapping as ORM;
 
     /**
@@ -9,6 +9,7 @@
      *
      * @ORM\Table()
      * @ORM\Entity
+     * @UniqueEntity("cpf")
      */
     class Pessoa
     {
@@ -347,11 +348,17 @@
          * @ORM\OneToMany(targetEntity="Endereco", mappedBy="pessoa")
          */
         protected $enderecos;
+        
+        /**
+         * @ORM\OneToMany(targetEntity="Atendimento", mappedBy="pessoa")
+         */
+        protected $atendimentos;
 
         public function __construct()
         {
             $this->telefones = new ArrayCollection();
             $this->enderecos = new ArrayCollection();
+            $this->atendimentos = new ArrayCollection();
         }
 
         /**
@@ -560,4 +567,37 @@
         {
             return $this->pis;
         }
+    
+    /**
+     * Add atendimentos
+     *
+     * @param \CadpazBundle\Entity\Atendimento $atendimentos
+     * @return Pessoa
+     */
+    public function addAtendimento(\CadpazBundle\Entity\Atendimento $atendimentos)
+    {
+        $this->atendimentos[] = $atendimentos;
+
+        return $this;
     }
+
+    /**
+     * Remove atendimentos
+     *
+     * @param \CadpazBundle\Entity\Atendimento $atendimentos
+     */
+    public function removeAtendimento(\CadpazBundle\Entity\Atendimento $atendimentos)
+    {
+        $this->atendimentos->removeElement($atendimentos);
+    }
+
+    /**
+     * Get atendimentos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAtendimentos()
+    {
+        return $this->atendimentos;
+    }
+}

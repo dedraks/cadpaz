@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 <div class="tabs">
     <ul class="tab-links">
         <li class="active"><a href="#tab1">Dados Pessoais</a></li>
@@ -21,7 +13,15 @@
     Nome: {{ pessoa.nome }}<br />
     Data de nascimento: {{ pessoa.dataNascimento|date('d/m/Y') }}<br />
     Email: {{ pessoa.email }}<br />
-    Sexo: {{ pessoa.sexo }}<br />
+    Sexo:
+        {% if pessoa.sexo == 'M' %}
+            Masculino
+        {% elseif pessoa.sexo == 'F' %}
+            Feminino
+        {% else %}
+            Outros
+        {% endif %}
+    <br />
     CPF: {{ pessoa.cpf }}<br />
     RG:
     {% if pessoa.rg is null %}
@@ -131,7 +131,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     jQuery('.tabs .tab-links a').on('click', function(e)  {

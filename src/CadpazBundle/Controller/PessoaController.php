@@ -179,7 +179,11 @@ class PessoaController extends Controller
             $anos[$i] = $i;
         }
         
+        $pessoa->setCpf('11111111111');
+        
         return $this->createFormBuilder($pessoa)
+                
+                
             ->add('nome', 'text')
             ->add('email', 'text')
             ->add('sexo', 'choice', array(
@@ -188,6 +192,7 @@ class PessoaController extends Controller
                     'F' => 'Feminino',
                 ),
                 'multiple' => false,
+                'placeholder' => 'Selecione o Sexo'
             ))
             ->add('dataNascimento', 'date', array(
                 'input'  => 'datetime',
@@ -196,7 +201,7 @@ class PessoaController extends Controller
                 'label' => 'Data de nascimento',
                 'years' => $anos
             ))
-            ->add('cpf', 'text', array('label'=>'CPF'))
+            ->add('cpf', 'text', array('label'=>'CPF', 'disabled'=>true))
             ->add('cartaoVacina', 'checkbox', array(
                 'label'    => 'Possui cartão de vacina?',
                 'required' => false,
