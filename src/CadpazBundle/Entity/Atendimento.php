@@ -34,12 +34,6 @@ class Atendimento
      * @ORM\Column(name="historico", type="text")
      */
     private $historico;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Pessoa", inversedBy="atendimentos")
-     * @ORM\JoinColumn(name="pessoa_id", referencedColumnName="id")
-     */
-    protected $pessoa;
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="atendimentos")
@@ -47,7 +41,13 @@ class Atendimento
      */
     protected $user;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Caso", inversedBy="atendimentos")
+     * @ORM\JoinColumn(name="caso_id", referencedColumnName="id")
+     */
+    protected $caso;
     
+
     /**
      * Get id
      *
@@ -105,29 +105,6 @@ class Atendimento
     }
 
     /**
-     * Set pessoa
-     *
-     * @param \CadpazBundle\Entity\Pessoa $pessoa
-     * @return Atendimento
-     */
-    public function setPessoa(\CadpazBundle\Entity\Pessoa $pessoa = null)
-    {
-        $this->pessoa = $pessoa;
-
-        return $this;
-    }
-
-    /**
-     * Get pessoa
-     *
-     * @return \CadpazBundle\Entity\Pessoa 
-     */
-    public function getPessoa()
-    {
-        return $this->pessoa;
-    }
-
-    /**
      * Set user
      *
      * @param \CadpazBundle\Entity\User $user
@@ -148,5 +125,28 @@ class Atendimento
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set caso
+     *
+     * @param \CadpazBundle\Entity\Caso $caso
+     * @return Atendimento
+     */
+    public function setCaso(\CadpazBundle\Entity\Caso $caso = null)
+    {
+        $this->caso = $caso;
+
+        return $this;
+    }
+
+    /**
+     * Get caso
+     *
+     * @return \CadpazBundle\Entity\Caso 
+     */
+    public function getCaso()
+    {
+        return $this->caso;
     }
 }
