@@ -30,6 +30,7 @@
             $pessoa->setNomeMae('Maria da Silva');
             $pessoa->setCorInformada('NEGRO');
             $pessoa->setEmail('nao1@tenho.com');
+            $pessoa->setDataCadastro(new \DateTime());
 
             $telefone = new Telefone();
             $telefone->setNumero('(31) 1234-5678');
@@ -110,6 +111,7 @@
             $pessoa->setNomeMae('Joana de Souza e Silva');
             $pessoa->setCorInformada('PARDO');
             $pessoa->setEmail('nao2@tenho.com');
+            $pessoa->setDataCadastro(new \DateTime());
             $rg = new RG();
             $rg->setNumero('M-2.222.222');
             $rg->setDataExpedicao(new \DateTime('1990-03-25'));
@@ -131,6 +133,7 @@
             $pessoa->setNomeMae('Mariana de Souza');
             $pessoa->setCorInformada('BRANCO');
             $pessoa->setEmail('nao3@tenho.com');
+            $pessoa->setDataCadastro(new \DateTime());
             $rg = new RG();
             $rg->setNumero('M-3.333.333');
             $rg->setDataExpedicao(new \DateTime('1985-08-12'));
@@ -152,6 +155,7 @@
             $pessoa->setNomeMae('Fernanda de Souza e Silva');
             $pessoa->setCorInformada('PARDO');
             $pessoa->setEmail('nao4@tenho.com');
+            $pessoa->setDataCadastro(new \DateTime());
             $rg = new RG();
             $rg->setNumero('M-4.444.444');
             $rg->setDataExpedicao(new \DateTime('1980-09-13'));
@@ -173,6 +177,7 @@
             $pessoa->setNomeMae('Maria Bragança da Silva');
             $pessoa->setCorInformada('BRANCO');
             $pessoa->setEmail('nao5@tenho.com');
+            $pessoa->setDataCadastro(new \DateTime());
             $rg = new RG();
             $rg->setNumero('M-5.555.555');
             $rg->setDataExpedicao(new \DateTime('2005-03-17'));

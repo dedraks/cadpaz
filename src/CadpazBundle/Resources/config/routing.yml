@@ -17,6 +17,8 @@ pessoa_busca:
 pessoa_new:
     path:     /pessoa/new
     defaults: { _controller: CadpazBundle:Pessoa:new }
+    options:
+        expose: true
 
 pessoa_view:
     path:     /pessoa/{id}/view

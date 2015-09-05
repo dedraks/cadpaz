@@ -206,6 +206,32 @@
             }
             else {
                     
+                if (item ==null)
+                {
+                    $("#userDetails").html('Nenhum usuário encontrado! <a id="newlink" href=\"' + Routing.generate('pessoa_new') + '\">Cadastrar</a>');
+                    $("#userDetails").hide();
+                    $("#userDetails").css('visibility','visible');
+                    $("#example").slideUp(400);
+                    $("#userDetails").delay(600).slideDown(400);
+                    
+                    $("#newlink").click(function(e) {
+                        e.preventDefault();
+                        $.ajax({
+                            url: $(this).attr('href'),
+                            method: 'POST',
+                            data: {'cpf': $("#cpf").val()},
+                            success: function(result) {
+                                $("#userDetails").html(result);
+                            }
+                        });
+                    });
+                    
+                    
+                    
+                    return;
+                }
+                        
+                    
                 /*var trHTML = itemToTr(item);
                     
                 $('#example').append(trHTML);

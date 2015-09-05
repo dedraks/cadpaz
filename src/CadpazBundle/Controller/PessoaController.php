@@ -104,8 +104,20 @@ class PessoaController extends Controller
      */
     public function newAction(Request $request)
     {
+        $cpf = $request->get('cpf');
+        if (!empty($cpf))
+        {
+            $cpf = str_replace(".","", $cpf);
+            $cpf = str_replace("-","", $cpf);
+
+            $pessoa = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Pessoa')
+                ->findOneBy(array('cpf'=>$cpf));
+        }
+        
         // Instancia um objeto do tipo Pessoa
         $pessoa = new Pessoa();
+        $pessoa->setCpf($cpf);
         
         // Chama a funcao para criar o formulário
         $form = $this->createPessoaForm($pessoa);
@@ -179,7 +191,7 @@ class PessoaController extends Controller
             $anos[$i] = $i;
         }
         
-        $pessoa->setCpf('11111111111');
+        
         
         return $this->createFormBuilder($pessoa)
                 
@@ -219,6 +231,7 @@ class PessoaController extends Controller
                     'CASADO'   => 'Casado',
                     'SOLTEIRO' => 'Solteiro',
                     'OUTROS' => 'Outros',
+                    'placeholder' => 'Selecione o estado civil'
                 ),
                 'multiple' => false,
             ))
@@ -228,6 +241,7 @@ class PessoaController extends Controller
                     'BRANCO'   => 'Branco',
                     'NEGRO' => 'Negro',
                     'PARDO' => 'Pardo',
+                    'placeholder' => 'Selecione a cor'
                 ),
                 'multiple' => false,
             ))
