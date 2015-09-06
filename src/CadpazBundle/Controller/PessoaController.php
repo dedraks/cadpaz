@@ -49,21 +49,30 @@ class PessoaController extends Controller
         return new \Symfony\Component\HttpFoundation\JsonResponse($json);
     }
     
+    /**
+     * Realiza uma busca no BD pelo CPF ou parte do nome enviado 
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
     public function buscaAction(Request $request)
     {
-        
+        // Obtém o CPF enviado
         $cpf = $request->get('cpf');
         if (!empty($cpf))
         {
+            // Remove as formatações do CPF
             $cpf = str_replace(".","", $cpf);
             $cpf = str_replace("-","", $cpf);
 
+            // Efetua a busca no BD
             $pessoa = $this->getDoctrine()
                 ->getRepository('CadpazBundle:Pessoa')
                 ->findOneBy(array('cpf'=>$cpf));
         }
-        else
+        else // Se não há CPF enviado então a consulta será por nome
         {
+            // Obtém o nome enviado
             $nome = $request->get('nome');
             /*$pessoa = $this->getDoctrine()
                 ->getRepository('CadpazBundle:Pessoa')
@@ -75,6 +84,7 @@ class PessoaController extends Controller
                 ->getQuery()
                 ->getResult();*/
             
+            // Consulta no BDtodos os nomes que contenham o texto enviado
             $em = $this->getDoctrine()->getManager();
                 $query = $em->createQuery(
                     'SELECT p
@@ -85,7 +95,7 @@ class PessoaController extends Controller
 
                 $pessoa = $query->getResult();
             
-            dump($pessoa);
+            //dump($pessoa);
         }
         
         $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
@@ -117,10 +127,10 @@ class PessoaController extends Controller
         
         // Instancia um objeto do tipo Pessoa
         $pessoa = new Pessoa();
-        $pessoa->setCpf($cpf);
+        //$pessoa->setCpf($cpf);
         
         // Chama a funcao para criar o formulário
-        $form = $this->createPessoaForm($pessoa);
+        $form = $this->createPessoaForm($pessoa, $cpf);
 
         // Manipula os dados enviados pelo formulário
         $form->handleRequest($request);
@@ -129,11 +139,16 @@ class PessoaController extends Controller
         // dados salvos
         if ($form->isValid()) {
             // perform some action, such as saving the task to the database
+            $em = $this->getDoctrine()->getManager();
+            $pessoa->setDataCadastro(new \DateTime());
+            $em->persist($pessoa);
+            $em->flush();
+            
 
             return $this->render('CadpazBundle:Pessoa:view.html.twig', array('pessoa' => $pessoa));
         }
         
-        return $this->render('CadpazBundle:Pessoa:new.html.twig',array('form' => $form->createView()));
+        return $this->render('CadpazBundle:Pessoa:new.html.twig',array('form' => $form->createView(),'cpf'=>$cpf));
     }
     
     /**
@@ -181,7 +196,7 @@ class PessoaController extends Controller
      * @param Pessoa $pessoa Um objeto da Entidade Pessoa
      * @return Form O formulario criado
      */
-    private function createPessoaForm($pessoa)
+    private function createPessoaForm($pessoa, $cpf)
     {
         $d = getdate();
         $anos = array();
@@ -191,9 +206,13 @@ class PessoaController extends Controller
             $anos[$i] = $i;
         }
         
+        if ($pessoa->getCpf() == "")
+            $pessoa->setCpf($cpf);
         
         
-        return $this->createFormBuilder($pessoa)
+        return $this->createFormBuilder($pessoa, ['attr' => ['id' => 'newUserForm']])
+                
+            
                 
                 
             ->add('nome', 'text')
@@ -213,7 +232,7 @@ class PessoaController extends Controller
                 'label' => 'Data de nascimento',
                 'years' => $anos
             ))
-            ->add('cpf', 'text', array('label'=>'CPF', 'disabled'=>true))
+            ->add('cpf', 'hidden')
             ->add('cartaoVacina', 'checkbox', array(
                 'label'    => 'Possui cartão de vacina?',
                 'required' => false,
@@ -230,10 +249,10 @@ class PessoaController extends Controller
                 'choices' => array(
                     'CASADO'   => 'Casado',
                     'SOLTEIRO' => 'Solteiro',
-                    'OUTROS' => 'Outros',
-                    'placeholder' => 'Selecione o estado civil'
+                    'OUTROS' => 'Outros'
                 ),
                 'multiple' => false,
+                'placeholder' => 'Selecione o estado civil'
             ))
             ->add('nomeMae', 'text', array('label'=>'Nome da mãe'))
             ->add('corInformada', 'choice', array(
@@ -241,9 +260,9 @@ class PessoaController extends Controller
                     'BRANCO'   => 'Branco',
                     'NEGRO' => 'Negro',
                     'PARDO' => 'Pardo',
-                    'placeholder' => 'Selecione a cor'
                 ),
                 'multiple' => false,
+                'placeholder' => 'Selecione a cor'
             ))
             ->add('save', 'submit', array('label' => 'Salvar'))
             ->getForm();

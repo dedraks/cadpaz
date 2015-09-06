@@ -5,14 +5,10 @@
         <group>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/public/css/geral.css</file>
             <file>file:/home/carlos/Documentos/cadpaz/app/Resources/views/base.html.twig</file>
-            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Entity/User.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Pessoa/new.html.twig</file>
-            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Entity/Caso.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Pessoa/view.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Pessoa/index.html.twig</file>
-            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Entity/Pessoa.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/DataFixtures/ORM/LoadPessoaData.php</file>
-            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/config/routing.yml</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Controller/PessoaController.php</file>
         </group>
     </open-files>
