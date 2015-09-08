@@ -211,10 +211,7 @@ class PessoaController extends Controller
         
         
         return $this->createFormBuilder($pessoa, ['attr' => ['id' => 'newUserForm']])
-                
-            
-                
-                
+
             ->add('nome', 'text')
             ->add('email', 'text')
             ->add('sexo', 'choice', array(
@@ -225,13 +222,22 @@ class PessoaController extends Controller
                 'multiple' => false,
                 'placeholder' => 'Selecione o Sexo'
             ))
-            ->add('dataNascimento', 'date', array(
+            /*->add('dataNascimento', 'date', array(
                 'input'  => 'datetime',
                 //'widget' => 'choice',
                 'format' => 'dd/MM/yyyy',
                 'label' => 'Data de nascimento',
                 'years' => $anos
-            ))
+            ))*/
+            ->add('dataNascimento', 'date', [
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control input-inline datepicker',
+                    'data-provide' => 'datepicker',
+                    'data-date-format' => 'dd/mm/yyyy',
+                    'data-date-language' => 'pt-BR'
+                ]
+            ])
             ->add('cpf', 'hidden')
             ->add('cartaoVacina', 'checkbox', array(
                 'label'    => 'Possui cartão de vacina?',

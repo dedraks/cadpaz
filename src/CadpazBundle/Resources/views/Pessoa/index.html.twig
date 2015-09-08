@@ -5,6 +5,9 @@
     {% stylesheets '@CadpazBundle/Resources/public/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
+    {% stylesheets '@CadpazBundle/Resources/public/plugins/datepicker/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 {% endblock %}
 
 {% block body %}
@@ -59,6 +62,9 @@
 {% endblock %}
 {% block javascripts %}
     {% javascripts '@CadpazBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% javascripts '@CadpazBundle/Resources/public/plugins/datepicker/js/*' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
