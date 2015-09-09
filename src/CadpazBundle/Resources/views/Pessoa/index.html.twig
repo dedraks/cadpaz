@@ -130,6 +130,7 @@
         // post-submit callback 
         function showResponse(responseText, statusText, xhr, $form)  { 
             ok(responseText);
+            //alert(responseText);
         }
         function ok(responseText){
             // for normal html responses, the first argument to the success callback 
@@ -145,8 +146,7 @@
 
             //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
             //    '\n\nThe output div should have already been updated with the responseText.'); 
-        
-        
+
             /*
             if (statusText!='success') {
                 $("#saida").html('Nenhum registro encontrado');

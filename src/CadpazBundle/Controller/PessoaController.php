@@ -93,11 +93,13 @@ class PessoaController extends Controller
                     ORDER BY p.nome ASC'
                 )->setParameter('nome', '%'.$nome.'%');
 
+                // Atribui o resultado da consulta para a variável pessoa
                 $pessoa = $query->getResult();
             
             //dump($pessoa);
         }
         
+        // Converte o resultado da consulta para json e retorna
         $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
         $json = $serializer->serialize($pessoa, 'json');
         dump($json);
