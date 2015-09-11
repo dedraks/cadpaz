@@ -3,7 +3,7 @@
         <li class="active"><a href="#tab1">Dados Pessoais</a></li>
         <li><a href="#tab2">Telefones e Endereços</a></li>
         <li><a href="#tab3">Dados Sócio Econômicos</a></li>
-        <li><a href="#tab4">Atendimentos</a></li>
+        <li><a href="#tab4">Casos</a></li>
     </ul>
  
     <div class="tab-content">
@@ -111,24 +111,21 @@
         </div>
  
         <div id="tab4" class="tab">
-                <div style="width: 96%; background: #eee; visibility: visible" class="example">
-                    <div class="example" style="visibility: visible; width: 96%; padding-bottom: 15px;  background: #ddf;">
-                        01/09/2015 - 19:26 - Formulários Sócio Econômico preenchido
-                    </div>
-                    <div class="spacer"></div>
-                    <div class="example" style="visibility: visible; width: 96%; padding-bottom: 15px;  background: #ddf;">
-                        01/09/2015 - 18:32 - Telefone cadastrado
-                    </div>
-                    <div class="spacer"></div>
-                    <div class="example" style="visibility: visible; width: 96%; padding-bottom: 15px;  background: #ddf;">
-                        01/09/2015 - 18:26 - Endereço cadastrado
-                    </div>
-                    <div class="spacer"></div>
-                    <div class="example" style="visibility: visible; width: 96%; padding-bottom: 15px;  background: #ddf;">
-                        01/09/2015 - 17:43 - Cadastro do cliente.
-                    </div>
-                    <div class="spacer"></div>
-                </div>
+            {% if pessoa.casos is null %}
+                Não cadastrado<br />
+            {% else %}
+            {% endif %}
+            
+            <div style="width: 96%; background: #eee; visibility: visible" class="example">
+                <p class="casoTitulo">Pedido de pensão de alimentos</p>
+                <p class="casoDescricao">Três filhos precisando de alimentação</p>
+            </div>
+            <div class="spacer"></div>
+            <div style="width: 96%; background: #eee; visibility: visible" class="example">
+                <p class="casoTitulo">Pedido de pensão de alimentos</p>
+                <p class="casoDescricao">Três filhos precisando de alimentação</p>
+            </div>
+            <div class="spacer"></div>
         </div>
     </div>
 </div>
