@@ -2,7 +2,7 @@
 
 {% block title %}Cadpaz - Cadastro de Pessoas{% endblock %}
 {% block stylesheets %}
-    {% stylesheets '@CadpazBundle/Resources/public/css/*' filter='cssrewrite' %}
+    {% stylesheets 'bundles/cadpaz/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
     {% stylesheets '@CadpazBundle/Resources/public/plugins/datepicker/css/*' filter='cssrewrite' %}
@@ -42,11 +42,10 @@
         </form> 
     </div>
     <div class="spacer"></div>
-    <div id="tableArea">
-        <table id="example" class="example" cellspacing="2" width="100%">
-        </table>
-        
-    </div>
+    
+    <div id="dataArea"></div>
+    
+    
     <div id="userDetails" class="example"></div>
     
 </div>
@@ -128,7 +127,7 @@
         }
         // post-submit callback 
         function showResponse(responseText, statusText, xhr, $form)  { 
-            //ok(responseText);
+            /*//ok(responseText);
             //alert(responseText);
             $('#userDetails').slideUp('slow');
             //$('#userDetails').slideDown('slow');
@@ -137,7 +136,10 @@
             $('#example').slideUp(200);
             $('#example').css('visibility','visible');
             $('#example').slideDown(200);
-            $('#example').html(responseText);
+            $('#example').html(responseText);*/
+            
+            
+            $('#dataArea').html(responseText);
             
         }
         function ok(responseText){

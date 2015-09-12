@@ -1,6 +1,22 @@
 {% if pessoas is null %}
-    Cliente não encontrado. Cadastrar.
+    Cliente não encontrado. <a id="newlink" href="{{ path('pessoa_new') }}">Cadastrar</a>.
+    <script>
+    $("#newlink").click(function(e) {
+                        e.preventDefault();
+                        $.ajax({
+                            url: $(this).attr('href'),
+                            method: 'POST',
+                            data: {'cpf': $("#cpf").val()},
+                            success: function(result) {
+                                $("#example").html(result);
+                               // $("#userDetails").css('visibility','visible');
+                               //alert(result);
+                            }
+                        });
+                    });
+    </script>
 {% else %}
+<table  id="example" class="userList" cellspacing="2" width="100%">
 <thead><tr><th>Nome</th><th>Data de Nascimento</th><th>Email</th><th>CPF</th></tr></thead>
 <tbody>
 {% for pessoa in pessoas %}
@@ -12,6 +28,7 @@
     </tr>
 {% endfor %}
 </tbody>
+</table>
 <script>
     $('#example tr').click(function() {
         

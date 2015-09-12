@@ -234,7 +234,7 @@ h2 {
 /*------------------------*/
 
 .example {
-    /*visibility: hidden;*/
+    visibility: hidden;
     width: 100%;
     padding: 15px;
     /*margin: 50px auto 50px auto;*/
@@ -267,7 +267,7 @@ tr:hover td {
 
 #example {
 
-    /*visibility: hidden;*/
+    visibility: hidden;
     width: 100%;
     padding: 15px;
     
@@ -457,8 +457,8 @@ li.active a, li.active a:hover {
     height:     100%;
     width:      100%;
     background: rgba( 255, 255, 255, .8 ) 
-                url('../images/FhHRx.gif')
-                /*url('http://i.stack.imgur.com/FhHRx.gif')*/
+                /*url('bundles/cadpazbundle/images/FhHRx.gif')*/
+                url('http://i.stack.imgur.com/FhHRx.gif')
                 50% 50% 
                 no-repeat;
 }
