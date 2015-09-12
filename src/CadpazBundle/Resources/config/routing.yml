@@ -1,5 +1,6 @@
+# Rotas para o controlador Pessoa
 pessoa_index:
-    path:     /pessoa
+    path:     /
     defaults: { _controller: CadpazBundle:Pessoa:index }
 
 pessoa_list:
@@ -25,6 +26,23 @@ pessoa_view:
     defaults: { _controller: CadpazBundle:Pessoa:view }
     options:
         expose: true
+
+# Fim das rotas para o controlador Pessoa
+
+# Rotas para o controlador CTPS
+ctps_view:
+    path:     /ctps/{pessoa_id}/view
+    defaults: { _controller: CadpazBundle:CTPS:view }
+
+ctps_new:
+    path:     /ctps/{pessoa_id}/new
+    defaults: { _controller: CadpazBundle:CTPS:new }
+
+# Fim das rotas pra o controlador CTPS
+
+# Rotas para o controlador Questionario
+# Fim das rotas para o controlador Questionario
+
 
 atendimento_index:
     path:     /atendimento

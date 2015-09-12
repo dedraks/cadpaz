@@ -44,21 +44,13 @@
     <div class="spacer"></div>
     <div id="tableArea">
         <table id="example" class="example" cellspacing="2" width="100%">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Nome da mãe</th>
-                    <th>Email</th>
-                    <th>CPF</th>
-                </tr>
-            </thead>
-
         </table>
         
     </div>
     <div id="userDetails" class="example"></div>
     
 </div>
+        <div class="modal"><!-- Place at bottom of page --><h3>Carregando...</h3></div>
 {% endblock %}
 {% block javascripts %}
     {% javascripts '@CadpazBundle/Resources/public/js/*' %}
@@ -74,6 +66,13 @@
         // prepare the form when the DOM is ready
         var ids = new Array();
         $(document).ready(function() {
+            
+            $body = $("body");
+            $(document).on({
+                ajaxStart: function() { $body.addClass("loading");    },
+                 ajaxStop: function() { $body.removeClass("loading"); }    
+            });
+            
             jQuery(function($){
                 $("#cpf").mask("999.999.999-99",{placeholder:"___.___.___-__"});
             });
@@ -93,7 +92,7 @@
                 // other available options: 
                 //url:       Routing.generate('pessoa_busca', {id: '11111111111'})         // override for form's 'action' attribute 
                 type:      'post',        // 'get' or 'post', override for form's 'method' attribute 
-                dataType:  'json'        // 'xml', 'script', or 'json' (expected server response type) 
+                //dataType:  'json'        // 'xml', 'script', or 'json' (expected server response type) 
                 //clearForm: true        // clear all form fields after successful submit 
                 //resetForm: true        // reset the form after successful submit 
 
@@ -129,8 +128,17 @@
         }
         // post-submit callback 
         function showResponse(responseText, statusText, xhr, $form)  { 
-            ok(responseText);
+            //ok(responseText);
             //alert(responseText);
+            $('#userDetails').slideUp('slow');
+            //$('#userDetails').slideDown('slow');
+            $('#example').css('visibility','hidden');
+            //$('#example').html('<thead><tr><th>Nome</th><th>Data de Nascimento</th><th>Email</th><th>CPF</th></tr></thead>');
+            $('#example').slideUp(200);
+            $('#example').css('visibility','visible');
+            $('#example').slideDown(200);
+            $('#example').html(responseText);
+            
         }
         function ok(responseText){
             // for normal html responses, the first argument to the success callback 

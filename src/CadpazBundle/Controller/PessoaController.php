@@ -69,6 +69,13 @@ class PessoaController extends Controller
             $pessoa = $this->getDoctrine()
                 ->getRepository('CadpazBundle:Pessoa')
                 ->findOneBy(array('cpf'=>$cpf));
+            
+            dump($pessoa);
+            
+            if ($pessoa != null)
+                    $pessoa = array($pessoa);
+            //return $this->render('CadpazBundle:Pessoa:view.html.twig', array('pessoa' => $pessoa));
+
         }
         else // Se não há CPF enviado então a consulta será por nome
         {
@@ -97,12 +104,18 @@ class PessoaController extends Controller
                 $pessoa = $query->getResult();
             
             //dump($pessoa);
+            
         }
+        sleep(1);
+        
+        // Renderiza um template com os clientes encontrados
+        return $this->render('CadpazBundle:Pessoa:list.html.twig', array('pessoas' => $pessoa));
+        
         
         // Converte o resultado da consulta para json e retorna
         $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
         $json = $serializer->serialize($pessoa, 'json');
-        dump($json);
+        //dump($json);
         return new \Symfony\Component\HttpFoundation\JsonResponse($json);
     }
     

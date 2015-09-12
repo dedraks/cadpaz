@@ -10,6 +10,8 @@
     use CadpazBundle\Entity\PIS;
     use CadpazBundle\Entity\Telefone;
     use CadpazBundle\Entity\Endereco;
+    use CadpazBundle\Entity\Caso;
+    use CadpazBundle\Entity\User;
 
     class LoadPessoaData implements FixtureInterface
     {
@@ -91,12 +93,18 @@
             $ctps->setUf('MG');
             $ctps->setPessoa($pessoa);
             //$pessoa->setCtps($ctps);
+            
+            $caso = new Caso();
+            $caso->setNome("Pedido de despejo");
+            $caso->setDescricao("Solicitação de despejo de inquilino que não paga aluguel.");
+            $caso->setPessoa($pessoa);
 
             $manager->persist($endereco);
             $manager->persist($rg);
             $manager->persist($titulo);
             $manager->persist($pis);
             $manager->persist($ctps);
+            $manager->persist($caso);
             $manager->persist($pessoa);
 
             $pessoa = new Pessoa();
@@ -187,6 +195,29 @@
             $manager->persist($rg);
             $manager->persist($pessoa);
 
+            
+            
+            
+            $admin = new User() ;
+            $admin->setEmail("adminl@gmail.com") ;
+            $admin->setUsername("carlos") ;
+            $admin->setNomeCompleto("Carlos A. B. Garcia");
+            $admin->setPlainPassword("cbj7514") ;
+            $admin->setEnabled(true) ;
+            $admin->setSuperAdmin(true) ;
+
+            $user1 = new User() ;
+            $user1->setEmail("user1@gmail.com") ;
+            $user1->setUsername("user1") ;
+            $user1->setPlainPassword("123") ;
+            $user1->setEnabled(true) ;
+            //$user1->setRoles( array(User::ROLE_USER) ) ;
+            $user1->addRole('ROLE_USER');
+            
+            $manager->persist($admin);
+            $manager->persist($user1);
+
+            
             $manager->flush();
         }
     }

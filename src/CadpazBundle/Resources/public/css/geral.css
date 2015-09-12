@@ -278,11 +278,11 @@ tr:hover td {
     box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
     margin-top: 15px;
 }
-#example tbody tr:nth-child(odd)		{ background-color:#ddd; }
-#example tbody tr:nth-child(even)	{ background-color:#eee; }
+#example tbody tr:nth-child(odd)		{ background-color:#efefef; }
+#example tbody tr:nth-child(even)	{ background-color:#e0e0e0; }
 
 #example thead{
-    background-color: #aaa;
+    background-color: #f8f8f8;
     cursor: pointer;
 }
 
@@ -290,6 +290,7 @@ tr:hover td {
     background-color: #eee;
     cursor: pointer;
 }
+
 a{
     text-decoration: none;
     color: #000;
@@ -435,4 +436,48 @@ li.active a, li.active a:hover {
 
 .casoTitulo {
     font-weight: bold;
+}
+
+
+
+
+
+
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('public/img/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+.modal h3 {
+    text-align: center;
+    top: 270px;
+    left: 45%;
+    position: fixed;
+    z-index: 999;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
 }

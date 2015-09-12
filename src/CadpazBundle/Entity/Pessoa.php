@@ -135,6 +135,11 @@ class Pessoa
     protected $casos;
     
     /**
+     * @ORM\OneToOne(targetEntity="Questionario", mappedBy="pessoa")
+     */
+    protected $questionario;
+    
+    /**
      * @var string
      * 
      * @ORM\Column(name="dataCadastro", type="date")
@@ -145,7 +150,7 @@ class Pessoa
     {
         $this->telefones = new ArrayCollection();
         $this->enderecos = new ArrayCollection();
-        $this->caos = new ArrayCollection();
+        $this->casos = new ArrayCollection();
     }
 
     // Comentário de teste
@@ -629,5 +634,28 @@ class Pessoa
     public function getDataCadastro()
     {
         return $this->dataCadastro;
+    }
+
+    /**
+     * Set questionario
+     *
+     * @param \CadpazBundle\Entity\Questionario $questionario
+     * @return Pessoa
+     */
+    public function setQuestionario(\CadpazBundle\Entity\Questionario $questionario = null)
+    {
+        $this->questionario = $questionario;
+
+        return $this;
+    }
+
+    /**
+     * Get questionario
+     *
+     * @return \CadpazBundle\Entity\Questionario 
+     */
+    public function getQuestionario()
+    {
+        return $this->questionario;
     }
 }

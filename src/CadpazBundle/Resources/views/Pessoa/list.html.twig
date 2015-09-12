@@ -1,8 +1,42 @@
+{% if pessoas is null %}
+    Cliente não encontrado. Cadastrar.
+{% else %}
+<thead><tr><th>Nome</th><th>Data de Nascimento</th><th>Email</th><th>CPF</th></tr></thead>
+<tbody>
 {% for pessoa in pessoas %}
     <tr id="tr{{ pessoa.id }}">
-        <td><a class="trlink" href="{{ path('pessoa_view', {id: item.id}) }}">{{ pessoa.nome }}</a></td>
-        <td>{{ pessoa.nome_mae }}</td>
+        <td><a class="trlink" href="{{ path('pessoa_view', {id: pessoa.id}) }}">{{ pessoa.nome }}</a></td>
+        <td>{{ pessoa.nomeMae }}</td>
         <td>{{ pessoa.email }}</td>
         <td>{{ pessoa.cpf }}</td>
     </tr>
 {% endfor %}
+</tbody>
+<script>
+    $('#example tr').click(function() {
+        
+        var href = $(this).find("a").attr("href");
+
+        if(href) {
+
+            //window.location = href;
+            //alert(href);
+            $(this).find("a").attr("href","#");
+            //$(this).click(function(){
+            $.ajax({url: href, success: function(result){
+                
+                $("#userDetails").html('<div class=\"meio\">'+result+'</div>');
+                //$("#example").css('visibility','hidden');
+                $("#userDetails").hide();
+                $("#userDetails").css('visibility','visible');
+                //$("#example").hide('slow', function() {$("#userDetails").show('slow');});
+                //$("#example").empty();
+                $("#example").slideUp(400);
+                $("#userDetails").delay(600).slideDown(400);
+                $("#nome").val('');
+                $("#cpf").val('');
+            }});
+        }
+    });
+</script>
+{% endif %}
