@@ -34,7 +34,7 @@
     {% endif %}
     Título Eleitoral:
     {% if pessoa.titulo is null %}
-        Não cadastrado<br />
+        <a id="te" href="#">Cadastrar</a><br />
     {% else %}
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.titulo.numero | default("Não cadastrado")}}<br />
@@ -147,4 +147,17 @@
                 window.scrollTo("#userDetails",document.body.scrollHeight);
             }, 1200);*/
     });
+    
+    
+    jQuery('#te').on('click', function(e) {
+        
+        var userPage = $("#userDetails").html();
+        
+        alert(userPage);
+        
+        
+        
+        e.preventDefault();
+    });
+    
 </script>

@@ -27,6 +27,12 @@ pessoa_view:
     options:
         expose: true
 
+pessoa_titulo_new:
+    path:     /pessoa/{id}/titulo/new
+    defaults: { _controller: CadpazBundle:Pessoa:newTitulo }
+    options:
+        expose: true
+
 # Fim das rotas para o controlador Pessoa
 
 # Rotas para o controlador CTPS

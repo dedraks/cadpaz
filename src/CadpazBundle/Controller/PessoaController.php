@@ -205,6 +205,20 @@ class PessoaController extends Controller
         $this->render('CadpazBundle:Pessoa:index.html.twig');
     }
     
+    public function newTituloAction($id, Request $request)
+    {
+        $form = $this->createFormBuilder($titulo, ['attr' => ['id' => 'newTituloForm']])
+            ->add('numero', 'text')
+            ->add('save', 'submit', array('label' => 'Salvar'))
+            ->getForm();
+        
+        if ($form->isValid()) {
+            return new Response('ok');
+        }
+        
+        return $this->render('CadpazBundle:Pessoa:newForm.html.twig',array('form' => $form->createView());
+    }
+    
     /**
      * Cria o formulario
      * 
