@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \JMS\Serializer\SerializerBuilder;
 use CadpazBundle\Entity\Pessoa;
+use CadpazBundle\Entity\Titulo;
 
 /**
  * Pessoa Controller
@@ -207,16 +208,47 @@ class PessoaController extends Controller
     
     public function newTituloAction($id, Request $request)
     {
+        $titulo = new Titulo();
+        $pessoa = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Pessoa')
+            ->find($id);
+        $titulo->setPessoa($pessoa);
+        
+        
         $form = $this->createFormBuilder($titulo, ['attr' => ['id' => 'newTituloForm']])
             ->add('numero', 'text')
+            ->add('zona', 'text')
+            ->add('secao', 'text')
+            ->add('dataEmissao', 'date', [
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control input-inline datepicker',
+                    'data-provide' => 'datepicker',
+                    'data-date-format' => 'dd/mm/yyyy',
+                    'data-date-language' => 'pt-BR'
+                ]
+            ])
+            ->add('municipio', 'text')
+            ->add('uf','text')
             ->add('save', 'submit', array('label' => 'Salvar'))
             ->getForm();
         
+        
+        $form->handleRequest($request);
         if ($form->isValid()) {
-            return new Response('ok');
+            
+            
+            $em = $this->getDoctrine()->getManager();
+            $titulo->setDataEmissao(new \DateTime());
+            $em->persist($titulo);
+            $em->flush();
+            
+
+            $pessoa->setTitulo($titulo);
+            return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
         }
         
-        return $this->render('CadpazBundle:Pessoa:newForm.html.twig',array('form' => $form->createView());
+        return $this->render('CadpazBundle:Pessoa:newTitulo.html.twig',array('form' => $form->createView(),'id'=>$id));
     }
     
     /**

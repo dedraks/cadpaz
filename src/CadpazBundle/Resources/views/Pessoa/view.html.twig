@@ -34,7 +34,7 @@
     {% endif %}
     Título Eleitoral:
     {% if pessoa.titulo is null %}
-        <a id="te" href="#">Cadastrar</a><br />
+        <a id="te" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}">Cadastrar</a><br />
     {% else %}
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.titulo.numero | default("Não cadastrado")}}<br />
@@ -153,7 +153,21 @@
         
         var userPage = $("#userDetails").html();
         
-        alert(userPage);
+        //alert(userPage);
+        
+        $.ajax({
+                            url: $(this).attr('href'),
+                            //method: 'POST',
+                            //data: {'cpf': $("#cpf").val()},
+                            success: function(result) {
+                                
+                                
+                                
+                                $("#userDetails").html(result);
+                               // $("#userDetails").css('visibility','visible');
+                               //alert(result);
+                            }
+                        });
         
         
         

@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+
+<script>
+
+        function showNewTituloResponse(responseText, statusText, xhr, $form)  { 
+
+
+
+
+                $("#userDetails").html(responseText);
+                //$("#userDetails").hide();
+                //$("#userDetails").css('visibility','visible');
+                //$("#userDetails").slideUp(400);
+                //$("#userDetails").delay(600).slideDown(400);
+            }
+
+        var options2 = {
+          success: showNewTituloResponse,
+          type: 'post',
+          url: Routing.generate('pessoa_titulo_new',{'id':{{id}}})
+        };
+        // bind form using 'ajaxForm' 
+        $('#newTituloForm').ajaxForm(options2);
+    </script>
