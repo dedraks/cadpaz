@@ -33,7 +33,7 @@
     <div class="spacer"></div>
     <div id="formArea">
         <form id="form2" class="form-wrapper2 cf" action="{{ path('pessoa_busca') }}">
-            <input id="nome" class="saida" name="nome" type="text" placeholder="Pesquisar Nome..." required>
+            <input id="nome" class="saida" name="nome" type="text" placeholder="Pesquisar Nome..." autocomplete="off" required>
             <button id="botaoBuscar">Pesquisar</button>
         </form> 
         <form id="form1" class="form-wrapper cf" action="{{ path('pessoa_busca') }}">
@@ -60,7 +60,7 @@
     {% endjavascripts %}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-    <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
+    {# <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script> #}
     <script type="text/javascript">
         // prepare the form when the DOM is ready
         var ids = new Array();
@@ -141,6 +141,7 @@
             $('#userDetails').html('');
             $('#userDetails').slideUp(200);
             $('#dataArea').html(responseText);
+            $('#dataArea').slideDown(200);
             
         }
         function ok(responseText){

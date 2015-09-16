@@ -234,7 +234,7 @@ h2 {
 /*------------------------*/
 
 .example {
-    visibility: hidden;
+    /*visibility: hidden;*/
     width: 100%;
     padding: 15px;
     /*margin: 50px auto 50px auto;*/
@@ -267,7 +267,7 @@ tr:hover td {
 
 #example {
 
-    visibility: hidden;
+    /*visibility: hidden;*/
     width: 100%;
     padding: 15px;
     
@@ -291,13 +291,14 @@ tr:hover td {
     cursor: pointer;
 }
 
+/*
 a{
     text-decoration: none;
     color: #000;
 }
 a:visited{
     text-decoration: none;
-}
+}*/
 
 #container {
     width: 850px;
@@ -457,8 +458,8 @@ li.active a, li.active a:hover {
     height:     100%;
     width:      100%;
     background: rgba( 255, 255, 255, .8 ) 
-                /*url('bundles/cadpazbundle/images/FhHRx.gif')*/
-                url('http://i.stack.imgur.com/FhHRx.gif')
+                url('../images/FhHRx.gif')
+                /*url('http://i.stack.imgur.com/FhHRx.gif')*/
                 50% 50% 
                 no-repeat;
 }
@@ -482,3 +483,18 @@ body.loading {
 body.loading .modal {
     display: block;
 }
+
+
+
+
+
+
+.add_doc{
+    background: url('../images/add_doc.png') no-repeat;
+    height: 16px;
+    width: 16px;
+    text-indent: -9999px;
+    overflow: hidden;
+    font-weight: bold;
+    color: #F00;
+  }

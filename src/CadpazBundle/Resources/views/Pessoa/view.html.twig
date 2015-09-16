@@ -25,7 +25,7 @@
     CPF: {{ pessoa.cpf }}<br />
     RG:
     {% if pessoa.rg is null %}
-        Não cadastrado<br />
+        <a id="rg" class="btn" href="{{ path('pessoa_rg_new', {'id':pessoa.id}) }}">Cadastrar</a><br /><br />
     {% else %}
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.rg.numero }}<br />
@@ -33,8 +33,8 @@
         &nbsp;&nbsp;&nbsp;&nbsp;Órgão expedidor: {{ pessoa.rg.orgaoExpedidor }}<br />
     {% endif %}
     Título Eleitoral:
-    {% if pessoa.titulo is null %}
-        <a id="te" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}">Cadastrar</a><br />
+    {% if pessoa.titulo is null %} 
+        <a id="te" class="btn" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}">Cadastrar</a><br />
     {% else %}
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.titulo.numero | default("Não cadastrado")}}<br />
@@ -149,7 +149,7 @@
     });
     
     
-    jQuery('#te').on('click', function(e) {
+    jQuery('#te, #rg').on('click', function(e) {
         
         var userPage = $("#userDetails").html();
         

@@ -2,18 +2,22 @@
     Cliente não encontrado. <a id="newlink" href="{{ path('pessoa_new') }}">Cadastrar</a>.
     <script>
     $("#newlink").click(function(e) {
-                        e.preventDefault();
-                        $.ajax({
-                            url: $(this).attr('href'),
-                            method: 'POST',
-                            data: {'cpf': $("#cpf").val()},
-                            success: function(result) {
-                                $("#example").html(result);
-                               // $("#userDetails").css('visibility','visible');
-                               //alert(result);
-                            }
-                        });
-                    });
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('href'),
+            method: 'POST',
+            data: {'cpf': $("#cpf").val()},
+            success: function(result) {
+                $("#userDetails").hide();
+                $("#userDetails").css('visibility','visible');
+                $("#userDetails").html(result);
+                $("#dataArea").slideUp(400);
+                $("#userDetails").delay(600).slideDown(400);
+                // $("#userDetails").css('visibility','visible');
+                //alert(result);
+            }
+        });
+    });
     </script>
 {% else %}
 <table  id="example" class="userList" cellspacing="2" width="100%">

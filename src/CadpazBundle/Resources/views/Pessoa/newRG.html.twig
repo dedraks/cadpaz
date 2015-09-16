@@ -5,7 +5,7 @@
 
 <script>
 
-        function showNewTituloResponse(responseText, statusText, xhr, $form)  { 
+        function showNewRgResponse(responseText, statusText, xhr, $form)  { 
 
 
 
@@ -17,11 +17,11 @@
                 //$("#userDetails").delay(600).slideDown(400);
             }
 
-        var optionsTitulo = {
-          success: showNewTituloResponse,
+        var optionsRg = {
+          success: showNewRgResponse,
           type: 'post',
-          url: Routing.generate('pessoa_titulo_new',{'id':{{id}}})
+          url: Routing.generate('pessoa_rg_new',{'id':{{id}}})
         };
         // bind form using 'ajaxForm' 
-        $('#newTituloForm').ajaxForm(optionsTitulo);
+        $('#newRgForm').ajaxForm(optionsRg);
     </script>
