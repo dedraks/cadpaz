@@ -1,7 +1,12 @@
+<div class="meio">
+<strong>RG</strong>
+<div class="spacer"></div>
+
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
-
+<a class="cancel" href="#">Cancelar</a>
+</div>
 
 <script>
 
@@ -24,4 +29,13 @@
         };
         // bind form using 'ajaxForm' 
         $('#newRgForm').ajaxForm(optionsRg);
+        
+        jQuery('.cancel').on('click', function(e) {
+        
+            //$("#userDetails").slideUp('fast');
+            $("#userDetails").html(window.userDetails);
+            //$("#userDetails").slideDown('fast');
+
+            e.preventDefault();
+        });
     </script>

@@ -38,6 +38,18 @@ pessoa_rg_new:
     defaults: { _controller: CadpazBundle:Pessoa:newRg }
     options:
         expose: true
+        
+pessoa_pis_new:
+    path:     /pessoa/{id}/pis/new
+    defaults: { _controller: CadpazBundle:Pessoa:newPis }
+    options:
+        expose: true
+        
+pessoa_ctps_new:
+    path:     /pessoa/{id}/ctps/new
+    defaults: { _controller: CadpazBundle:Pessoa:newCtps }
+    options:
+        expose: true
 
 # Fim das rotas para o controlador Pessoa
 

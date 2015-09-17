@@ -26,7 +26,9 @@ class RGType extends AbstractType
                     'data-date-language' => 'pt-BR',
                     'data-date-class' => 'date',
                     'data-date-autoclose' => 'true',
-                    'data-date-startView' => '2'
+                    'data-date-startView' => '2',
+                    'autocomplete' => 'off',
+                    'onKeyDown' => 'return false'
                 ]
             ])
             ->add('orgaoExpedidor')

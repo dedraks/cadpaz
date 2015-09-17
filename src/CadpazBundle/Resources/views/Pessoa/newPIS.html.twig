@@ -1,18 +1,20 @@
 <div class="meio">
 
-    <strong>Título Eleitoral</strong>
+     <div style="width: 100%; background: #ddd; font-weight: bold; text-align: center;">PIS</div>
+
     <div class="spacer"></div>
-    
+
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
 
 <a class="cancel" href="#">Cancelar</a>
+
 </div>
 
 <script>
 
-        function showNewTituloResponse(responseText, statusText, xhr, $form)  { 
+        function showNewPisResponse(responseText, statusText, xhr, $form)  { 
 
 
 
@@ -24,17 +26,19 @@
                 //$("#userDetails").delay(600).slideDown(400);
             }
 
-        var optionsTitulo = {
-          success: showNewTituloResponse,
+        var optionsPis = {
+          success: showNewPisResponse,
           type: 'post',
-          url: Routing.generate('pessoa_titulo_new',{'id':{{id}}})
+          url: Routing.generate('pessoa_pis_new',{'id':{{id}}})
         };
         // bind form using 'ajaxForm' 
-        $('#newTituloForm').ajaxForm(optionsTitulo);
+        $('#newPisForm').ajaxForm(optionsPis);
+        
+        
         
         jQuery('.cancel').on('click', function(e) {
         
-            //$("#userDetails").slideUp('fast');          
+            //$("#userDetails").slideUp('fast');
             $("#userDetails").html(window.userDetails);
             //$("#userDetails").slideDown('fast');
 

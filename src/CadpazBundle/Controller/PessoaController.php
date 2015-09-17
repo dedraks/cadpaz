@@ -11,9 +11,13 @@ use \JMS\Serializer\SerializerBuilder;
 use CadpazBundle\Entity\Pessoa;
 use CadpazBundle\Entity\Titulo;
 use CadpazBundle\Entity\RG;
+use CadpazBundle\Entity\PIS;
+use CadpazBundle\Entity\CTPS;
 
 use CadpazBundle\Form\RGType;
 use CadpazBundle\Form\TituloType;
+use CadpazBundle\Form\PISType;
+use CadpazBundle\Form\CTPSType;
 
 /**
  * Pessoa Controller
@@ -213,47 +217,23 @@ class PessoaController extends Controller
     
     public function newTituloAction($id, Request $request)
     {
-        $titulo = new Titulo();
+        //$titulo = new Titulo();
         $pessoa = $this->getDoctrine()
             ->getRepository('CadpazBundle:Pessoa')
             ->find($id);
+        
+        $titulo = $pessoa->getTitulo();
+        
+        if ($titulo == null) 
+        {    
+            $titulo = new Titulo();
+        }
+        
+        
         $titulo->setPessoa($pessoa);
         
         $form = $this->createForm(new TituloType(), $titulo);
         
-        /*
-        $form = $this->createFormBuilder($titulo, ['attr' => ['id' => 'newTituloForm']])
-            ->add('numero', 'text')
-            ->add('zona', 'text')
-            ->add('secao', 'text')
-            ->add('dataEmissao', 'date', [
-                'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
-                'attr' => [
-                    'class' => 'form-control input-inline datepicker',
-                    'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy',
-                    'data-date-language' => 'pt-BR',
-                    'data-date-class' => 'date',
-                    'data-date-autoclose' => 'true',
-                    'data-date-startView' => '2'
-                ]
-            ])
-            ->add('municipio', 'text')
-            ->add('uf', 'choice', array(
-                'choices' => array(
-                    'AM'   => 'Amazonas',
-                    'AP' => 'Amapá',
-                    'MG' => 'Minas Gerais'
-                ),
-                'multiple' => false,
-                'placeholder' => 'Selecione a UF',
-                'label' => 'UF'
-            ))
-            ->add('save', 'submit', array('label' => 'Salvar'))
-            //->add('cancel', 'submit', array('label' => 'Cancelar'))
-            ->getForm();
-        */
         
         $form->handleRequest($request);
         //if ($form->get('cancel')->isClicked()) {
@@ -281,11 +261,22 @@ class PessoaController extends Controller
     
     public function newRgAction($id, Request $request)
     {
-        $rg = new RG();
+        //$rg = new RG();
         $pessoa = $this->getDoctrine()
             ->getRepository('CadpazBundle:Pessoa')
             ->find($id);
+        
+        //dump($pessoa);
+        $rg = $pessoa->getRg();
+        
+        if ($rg == null)
+        {
+            $rg = new RG();
+        }
+            
+            
         $rg->setPessoa($pessoa);
+        
         $form = $this->createForm(new RGType(), $rg);
         
         $form->handleRequest($request);
@@ -304,7 +295,77 @@ class PessoaController extends Controller
         
         return $this->render('CadpazBundle:Pessoa:newRG.html.twig',array('form' => $form->createView(),'id'=>$id));
     }
+    
+    public function newPisAction($id, Request $request)
+    {
+        //$pis = new PIS();
+        $pessoa = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Pessoa')
+            ->find($id);
+        
+        $pis = $pessoa->getPis();
+        
+        if ($pis == null)
+        {
+            $pis = new PIS();
+        }
+        
+        
+        $pis->setPessoa($pessoa);
+        $form = $this->createForm(new PISType(), $pis);
+        
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            
+            $em = $this->getDoctrine()->getManager();
+            //$titulo->setDataEmissao(new \DateTime());
+            $em->persist($pis);
+            $em->flush();
+            
 
+            $pessoa->setPis($pis);
+            return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
+        }
+        
+        
+        return $this->render('CadpazBundle:Pessoa:newPIS.html.twig',array('form' => $form->createView(),'id'=>$id));
+    }
+
+    public function newCtpsAction($id, Request $request)
+    {
+        //$pis = new PIS();
+        $pessoa = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Pessoa')
+            ->find($id);
+        
+        $ctps = $pessoa->getCtps();
+        
+        if ($ctps == null)
+        {
+            $ctps = new CTPS();
+        }
+        
+        
+        $ctps->setPessoa($pessoa);
+        $form = $this->createForm(new CTPSType(), $ctps);
+        
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            
+            $em = $this->getDoctrine()->getManager();
+            //$titulo->setDataEmissao(new \DateTime());
+            $em->persist($ctps);
+            $em->flush();
+            
+
+            $pessoa->setCtps($ctps);
+            return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
+        }
+        
+        
+        return $this->render('CadpazBundle:Pessoa:newCTPS.html.twig',array('form' => $form->createView(),'id'=>$id));
+    }
+    
 
     /**
      * Cria o formulario

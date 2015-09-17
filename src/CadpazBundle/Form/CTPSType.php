@@ -17,8 +17,41 @@ class CTPSType extends AbstractType
         $builder
             ->add('numero')
             ->add('serie')
-            ->add('uf')
-            ->add('pessoa')
+            ->add('uf', 'choice', array(
+                'choices' => array(
+                    'AC' => 'Acre',
+                    'AL' => 'Alagoas',
+                    'AP' => 'Amapá',
+                    'AM' => 'Amazonas',
+                    'BA' => 'Bahia',
+                    'CE' => 'Ceará',
+                    'DF' => 'Distrito Federal',
+                    'ES' => 'Espírito Santo',
+                    'GO' => 'Goiás',
+                    'MA' => 'Maranhão',
+                    'MT' => 'Mato Grosso',
+                    'MS' => 'Mato Grosso do Sul',
+                    'MG' => 'Minas Gerais',
+                    'PR' => 'Paraná',
+                    'PB' => 'Paraíba',
+                    'PA' => 'Pará',
+                    'PE' => 'Pernambuco',
+                    'PI' => 'Piauí',
+                    'RJ' => 'Rio de Janeiro',
+                    'RN' => 'Rio Grande do Norte',
+                    'RS' => 'Rio Grande do Sul',
+                    'RO' => 'Rondônia',
+                    'RR' => 'Roraima',
+                    'SC' => 'Santa Catarina',
+                    'SE' => 'Sergipe',
+                    'SP' => 'São Paulo',
+                    'TO' => 'Tocantins'
+                ),
+                'multiple' => false,
+                'placeholder' => 'Selecione a UF',
+                'label' => 'UF'
+            ))
+            ->add('save', 'submit', array('label' => 'Salvar'))
         ;
     }
     
@@ -28,7 +61,8 @@ class CTPSType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CadpazBundle\Entity\CTPS'
+            'data_class' => 'CadpazBundle\Entity\CTPS',
+            'attr' => ['id' => 'newCtpsForm']
         ));
     }
 
