@@ -12,6 +12,7 @@
     use CadpazBundle\Entity\Endereco;
     use CadpazBundle\Entity\Caso;
     use CadpazBundle\Entity\User;
+    use CadpazBundle\Entity\Estado;
 
     class LoadPessoaData implements FixtureInterface
     {
@@ -20,6 +21,45 @@
          */
         public function load(ObjectManager $manager)
         {
+            $estados = array(
+                    'AC' => 'Acre',
+                    'AL' => 'Alagoas',
+                    'AP' => 'Amapá',
+                    'AM' => 'Amazonas',
+                    'BA' => 'Bahia',
+                    'CE' => 'Ceará',
+                    'DF' => 'Distrito Federal',
+                    'ES' => 'Espírito Santo',
+                    'GO' => 'Goiás',
+                    'MA' => 'Maranhão',
+                    'MT' => 'Mato Grosso',
+                    'MS' => 'Mato Grosso do Sul',
+                    'MG' => 'Minas Gerais',
+                    'PR' => 'Paraná',
+                    'PB' => 'Paraíba',
+                    'PA' => 'Pará',
+                    'PE' => 'Pernambuco',
+                    'PI' => 'Piauí',
+                    'RJ' => 'Rio de Janeiro',
+                    'RN' => 'Rio Grande do Norte',
+                    'RS' => 'Rio Grande do Sul',
+                    'RO' => 'Rondônia',
+                    'RR' => 'Roraima',
+                    'SC' => 'Santa Catarina',
+                    'SE' => 'Sergipe',
+                    'SP' => 'São Paulo',
+                    'TO' => 'Tocantins'
+                );
+            foreach ( array_keys($estados) as $key  )
+            {
+                $estado = new Estado();
+                $estado->setNome($estados[$key]);
+                $estado->setUf($key);
+                $manager->persist($estado);
+            }
+            
+            
+            
             $pessoa = new Pessoa();
             $pessoa->setNome('João Carlos da Silva');
             $pessoa->setCpf('11111111111');

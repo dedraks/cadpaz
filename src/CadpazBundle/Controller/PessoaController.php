@@ -345,6 +345,16 @@ class PessoaController extends Controller
             $ctps = new CTPS();
         }
         
+        $repository = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Estado');
+        $estados = $repository->findAll();
+        $ufs = array();
+        foreach ($estados as $es) 
+        {
+            $ufs[$es->getUf()] = $es->getNome();
+        }
+        
+        //dump($ufs);
         
         $ctps->setPessoa($pessoa);
         $form = $this->createForm(new CTPSType(), $ctps);

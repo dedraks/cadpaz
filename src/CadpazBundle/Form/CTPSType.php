@@ -5,6 +5,8 @@ namespace CadpazBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\EntityRepository;
 
 class CTPSType extends AbstractType
 {
@@ -14,43 +16,18 @@ class CTPSType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        
         $builder
             ->add('numero')
             ->add('serie')
-            ->add('uf', 'choice', array(
-                'choices' => array(
-                    'AC' => 'Acre',
-                    'AL' => 'Alagoas',
-                    'AP' => 'Amapá',
-                    'AM' => 'Amazonas',
-                    'BA' => 'Bahia',
-                    'CE' => 'Ceará',
-                    'DF' => 'Distrito Federal',
-                    'ES' => 'Espírito Santo',
-                    'GO' => 'Goiás',
-                    'MA' => 'Maranhão',
-                    'MT' => 'Mato Grosso',
-                    'MS' => 'Mato Grosso do Sul',
-                    'MG' => 'Minas Gerais',
-                    'PR' => 'Paraná',
-                    'PB' => 'Paraíba',
-                    'PA' => 'Pará',
-                    'PE' => 'Pernambuco',
-                    'PI' => 'Piauí',
-                    'RJ' => 'Rio de Janeiro',
-                    'RN' => 'Rio Grande do Norte',
-                    'RS' => 'Rio Grande do Sul',
-                    'RO' => 'Rondônia',
-                    'RR' => 'Roraima',
-                    'SC' => 'Santa Catarina',
-                    'SE' => 'Sergipe',
-                    'SP' => 'São Paulo',
-                    'TO' => 'Tocantins'
-                ),
+            ->add('uf', 'entity', ['class' => 'CadpazBundle:Estado',
+                //'choice_label' => 'nome',
+                //'expanded' => true,
                 'multiple' => false,
                 'placeholder' => 'Selecione a UF',
                 'label' => 'UF'
-            ))
+                ])
             ->add('save', 'submit', array('label' => 'Salvar'))
         ;
     }
