@@ -12,12 +12,13 @@ use CadpazBundle\Entity\Pessoa;
 use CadpazBundle\Entity\Titulo;
 use CadpazBundle\Entity\RG;
 use CadpazBundle\Entity\PIS;
-use CadpazBundle\Entity\CTPS;
+
 
 use CadpazBundle\Form\RGType;
 use CadpazBundle\Form\TituloType;
 use CadpazBundle\Form\PISType;
-use CadpazBundle\Form\CTPSType;
+use CadpazBundle\Form\PessoaType;
+
 
 /**
  * Pessoa Controller
@@ -67,6 +68,8 @@ class PessoaController extends Controller
      */
     public function buscaAction(Request $request)
     {
+        //sleep(2);
+        
         // Obtém o CPF enviado
         $cpf = $request->get('cpf');
         if (!empty($cpf))
@@ -80,10 +83,8 @@ class PessoaController extends Controller
                 ->getRepository('CadpazBundle:Pessoa')
                 ->findOneBy(array('cpf'=>$cpf));
             
-            dump($pessoa);
             
-            if ($pessoa != null)
-                    $pessoa = array($pessoa);
+            
             //return $this->render('CadpazBundle:Pessoa:view.html.twig', array('pessoa' => $pessoa));
 
         }
@@ -152,10 +153,13 @@ class PessoaController extends Controller
         
         // Instancia um objeto do tipo Pessoa
         $pessoa = new Pessoa();
-        //$pessoa->setCpf($cpf);
+        $pessoa->setCpf($cpf);
+        dump($pessoa);
         
         // Chama a funcao para criar o formulário
-        $form = $this->createPessoaForm($pessoa, $cpf);
+        //$form = $this->createPessoaForm($pessoa, $cpf);
+        
+        $form = $this->createForm(new PessoaType(), $pessoa);
 
         // Manipula os dados enviados pelo formulário
         $form->handleRequest($request);
@@ -198,9 +202,42 @@ class PessoaController extends Controller
      * @param int $id O id do registro
      * @return Response Uma instancia de Response
      */
-    public function editAction(/*Request $request, int $id*/)
+    public function editAction(Request $request, $id)
     {
-        return $this->render('CadpazBundle:Pessoa:index.html.twig');
+        $pessoa = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Pessoa')
+                ->find($id);
+        
+        dump($id);
+        dump($pessoa);
+        $cpf = $pessoa->getCpf();
+        
+        // Chama a funcao para criar o formulário
+        //$form = $this->createPessoaForm($pessoa, $cpf);
+        $form = $this->createForm(new PessoaType(), $pessoa);
+        
+        
+
+        // Manipula os dados enviados pelo formulário
+        $form->handleRequest($request);
+
+        // Se forem válidos, executa as operações no BD e exibe os
+        // dados salvos
+        if ($form->isValid()) {
+            // perform some action, such as saving the task to the database
+            $em = $this->getDoctrine()->getManager();
+            //$pessoa->setDataCadastro(new \DateTime());
+            //$em->merge($pessoa);
+            
+            
+            
+            $em->flush();
+            
+
+            return $this->render('CadpazBundle:Pessoa:view.html.twig', array('pessoa' => $pessoa));
+        }
+        
+        return $this->render('CadpazBundle:Pessoa:edit.html.twig',array('form' => $form->createView(),'cpf'=>$cpf, 'id'=>$pessoa->getId()));
     }
     
     /**
@@ -331,52 +368,6 @@ class PessoaController extends Controller
         return $this->render('CadpazBundle:Pessoa:newPIS.html.twig',array('form' => $form->createView(),'id'=>$id));
     }
 
-    public function newCtpsAction($id, Request $request)
-    {
-        //$pis = new PIS();
-        $pessoa = $this->getDoctrine()
-            ->getRepository('CadpazBundle:Pessoa')
-            ->find($id);
-        
-        $ctps = $pessoa->getCtps();
-        
-        if ($ctps == null)
-        {
-            $ctps = new CTPS();
-        }
-        
-        $repository = $this->getDoctrine()
-            ->getRepository('CadpazBundle:Estado');
-        $estados = $repository->findAll();
-        $ufs = array();
-        foreach ($estados as $es) 
-        {
-            $ufs[$es->getUf()] = $es->getNome();
-        }
-        
-        //dump($ufs);
-        
-        $ctps->setPessoa($pessoa);
-        $form = $this->createForm(new CTPSType(), $ctps);
-        
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            
-            $em = $this->getDoctrine()->getManager();
-            //$titulo->setDataEmissao(new \DateTime());
-            $em->persist($ctps);
-            $em->flush();
-            
-
-            $pessoa->setCtps($ctps);
-            return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
-        }
-        
-        
-        return $this->render('CadpazBundle:Pessoa:newCTPS.html.twig',array('form' => $form->createView(),'id'=>$id));
-    }
-    
-
     /**
      * Cria o formulario
      * 
@@ -393,7 +384,7 @@ class PessoaController extends Controller
             $anos[$i] = $i;
         }
         
-        if ($pessoa->getCpf() == "")
+        if ($pessoa->getCpf() == null)
             $pessoa->setCpf($cpf);
         
         

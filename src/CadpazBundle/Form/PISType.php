@@ -19,6 +19,7 @@ class PISType extends AbstractType
             ->add('dataEmissao', 'date', [
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
+                'label' => 'Data de Emissão',
                 'attr' => [
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',
@@ -26,7 +27,9 @@ class PISType extends AbstractType
                     'data-date-language' => 'pt-BR',
                     'data-date-class' => 'date',
                     'data-date-autoclose' => 'true',
-                    'data-date-startView' => '2'
+                    'data-date-startView' => '2',
+                    'autocomplete' => 'off',
+                    'onKeyDown' => 'return false'
                 ]
             ])
             ->add('save', 'submit', array('label' => 'Salvar'))

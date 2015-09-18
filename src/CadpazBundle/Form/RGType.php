@@ -19,6 +19,7 @@ class RGType extends AbstractType
             ->add('dataExpedicao', 'date', [
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
+                'label' => 'Data de Expedição',
                 'attr' => [
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',

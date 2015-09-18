@@ -1,0 +1,26 @@
+<div id="newForm" style="background: #EEE">
+    {{ form_start(form) }}
+    CPF: {{ cpf }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    <script>
+
+        function showNewResponse(responseText, statusText, xhr, $form)  { 
+
+                $("#userDetails").html(responseText);
+                $("#userDetails").hide();
+                $("#userDetails").css('visibility','visible');
+                $("#userDetails").slideUp(400);
+                $("#userDetails").delay(600).slideDown(400);
+            }
+
+        var options1 = {
+          success: showNewResponse,
+          type: 'post',
+          url: Routing.generate('pessoa_edit', {id:{{id}}})
+        };
+        // bind form using 'ajaxForm' 
+        $('#newUserForm').ajaxForm(options1);
+    </script>
+</div>

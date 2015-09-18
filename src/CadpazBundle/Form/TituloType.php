@@ -21,6 +21,7 @@ class TituloType extends AbstractType
             ->add('dataEmissao', 'date', [
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
+                'label' => 'Data de Emissão',
                 'attr' => [
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',
@@ -28,20 +29,19 @@ class TituloType extends AbstractType
                     'data-date-language' => 'pt-BR',
                     'data-date-class' => 'date',
                     'data-date-autoclose' => 'true',
-                    'data-date-startView' => '2'
+                    'data-date-startView' => '2',
+                    'autocomplete' => 'off',
+                    'onKeyDown' => 'return false'
                 ]
             ])
             ->add('municipio')
-            ->add('uf', 'choice', array(
-                'choices' => array(
-                    'AM'   => 'Amazonas',
-                    'AP' => 'Amapá',
-                    'MG' => 'Minas Gerais'
-                ),
+            ->add('uf', 'entity', ['class' => 'CadpazBundle:Estado',
+                'choice_label' => 'nome',
+                //'expanded' => true,
                 'multiple' => false,
                 'placeholder' => 'Selecione a UF',
                 'label' => 'UF'
-            ))
+                ])
             ->add('save', 'submit', array('label' => 'Salvar'))
             //->setDisabled(true);
         ;

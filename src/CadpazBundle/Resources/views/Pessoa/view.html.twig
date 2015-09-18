@@ -9,7 +9,11 @@
     <div class="tab-content">
         <div id="tab1" class="tab active"> {# Tab principal #}
             
-    <strong>Dados Pessoais</strong><br />
+    <strong>Dados Pessoais</strong>
+        {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
+        <a id="editlink" href="{{ path('pessoa_edit', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
+        {% endimage %}
+    <br />
     Nome: {{ pessoa.nome }}<br />
     Data de nascimento: {{ pessoa.dataNascimento|date('d/m/Y') }}<br />
     Email: {{ pessoa.email }}<br />
@@ -31,7 +35,10 @@
         {% endimage %}
     {% else %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
-        <a id="rg" href="{{ path('pessoa_rg_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+        <a id="rg" href="{{ path('pessoa_rg_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
+        {% endimage %} 
+        {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+        <a id="rg_del" class="confirm" href="{{ path('pessoa_rg_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.rg.numero }}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Data de expedição: {{ pessoa.rg.dataExpedicao | date('d/m/Y') }}<br />
@@ -46,7 +53,10 @@
         {% endimage %}
     {% else %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
-        <a id="te" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+        <a id="te" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
+        {% endimage %}
+        {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+        <a id="te_del" href="{{ path('pessoa_titulo_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.titulo.numero | default("Não cadastrado")}}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Zona: {{ pessoa.titulo.zona | default("Não cadastrado")}}<br />
@@ -78,7 +88,10 @@
         {% endimage %}
     {% else %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
-        <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+        <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
+        {% endimage %}
+        {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+        <a id="ctps_del" href="{{ path('pessoa_ctps_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.ctps.numero | default("Não cadastrado")}}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Série: {{ pessoa.ctps.serie | default("Não cadastrado")}}<br />
@@ -171,6 +184,8 @@
 </div>
 
 <script>
+    //$(".confirm").confirm();
+    
     jQuery('.tabs .tab-links a').on('click', function(e)  {
         var currentAttrValue = jQuery(this).attr('href');
  
@@ -188,10 +203,10 @@
             }, 1200);*/
     });
     
-    
     jQuery('#te, #rg, #pis, #ctps').on('click', function(e) {
         
         //$("#userDetails").slideUp('fast');
+        
         
         var elemento = "#"+$(this).attr('id')+"_area";
         
@@ -203,17 +218,62 @@
                 //data: {'cpf': $("#cpf").val()},
                 success: function(result) {
                     
-                    
-                    //alert(elemento);
-                    
                     $(elemento).html(result);
-                    //$("#userDetails").slideDown('fast');
-                    // $("#userDetails").css('visibility','visible');
-                    //alert(result);
                 }
         });
 
         e.preventDefault();
     });
     
+
+    
+    jQuery('#te_del, #rg_del, #ctps_del').on('click', function(e) {
+       
+       e.preventDefault();
+       
+       var $href = $(this).attr('href');
+       
+        Ply.dialog("confirm", "Tem certeza?")
+            .done(function (ui) {
+                // OK
+                    })
+            .fail(function (ui) {
+                // Cancel
+            })
+            .always(function (ui) {
+                if (ui.state) {
+                    // Clicked "OK"
+                    $.ajax({
+                            url: $href,
+                                //method: 'POST',
+                                //data: {'cpf': $("#cpf").val()},
+                                success: function(result) {
+
+                                    $("#userDetails").html(result);
+                                }
+                        });
+                }
+                else {
+                    // Clicked "Cancel"
+                    //   details: `ui.by` — "cancel", "overlay", "esc", "x"
+                }
+            });
+       
+        
+        
+
+        e.preventDefault();
+    });
+    
+    $("#editlink").click(function(e) {
+                        e.preventDefault();
+                        $.ajax({
+                            url: $(this).attr('href'),
+                            method: 'POST',
+                            //data: {'cpf': $("#cpf").val()},
+                            success: function(result) {
+                                $("#userDetails").html(result);
+                            }
+                        });
+                    });
 </script>

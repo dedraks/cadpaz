@@ -22,7 +22,7 @@ class CTPSType extends AbstractType
             ->add('numero')
             ->add('serie')
             ->add('uf', 'entity', ['class' => 'CadpazBundle:Estado',
-                //'choice_label' => 'nome',
+                'choice_label' => 'nome',
                 //'expanded' => true,
                 'multiple' => false,
                 'placeholder' => 'Selecione a UF',

@@ -20,6 +20,12 @@ pessoa_new:
     defaults: { _controller: CadpazBundle:Pessoa:new }
     options:
         expose: true
+        
+pessoa_edit:
+    path:     /pessoa/{id}/edit
+    defaults: { _controller: CadpazBundle:Pessoa:edit }
+    options:
+        expose: true
 
 pessoa_view:
     path:     /pessoa/{id}/view
@@ -33,11 +39,24 @@ pessoa_titulo_new:
     options:
         expose: true
         
+pessoa_titulo_del:
+    path:     /pessoa/{id}/titulo/del
+    defaults: { _controller: CadpazBundle:Titulo:delete }
+    options:
+        expose: true
+        
 pessoa_rg_new:
     path:     /pessoa/{id}/rg/new
     defaults: { _controller: CadpazBundle:Pessoa:newRg }
     options:
         expose: true
+
+pessoa_rg_del:
+    path:     /pessoa/{id}/rg/del
+    defaults: { _controller: CadpazBundle:RG:delete }
+    options:
+        expose: true
+        
         
 pessoa_pis_new:
     path:     /pessoa/{id}/pis/new
@@ -47,7 +66,13 @@ pessoa_pis_new:
         
 pessoa_ctps_new:
     path:     /pessoa/{id}/ctps/new
-    defaults: { _controller: CadpazBundle:Pessoa:newCtps }
+    defaults: { _controller: CadpazBundle:CTPS:newCtps }
+    options:
+        expose: true
+
+pessoa_ctps_del:
+    path:     /pessoa/{id}/ctps/del
+    defaults: { _controller: CadpazBundle:CTPS:delete }
     options:
         expose: true
 
