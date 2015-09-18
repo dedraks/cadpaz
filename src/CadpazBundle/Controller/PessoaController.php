@@ -84,7 +84,7 @@ class PessoaController extends Controller
                 ->findOneBy(array('cpf'=>$cpf));
             
             
-            
+            $pessoas = $pessoa == null? $pessoa: [0=>$pessoa];
             //return $this->render('CadpazBundle:Pessoa:view.html.twig', array('pessoa' => $pessoa));
 
         }
@@ -112,15 +112,15 @@ class PessoaController extends Controller
                 )->setParameter('nome', '%'.$nome.'%');
 
                 // Atribui o resultado da consulta para a variável pessoa
-                $pessoa = $query->getResult();
+                $pessoas = $query->getResult();
             
             //dump($pessoa);
             
         }
         //sleep(1);
-        
+        //dump($pessoa);
         // Renderiza um template com os clientes encontrados
-        return $this->render('CadpazBundle:Pessoa:list.html.twig', array('pessoas' => $pessoa));
+        return $this->render('CadpazBundle:Pessoa:list.html.twig', array('pessoas' => $pessoas));
         
         
         // Converte o resultado da consulta para json e retorna

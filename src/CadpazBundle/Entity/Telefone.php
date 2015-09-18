@@ -45,7 +45,7 @@ class Telefone
     /**
      * @var string
      *
-     * @ORM\Column(name="obs", type="text")
+     * @ORM\Column(name="obs", type="text", nullable=true)
      */
     private $obs;
 

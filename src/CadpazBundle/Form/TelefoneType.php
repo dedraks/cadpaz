@@ -15,11 +15,12 @@ class TelefoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('padrao')
+            ->add('padrao', 'checkbox', ['required' => false, 'readonly' => $readonly])
             ->add('numero')
             ->add('tipo')
-            ->add('obs')
-            ->add('pessoa')
+            ->add('obs', 'textarea', ['required' => false])
+            //->add('pessoa')
+            ->add('save', 'submit', array('label' => 'Salvar'))
         ;
     }
     
@@ -29,7 +30,8 @@ class TelefoneType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CadpazBundle\Entity\Telefone'
+            'data_class' => 'CadpazBundle\Entity\Telefone',
+            'attr' => ['id' => 'newTelefoneForm','padrao'=>false]
         ));
     }
 

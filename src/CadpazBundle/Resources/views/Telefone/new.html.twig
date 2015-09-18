@@ -1,0 +1,44 @@
+<div class="meio">
+<strong>Telefone</strong>
+<div class="spacer"></div>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+<a class="cancel" href="#">Cancelar</a>
+</div>
+
+<script>
+
+        function showNewTelefoneResponse(responseText, statusText, xhr, $form)  { 
+
+
+
+
+                $("#userDetails").html(responseText);
+                //$("#userDetails").hide();
+                //$("#userDetails").css('visibility','visible');
+                //$("#userDetails").slideUp(400);
+                //$("#userDetails").delay(600).slideDown(400);
+            }
+
+        var optionsTelefone = {
+          success: showNewTelefoneResponse,
+          type: 'post',
+          url: Routing.generate('telefone_new',{'pessoa_id':{{id}}})
+        };
+        // bind form using 'ajaxForm' 
+        $('#newTelefoneForm').ajaxForm(optionsTelefone);
+        
+        jQuery('.cancel').on('click', function(e) {
+        
+            //$("#userDetails").slideUp('fast');
+            $("#userDetails").html(window.userDetails);
+            //$("#userDetails").slideDown('fast');
+
+            e.preventDefault();
+        });
+        jQuery(function($){
+                $("#cadpazbundle_telefone_numero").mask("(99) 9999-9999?9",{placeholder:"(__) ____-_____"});
+            });
+    </script>

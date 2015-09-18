@@ -111,17 +111,20 @@
         <div id="tab2" class="tab">
             
                 <strong>Telefones</strong><br />
+                <div id="telefone_area">
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
-                <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+                <a id="telefone" href="{{ path('telefone_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
                 {% endimage %}
                 {% for telefone in pessoa.telefones %}
                     <div class="example" style="visibility: visible; width: 96%; padding-bottom: 15px;  background: #ddf;">
                         Numero: {{ telefone.numero }}<br />
                         Tipo: {{ telefone.tipo }}<br />
+                        Padrão: {% if telefone.padrao %}Sim{% else %}Não{% endif %}<br />
                         Obs: {{ telefone.obs }}
                     </div>
                     <div class="spacer"></div>
                 {% endfor %}
+                </div>
                 <div class="spacer"></div>
                 <strong>Endereços</strong><br />
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
@@ -203,7 +206,7 @@
             }, 1200);*/
     });
     
-    jQuery('#te, #rg, #pis, #ctps').on('click', function(e) {
+    jQuery('#te, #rg, #pis, #ctps, #telefone').on('click', function(e) {
         
         //$("#userDetails").slideUp('fast');
         

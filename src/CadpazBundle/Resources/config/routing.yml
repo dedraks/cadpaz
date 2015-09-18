@@ -89,6 +89,14 @@ ctps_new:
 
 # Fim das rotas pra o controlador CTPS
 
+# Rotas para o controlador Telefone
+telefone_new:
+    path:     /telefone/{pessoa_id}/new
+    defaults: { _controller: CadpazBundle:Telefone:new }
+    options:
+        expose: true
+# Fim das rotas para o controlador Telefone
+
 # Rotas para o controlador Questionario
 # Fim das rotas para o controlador Questionario
 
