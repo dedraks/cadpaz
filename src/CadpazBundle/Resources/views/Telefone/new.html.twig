@@ -1,5 +1,5 @@
 <div class="meio">
-<strong>Telefone</strong>
+{#<strong>Telefone</strong>#}
 <div class="spacer"></div>
 
 {{ form_start(form) }}
@@ -7,7 +7,7 @@
 {{ form_end(form) }}
 <a class="cancel" href="#">Cancelar</a>
 </div>
-
+{# {{ ro }} #}
 <script>
 
         function showNewTelefoneResponse(responseText, statusText, xhr, $form)  { 
@@ -21,9 +21,14 @@
                 //$("#userDetails").slideUp(400);
                 //$("#userDetails").delay(600).slideDown(400);
             }
+         
+        function beforeSubmitTelefoneForm(formData, jqForm, options) {
+            //alert(jqForm[0]);
+        }
 
         var optionsTelefone = {
           success: showNewTelefoneResponse,
+          beforeSubmit: beforeSubmitTelefoneForm,
           type: 'post',
           url: Routing.generate('telefone_new',{'pessoa_id':{{id}}})
         };

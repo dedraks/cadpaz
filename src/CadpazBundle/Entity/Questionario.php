@@ -162,7 +162,7 @@ class Questionario
     /**
      * @var string
      *
-     * @ORM\Column(name="escolaridade", type="boolean", length=100)
+     * @ORM\Column(name="escolaridade", type="string", length=100)
      */
     private $escolaridade;
     // Exibir ComboBox com opções pré definidas

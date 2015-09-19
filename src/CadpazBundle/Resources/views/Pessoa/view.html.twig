@@ -111,6 +111,7 @@
         <div id="tab2" class="tab">
             
                 <strong>Telefones</strong><br />
+                <div id="new_telefone_area"></div>
                 <div id="telefone_area">
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
                 <a id="telefone" href="{{ path('telefone_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
@@ -160,9 +161,14 @@
         </div>
  
         <div id="tab3" class="tab">
-            <div class="example" style="visibility: visible; background: #eee; width: 96% ">
-                <p>Tab #3 content goes here!</p>
-                <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum ri.</p>
+            <div id="questionario_area">
+                {% if pessoa.questionario is null %}
+                    
+                        {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
+                        <a id="questionario" href="{{ path('questionario_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+                        {% endimage %}
+                    
+                {% endif %}
             </div>
         </div>
  
@@ -206,12 +212,14 @@
             }, 1200);*/
     });
     
-    jQuery('#te, #rg, #pis, #ctps, #telefone').on('click', function(e) {
+    jQuery('#te, #rg, #pis, #ctps, #telefone, #questionario').on('click', function(e) {
         
         //$("#userDetails").slideUp('fast');
         
         
         var elemento = "#"+$(this).attr('id')+"_area";
+        
+
         
         window.userDetails = $("#userDetails").html();
         

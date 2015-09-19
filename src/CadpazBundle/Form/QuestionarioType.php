@@ -15,14 +15,23 @@ class QuestionarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('moradia')
-            ->add('moraSozinho')
-            ->add('moraComFilhos')
-            ->add('moraComPaiMae')
-            ->add('moraComIrmaos')
-            ->add('moraComConjuge')
-            ->add('moraComParentesAmigosColegas')
-            ->add('moraComOutraSituacao')
+            ->add('moradia', 'choice', array(
+                'choices' => array(
+                    'Própria quitada',
+                    'Própria financiada',
+                    'Aluguada',
+                    'Habitação coletiva',
+                    'Cedida',
+                    'Outra'),
+                'label'=>'Tipo de moradia'
+            ))
+            ->add('moraSozinho', 'checkbox', ['required'=>false])
+            ->add('moraComFilhos', 'checkbox', ['required'=>false])
+            ->add('moraComPaiMae', 'checkbox', ['label'=>'Mora com pai e/ou mãe'], ['required'=>false])
+            ->add('moraComIrmaos', 'checkbox', ['required'=>false])
+            ->add('moraComConjuge', 'checkbox', ['required'=>false])
+            ->add('moraComParentesAmigosColegas', 'checkbox', ['label'=>'Mora com parentes e/ou amigos e/ou colegas'], ['required'=>false])
+            ->add('moraComOutraSituacao', 'checkbox', ['label'=>'Outra situação', 'required'=>false])
             ->add('quantasPessoasMoramNaCasa')
             ->add('numeroDeFilhos')
             ->add('moradiaTemColetaDeLixo')
@@ -32,7 +41,15 @@ class QuestionarioType extends AbstractType
             ->add('moradiaTemAguaEncanada')
             ->add('moradiaSituadaEmComunidadeQuilombolaOuIndigena')
             ->add('moradiaTemEletricidade')
-            ->add('tipoDeMoradia')
+            ->add('tipoDeMoradia', 'choice', array(
+                'choices' => array(
+                    'Casa',
+                    'Barracão',
+                    'Apartamento',
+                    'Galpão',
+                    ),
+                'label'=>'Tipo de moradia'
+            ))
             ->add('escolaridade')
             ->add('estudaAtualmente')
             ->add('temInteresseEmVoltarAEstudar')
@@ -78,7 +95,8 @@ class QuestionarioType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CadpazBundle\Entity\Questionario'
+            'data_class' => 'CadpazBundle\Entity\Questionario',
+            'attr' => ['id' => 'newQuestionarioForm'],
         ));
     }
 

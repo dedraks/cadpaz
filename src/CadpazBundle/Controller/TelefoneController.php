@@ -28,7 +28,7 @@ class TelefoneController extends Controller
         }
         
         $telefone->setPessoa($pessoa);
-        $form = $this->createForm(new TelefoneType(), $telefone);
+        $form = $this->createForm(new TelefoneType(), $telefone, ['ro'=>$ro]);
         
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -60,6 +60,6 @@ class TelefoneController extends Controller
         }
         
         
-        return $this->render('CadpazBundle:Telefone:new.html.twig',array('form' => $form->createView(),'id'=>$pessoa_id, 'readonlu'=>$ro));
+        return $this->render('CadpazBundle:Telefone:new.html.twig',array('form' => $form->createView(),'id'=>$pessoa_id, 'ro'=>$ro));
     }
 }
