@@ -4,14 +4,17 @@
 
     <div class="spacer"></div>
 
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    
 <div id="questionario_composicao_familiar" style="border: 1px solid">
     <strong>COMPOSIÇÃO FAMILIAR / HABITAÇÃO</strong><hr>
-    <strong>Como você mora atualmente</strong>
+    <strong>Como você mora atualmente</strong><br>
     {{ form_label(form.moradia) }}
     {{ form_errors(form.moradia) }}
     {{ form_widget(form.moradia) }}
     <hr>
-    <strong>Quem mora com você</strong>
+    <strong>Quem mora com você</strong><br>
     {{ form_label(form.moraSozinho) }}
     {{ form_errors(form.moraSozinho) }}
     {{ form_widget(form.moraSozinho) }}
@@ -20,7 +23,7 @@
     {{ form_errors(form.moraComFilhos) }}
     {{ form_widget(form.moraComFilhos) }}
     <br>
-    {{ form_label(form.moraComPaiMae) }}
+    {{ form_row(form.moraComPaiMae) }}
     {{ form_errors(form.moraComPaiMae) }}
     {{ form_widget(form.moraComPaiMae) }}
     <br>
@@ -40,17 +43,17 @@
     {{ form_errors(form.moraComOutraSituacao) }}
     {{ form_widget(form.moraComOutraSituacao) }}
     <hr>
-    <strong>Quantas pessoas moram na casa</strong>
+    <strong>Quantas pessoas moram na casa</strong><br>
     {{ form_label(form.quantasPessoasMoramNaCasa) }}
     {{ form_errors(form.quantasPessoasMoramNaCasa) }}
     {{ form_widget(form.quantasPessoasMoramNaCasa) }}
     <hr>
-    <strong>Quantos filhos voce tem</strong>
+    <strong>Quantos filhos voce tem</strong><br>
     {{ form_label(form.numeroDeFilhos) }}
     {{ form_errors(form.numeroDeFilhos) }}
     {{ form_widget(form.numeroDeFilhos) }}
     <hr>
-    <strong>Como e onde é a casa</strong>
+    <strong>Como e onde é a casa</strong><br>
     {{ form_label(form.moradiaTemColetaDeLixo) }}
     {{ form_errors(form.moradiaTemColetaDeLixo) }}
     {{ form_widget(form.moradiaTemColetaDeLixo) }}
@@ -79,7 +82,7 @@
     {{ form_errors(form.moradiaTemEletricidade) }}
     {{ form_widget(form.moradiaTemEletricidade) }}
     <hr>
-    <strong>Tipo de moradia</strong>
+    <strong>Tipo de moradia</strong><br>
     {{ form_label(form.tipoDeMoradia) }}
     {{ form_errors(form.tipoDeMoradia) }}
     {{ form_widget(form.tipoDeMoradia) }}
@@ -100,7 +103,7 @@
     {{ form_label(form.temInteresseEmVoltarAEstudar) }}
     {{ form_errors(form.temInteresseEmVoltarAEstudar) }}
     {{ form_widget(form.temInteresseEmVoltarAEstudar) }}
-    <br><hr>
+    <hr>
     {{ form_label(form.temFilhosEmIdadeEscolar) }}
     {{ form_errors(form.temFilhosEmIdadeEscolar) }}
     {{ form_widget(form.temFilhosEmIdadeEscolar) }}
@@ -111,38 +114,152 @@
 </div>
 <div class="spacer"></div>
 
-    {{ form_label(form.moraComIrmaos) }}
-    {{ form_errors(form.moraComIrmaos) }}
-    {{ form_widget(form.moraComIrmaos) }}
+<div id="questinario_saude" style="border: 1px solid"> 
+    <strong>Saúde</strong><hr>
+    <strong>Tem alguma deficiência</strong><br>
+    {{ form_label(form.deficienciaFisica) }}
+    {{ form_errors(form.deficienciaFisica) }}
+    {{ form_widget(form.deficienciaFisica) }}
     <br>
-    {{ form_label(form.moraComIrmaos) }}
-    {{ form_errors(form.moraComIrmaos) }}
-    {{ form_widget(form.moraComIrmaos) }}
+    {{ form_label(form.deficienciaAuditiva) }}
+    {{ form_errors(form.deficienciaAuditiva) }}
+    {{ form_widget(form.deficienciaAuditiva) }}
     <br>
-    {{ form_label(form.moraComIrmaos) }}
-    {{ form_errors(form.moraComIrmaos) }}
-    {{ form_widget(form.moraComIrmaos) }}
+    {{ form_label(form.deficienciaMental) }}
+    {{ form_errors(form.deficienciaMental) }}
+    {{ form_widget(form.deficienciaMental) }}
     <br>
-    {{ form_label(form.moraComIrmaos) }}
-    {{ form_errors(form.moraComIrmaos) }}
-    {{ form_widget(form.moraComIrmaos) }}
+    {{ form_label(form.deficienciaVisual) }}
+    {{ form_errors(form.deficienciaVisual) }}
+    {{ form_widget(form.deficienciaVisual) }}
+    <hr>
+    <strong>Faz ou fez acompanhamento</strong><br>
+    {{ form_label(form.fezOuFazAcompanhamentoNeurologico) }}
+    {{ form_errors(form.fezOuFazAcompanhamentoNeurologico) }}
+    {{ form_widget(form.fezOuFazAcompanhamentoNeurologico) }}
     <br>
-    {{ form_label(form.moraComIrmaos) }}
-    {{ form_errors(form.moraComIrmaos) }}
-    {{ form_widget(form.moraComIrmaos) }}
+    {{ form_label(form.fezOuFazAcompanhamentoPisicologico) }}
+    {{ form_errors(form.fezOuFazAcompanhamentoPisicologico) }}
+    {{ form_widget(form.fezOuFazAcompanhamentoPisicologico) }}
     <br>
-    {{ form_label(form.moraComIrmaos) }}
-    {{ form_errors(form.moraComIrmaos) }}
-    {{ form_widget(form.moraComIrmaos) }}
+    {{ form_label(form.fezOuFazOutrosAcompanhamentos) }}
+    {{ form_errors(form.fezOuFazOutrosAcompanhamentos) }}
+    {{ form_widget(form.fezOuFazOutrosAcompanhamentos) }}
     <br>
-    {{ form_label(form.moraComIrmaos) }}
-    {{ form_errors(form.moraComIrmaos) }}
-    {{ form_widget(form.moraComIrmaos) }}
+    {{ form_label(form.fezOuFazOutrosAcompanhamentosQuais) }}
+    {{ form_errors(form.fezOuFazOutrosAcompanhamentosQuais) }}
+    {{ form_widget(form.fezOuFazOutrosAcompanhamentosQuais) }}
+    <hr>
+    <strong>Faz uso de medicamento constante</strong><br>
+    {{ form_label(form.fazUsoDeMedicacaoConstante) }}
+    {{ form_errors(form.fazUsoDeMedicacaoConstante) }}
+    {{ form_widget(form.fazUsoDeMedicacaoConstante) }}
     <br>
-    {{ form_label(form.moraComIrmaos) }}
-    {{ form_errors(form.moraComIrmaos) }}
-    {{ form_widget(form.moraComIrmaos) }}
+    {{ form_label(form.recebeMedicacaoDaFarmaciaDistrital) }}
+    {{ form_errors(form.recebeMedicacaoDaFarmaciaDistrital) }}
+    {{ form_widget(form.recebeMedicacaoDaFarmaciaDistrital) }}
+    <hr>
+    <strong>Domicílio coberto por UBS (Unidade Básica de Saúde) ou PSF (Programa de Saúde da Família)</strong><br>
+    {{ form_label(form.domicilioCobertoPorUBSOuPSF) }}
+    {{ form_errors(form.domicilioCobertoPorUBSOuPSF) }}
+    {{ form_widget(form.domicilioCobertoPorUBSOuPSF) }}
+    <hr>
+    <strong>Pessoa idosa ou gestante na família</strong><br>
+    {{ form_label(form.pessoaIdosaOuGestanteNaFamilia) }}
+    {{ form_errors(form.pessoaIdosaOuGestanteNaFamilia) }}
+    {{ form_widget(form.pessoaIdosaOuGestanteNaFamilia) }}
+</div>
+<div class="spacer"></div>
+
+<div id="questinario_sitacao_economica" style="border: 1px solid"> 
+    <strong>SITUAÇÃO ECONÔMICA</strong><hr>
+    <strong>Renda familiar aproximada (soma das rendas de todas as pessoas que moram com você)</strong><br>
+    {{ form_label(form.rendaFamiliar) }}
+    {{ form_errors(form.rendaFamiliar) }}
+    {{ form_widget(form.rendaFamiliar) }}
+    <hr>
+    <strong>Algum membro da família participa ou recebe algum dos benefícios social</strong><br>
+    {{ form_label(form.participaOuRecebePETIBolsaCriancaCidada) }}
+    {{ form_errors(form.participaOuRecebePETIBolsaCriancaCidada) }}
+    {{ form_widget(form.participaOuRecebePETIBolsaCriancaCidada) }}
     <br>
+    {{ form_label(form.participaOuRecebeAgenteJovem) }}
+    {{ form_errors(form.participaOuRecebeAgenteJovem) }}
+    {{ form_widget(form.participaOuRecebeAgenteJovem) }}
+    <br>
+    {{ form_label(form.participaOuRecebeBolsaFamilia) }}
+    {{ form_errors(form.participaOuRecebeBolsaFamilia) }}
+    {{ form_widget(form.participaOuRecebeBolsaFamilia) }}
+    <br>
+    {{ form_label(form.participaOuRecebeBCP) }}
+    {{ form_errors(form.participaOuRecebeBCP) }}
+    {{ form_widget(form.participaOuRecebeBCP) }}
+    <br>
+    {{ form_label(form.participaOuRecebeNaoSabe) }}
+    {{ form_errors(form.participaOuRecebeNaoSabe) }}
+    {{ form_widget(form.participaOuRecebeNaoSabe) }}
+    <br>
+    {{ form_label(form.participaOuRecebeNaoRespondeu) }}
+    {{ form_errors(form.participaOuRecebeNaoRespondeu) }}
+    {{ form_widget(form.participaOuRecebeNaoRespondeu) }}
+    <hr>
+    <strong>Condição de trabalho</strong><br>
+    {{ form_label(form.condicaoDeTrabalho) }}
+    {{ form_errors(form.condicaoDeTrabalho) }}
+    {{ form_widget(form.condicaoDeTrabalho) }}
+    <hr>
+    <strong>Despesas mensais</strong><br>
+    {{ form_label(form.despesasMensaisAluguel) }}
+    {{ form_errors(form.despesasMensaisAluguel) }}
+    {{ form_widget(form.despesasMensaisAluguel) }}
+    <br>
+    {{ form_label(form.despesasMensaisPrestacaoHabitacao) }}
+    {{ form_errors(form.despesasMensaisPrestacaoHabitacao) }}
+    {{ form_widget(form.despesasMensaisPrestacaoHabitacao) }}
+    <br>
+    {{ form_label(form.despesasMensaisAgua) }}
+    {{ form_errors(form.despesasMensaisAgua) }}
+    {{ form_widget(form.despesasMensaisAgua) }}
+    <br>
+    {{ form_label(form.despesasMensaisLuz) }}
+    {{ form_errors(form.despesasMensaisLuz) }}
+    {{ form_widget(form.despesasMensaisLuz) }}
+    <br>
+    {{ form_label(form.despesasMensaisTelefone) }}
+    {{ form_errors(form.despesasMensaisTelefone) }}
+    {{ form_widget(form.despesasMensaisTelefone) }}
+    <br>
+    {{ form_label(form.despesasMensaisMedicamentos) }}
+    {{ form_errors(form.despesasMensaisMedicamentos) }}
+    {{ form_widget(form.despesasMensaisMedicamentos) }}
+    <br>
+    {{ form_label(form.despesasMensaisOutras) }}
+    {{ form_errors(form.despesasMensaisOutras) }}
+    {{ form_widget(form.despesasMensaisOutras) }}
+</div>
+<div class="spacer"></div>
+
+<div id="questinario_sitacao_economica" style="border: 1px solid"> 
+    <strong>ENCAMINHAMENTO AO PROJETO</strong><hr>
+    <strong>Por quem foi encaminhado ao projeto</strong><br>
+    {{ form_label(form.encaminhamentoAoProjeto) }}
+    {{ form_errors(form.encaminhamentoAoProjeto) }}
+    {{ form_widget(form.encaminhamentoAoProjeto) }}
+    <hr>
+    <strong>Como ficou sabendo do projeto</strong><br>
+    {{ form_label(form.comoFicouSabendoDoProjeto) }}
+    {{ form_errors(form.comoFicouSabendoDoProjeto) }}
+    {{ form_widget(form.comoFicouSabendoDoProjeto) }}
+</div>
+<div class="spacer"></div>
+<div id="questinario_sitacao_economica" style="border: 1px solid"> 
+    <strong>OBSERVAÇÕES (Fatos informados pelo beneficiário)</strong><hr>
+    {{ form_label(form.observacoes) }}
+    {{ form_errors(form.observacoes) }}
+    {{ form_widget(form.observacoes) }}
+</div>
+    {{ form_row(form.save) }}
+    {{ form_end(form) }}
 
 <div class="spacer"></div>
 

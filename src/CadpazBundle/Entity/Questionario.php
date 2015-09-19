@@ -78,9 +78,9 @@ class Questionario
     private $moraComParentesAmigosColegas;
 
     /**
-     * @var string
+     * @var boolean
      *
-     * @ORM\Column(name="moraComOutraSituacao", type="string", length=100)
+     * @ORM\Column(name="moraComOutraSituacao", type="boolean")
      */
     private $moraComOutraSituacao;
 
