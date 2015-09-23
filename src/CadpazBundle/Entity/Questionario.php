@@ -259,7 +259,7 @@ class Questionario
     /**
      * @var string
      *
-     * @ORM\Column(name="fezOuFazOutrosAcompnhamentosQuais", type="string", length=100)
+     * @ORM\Column(name="fezOuFazOutrosAcompnhamentosQuais", type="string", length=100, nullable=true)
      */
     private $fezOuFazOutrosAcompanhamentosQuais;
     

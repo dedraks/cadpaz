@@ -46,8 +46,8 @@ class PessoaType extends AbstractType
                 'label'    => 'Possui certidão de nascimento?',
                 'required' => false,
             ))
-            ->add('certidaoNascimento', 'checkbox', array(
-                'label'    => 'Possui certidão de nascimento?',
+            ->add('certidaoCasamento', 'checkbox', array(
+                'label'    => 'Possui certidão de casamento?',
                 'required' => false,
             ))
             ->add('cartaoVacina', 'checkbox', array(

@@ -1,13 +1,13 @@
 
 
-     <div style="width: 100%; background: #ddd; font-weight: bold; text-align: center;">Questionário Sócio Econômico</div>
+     <div id="questionario_titulo" style="width: 100%; background: #ddd; font-weight: bold; text-align: center;">Questionário Sócio Econômico</div>
 
     <div class="spacer"></div>
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
     
-<div id="questionario_composicao_familiar" style="border: 1px solid">
+<div id="questionario_1" class="example">
     <strong>COMPOSIÇÃO FAMILIAR / HABITAÇÃO</strong><hr>
     <strong>Como você mora atualmente</strong><br>
     {{ form_label(form.moradia) }}
@@ -87,9 +87,9 @@
     {{ form_errors(form.tipoDeMoradia) }}
     {{ form_widget(form.tipoDeMoradia) }}
 </div>
-<div class="spacer"></div>
+<!--<div class="spacer"></div>-->
 
-<div id="questinario_escolaridade" style="border: 1px solid"> 
+<div id="questionario_2" class="example"> 
     <strong>Escolaridade</strong>
     <hr>
     {{ form_label(form.estudaAtualmente) }}
@@ -112,9 +112,9 @@
     {{ form_errors(form.temFilhosMatriculadosEmEscola) }}
     {{ form_widget(form.temFilhosMatriculadosEmEscola) }}
 </div>
-<div class="spacer"></div>
+<!--<div class="spacer"></div>-->
 
-<div id="questinario_saude" style="border: 1px solid"> 
+<div id="questionario_3" class="example"> 
     <strong>Saúde</strong><hr>
     <strong>Tem alguma deficiência</strong><br>
     {{ form_label(form.deficienciaFisica) }}
@@ -169,9 +169,9 @@
     {{ form_errors(form.pessoaIdosaOuGestanteNaFamilia) }}
     {{ form_widget(form.pessoaIdosaOuGestanteNaFamilia) }}
 </div>
-<div class="spacer"></div>
+<!--<div class="spacer"></div>-->
 
-<div id="questinario_sitacao_economica" style="border: 1px solid"> 
+<div id="questionario_4" class="example"> 
     <strong>SITUAÇÃO ECONÔMICA</strong><hr>
     <strong>Renda familiar aproximada (soma das rendas de todas as pessoas que moram com você)</strong><br>
     {{ form_label(form.rendaFamiliar) }}
@@ -237,9 +237,9 @@
     {{ form_errors(form.despesasMensaisOutras) }}
     {{ form_widget(form.despesasMensaisOutras) }}
 </div>
-<div class="spacer"></div>
+<!--<div class="spacer"></div>-->
 
-<div id="questinario_sitacao_economica" style="border: 1px solid"> 
+<div id="questionario_5" class="example"> 
     <strong>ENCAMINHAMENTO AO PROJETO</strong><hr>
     <strong>Por quem foi encaminhado ao projeto</strong><br>
     {{ form_label(form.encaminhamentoAoProjeto) }}
@@ -251,22 +251,103 @@
     {{ form_errors(form.comoFicouSabendoDoProjeto) }}
     {{ form_widget(form.comoFicouSabendoDoProjeto) }}
 </div>
-<div class="spacer"></div>
-<div id="questinario_sitacao_economica" style="border: 1px solid"> 
+<!--<div class="spacer"></div>-->
+
+<div id="questionario_6" class="example"> 
     <strong>OBSERVAÇÕES (Fatos informados pelo beneficiário)</strong><hr>
     {{ form_label(form.observacoes) }}
     {{ form_errors(form.observacoes) }}
     {{ form_widget(form.observacoes) }}
 </div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<a href="#" id="pagina_voltar" class="btn">Voltar</a>
+<a href="#" id="pagina_avancar" class="btn">Avançar</a>
+<a id="cancelar" class="btn" href="#">Cancelar</a>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+
     {{ form_row(form.save) }}
     {{ form_end(form) }}
 
 <div class="spacer"></div>
+<div class="spacer"></div>
 
-<a class="cancel" href="#">Cancelar</a>
+
 
 
 <script>
+    
+
+    
+    jQuery('#cadpazbundle_questionario_quantasPessoasMoramNaCasa, #cadpazbundle_questionario_numeroDeFilhos').keyup(function (e) { 
+        
+        
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+        
+    });
+    
+    
+    var pagina = 1;
+    var pagina_min = 1;
+    var pagina_max = 6;
+    
+    $("#questionario_2, #questionario_3, #questionario_4, #questionario_5, #questionario_6").hide();
+    $("#pagina_voltar").css('color', 'grey');
+    $("#pagina_voltar").css('cursor', 'default');
+    
+    $("#pagina_avancar").click(function(e){
+       e.preventDefault();
+       
+       
+       if (pagina >= pagina_max) {
+            return;
+       }
+       
+        $("#pagina_voltar").css('color', '#ffffff');
+        $("#pagina_voltar").css('cursor', 'hand');
+       
+       $("#questionario_" + pagina++).slideUp('slow');
+       $("#questionario_" + pagina).slideDown('slow');
+       
+       animar(pagina);
+    });
+    
+    $("#pagina_voltar").click(function(e){
+        e.preventDefault();
+        
+        if (pagina <= pagina_min) {
+            
+            return;
+        }
+        
+        $("#pagina_avancar").css('color', '#ffffff');
+        $("#pagina_avancar").css('cursor', 'hand');
+            
+        $("#questionario_" + pagina--).slideUp('slow');
+        $("#questionario_" + pagina).slideDown('slow');
+        
+        animar(pagina);
+    });
+    
+    function animar(page) {
+        $('html, body').animate({
+            scrollTop: $("#questionario_titulo").offset().top
+        }, 2000);
+        
+        
+        if (page == pagina_min) {
+            $("#pagina_voltar").css('color', 'grey');
+            $("#pagina_voltar").css('cursor', 'default');
+        }
+        else if (page == pagina_max) {
+            $("#pagina_avancar").css('color', 'grey');
+            $("#pagina_avancar").css('cursor', 'default');
+        }
+    }
+    
+    
 
         function showNewQuestionarioResponse(responseText, statusText, xhr, $form)  { 
 
@@ -290,7 +371,7 @@
         
         
         
-        jQuery('.cancel').on('click', function(e) {
+        jQuery('#cancelar').on('click', function(e) {
         
             //$("#userDetails").slideUp('fast');
             $("#userDetails").html(window.userDetails);

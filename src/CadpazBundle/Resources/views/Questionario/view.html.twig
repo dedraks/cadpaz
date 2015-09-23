@@ -1,0 +1,72 @@
+<div style="border: 1px solid">
+    <strong>Composição familiar / Habitação</strong><br>
+    Condição: {{ questionario.moradia }}<br>
+    {% if questionario.moraSozinho %}
+        Mora sozinho
+    {% else %}
+        Mora com:
+        {% if questionario.moraComFilhos %}
+            filhos,
+        {% endif %}
+        {% if questionario.moraComPaiMae %}
+            pai e/ou mãe,
+        {% endif %}
+        {% if questionario.moraComIrmaos %}
+            irmãos,
+        {% endif %}
+        {% if questionario.moraComConjuge %}
+            conjuge,
+        {% endif %}
+        {% if questionario.moraComParentesAmigosColegas %}
+            parentes/amigos/colegas,
+        {% endif %}
+        {% if questionario.moraComOutraSituacao %}
+            outra situação
+        {% endif %}
+    {% endif %}<br>
+    Quantas pessoas moram na casa: {{ questionario.quantasPessoasMoramNaCasa }}<br>
+    Número de filhos: {{ questionario.numeroDeFilhos }}<br>
+    Moradia tem coleta de lixo: {% if questionario.moradiaTemColetaDeLixo %}Sim{% else %}Não{% endif %}<br>
+    Moradia tem rede de esgoto: {% if questionario.moradiaTemRedeDeEsgoto %}Sim{% else %}Não{% endif %}<br>
+    Moradia fica em rua pavimentada: {% if questionario.moradiaTemRuaPavimentada %}Sim{% else %}Não{% endif %}<br>
+    Moradia situada em zona rural: {% if questionario.moradiaSituadaEmZonaRural %}Sim{% else %}Não{% endif %}<br>
+    Moradia tem água encanada: {% if questionario.moradiaTemAguaEncanada %}Sim{% else %}Não{% endif %}<br>
+    Moradia situada em comunidade Quilombola ou Indígena: {% if questionario.moradiaSituadaEmComunidadeQuilombolaOuIndigena %}Sim{% else %}Não{% endif %}<br>
+    Moradia tem eletricidade {% if questionario.moradiaTemEletricidade %}Sim{% else %}Não{% endif %}<br>
+    Tipo de moradia: {{ questionario.tipoDeMoradia }}<br>
+</div>
+<div class="spacer"></div>
+
+<div style="border: 1px solid">
+    <strong>Escolaridade</strong><br>
+    Estuda atualmente: 
+    {{ questionario.estudaAtualmente ? "Sim" : "Não" }}<br>
+    {% if not questionario.estudaAtualmente %}
+        Tem interesse em voltar a estudar: {{ questionario.temInteresseEmVoltarAEstudar }}<br>
+    {% endif %}
+    Escolaridade: {{ questionario.escolaridade }}<br>
+    Tem filhos em idade escolar: {{ questionario.temFilhosEmIdadeEscolar ? 'Sim':'Não' }}<br>
+    {% if questionario.temFilhosEmIdadeEscolar %}
+        Estão matriculados em escola: {{ questionario.temFilhosMatriculadosEmEscola ? "Sim" : "Não" }}<br>
+    {% endif %}
+</div>
+<div class="spacer"></div>
+
+<div style="border: 1px solid">
+    <strong>Saúde</strong><br>
+    {% set deficiente = questionario.deficienciaFisica and questionario.deficienciaAuditiva and questionario.deficienciaMental and deficienciaVisual %}
+    Tem alguma deficiência: {{ deficiente ? "Sim" : "Não<br>" }}
+    {% if deficiente %}
+        {{ questionario.deficienciaFisica ? "Física," : "" }}
+        {{ questionario.deficienciaAuditiva ? "Auditiva," : "" }}
+        {{ questionario.deficienciaMental ? "Mental," : "" }}
+        {{ questionario.deficienciaVisual ? "Visual" : "" }}
+        <br>
+    {% endif %}
+    Fez ou faz acompanhamento neurológico: {{ questionario.fezOuFazAcompanhamentoNeurologico ? "Sim" : "Não" }}<br>
+    Fez ou faz acompanhamento psicológico: {{ questionario.fezOuFazAcompanhamentoPisicologico ? "Sim" : "Não" }}<br>
+    Fez ou faz outros acompanhamentos: {{ questionario.fezOuFazOutrosAcompanhamentos ? "Sim: " : "Não" }}<br>
+    {% if questionario.fezOuFazOutrosAcompanhamentos %}
+        {{ questionario.fezOuFazOutrosAcompanhamentosQuais }}
+    {% endif %}
+</div>

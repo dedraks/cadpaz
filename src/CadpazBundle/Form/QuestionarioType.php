@@ -17,13 +17,15 @@ class QuestionarioType extends AbstractType
         $builder
             ->add('moradia', 'choice', array(
                 'choices' => array(
-                    'Própria quitada',
-                    'Própria financiada',
-                    'Aluguada',
-                    'Habitação coletiva',
-                    'Cedida',
-                    'Outra'),
-                'label'=>'Tipo de moradia'
+                    'Própria quitada'       =>'Própria quitada',
+                    'Própria financiada'    =>'Própria financiada',
+                    'Aluguada'              =>'Aluguada',
+                    'Habitação coletiva'    =>'Habitação coletiva',
+                    'Cedida'                =>'Cedida',
+                    'Outra'                 =>'Outra'
+                ),
+                'label'=>'Tipo de moradia',
+                'placeholder'=>'Informe'
             ))
             ->add('moraSozinho', 'checkbox', ['required'=>false])
             ->add('moraComFilhos', 'checkbox', ['required'=>false])
@@ -43,34 +45,36 @@ class QuestionarioType extends AbstractType
             ->add('moradiaTemEletricidade', 'checkbox', ['required'=>false])
             ->add('tipoDeMoradia', 'choice', array(
                 'choices' => array(
-                    'Casa',
-                    'Barracão',
-                    'Apartamento',
-                    'Galpão',
+                    'Casa'          => 'Casa',
+                    'Barracão'      => 'Barracão',
+                    'Apartamento'   => 'Apartamento',
+                    'Galpão'        => 'Galpão',
                     ),
-                'label'=>'Tipo de moradia'
+                'label'=>'Tipo de moradia',
+                'placeholder'=>'Informe'
             ))
             ->add('escolaridade', 'choice', array(
                 'choices' => array(
-                    'Analfabeto',
-                    '1 Serie - Ensino Fundamental',
-                    '2 Serie - Ensino Fundamental',
-                    '3 Serie - Ensino Fundamental',
-                    '4 Serie - Ensino Fundamental',
-                    '5 Serie - Ensino Fundamental',
-                    '6 Serie - Ensino Fundamental',
-                    '7 Serie - Ensino Fundamental',
-                    '8 Serie - Ensino Fundamental',
-                    'Ensino Fundamental completo',
-                    'Ensino Medio incompleto',
-                    'Ensino Medio completo',
-                    'Superior incompleto',
-                    'Superior completo',
-                    'Pós graduação',
-                    'Mestrado',
-                    'Doutorado'
+                    'Analfabeto'                    => 'Analfabeto',
+                    '1 Serie - Ensino Fundamental'  => '1 Serie - Ensino Fundamental',
+                    '2 Serie - Ensino Fundamental'  => '2 Serie - Ensino Fundamental',
+                    '3 Serie - Ensino Fundamental'  => '3 Serie - Ensino Fundamental',
+                    '4 Serie - Ensino Fundamental'  => '4 Serie - Ensino Fundamental',
+                    '5 Serie - Ensino Fundamental'  => '5 Serie - Ensino Fundamental',
+                    '6 Serie - Ensino Fundamental'  => '6 Serie - Ensino Fundamental',
+                    '7 Serie - Ensino Fundamental'  => '7 Serie - Ensino Fundamental',
+                    '8 Serie - Ensino Fundamental'  => '8 Serie - Ensino Fundamental',
+                    'Ensino Fundamental completo'   => 'Ensino Fundamental completo',
+                    'Ensino Medio incompleto'       => 'Ensino Medio incompleto',
+                    'Ensino Medio completo'         => 'Ensino Medio completo',
+                    'Superior incompleto'           => 'Superior incompleto',
+                    'Superior completo'             => 'Superior completo',
+                    'Pós graduação'                 => 'Pós graduação',
+                    'Mestrado'                      => 'Mestrado',
+                    'Doutorado'                     => 'Doutorado'
                     ),
-                'label'=>'Escolaridade'
+                'label'=>'Escolaridade',
+                'placeholder'=>'Informe'
             ))
             ->add('estudaAtualmente', 'checkbox', ['required'=>false])
             ->add('temInteresseEmVoltarAEstudar', 'checkbox', ['required'=>false])
@@ -83,7 +87,7 @@ class QuestionarioType extends AbstractType
             ->add('fezOuFazAcompanhamentoNeurologico', 'checkbox', ['required'=>false])
             ->add('fezOuFazAcompanhamentoPisicologico', 'checkbox', ['required'=>false])
             ->add('fezOuFazOutrosAcompanhamentos', 'checkbox', ['required'=>false])
-            ->add('fezOuFazOutrosAcompanhamentosQuais')
+            ->add('fezOuFazOutrosAcompanhamentosQuais', 'text', ['required'=>false])
             ->add('fazUsoDeMedicacaoConstante', 'checkbox', ['required'=>false])
             ->add('recebeMedicacaoDaFarmaciaDistrital', 'checkbox', ['required'=>false])
             ->add('domicilioCobertoPorUBSOuPSF', 'checkbox', ['required'=>false])
@@ -95,16 +99,61 @@ class QuestionarioType extends AbstractType
             ->add('participaOuRecebeBCP', 'checkbox', ['required'=>false])
             ->add('participaOuRecebeNaoRespondeu', 'checkbox', ['required'=>false])
             ->add('participaOuRecebeNaoSabe', 'checkbox', ['required'=>false])
-            ->add('condicaoDeTrabalho')
-            ->add('despesasMensaisAluguel')
-            ->add('despesasMensaisPrestacaoHabitacao')
-            ->add('despesasMensaisAgua')
-            ->add('despesasMensaisLuz')
-            ->add('despesasMensaisTelefone')
-            ->add('despesasMensaisMedicamentos')
-            ->add('despesasMensaisOutras')
-            ->add('encaminhamentoAoProjeto')
-            ->add('comoFicouSabendoDoProjeto')
+            ->add('condicaoDeTrabalho', 'choice', array(
+                'choices' => array(
+                    'Assalariado com CTPS'      => 'Assalariado com CTPS',
+                    'Assalariado sem CTPS'      => 'Assalariado sem CTPS',
+                    'Servidor público'          => 'Servidor público',
+                    'Autônomo'                  => 'Autônomo',
+                    'Aposentado/Pensionista'    => 'Aposentado/Pensionista',
+                    'Trabalhador rural'         => 'Trabalhador rural',
+                    'Desempregado'              => 'Desempregado',
+                    'Não trabalha'              => 'Não trabalha'
+                    ),
+                'label'=>'Condição de trabalho',
+                'placeholder'=>'Informe'
+            ))
+            ->add('despesasMensaisAluguel', 'text', ['required'=>false])
+            ->add('despesasMensaisPrestacaoHabitacao', 'text', ['required'=>false])
+            ->add('despesasMensaisAgua', 'text', ['required'=>false])
+            ->add('despesasMensaisLuz', 'text', ['required'=>false])
+            ->add('despesasMensaisTelefone', 'text', ['required'=>false])
+            ->add('despesasMensaisMedicamentos', 'text', ['required'=>false])
+            ->add('despesasMensaisOutras', 'text', ['required'=>false])
+            ->add('encaminhamentoAoProjeto', 'choice', array(
+                'choices' => array(
+                    'CRAS (Casa da Família)'                    => 'CRAS (Casa da Família)',
+                    'Igrejas, Pastorais'                        => 'Igrejas, Pastorais',
+                    'CREAS'                                     => 'CREAS',
+                    'Gerência Regional da Assistência Social'   => 'Gerência Regional da Assistência Social',
+                    'Procura espontânea'                        => 'Procura espontânea',
+                    'Outras entidades sócio-assistenciais'      => 'Outras entidades sócio-assistenciais',
+                    'Busca ativa'                               => 'Busca ativa',
+                    'Escolas'                                   => 'Escolas',
+                    'Serviço de Saúde'                          => 'Serviço de Saúde',
+                    'Outras entidades'                          => 'Outras entidades',
+                    'Forum'                                     => 'Forum',
+                    'Outros'                                    => 'Outros'
+                    ),
+                'label'=>'Encaminhamento ao projeto',
+                'placeholder' => 'Informe'
+            ))
+            ->add('comoFicouSabendoDoProjeto', 'choice', array(
+                'choices' => array(
+                    'Jornal'                        => 'Jornal',
+                    'Igrejas'                       => 'Igrejas',
+                    'Rádio'                         => 'Rádio',
+                    'Internet'                      => 'Internet',
+                    'Panfleto'                      => 'Panfleto',
+                    'Mobilização da universidade'   => 'Mobilização da universidade',
+                    'Boca a Boca'                   => 'Boca a Boca',
+                    'Amigos'                        => 'Amigos',
+                    'Forum'                         => 'Forum',
+                    'Outros'                        => 'Outros'
+                    ),
+                'label'=>'Como ficou sabendo do projeto',
+                'placeholder'=>'Informe'
+            ))
             ->add('observacoes')
             //->add('pessoa')
             ->add('save', 'submit', array('label' => 'Salvar'))

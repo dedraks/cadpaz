@@ -7,12 +7,17 @@
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Questionario/new.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Entity/Questionario.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Pessoa/view.html.twig</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Questionario/view.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Controller/CTPSController.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Telefone/new.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Pessoa/list.html.twig</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/public/css/Ply.css</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/config/routing.yml</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Form/QuestionarioType.php</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/CTPS/view.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Controller/PessoaController.php</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/public/css/geral.css</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Pessoa/new.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Entity/Telefone.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Form/PessoaType.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Form/TelefoneType.php</file>

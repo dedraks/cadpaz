@@ -11,6 +11,17 @@ use CadpazBundle\Form\QuestionarioType;
 
 class QuestionarioController extends Controller
 {
+    public function viewAction($id)
+    {
+        $questionario = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Questionario')
+            ->find($id);
+        
+        dump($questionario);
+        
+        return $this->render('CadpazBundle:Questionario:view.html.twig',  array('questionario'=>$questionario));
+    }
+    
     public function newAction(Request $request, $pessoa_id)
     {
         //$pis = new PIS();
@@ -31,7 +42,7 @@ class QuestionarioController extends Controller
             $em->persist($questinario);
             $em->flush();
 
-            $pessoa->setCtps($ctps);
+            $pessoa->setQuestionario($questinario);
             return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
         }
         
