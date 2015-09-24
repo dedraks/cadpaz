@@ -92,7 +92,19 @@ class QuestionarioType extends AbstractType
             ->add('recebeMedicacaoDaFarmaciaDistrital', 'checkbox', ['required'=>false])
             ->add('domicilioCobertoPorUBSOuPSF', 'checkbox', ['required'=>false])
             ->add('pessoaIdosaOuGestanteNaFamilia', 'checkbox', ['required'=>false])
-            ->add('rendaFamiliar')
+            ->add('rendaFamiliar', 'choice', array(
+                'choices' => array(
+                    'Até 1 salário mínimo'              => 'Até 1 salário mínimo',
+                    '1 a 2 salários mínimos'            => '1 a 2 salários mínimos',
+                    '3 a 5 salários mínimos'            => '3 a 5 salários mínimos',
+                    '6 a 10 salários mínimos'           => '6 a 10 salários mínimos',
+                    '11 a 30 salários mínimos'          => '11 a 30 salários mínimos',
+                    'Acima de 30 salários mínimos'      => 'Acima de 30 salários mínimos',
+                    'Nenuma renda'                      => 'Nenuma renda'
+                    ),
+                'label'=>'Total da renda de todas as pessoas da casa',
+                'placeholder'=>'Informe'
+            ))
             ->add('participaOuRecebePETIBolsaCriancaCidada', 'checkbox', ['required'=>false])
             ->add('participaOuRecebeAgenteJovem', 'checkbox', ['required'=>false])
             ->add('participaOuRecebeBolsaFamilia', 'checkbox', ['required'=>false])
@@ -105,6 +117,7 @@ class QuestionarioType extends AbstractType
                     'Assalariado sem CTPS'      => 'Assalariado sem CTPS',
                     'Servidor público'          => 'Servidor público',
                     'Autônomo'                  => 'Autônomo',
+                    'Bico'                      => 'Bico',
                     'Aposentado/Pensionista'    => 'Aposentado/Pensionista',
                     'Trabalhador rural'         => 'Trabalhador rural',
                     'Desempregado'              => 'Desempregado',

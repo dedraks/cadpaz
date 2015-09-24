@@ -276,6 +276,7 @@ h2 {
   text-decoration: none;
 }
 
+
 .example thead {
     /*margin: 50px auto 50px auto;*/
     background: #ddeeff;
@@ -518,5 +519,6 @@ body.loading .modal {
 
 
 
-
-
+.questionario_secao {
+    border: 1px dotted;
+}

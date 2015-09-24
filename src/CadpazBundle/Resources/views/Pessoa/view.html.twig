@@ -1,3 +1,4 @@
+<h5>{{ pessoa.nome }} (<a id="closeUser" href="#">fechar</a>)</h5>
 <div class="tabs">
     <ul class="tab-links">
         <li class="active"><a href="#tab1">Dados Pessoais</a></li>
@@ -128,14 +129,17 @@
                 </div>
                 <div class="spacer"></div>
                 <strong>Endereços</strong><br />
+                <div id="new_endereco_area"></div>
+                <div id="endereco_area">
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
-                <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+                <a id="endereco" href="{{ path('endereco_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
                 {% endimage %}
                 {% for endereco in pessoa.enderecos %}
                     <div class="example" style="visibility: visible; width: 96%; word-wrap: break-word;  background: #ddf;">
                         {{ endereco.nome }}<br />
                         {{ endereco.logradouro }}, {{ endereco.numero }}<br />
                         {{ endereco.bairro }}<br />
+                        {{ endereco.complemento }}<br />
                         {{ endereco.cep }}<br />
                         {{ endereco.municipio }} - {{ endereco.uf }}<br />
                         {{ endereco.obs }}
@@ -143,6 +147,7 @@
                     </div>
                      <div class="spacer"></div>
                 {% endfor %}
+                </div>
                 {#{% set end = null %}
                 {% for endereco in pessoa.enderecos %}
                     <div class="example" style="visibility: visible; width: 96%; word-wrap: break-word;  background: #ddf;">
@@ -213,7 +218,7 @@
             }, 1200);*/
     });
     
-    jQuery('#te, #rg, #pis, #ctps, #telefone, #questionario').on('click', function(e) {
+    jQuery('#te, #rg, #pis, #ctps, #telefone, #endereco, #questionario').on('click', function(e) {
         
         //$("#userDetails").slideUp('fast');
         
@@ -288,4 +293,10 @@
                             }
                         });
                     });
+                    
+    $("#closeUser").click(function(e) {
+        e.preventDefault();
+        $("#userDetails").html("");
+        $("#userDetails").slideUp("fast");
+    });
 </script>

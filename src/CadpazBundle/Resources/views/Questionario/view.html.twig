@@ -1,4 +1,4 @@
-<div style="border: 1px solid">
+<div class="questionario_secao">
     <strong>Composição familiar / Habitação</strong><br>
     Condição: {{ questionario.moradia }}<br>
     {% if questionario.moraSozinho %}
@@ -37,12 +37,12 @@
 </div>
 <div class="spacer"></div>
 
-<div style="border: 1px solid">
+<div class="questionario_secao">
     <strong>Escolaridade</strong><br>
     Estuda atualmente: 
     {{ questionario.estudaAtualmente ? "Sim" : "Não" }}<br>
     {% if not questionario.estudaAtualmente %}
-        Tem interesse em voltar a estudar: {{ questionario.temInteresseEmVoltarAEstudar }}<br>
+        Tem interesse em voltar a estudar: {{ questionario.temInteresseEmVoltarAEstudar ? 'Sim' : 'Não' }}<br>
     {% endif %}
     Escolaridade: {{ questionario.escolaridade }}<br>
     Tem filhos em idade escolar: {{ questionario.temFilhosEmIdadeEscolar ? 'Sim':'Não' }}<br>
@@ -52,7 +52,7 @@
 </div>
 <div class="spacer"></div>
 
-<div style="border: 1px solid">
+<div class="questionario_secao">
     <strong>Saúde</strong><br>
     {% set deficiente = questionario.deficienciaFisica and questionario.deficienciaAuditiva and questionario.deficienciaMental and deficienciaVisual %}
     Tem alguma deficiência: {{ deficiente ? "Sim" : "Não<br>" }}
@@ -65,8 +65,55 @@
     {% endif %}
     Fez ou faz acompanhamento neurológico: {{ questionario.fezOuFazAcompanhamentoNeurologico ? "Sim" : "Não" }}<br>
     Fez ou faz acompanhamento psicológico: {{ questionario.fezOuFazAcompanhamentoPisicologico ? "Sim" : "Não" }}<br>
-    Fez ou faz outros acompanhamentos: {{ questionario.fezOuFazOutrosAcompanhamentos ? "Sim: " : "Não" }}<br>
+    Fez ou faz outros acompanhamentos: {{ questionario.fezOuFazOutrosAcompanhamentos ? "Sim: " : "Não<br>" }}
     {% if questionario.fezOuFazOutrosAcompanhamentos %}
-        {{ questionario.fezOuFazOutrosAcompanhamentosQuais }}
+        {{ questionario.fezOuFazOutrosAcompanhamentosQuais }}<br>
     {% endif %}
+    Faz uso de medicação constante: {{ questionario.fazUsoDeMedicacaoConstante ? "Sim" : "Não" }}<br>
+    {% if questionario.fazUsoDeMedicacaoConstante %}
+        Recebe os medicamentos da farmácia distrital: {{ questionario.recebeMedicacaoDaFarmaciaDistrital ? "Sim" : "Não" }}<br>
+    {% endif %}
+    Domicílio coberto por UBS ou PSF: {{ questionario.domicilioCobertoPorUBSOuPSF ? "Sim" : "Não" }}<br>
+    Pessoa gestante ou idosa na família: {{ questionario.pessoaIdosaOuGestanteNaFamilia ? "Sim" : "Não" }}<br>
+</div>
+<div class="spacer"></div>
+
+<div class="questionario_secao">
+    <strong>Situação Econômica</strong><br>
+    Renda familiar: {{ questionario.rendaFamiliar }}<br>
+    Algum membro da família participa ou recebe os programas/benefícios sociais abaixo:<br>
+    {% set programas = questionario.participaOuRecebePETIBolsaCriancaCidada or questionario.participaOuRecebeAgenteJovem or questionario.participaOuRecebeBolsaFamilia or questionario.participaOuRecebeBCP %}
+    {% if not programas %}
+        &nbsp;&nbsp;&nbsp;&nbsp;Nenhum
+    {% else %}
+        {{ questionario.participaOuRecebePETIBolsaCriancaCidada ? "&nbsp;&nbsp;&nbsp;&nbsp;PETI bolsa criança cidadã, " : "" }}
+        {{ questionario.participaOuRecebeAgenteJovem ? "&nbsp;&nbsp;&nbsp;&nbsp;Agente jovem, " : "" }}
+        {{ questionario.participaOuRecebeBolsaFamilia ? "&nbsp;&nbsp;&nbsp;&nbsp;Bolsa família, " : "" }}
+        {{ questionario.participaOuRecebeBCP ? "&nbsp;&nbsp;&nbsp;&nbsp;BCP (Benefício de Prestação Continuada)" : "" }}
+    {% endif %}<br>
+    {{ questionario.participaOuRecebeNaoSabe ? "Não sabe<br>" : "" }}
+    {{ questionario.participaOuRecebeNaoRespondeu ? "Nao respondeu<br>" : "" }}
+    Condição de trabalho: {{ questionario.condicaoDeTrabalho }}<br>
+    Despesas mensais<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Aluguel: {{ questionario.despesasMensaisAluguel }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Prestação de habitação: {{ questionario.despesasMensaisPrestacaoHabitacao }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Conta de água: {{ questionario.despesasMensaisAgua }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Conta de luz: {{ questionario.despesasMensaisLuz }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Conta de telefone: {{ questionario.despesasMensaisTelefone }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Medicamentos: {{ questionario.despesasMensaisMedicamentos }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Outras despesas: {{ questionario.despesasMensaisOutras }}<br>
+    &nbsp;&nbsp;Total das despesas: {{ questionario.despesasMensaisAluguel + questionario.despesasMensaisPrestacaoHabitacao + questionario.despesasMensaisAgua + questionario.despesasMensaisLuz + questionario.despesasMensaisTelefone + questionario.despesasMensaisMedicamentos + questionario.despesasMensaisOutras}}<br>
+</div>
+<div class="spacer"></div>
+
+<div class="questionario_secao">
+    <strong>Encaminhamento ao projeto</strong><br>
+    Por quem foi encaminhado ao projeto: {{ questionario.encaminhamentoAoProjeto }}<br>
+    Como ficou sabendo do projeto: {{ questionario.comoFicouSabendoDoProjeto }}
+</div>
+<div class="spacer"></div>
+
+<div class="questionario_secao">
+    <strong>Observações</strong><br>
+    {{ questionario.observacoes }}
 </div>

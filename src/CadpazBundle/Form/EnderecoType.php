@@ -25,7 +25,8 @@ class EnderecoType extends AbstractType
             ->add('cep')
             ->add('uf')
             ->add('obs')
-            ->add('pessoa')
+            //->add('pessoa')
+            ->add('save', 'submit', ['label' => 'Salvar'])
         ;
     }
     
@@ -35,7 +36,9 @@ class EnderecoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CadpazBundle\Entity\Endereco'
+            'data_class' => 'CadpazBundle\Entity\Endereco',
+            'attr' => ['id' => 'newEnderecoForm'],
+            'ro' => false
         ));
     }
 

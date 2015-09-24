@@ -97,6 +97,26 @@ telefone_new:
         expose: true
 # Fim das rotas para o controlador Telefone
 
+# Rotas para o controlador Endereco
+endereco_view:
+    path:     /endereco/{id}/view
+    defaults: { _controller: CadpazBundle:Endereco:view }
+
+endereco_new:
+    path:     /endereco/{pessoa_id}/new
+    defaults: { _controller: CadpazBundle:Endereco:new }
+    options:
+        expose: true
+
+endereco_edit:
+    path:     /endereco/{id}/edit
+    defaults: { _controller: CadpazBundle:Endereco:edit }
+
+endereco_delete:
+    path:     /endereco/{id}/delete
+    defaults: { _controller: CadpazBundle:Endereco:delete }
+# Fim das rotas para o controlador Endereco
+
 # Rotas para o controlador Questionario
 questionario_new:
     path:     /questionario/{pessoa_id}/new
@@ -109,3 +129,5 @@ questionario_new:
 atendimento_index:
     path:     /atendimento
     defaults: { _controller: CadpazBundle:Atendimento:index }
+
+

@@ -1,0 +1,46 @@
+<div class="meio">
+{#<strong>Telefone</strong>#}
+<div class="spacer"></div>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+<a class="cancel" href="#">Cancelar</a>
+</div>
+{# {{ ro }} #}
+<script>
+
+        function showNewEnderecoResponse(responseText, statusText, xhr, $form)  { 
+
+
+
+
+                $("#userDetails").html(responseText);
+                //$("#userDetails").hide();
+                //$("#userDetails").css('visibility','visible');
+                //$("#userDetails").slideUp(400);
+                //$("#userDetails").delay(600).slideDown(400);
+            }
+         
+        function beforeSubmitEnderecoForm(formData, jqForm, options) {
+            //alert(jqForm[0]);
+        }
+
+        var optionsEndereco = {
+          success: showNewEnderecoResponse,
+          beforeSubmit: beforeSubmitEnderecoForm,
+          type: 'post',
+          url: Routing.generate('endereco_new',{'pessoa_id':{{id}}})
+        };
+        // bind form using 'ajaxForm' 
+        $('#newEnderecoForm').ajaxForm(optionsEndereco);
+        
+        jQuery('.cancel').on('click', function(e) {
+        
+            //$("#userDetails").slideUp('fast');
+            $("#userDetails").html(window.userDetails);
+            //$("#userDetails").slideDown('fast');
+
+            e.preventDefault();
+        });
+    </script>

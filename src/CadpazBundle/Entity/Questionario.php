@@ -96,7 +96,7 @@ class Questionario
      *
      * @ORM\Column(name="numeroDeFilhos", type="integer")
      */
-    private $numeroDeFilhos;
+    private $numeroDeFilhos = 0;
     
     /**
      * @var boolean
@@ -191,7 +191,7 @@ class Questionario
      *
      * @ORM\Column(name="temInteresseEmVoltarAEstudar", type="boolean")
      */
-    private $temInteresseEmVoltarAEstudar;
+    private $temInteresseEmVoltarAEstudar = false;
     
     /**
      * @var boolean
@@ -205,7 +205,7 @@ class Questionario
      *
      * @ORM\Column(name="temFilhosMatriculadosEmEscola", type="boolean")
      */
-    private $temFilhosMatriculadosEmEscola;
+    private $temFilhosMatriculadosEmEscola = false;
     
     /**
      * @var boolean
@@ -275,7 +275,7 @@ class Questionario
      *
      * @ORM\Column(name="redebeMedicacaoDaFarmaciaDistrital", type="boolean")
      */
-    private $recebeMedicacaoDaFarmaciaDistrital;
+    private $recebeMedicacaoDaFarmaciaDistrital = false;
     
     /**
      * @var boolean
@@ -344,7 +344,7 @@ class Questionario
     /**
      * @var boolean
      *
-     * @ORM\Column(name="participaOuRecebeNoSabe", type="boolean")
+     * @ORM\Column(name="participaOuRecebeNaoSabe", type="boolean")
      */
     private $participaOuRecebeNaoSabe;
     
@@ -369,49 +369,49 @@ class Questionario
      *
      * @ORM\Column(name="despesasMensaisAluguel", type="float")
      */
-    private $despesasMensaisAluguel;
+    private $despesasMensaisAluguel = 0;
     
     /**
      * @var float
      *
      * @ORM\Column(name="despesasMensaisPrestacaoHabitacao", type="float")
      */
-    private $despesasMensaisPrestacaoHabitacao;
+    private $despesasMensaisPrestacaoHabitacao = 0;
     
     /**
      * @var float
      *
      * @ORM\Column(name="despesasMensaisAgua", type="float")
      */
-    private $despesasMensaisAgua;
+    private $despesasMensaisAgua = 0;
     
     /**
      * @var float
      *
      * @ORM\Column(name="despesasMensaisLuz", type="float")
      */
-    private $despesasMensaisLuz;
+    private $despesasMensaisLuz = 0;
     
     /**
      * @var float
      *
      * @ORM\Column(name="despesasMensaisTelefone", type="float")
      */
-    private $despesasMensaisTelefone;
+    private $despesasMensaisTelefone = 0;
     
     /**
      * @var float
      *
      * @ORM\Column(name="despesasMensaisMedicamentos", type="float")
      */
-    private $despesasMensaisMedicamentos;
+    private $despesasMensaisMedicamentos = 0;
     
     /**
      * @var float
      *
      * @ORM\Column(name="despesasMensaisOutras", type="float")
      */
-    private $despesasMensaisOutras;
+    private $despesasMensaisOutras = 0;
     
     /**
      * @var string

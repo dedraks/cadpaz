@@ -7,7 +7,7 @@
     {{ form_start(form) }}
     {{ form_errors(form) }}
     
-<div id="questionario_1" class="example">
+<div id="questionario_1" class="example" style="width: 96%;">
     <strong>COMPOSIÇÃO FAMILIAR / HABITAÇÃO</strong><hr>
     <strong>Como você mora atualmente</strong><br>
     {{ form_label(form.moradia) }}
@@ -62,6 +62,14 @@
     {{ form_errors(form.moradiaTemRedeDeEsgoto) }}
     {{ form_widget(form.moradiaTemRedeDeEsgoto) }}
     <br>
+    {{ form_label(form.moradiaTemAguaEncanada) }}
+    {{ form_errors(form.moradiaTemAguaEncanada) }}
+    {{ form_widget(form.moradiaTemAguaEncanada) }}
+    <br>
+    {{ form_label(form.moradiaTemEletricidade) }}
+    {{ form_errors(form.moradiaTemEletricidade) }}
+    {{ form_widget(form.moradiaTemEletricidade) }}
+    <br>
     {{ form_label(form.moradiaTemRuaPavimentada) }}
     {{ form_errors(form.moradiaTemRuaPavimentada) }}
     {{ form_widget(form.moradiaTemRuaPavimentada) }}
@@ -70,17 +78,9 @@
     {{ form_errors(form.moradiaSituadaEmZonaRural) }}
     {{ form_widget(form.moradiaSituadaEmZonaRural) }}
     <br>
-    {{ form_label(form.moradiaTemAguaEncanada) }}
-    {{ form_errors(form.moradiaTemAguaEncanada) }}
-    {{ form_widget(form.moradiaTemAguaEncanada) }}
-    <br>
     {{ form_label(form.moradiaSituadaEmComunidadeQuilombolaOuIndigena) }}
     {{ form_errors(form.moradiaSituadaEmComunidadeQuilombolaOuIndigena) }}
     {{ form_widget(form.moradiaSituadaEmComunidadeQuilombolaOuIndigena) }}
-    <br>
-    {{ form_label(form.moradiaTemEletricidade) }}
-    {{ form_errors(form.moradiaTemEletricidade) }}
-    {{ form_widget(form.moradiaTemEletricidade) }}
     <hr>
     <strong>Tipo de moradia</strong><br>
     {{ form_label(form.tipoDeMoradia) }}
@@ -279,6 +279,82 @@
 
 <script>
     
+    // Adiciona a classe btn ao botão de submit do form
+    $("#cadpazbundle_questionario_save").addClass('btn');
+
+    // Captura o evento toda vez que o checkbox é marcado ou desmarcado
+    $("#cadpazbundle_questionario_moraSozinho").change(function() {
+        if(this.checked) {
+            $("#cadpazbundle_questionario_moraComFilhos").prop('disabled', true);
+            $("#cadpazbundle_questionario_moraComFilhos").prop('checked', false);
+            $("#cadpazbundle_questionario_moraComPaiMae").prop('disabled', true);
+            $("#cadpazbundle_questionario_moraComPaiMae").prop('checked', false);
+            $("#cadpazbundle_questionario_moraComIrmaos").prop('disabled', true);
+            $("#cadpazbundle_questionario_moraComIrmaos").prop('checked', false);
+            $("#cadpazbundle_questionario_moraComConjuge").prop('disabled', true);
+            $("#cadpazbundle_questionario_moraComConjuge").prop('checked', false);
+            $("#cadpazbundle_questionario_moraComParentesAmigosColegas").prop('disabled', true);
+            $("#cadpazbundle_questionario_moraComParentesAmigosColegas").prop('checked', false);
+            $("#cadpazbundle_questionario_moraComOutraSituacao").prop('disabled', true);
+            $("#cadpazbundle_questionario_moraComOutraSituacao").prop('checked', false);
+            
+            $("#cadpazbundle_questionario_quantasPessoasMoramNaCasa").val(1);
+            $("#cadpazbundle_questionario_quantasPessoasMoramNaCasa").prop("readonly", true);
+        }
+        else {
+            $("#cadpazbundle_questionario_moraComFilhos").prop('disabled', false);
+            $("#cadpazbundle_questionario_moraComPaiMae").prop('disabled', false);
+            $("#cadpazbundle_questionario_moraComIrmaos").prop('disabled', false);
+            $("#cadpazbundle_questionario_moraComConjuge").prop('disabled', false);
+            $("#cadpazbundle_questionario_moraComParentesAmigosColegas").prop('disabled', false);
+            $("#cadpazbundle_questionario_moraComOutraSituacao").prop('disabled', false);
+            
+            $("#cadpazbundle_questionario_quantasPessoasMoramNaCasa").prop("readonly", false);
+        }
+    });
+    
+    // Captura o evento toda vez que o checkbox é marcado ou desmarcado
+    $("#cadpazbundle_questionario_estudaAtualmente").change(function() {
+        if (this.checked) {
+            $("#cadpazbundle_questionario_temInteresseEmVoltarAEstudar").prop('disabled', true);
+            $("#cadpazbundle_questionario_temInteresseEmVoltarAEstudar").prop('checked', false);
+        }
+        else
+        {
+            $("#cadpazbundle_questionario_temInteresseEmVoltarAEstudar").prop('disabled', false);
+        }
+    });
+
+    $("#cadpazbundle_questionario_temFilhosMatriculadosEmEscola").prop('disabled', true);
+    $("#cadpazbundle_questionario_temFilhosEmIdadeEscolar").change(function () {
+        if (this.checked) {
+            $("#cadpazbundle_questionario_temFilhosMatriculadosEmEscola").prop('disabled', false);
+        } else {
+            $("#cadpazbundle_questionario_temFilhosMatriculadosEmEscola").prop('disabled', true);
+            $("#cadpazbundle_questionario_temFilhosMatriculadosEmEscola").prop('checked', false);
+        }
+    });
+
+    $("#cadpazbundle_questionario_fezOuFazOutrosAcompanhamentosQuais").prop('disabled', true);
+    $("#cadpazbundle_questionario_fezOuFazOutrosAcompanhamentos").change(function() {
+        if (this.checked) {
+            $("#cadpazbundle_questionario_fezOuFazOutrosAcompanhamentosQuais").prop('disabled', false);
+        } else {
+            $("#cadpazbundle_questionario_fezOuFazOutrosAcompanhamentosQuais").prop('disabled', true);
+            $("#cadpazbundle_questionario_fezOuFazOutrosAcompanhamentosQuais").val("");
+        }
+    });
+    
+    $("#cadpazbundle_questionario_recebeMedicacaoDaFarmaciaDistrital").prop('disabled', true);
+    $("#cadpazbundle_questionario_fazUsoDeMedicacaoConstante").change(function() {
+        if (this.checked) {
+            $("#cadpazbundle_questionario_recebeMedicacaoDaFarmaciaDistrital").prop('disabled', false);
+            
+        } else {
+            $("#cadpazbundle_questionario_recebeMedicacaoDaFarmaciaDistrital").prop('disabled', true);
+            $("#cadpazbundle_questionario_recebeMedicacaoDaFarmaciaDistrital").prop('checked', false);
+        }
+    });
 
     
     jQuery('#cadpazbundle_questionario_quantasPessoasMoramNaCasa, #cadpazbundle_questionario_numeroDeFilhos').keyup(function (e) { 

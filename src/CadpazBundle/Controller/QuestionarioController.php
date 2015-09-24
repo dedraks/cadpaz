@@ -43,7 +43,8 @@ class QuestionarioController extends Controller
             $em->flush();
 
             $pessoa->setQuestionario($questinario);
-            return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
+            //return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
+            return $this->render('CadpazBundle:Questionario:view.html.twig',  array('questionario'=>$questinario));
         }
         
         
