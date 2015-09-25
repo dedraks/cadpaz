@@ -5,7 +5,7 @@
         <li><a href="#tab2">Telefones e Endereços</a></li>
         <li><a href="#tab3">Dados Sócio Econômicos</a></li>
         <li><a href="#tab4">Casos</a></li>
-    </ul>
+    </ul><!-- tab-links -->
  
     <div class="tab-content">
         <div id="tab1" class="tab active"> {# Tab principal #}
@@ -127,7 +127,7 @@
                     <div class="spacer"></div>
                 {% endfor %}
                 </div>
-                <div class="spacer"></div>
+                <!--<div class="spacer"></div>-->
                 <strong>Endereços</strong><br />
                 <div id="new_endereco_area"></div>
                 <div id="endereco_area">
@@ -180,24 +180,18 @@
         </div>
  
         <div id="tab4" class="tab">
-            {% if pessoa.casos is null %}
-                Não cadastrado<br />
-            {% else %}
-            {% endif %}
-            
-            <div style="width: 96%; background: #eee; visibility: visible" class="example">
-                <p class="casoTitulo">Pedido de pensão de alimentos</p>
-                <p class="casoDescricao">Três filhos precisando de alimentação</p>
+            <div id="caso_area">
+                {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
+                <a id="caso" href="{{ path('caso_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+                {% endimage %}
+                <div id="caso_area_list">
+                    {% render controller('CadpazBundle:Caso:list', {'pessoa_id': pessoa.id}) %}
+                </div>
             </div>
-            <div class="spacer"></div>
-            <div style="width: 96%; background: #eee; visibility: visible" class="example">
-                <p class="casoTitulo">Pedido de pensão de alimentos</p>
-                <p class="casoDescricao">Três filhos precisando de alimentação</p>
-            </div>
-            <div class="spacer"></div>
+            <!--<div class="spacer"></div>-->
         </div>
-    </div>
-</div>
+    </div><!-- tab-content -->
+</div><!-- tabs -->
 
 <script>
     //$(".confirm").confirm();
@@ -219,14 +213,11 @@
             }, 1200);*/
     });
     
-    jQuery('#te, #rg, #pis, #ctps, #telefone, #endereco, #questionario').on('click', function(e) {
+    jQuery('#te, #rg, #pis, #ctps, #telefone, #endereco, #questionario, #caso').on('click', function(e) {
         
         //$("#userDetails").slideUp('fast');
-        
-        
         var elemento = "#"+$(this).attr('id')+"_area";
-        
-
+        window.listaDeCasos = $(elemento).html();
         
         window.userDetails = $("#userDetails").html();
         

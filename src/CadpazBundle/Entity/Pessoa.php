@@ -131,6 +131,7 @@ class Pessoa
     
     /**
      * @ORM\OneToMany(targetEntity="Caso", mappedBy="pessoa")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $casos;
     

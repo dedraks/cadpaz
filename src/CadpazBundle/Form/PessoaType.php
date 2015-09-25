@@ -22,19 +22,19 @@ class PessoaType extends AbstractType
                 'label' => 'Data de Nascimento',
                 'attr' => [
                     'class' => 'form-control input-inline datepicker',
-                    'data-provide' => 'datepicker',
-                    'data-date-format' => 'dd-mm-yyyy',
-                    'data-date-language' => 'pt-BR',
-                    'data-date-class' => 'date',
-                    'data-date-autoclose' => 'true',
-                    'data-date-startView' => '2',
-                    'autocomplete' => 'off',
-                    'onKeyDown' => 'return false'
+                    'data-provide'          => 'datepicker',
+                    'data-date-format'      => 'dd-mm-yyyy',
+                    'data-date-language'    => 'pt-BR',
+                    'data-date-class'       => 'date',
+                    'data-date-autoclose'   => 'true',
+                    'data-date-startView'   => '2',
+                    'autocomplete'          => 'off',
+                    'onKeyDown'             => 'return false'
                 ]
             ])
             ->add('sexo', 'choice', array(
                 'choices' => array(
-                    'M'   => 'Masculino',
+                    'M' => 'Masculino',
                     'F' => 'Feminino',
                     'O' => 'Outros'
                 ),
@@ -56,9 +56,11 @@ class PessoaType extends AbstractType
             ))
             ->add('estadoCivil', 'choice', array(
                 'choices' => array(
-                    'CASADO'   => 'Casado',
-                    'SOLTEIRO' => 'Solteiro',
-                    'OUTROS' => 'Outros'
+                    'Casado'            =>'Casado',
+                    'Solteiro'          => 'Solteiro',
+                    'União Estável'     => 'União Estável',
+                    'Solteiro'          => 'Solteiro',
+                    'Outros'            => 'Outros'
                 ),
                 'multiple' => false,
                 'placeholder' => 'Selecione o estado civil'
@@ -66,20 +68,17 @@ class PessoaType extends AbstractType
             ->add('nomeMae', 'text', array('label'=>'Nome da mãe'))
             ->add('corInformada', 'choice', array(
                 'choices' => array(
-                    'BRANCO'   => 'Branco',
-                    'NEGRO' => 'Negro',
-                    'PARDO' => 'Pardo',
+                    'Branco'        => 'Branco',
+                    'Negro'         => 'Negro',
+                    'Pardo'         => 'Pardo',
+                    'Amarelo'       => 'Amarelo',
+                    'Indígena'      => 'Indígena',
+                    'Não informado' => 'Não informado'
                 ),
                 'multiple' => false,
                 'placeholder' => 'Selecione a cor'
             ))
             ->add('email', 'text', ['label'=>'Email'])
-            //->add('dataCadastro')
-            //->add('rg')
-            //->add('titulo')
-            //->add('ctps')
-            //->add('pis')
-            //->add('questionario')
             ->add('save', 'submit', ['label' => 'Salvar'])
         ;
     }

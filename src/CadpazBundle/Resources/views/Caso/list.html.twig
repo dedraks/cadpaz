@@ -1,0 +1,7 @@
+{% for caso in casos %}
+    {#{% render controller('CadpazBundle:Caso:view', {'id': caso.id}) %}#}
+    <div class="example">
+        <strong><a href="{{ path('caso_view', {'id': caso.id}) }}">{{ caso.nome }}</a></strong><br>
+    </div>
+    <div class="spacer"></div>
+{% endfor %}

@@ -1,0 +1,48 @@
+<div class="meio">
+{#<strong>Telefone</strong>#}
+<div class="spacer"></div>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+<a class="cancel" href="#">Cancelar</a>
+</div>
+{# {{ ro }} #}
+<script>
+
+        function showNewCasoResponse(responseText, statusText, xhr, $form)  { 
+
+
+                //alert(responseText);
+                //alert(window.dados);
+            $("#caso_area").html(window.listaDeCasos);
+            $("#caso_area_list").html(responseText);
+               //$("#userDetails").html(responseText);
+                //$("#userDetails").hide();
+                //$("#userDetails").css('visibility','visible');
+                //$("#userDetails").slideUp(400);
+                //$("#userDetails").delay(600).slideDown(400);
+            }
+         
+        function beforeSubmitCasoForm(formData, jqForm, options) {
+            //alert(jqForm[0]);
+        }
+
+        var optionsCaso = {
+          success: showNewCasoResponse,
+          beforeSubmit: beforeSubmitCasoForm,
+          type: 'post',
+          url: Routing.generate('caso_new',{'pessoa_id':{{id}}})
+        };
+        // bind form using 'ajaxForm' 
+        $('#newCasoForm').ajaxForm(optionsCaso);
+        
+        jQuery('.cancel').on('click', function(e) {
+        
+            //$("#userDetails").slideUp('fast');
+            $("#userDetails").html(window.userDetails);
+            //$("#userDetails").slideDown('fast');
+
+            e.preventDefault();
+        });
+    </script>

@@ -125,9 +125,23 @@ questionario_new:
         expose: true
 # Fim das rotas para o controlador Questionario
 
+# Rotas para o controador Caso
+caso_new:
+    path:     /caso/{pessoa_id}/new
+    defaults: { _controller: CadpazBundle:Caso:new }
+    options:
+        expose: true
+        
+caso_view:
+    path:     /caso/{id}/view
+    defaults: { _controller: CadpazBundle:Caso:view }
+    options:
+        expose: true
+#Fim das rotas para o controlador Caso
 
+# Rotas para o controlador Atendimento
 atendimento_index:
     path:     /atendimento
     defaults: { _controller: CadpazBundle:Atendimento:index }
-
+# Fim das rotas para o controlador Atendimento
 
