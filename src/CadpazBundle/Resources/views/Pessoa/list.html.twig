@@ -45,6 +45,9 @@
             $(this).find("a").attr("href","#");
             //$(this).click(function(){
             $.ajax({url: href, success: function(result){
+                    
+                    
+                
                 
                 $("#userDetails").html('<div class=\"meio\">'+result+'</div>');
                 //$("#example").css('visibility','hidden');
@@ -56,6 +59,7 @@
                 $("#userDetails").delay(600).slideDown(400);
                 $("#nome").val('');
                 $("#cpf").val('');
+                
             }});
         }
     });

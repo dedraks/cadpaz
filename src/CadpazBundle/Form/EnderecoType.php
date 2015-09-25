@@ -16,15 +16,21 @@ class EnderecoType extends AbstractType
     {
         $builder
             ->add('nome')
-            ->add('padrao')
+            ->add('padrao', 'checkbox', ['required' => false, 'disabled'=>$options['ro']])
             ->add('logradouro')
             ->add('numero')
             ->add('complemento')
             ->add('bairro')
             ->add('municipio')
             ->add('cep')
-            ->add('uf')
-            ->add('obs')
+            ->add('uf', 'entity', ['class' => 'CadpazBundle:Estado',
+                'choice_label' => 'nome',
+                //'expanded' => true,
+                'multiple' => false,
+                'placeholder' => 'Selecione a UF',
+                'label' => 'UF'
+                ])
+            ->add('obs', 'textarea', ['required'=>false])
             //->add('pessoa')
             ->add('save', 'submit', ['label' => 'Salvar'])
         ;

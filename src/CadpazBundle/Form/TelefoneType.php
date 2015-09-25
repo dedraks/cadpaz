@@ -19,7 +19,17 @@ class TelefoneType extends AbstractType
         $builder
             ->add('padrao', 'checkbox', ['required' => false, 'disabled'=>$options['ro']])
             ->add('numero', 'text', ['label'=>'Número'])
-            ->add('tipo', 'text', ['label'=>'Tipo'])
+            ->add('tipo', 'choice', array(
+                'choices' => array(
+                    'Celular'       => 'Celular',
+                    'Residencial'   => 'Residencial',
+                    'Comercial'     => 'Comercial',
+                    'Favor'         => 'Favor',
+                    'Outro'         => 'Outro',
+                    ),
+                'label'=>'Tipo',
+                'placeholder'=>'Informe'
+            ))
             ->add('obs', 'textarea', ['label'=>'Observações','required' => false])
             //->add('pessoa')
             ->add('save', 'submit', array('label' => 'Salvar'))

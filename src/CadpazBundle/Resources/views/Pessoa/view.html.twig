@@ -37,10 +37,10 @@
     {% else %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="rg" href="{{ path('pessoa_rg_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
-        {% endimage %} 
-        {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+        {% endimage %}<br>
+        {#{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
         <a id="rg_del" class="confirm" href="{{ path('pessoa_rg_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
-        {% endimage %}
+        {% endimage %}#}
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.rg.numero }}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Data de expedição: {{ pessoa.rg.dataExpedicao | date('d/m/Y') }}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Órgão expedidor: {{ pessoa.rg.orgaoExpedidor }}<br />
@@ -55,10 +55,10 @@
     {% else %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="te" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
-        {% endimage %}
-        {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+        {% endimage %}<br>
+        {#{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
         <a id="te_del" href="{{ path('pessoa_titulo_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
-        {% endimage %}
+        {% endimage %}#}
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.titulo.numero | default("Não cadastrado")}}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Zona: {{ pessoa.titulo.zona | default("Não cadastrado")}}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Seção: {{ pessoa.titulo.secao | default("Não cadastrado")}}<br />
@@ -90,10 +90,10 @@
     {% else %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
-        {% endimage %}
-        {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+        {% endimage %}<br>
+        {#{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
         <a id="ctps_del" href="{{ path('pessoa_ctps_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
-        {% endimage %}
+        {% endimage %}#}
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.ctps.numero | default("Não cadastrado")}}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Série: {{ pessoa.ctps.serie | default("Não cadastrado")}}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;UF: {{ pessoa.ctps.uf | default("Não cadastrado")}}<br />
@@ -137,6 +137,7 @@
                 {% for endereco in pessoa.enderecos %}
                     <div class="example" style="visibility: visible; width: 96%; word-wrap: break-word;  background: #ddf;">
                         {{ endereco.nome }}<br />
+                        {{ endereco.padrao ? "Endereço padrão<br>" : "" }}
                         {{ endereco.logradouro }}, {{ endereco.numero }}<br />
                         {{ endereco.bairro }}<br />
                         {{ endereco.complemento }}<br />
@@ -296,7 +297,7 @@
                     
     $("#closeUser").click(function(e) {
         e.preventDefault();
-        $("#userDetails").html("");
         $("#userDetails").slideUp("fast");
+        $("#example").delay(200).slideDown("fast");
     });
 </script>

@@ -67,7 +67,7 @@ class CTPSController extends Controller
         }
         
         
-        return $this->render('CadpazBundle:CTPS:newCTPS.html.twig',array('form' => $form->createView(),'id'=>$id));
+        return $this->render('CadpazBundle:CTPS:new.html.twig',array('form' => $form->createView(),'id'=>$id));
     }
     
     public function deleteAction($id)

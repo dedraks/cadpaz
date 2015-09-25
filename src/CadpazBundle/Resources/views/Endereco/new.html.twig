@@ -2,13 +2,58 @@
 {#<strong>Telefone</strong>#}
 <div class="spacer"></div>
 
+{#
 {{ form_start(form) }}
 {{ form_widget(form) }}
+{{ form_end(form) }}#}
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+    {{ form_label(form.nome) }}
+    {{ form_errors(form.nome) }}
+    {{ form_widget(form.nome) }}<br>
+    {{ form_label(form.padrao) }}
+    {{ form_errors(form.padrao) }}
+    {{ form_widget(form.padrao) }}<br>
+    {{ form_label(form.cep) }}
+    {{ form_errors(form.cep) }}
+    {{ form_widget(form.cep) }}{% image '@CadpazBundle/Resources/public/images/search_icon.png' %}
+                <a id="consultaCEP" href="#"><img src="{{ asset_url }}" alt="Example" /></a><br />
+                {% endimage %}
+    {{ form_label(form.logradouro) }}
+    {{ form_errors(form.logradouro) }}
+    {{ form_widget(form.logradouro) }}<br>
+    {{ form_label(form.numero) }}
+    {{ form_errors(form.numero) }}
+    {{ form_widget(form.numero) }}<br>
+    {{ form_label(form.complemento) }}
+    {{ form_errors(form.complemento) }}
+    {{ form_widget(form.complemento) }}<br>
+    {{ form_label(form.bairro) }}
+    {{ form_errors(form.bairro) }}
+    {{ form_widget(form.bairro) }}<br>
+    {{ form_label(form.municipio) }}
+    {{ form_errors(form.municipio) }}
+    {{ form_widget(form.municipio) }}<br>
+    {{ form_label(form.uf) }}
+    {{ form_errors(form.uf) }}
+    {{ form_widget(form.uf) }}<br>
+    {{ form_label(form.obs) }}
+    {{ form_errors(form.obs) }}
+    {{ form_widget(form.obs) }}<br>
+
+{{ form_row(form.save) }}
 {{ form_end(form) }}
+
 <a class="cancel" href="#">Cancelar</a>
 </div>
 {# {{ ro }} #}
 <script>
+    jQuery(function($){
+                $("#cadpazbundle_endereco_cep").mask("99999-999",{placeholder:"_____-___"});
+            });
+
 
         function showNewEnderecoResponse(responseText, statusText, xhr, $form)  { 
 
@@ -43,4 +88,45 @@
 
             e.preventDefault();
         });
+        
+        $("#consultaCEP").on('click', function(e){
+            e.preventDefault();
+            $.ajax({
+                url: 'http://api.postmon.com.br/v1/cep/' + $("#cadpazbundle_endereco_cep").val(),
+                method: 'GET',
+                dataType : "jsonp",
+                //data: {'cpf': $("#cpf").val()},
+                success: function(result) {
+                    $("#cadpazbundle_endereco_logradouro").val(result.logradouro);
+                    $("#cadpazbundle_endereco_bairro").val(result.bairro);
+                    $("#cadpazbundle_endereco_municipio").val(result.cidade);
+                    $("#cadpazbundle_endereco_uf option:contains(" + result.estado_info.nome + ")").attr('selected', true);
+                    //setSelectByText('cadpazbundle_endereco_uf', result.estado_info.nome);
+                }
+            });
+        });
+        
+        
+        
+        function setSelectByText(eID,text)
+        { //Loop through sequentially//
+          var ele=document.getElementById(eID);
+          for(var ii=0; ii<ele.length; ii++)
+            if(ele.options[ii].text==text) { //Found!
+              ele.options[ii].selected=true;
+              return true;
+            }
+          return false;
+        }
+        
+        function setSelectByValue(eID,val)
+        { //Loop through sequentially//
+          var ele=document.getElementById(eID);
+          for(var ii=0; ii<ele.length; ii++)
+            if(ele.options[ii].value==val) { //Found!
+              ele.options[ii].selected=true;
+              return true;
+            }
+          return false;
+        }
     </script>
