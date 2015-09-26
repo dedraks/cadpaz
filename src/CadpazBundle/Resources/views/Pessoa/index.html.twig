@@ -21,9 +21,8 @@
     
     
     
-    <div id="userAreaEdit" style="display: none; width: 400px; background: #2B91AF;">
-        <span class="button b-close"><span>X</span></span>
-    </div>
+    <div id="userAreaEdit" class="example" style="display: none; width: 400px; background: #FFF;"></div>
+    <div id="userAreaChangePwd" class="example" style="display: none; width: 400px; background: #FFF;"></div>
     
     
     
@@ -36,7 +35,7 @@
                 {{ app.user.nomeCompleto }}
             {% endif %}
             </a>
-            (<a href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
+            (<a id="userAreaChangePwdLink" href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
             (<a href="{{ path('fos_user_security_logout') }}">Sair</a>)</div>
     </div>
     <div class="spacer"></div>
@@ -86,7 +85,7 @@
             $body = $("body");
             $(document).on({
                 ajaxStart: function() { $body.addClass("loading");    },
-                 ajaxStop: function() { $body.removeClass("loading"); }    
+                ajaxStop: function() { $body.removeClass("loading"); }    
             });
             
             jQuery(function($){
@@ -319,8 +318,10 @@
             });
        });
        
-       $("#userAreaEditLink").click(function(e) {
+       $("#userAreaEditLink, #userAreaChangePwdLink").click(function(e) {
            e.preventDefault();
+           
+           
            $.ajax({
                 url: $(this).attr('href'),
                 //data: {'nome':searchText},
@@ -330,7 +331,7 @@
                     
                     $(".fos_user_profile_edit").ajaxForm({
                         type:'post',
-                        success:function(responseText, statusText, xhr, $form){
+                        success:function(responseText){
                             $("#userAreaEdit").html(responseText);
                         }
                     });
