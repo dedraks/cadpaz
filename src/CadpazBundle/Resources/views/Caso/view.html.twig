@@ -12,8 +12,8 @@
         <div id="atendimentos_area">
         {% for atendimento in caso.atendimentos %}
             <hr>
-            Data e hora: {{ atendimento.dataHora | date('d/m/Y - H:i')}}<br>
-            Histórico: <br>{{ atendimento.historico | nl2br }}
+            <strong>Data e hora:</strong> {{ atendimento.dataHora | date('d/m/Y - H:i')}}<br>
+                <strong>Histórico:</strong> <br>{{ atendimento.historico | nl2br }}
         {% endfor %}
         </div>
     </div>
