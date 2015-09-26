@@ -1,6 +1,43 @@
-    <div class="example">
-        <strong>{{ caso.nome }}</strong><br>
+    <div>
+        <strong>{{ caso.nome }}</strong> - (<a id="fecharCaso" href="#">Fechar</a>)<br>
         {{ caso.descricao }}<br><br>
-        <strong>Atendimentos</strong>
         
+        <strong>Atendimentos</strong>
+        <div id="new_atendimento_area"></div>
+        {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
+        <a id="newAtendimentoLink" href="{{ path('atendimento_new', {'caso_id':caso.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+        {% endimage %}
+        <div id="atendimentos_area">
+        {% for atendimento in caso.atendimentos %}
+            <hr>
+            Data e hora: {{ atendimento.dataHora | date('d/m/Y - H:i')}}<br>
+            Histórico: <br>{{ atendimento.historico | nl2br }}
+        {% endfor %}
+        </div>
     </div>
+
+    <script>
+        jQuery('#fecharCaso').on('click', function(e) {
+        
+            //$("#userDetails").slideUp('fast');
+            $("#caso_area").html(window.listaDeCasos);
+            //$("#userDetails").slideDown('fast');
+
+            e.preventDefault();
+        });
+        
+        $("#newAtendimentoLink").on('click', function(e){
+            e.preventDefault();
+            $.ajax({
+                            url: $(this).attr('href'),
+                            method: 'POST',
+                            //data: {'cpf': $("#cpf").val()},
+                            success: function(result) {
+                                //window.listaDeCasos = $("#caso_area").html();
+                                $("#new_atendimento_area").html(result);
+                                //alert(result);
+                            }
+                        });
+        });
+        // 
+    </script>

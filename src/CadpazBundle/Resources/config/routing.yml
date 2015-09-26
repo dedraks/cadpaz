@@ -140,8 +140,16 @@ caso_view:
 #Fim das rotas para o controlador Caso
 
 # Rotas para o controlador Atendimento
-atendimento_index:
-    path:     /atendimento
-    defaults: { _controller: CadpazBundle:Atendimento:index }
+atendimento_new:
+    path:     /atendimento/{caso_id}/new
+    defaults: { _controller: CadpazBundle:Atendimento:new }
+    options:
+        expose: true
+
+atendimento_view:
+    path:     /atendimento/{id}/view
+    defaults: { _controller: CadpazBundle:Atendimento:view }
+    options:
+        expose: true
 # Fim das rotas para o controlador Atendimento
 

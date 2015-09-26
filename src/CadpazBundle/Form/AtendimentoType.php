@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CasoType extends AbstractType
+class AtendimentoType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,9 +15,10 @@ class CasoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nome', 'text', ['label'=>'Título'])
-            ->add('descricao')
-            //->add('pessoa')
+            //->add('dataHora')
+            ->add('historico', 'textarea', ['label'=>'Descrição detalhada do atendimento'])
+            //->add('user')
+            //->add('caso')
             ->add('save', 'submit', array('label' => 'Salvar'))
         ;
     }
@@ -28,8 +29,8 @@ class CasoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CadpazBundle\Entity\Caso',
-            'attr' => ['id' => 'newCasoForm']
+            'data_class' => 'CadpazBundle\Entity\Atendimento',
+            'attr' => ['id' => 'newAtendimentoForm']
         ));
     }
 
@@ -38,6 +39,6 @@ class CasoType extends AbstractType
      */
     public function getName()
     {
-        return 'cadpazbundle_caso';
+        return 'cadpazbundle_atendimento';
     }
 }

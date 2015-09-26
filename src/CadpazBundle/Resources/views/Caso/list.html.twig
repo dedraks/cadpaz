@@ -1,7 +1,23 @@
 {% for caso in casos %}
     {#{% render controller('CadpazBundle:Caso:view', {'id': caso.id}) %}#}
     <div class="example">
-        <strong><a href="{{ path('caso_view', {'id': caso.id}) }}">{{ caso.nome }}</a></strong><br>
+        {% set num = caso.atendimentos|length %}
+        <strong><a class="casoView" href="{{ path('caso_view', {'id': caso.id}) }}">{{ caso.nome }}</a></strong>{{ num == 0?" - Nenhum atendimento": " - " ~ num ~ " atendimento" }}{{ num>1?"s":"" }}<br>
     </div>
     <div class="spacer"></div>
 {% endfor %}
+<script>
+    $(".casoView").click(function(e) {
+                        e.preventDefault();                        
+                        $.ajax({
+                            url: $(this).attr('href'),
+                            method: 'POST',
+                            //data: {'cpf': $("#cpf").val()},
+                            success: function(result) {
+                                window.listaDeCasos = $("#caso_area").html();
+                                $("#caso_area").html(result);
+                                //alert(result);
+                            }
+                        });
+                    });
+</script>

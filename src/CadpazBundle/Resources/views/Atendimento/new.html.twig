@@ -1,0 +1,44 @@
+<div class="meio">
+
+ 
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+<a class="cancel" href="#">Cancelar</a>
+
+</div>
+
+<script>
+        function showNewAtendimentoResponse(responseText, statusText, xhr, $form)  { 
+
+
+
+
+                $("#caso_area").html(responseText);
+                //$("#userDetails").hide();
+                //$("#userDetails").css('visibility','visible');
+                //$("#userDetails").slideUp(400);
+                //$("#userDetails").delay(600).slideDown(400);
+            }
+
+        var optionsAtendimento = {
+          success: showNewAtendimentoResponse,
+          type: 'post',
+          url: Routing.generate('atendimento_new',{'caso_id':{{caso_id}}})
+        };
+        // bind form using 'ajaxForm' 
+        $('#newAtendimentoForm').ajaxForm(optionsAtendimento);
+        
+        
+        /*
+        jQuery('.cancel').on('click', function(e) {
+        
+            //$("#userDetails").slideUp('fast');
+            $("#atendimentos_area").html(window.listaDeCasos);
+            //$("#userDetails").slideDown('fast');
+
+            e.preventDefault();
+        });*/
+</script>

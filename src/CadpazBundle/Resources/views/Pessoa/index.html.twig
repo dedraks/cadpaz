@@ -18,9 +18,18 @@
         <div id="title">Cadpaz</div>
     </div>
     <div class="spacer"></div>
+    
+    
+    
+    <div id="userAreaEdit" style="display: none; width: 400px; background: #2B91AF;">
+        <span class="button b-close"><span>X</span></span>
+    </div>
+    
+    
+    
     <div id="userArea">
         <div>Olá
-            <a href="{{ path('fos_user_profile_edit') }}">
+            <a id="userAreaEditLink" href="{{ path('fos_user_profile_edit') }}">
             {% if app.user.nomeCompleto is null %}
                 {{ app.user.username }}
             {% else %}
@@ -306,6 +315,26 @@
                 url: Routing.generate('pessoa_busca'),
                 data: {'nome':searchText},
                 success: showResponse,
+                type: 'post'
+            });
+       });
+       
+       $("#userAreaEditLink").click(function(e) {
+           e.preventDefault();
+           $.ajax({
+                url: $(this).attr('href'),
+                //data: {'nome':searchText},
+                success: function(responseText, statusText, xhr, $form) {
+                    $("#userAreaEdit").html(responseText);
+                    $('#userAreaEdit').bPopup();
+                    
+                    $(".fos_user_profile_edit").ajaxForm({
+                        type:'post',
+                        success:function(responseText, statusText, xhr, $form){
+                            $("#userAreaEdit").html(responseText);
+                        }
+                    });
+                },
                 type: 'post'
             });
        });

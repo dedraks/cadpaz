@@ -43,6 +43,7 @@ class Caso
     
     /**
      * @ORM\OneToMany(targetEntity="Atendimento", mappedBy="caso")
+     * * @ORM\OrderBy({"dataHora" = "DESC"})
      */
     protected $atendimentos;
     
