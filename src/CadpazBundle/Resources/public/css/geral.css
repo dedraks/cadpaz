@@ -10,6 +10,7 @@ and open the template in the editor.
 
 body {
     font: 'lucida sans', 'trebuchet MS', 'Tahoma';
+    padding: 50px;
 }
 
 h2 {
@@ -527,7 +528,10 @@ body.loading .modal {
 
 
 
-
+textarea {
+    resize: none;
+    width: 99%;
+}
 
 .trlink {
     text-decoration: none;

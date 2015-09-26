@@ -3,6 +3,12 @@ pessoa_index:
     path:     /
     defaults: { _controller: CadpazBundle:Pessoa:index }
 
+user_info:
+    path:     /user/{user}/info
+    defaults: { _controller: CadpazBundle:Pessoa:userInfo }
+    options:
+        expose: true
+
 pessoa_list:
     path:     /pessoa/list
     defaults: { _controller: CadpazBundle:Pessoa:list }

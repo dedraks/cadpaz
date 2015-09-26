@@ -17,26 +17,31 @@
     <div id="titleArea">
         <div id="title">Cadpaz</div>
     </div>
-    <div class="spacer"></div>
+    <div class="spacer" ></div>
     
     
-    
-    <div id="userAreaEdit" class="example" style="display: none; width: 400px; background: #FFF;"></div>
-    <div id="userAreaChangePwd" class="example" style="display: none; width: 400px; background: #FFF;"></div>
+   
+    <div id="userAreaEdit" class="example" style="display: none; width: 500px; background: #FFF;"></div>
+   
     
     
     
     <div id="userArea">
-        <div>Olá
-            <a id="userAreaEditLink" href="{{ path('fos_user_profile_edit') }}">
-            {% if app.user.nomeCompleto is null %}
-                {{ app.user.username }}
-            {% else %}
-                {{ app.user.nomeCompleto }}
-            {% endif %}
-            </a>
-            (<a id="userAreaChangePwdLink" href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
-            (<a href="{{ path('fos_user_security_logout') }}">Sair</a>)</div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div>Olá
+                <a id="userAreaEditLink" href="{{ path('fos_user_profile_edit') }}">
+                {% if app.user.nomeCompleto is null %}
+                    {{ app.user.username }}
+                {% else %}
+                    {{ app.user.nomeCompleto }}
+                {% endif %}
+                </a>
+                (<a id="userAreaChangePwdLink" href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
+                (<a href="{{ path('fos_user_security_logout') }}">Sair</a>)
+            </div>
+        {% else %}
+            Efetuar <a id="userLoginLink" href="{{ path('fos_user_security_login') }}">login</a>
+        {% endif %}
     </div>
     <div class="spacer"></div>
     <div id="formArea">
@@ -156,7 +161,22 @@
             
             $('#userDetails').html('');
             $('#userDetails').slideUp(200);
-            $('#dataArea').html(responseText);
+            
+            //alert(responseText.search('login'));
+            
+            if (responseText.search('login') != -1) {
+                //alert('não logado');
+                $('#dataArea').html('<h2>Por favor efetue login para utilizar o sistema.</h2>');
+                //alert('não logado');
+                
+                setTimeout(function(){
+                    window.location.reload();
+                }, 3000);
+                //$('#dataArea').html('<h2>Por favor efetue login para utilizar o sistema.</h2>');
+            }
+            else {
+                $('#dataArea').html(responseText);
+            }
             //alert(responseText);
             $('#dataArea').slideDown(200);
             
@@ -318,7 +338,7 @@
             });
        });
        
-       $("#userAreaEditLink, #userAreaChangePwdLink").click(function(e) {
+       $("#userAreaEditLink, #userAreaChangePwdLink, #userLoginLink").click(function(e) {
            e.preventDefault();
            
            
@@ -327,7 +347,11 @@
                 //data: {'nome':searchText},
                 success: function(responseText, statusText, xhr, $form) {
                     $("#userAreaEdit").html(responseText);
-                    $('#userAreaEdit').bPopup();
+                    $('#userAreaEdit').bPopup({
+                    speed: 650,
+                    transition: 'slideIn',
+                    transitionClose: 'slideBack',
+                });
                     
                     $(".fos_user_profile_edit").ajaxForm({
                         type:'post',

@@ -34,7 +34,9 @@
 </tbody>
 </table>
 <script>
-    $('#example tr').click(function() {
+    $('#example tr').click(function(e) {
+        
+        e.preventDefault();
         
         var href = $(this).find("a").attr("href");
 

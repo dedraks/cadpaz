@@ -40,6 +40,13 @@ class PessoaController extends Controller
                 // ...
             ));
     }
+    
+    public function userInfoAction($user)
+    {
+        return $this->render('CadpazBundle:Pessoa:userInfo.html.twig', array(
+                'user' => $user
+            ));
+    }
 
     /**
      * Lista todos os registros e renderiza um template

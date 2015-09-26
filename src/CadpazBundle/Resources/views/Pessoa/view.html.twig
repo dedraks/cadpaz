@@ -11,9 +11,11 @@
         <div id="tab1" class="tab active"> {# Tab principal #}
             
     <strong>Dados Pessoais</strong>
+        {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
-        <a id="editlink" href="{{ path('pessoa_edit', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
+        <a title='Editar os dados do beneficiário' id="editlink" href="{{ path('pessoa_edit', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
         {% endimage %}
+        {% endif %}
     <br />
     Nome: {{ pessoa.nome }}<br />
     Data de nascimento: {{ pessoa.dataNascimento|date('d/m/Y') }}<br />
@@ -31,13 +33,18 @@
     <div id="rg_area">
     RG:
     {% if pessoa.rg is null %}
+        {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="rg" href="{{ path('pessoa_rg_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
+        {% endif %}
     {% else %}
+        {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="rg" href="{{ path('pessoa_rg_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
-        {% endimage %}<br>
+        {% endimage %}
+        {% endif %}
+        <br>
         {#{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
         <a id="rg_del" class="confirm" href="{{ path('pessoa_rg_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}#}
@@ -48,14 +55,19 @@
     </div>
     <div id="te_area">
     Título Eleitoral:
-    {% if pessoa.titulo is null %} 
+    {% if pessoa.titulo is null %}
+        {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="te" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
+        {% endif %}
     {% else %}
+        {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="te" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
-        {% endimage %}<br>
+        {% endimage %}
+        {% endif %}
+        <br>
         {#{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
         <a id="te_del" href="{{ path('pessoa_titulo_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}#}
@@ -70,13 +82,17 @@
     <div id="pis_area">
     PIS:
     {% if pessoa.pis is null %}
+        {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="pis" href="{{ path('pessoa_pis_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
+        {% endif %}
     {% else %}
+        {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="pis" href="{{ path('pessoa_pis_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
+        {% endif %}
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.pis.numero | default("Não cadastrado")}}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Data de emissão: {{ pessoa.pis.dataEmissao | date('d/m/Y') }}<br />
     {% endif %}
@@ -84,13 +100,18 @@
     <div id="ctps_area">
     CTPS:
     {% if pessoa.ctps is null %}
+        {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
+        {% endif %}
     {% else %}
+        {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
-        {% endimage %}<br>
+        {% endimage %}
+        {% endif %}
+        <br>
         {#{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
         <a id="ctps_del" href="{{ path('pessoa_ctps_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}#}
@@ -114,9 +135,11 @@
                 <strong>Telefones</strong><br />
                 <div id="new_telefone_area"></div>
                 <div id="telefone_area">
+                {% if is_granted('ROLE_EDITOR') %}
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
                 <a id="telefone" href="{{ path('telefone_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
                 {% endimage %}
+                {% endif %}
                 {% for telefone in pessoa.telefones %}
                     <div class="example" style="visibility: visible; width: 96%; padding-bottom: 15px;  background: #ddf;">
                         Numero: {{ telefone.numero }}<br />
@@ -131,9 +154,11 @@
                 <strong>Endereços</strong><br />
                 <div id="new_endereco_area"></div>
                 <div id="endereco_area">
+                {% if is_granted('ROLE_EDITOR') %}
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
                 <a id="endereco" href="{{ path('endereco_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
                 {% endimage %}
+                {% endif %}
                 {% for endereco in pessoa.enderecos %}
                     <div class="example" style="visibility: visible; width: 96%; word-wrap: break-word;  background: #ddf;">
                         {{ endereco.nome }}<br />
@@ -169,10 +194,11 @@
         <div id="tab3" class="tab">
             <div id="questionario_area">
                 {% if pessoa.questionario is null %}
-                    
+                        {% if is_granted('ROLE_EDITOR') %}
                         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
                         <a id="questionario" href="{{ path('questionario_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
                         {% endimage %}
+                        {% endif %}
                 {% else %}
                     {% render controller('CadpazBundle:Questionario:view', {'id': pessoa.questionario.id}) %}
                 {% endif %}
@@ -181,9 +207,11 @@
  
         <div id="tab4" class="tab">
             <div id="caso_area">
+                {% if is_granted('ROLE_EDITOR') %}
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
                 <a id="caso" href="{{ path('caso_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
                 {% endimage %}
+                {% endif %}
                 <div id="caso_area_list">
                     {% render controller('CadpazBundle:Caso:list', {'pessoa_id': pessoa.id}) %}
                 </div>
@@ -290,5 +318,13 @@
         e.preventDefault();
         $("#userDetails").slideUp("fast");
         $("#example").delay(200).slideDown("fast");
+    });
+    
+    $(document).ready(function () {
+        //alert('ready!');
+        // This will automatically grab the 'title' attribute and replace
+        // the regular browser tooltips for all <a> elements with a title attribute!
+        $('a[title]').qtip();
+
     });
 </script>

@@ -1,0 +1,57 @@
+<div id="formWrapper">
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div>Olá
+                <a id="userAreaEditLink" href="{{ path('fos_user_profile_edit') }}">
+                {% if app.user.nomeCompleto is null %}
+                    {{ app.user.username }}
+                {% else %}
+                    {{ app.user.nomeCompleto }}
+                {% endif %}
+                </a>
+                (<a id="userAreaChangePwdLink" href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
+                (<a href="{{ path('fos_user_security_logout') }}">Sair</a>)
+            </div>
+{% else %}
+            Efetuar <a id="userLoginLink" href="{{ path('fos_user_security_login') }}">login</a>
+{% endif %}
+</div>
+
+<script>
+      
+    
+    
+$("#userAreaEditLink, #userAreaChangePwdLink, #userLoginLink").click(function(e) {
+           e.preventDefault();
+           
+           
+           $.ajax({
+                url: $(this).attr('href'),
+                //data: {'nome':searchText},
+                success: function(responseText, statusText, xhr, $form) {
+                    $("#userAreaEdit").html(responseText);
+                    $('#userAreaEdit').bPopup({
+                    speed: 650,
+                    transition: 'slideIn',
+                    transitionClose: 'slideBack',
+                });
+                    
+                    /*$(".fos_user_profile_edit").ajaxForm({
+                        type:'post',
+                        success:function(responseText){
+                            $("#userAreaEdit").html(responseText);
+                        }
+                    });*/
+                    
+                    $("#formWrapper").closest('form').ajaxForm({
+                        type:'post',
+                        success:function(responseText){
+                            $("#userAreaEdit").html(responseText);
+                        }
+                    });
+                    
+                    
+                },
+                type: 'post'
+            });
+       });
+</script>

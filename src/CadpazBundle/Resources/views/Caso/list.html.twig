@@ -2,11 +2,19 @@
     {#{% render controller('CadpazBundle:Caso:view', {'id': caso.id}) %}#}
     <div class="example">
         {% set num = caso.atendimentos|length %}
-        <strong><a class="casoView" href="{{ path('caso_view', {'id': caso.id}) }}">{{ caso.nome }}</a></strong>{{ num == 0?" - Nenhum atendimento": " - " ~ num ~ " atendimento" }}{{ num>1?"s":"" }}<br>
+        <strong><a title="{{ caso.descricao }}" class="casoView" href="{{ path('caso_view', {'id': caso.id}) }}">{{ caso.nome }}</a></strong>{{ num == 0?" - Nenhum atendimento": " - " ~ num ~ " atendimento" }}{{ num>1?"s":"" }}<br>
     </div>
     <div class="spacer"></div>
 {% endfor %}
 <script>
+    $(document).ready(function () {
+        //alert('ready!');
+        // This will automatically grab the 'title' attribute and replace
+        // the regular browser tooltips for all <a> elements with a title attribute!
+        $('.casoView').qtip();
+
+    });
+    
     $(".casoView").click(function(e) {
                         e.preventDefault();                        
                         $.ajax({
