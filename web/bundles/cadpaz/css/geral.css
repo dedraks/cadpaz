@@ -541,3 +541,7 @@ textarea {
     text-decoration: none;
     color: #000;
 }
+
+#userArea a{
+    text-decoration: none;
+}

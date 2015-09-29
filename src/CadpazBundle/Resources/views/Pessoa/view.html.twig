@@ -196,7 +196,7 @@
                 {% if pessoa.questionario is null %}
                         {% if is_granted('ROLE_EDITOR') %}
                         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
-                        <a id="questionario" href="{{ path('questionario_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+                        <a title="Clique para preencher o formuláro sócio-econômico" id="questionario" href="{{ path('questionario_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
                         {% endimage %}
                         {% endif %}
                 {% else %}

@@ -47,6 +47,10 @@ class AtendimentoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $atendimento->setDataHora(new \DateTime());
             
+            $user= $this->get('security.context')->getToken()->getUser();
+            $atendimento->setUser($user);
+            
+            
             $em->persist($atendimento);
             
             

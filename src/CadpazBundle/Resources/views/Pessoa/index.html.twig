@@ -8,6 +8,10 @@
     {% stylesheets '@CadpazBundle/Resources/public/plugins/datepicker/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+
 {% endblock %}
 
 {% block body %}
@@ -76,7 +80,7 @@
     {# <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script> #}
     
     
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
    
     
@@ -136,7 +140,7 @@
             //alert(text);
         }*/
         
-        
+        /*
         function itemToTr(item)
         {
             var str = '';
@@ -145,7 +149,9 @@
             var d = date.getDay();
             str += '<tr id=\"tr'+item.id+'\"><td><a class=\"trlink\" href=\"' + Routing.generate('pessoa_view', {id: item.id}) + '\">' + item.nome + '</a></td><td>' + item.nome_mae + '</td><td>' + item.email + '</td><td>' + item.cpf + '</td></tr>';
             return str;
-        }
+        }*/
+        
+        
         // post-submit callback 
         function showResponse(responseText, statusText, xhr, $form)  { 
             /*//ok(responseText);
@@ -164,14 +170,19 @@
             
             //alert(responseText.search('login'));
             
-            if (responseText.search('login') != -1) {
+            if (responseText.search('login') !== -1) {
                 //alert('não logado');
+                
+                $('#userLoginLink')[0].click();
+                
                 $('#dataArea').html('<h2>Por favor efetue login para utilizar o sistema.</h2>');
                 //alert('não logado');
                 
-                setTimeout(function(){
+                
+                
+                /*setTimeout(function(){
                     window.location.reload();
-                }, 3000);
+                }, 3000);*/
                 //$('#dataArea').html('<h2>Por favor efetue login para utilizar o sistema.</h2>');
             }
             else {
@@ -390,4 +401,5 @@ $( "#form1" ).submit(function( event ) {
     }
 });*/
     </script>
+    
 {% endblock %}

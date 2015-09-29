@@ -537,7 +537,11 @@ textarea {
     text-decoration: none;
     color: #000;
 }
-.trlink:visited{
+.trlink :visited {
     text-decoration: none;
     color: #000;
+}
+
+#userArea a {
+    text-decoration: none;
 }

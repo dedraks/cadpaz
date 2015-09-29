@@ -101,7 +101,7 @@
                     $("#cadpazbundle_endereco_bairro").val(result.bairro);
                     $("#cadpazbundle_endereco_municipio").val(result.cidade);
                     $("#cadpazbundle_endereco_uf option:contains(" + result.estado_info.nome + ")").attr('selected', true);
-                    //setSelectByText('cadpazbundle_endereco_uf', result.estado_info.nome);
+                    //$("#cadpazbundle_endereco_uf").select2("uf", result.estado_info.nome); 
                 }
             });
         });
@@ -112,7 +112,7 @@
         { //Loop through sequentially//
           var ele=document.getElementById(eID);
           for(var ii=0; ii<ele.length; ii++)
-            if(ele.options[ii].text==text) { //Found!
+            if(ele.options[ii].text===text) { //Found!
               ele.options[ii].selected=true;
               return true;
             }
@@ -123,10 +123,12 @@
         { //Loop through sequentially//
           var ele=document.getElementById(eID);
           for(var ii=0; ii<ele.length; ii++)
-            if(ele.options[ii].value==val) { //Found!
+            if(ele.options[ii].value===val) { //Found!
               ele.options[ii].selected=true;
               return true;
             }
           return false;
         }
+        
+        //$('#cadpazbundle_endereco_uf').select2();
     </script>

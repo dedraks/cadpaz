@@ -1,0 +1,22 @@
+<script>
+$.ajax({
+                url: $(this).attr('href'),
+                //data: {'nome':searchText},
+                success: function(responseText, statusText, xhr, $form) {
+                    $("#userAreaEdit").html(responseText);
+                    $('#userAreaEdit').bPopup({
+                    speed: 650,
+                    transition: 'slideIn',
+                    transitionClose: 'slideBack',
+                });
+                    
+                    $(".fos_user_profile_edit").ajaxForm({
+                        type:'post',
+                        success:function(responseText){
+                            $("#userAreaEdit").html(responseText);
+                        }
+                    });
+                },
+                type: 'post'
+            });
+            </script>

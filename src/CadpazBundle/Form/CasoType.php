@@ -15,7 +15,7 @@ class CasoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nome', 'text', ['label'=>'Título'])
+            ->add('nome', 'text', ['label'=>'Tipo'])
             ->add('descricao')
             //->add('pessoa')
             ->add('save', 'submit', array('label' => 'Salvar'))

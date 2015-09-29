@@ -6,11 +6,14 @@
 {{ form_widget(form) }}
 {{ form_end(form) }}
 
-<a class="cancel" href="#">Cancelar</a>
+<a id="cancelarNovoAtendimento" href="#">Cancelar</a>
 
 </div>
 
 <script>
+    
+        //window.casoAtendimentos = $("#atendimentos_area").html();
+    
         function showNewAtendimentoResponse(responseText, statusText, xhr, $form)  { 
 
 
@@ -32,13 +35,15 @@
         $('#newAtendimentoForm').ajaxForm(optionsAtendimento);
         
         
-        /*
-        jQuery('.cancel').on('click', function(e) {
+        
+        jQuery('#cancelarNovoAtendimento').on('click', function(e) {
+        
+            //alert(window.casoAtendimentos);
         
             //$("#userDetails").slideUp('fast');
-            $("#atendimentos_area").html(window.listaDeCasos);
+            $("#new_atendimento_area").html("");
             //$("#userDetails").slideDown('fast');
 
             e.preventDefault();
-        });*/
+        });
 </script>
