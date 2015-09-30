@@ -47,4 +47,27 @@ class EncaminhamentoController extends Controller
         
         return $this->render('CadpazBundle:Encaminhamento:new.html.twig',array('form' => $form->createView(), 'atendimento_id'=>$atendimento->getId()));        
     }
+    
+    public function listJsonAction() 
+    {
+        /*$qb = $this->getDoctrine()->getRepository('CadpazBundle:Caso')->createQueryBuilder('c')->groupBy('c.nome');
+
+        $casos = $qb->getQuery()->getResult();*/
+        
+        $encaminhamentos = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Encaminhamento')
+                ->findAllDistinctOrderedByTotal();
+        dump($encaminhamentos);
+        
+        /*$teste = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Caso')
+                ->countAll();
+        dump($teste);*/
+        
+        
+        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+        $json = $serializer->serialize($encaminhamentos, 'json');
+        dump($json);
+        return new \Symfony\Component\HttpFoundation\JsonResponse($json);
+    }
 }

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Encaminhamento
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CadpazBundle\Entity\EncaminhamentoRepository")
  */
 class Encaminhamento
 {

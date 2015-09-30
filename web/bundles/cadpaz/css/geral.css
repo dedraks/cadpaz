@@ -522,7 +522,13 @@ body.loading .modal {
 
 
 .questionario_secao {
-    border: 1px dotted;
+    /*border: 1px dotted;*/
+    border-bottom: 1px solid;
+}
+
+.telefone_endereco_secao {
+    /*border: 1px dotted;*/
+    border-top: 1px solid;
 }
 
 
@@ -537,11 +543,11 @@ textarea {
     text-decoration: none;
     color: #000;
 }
-.trlink:visited{
+.trlink :visited {
     text-decoration: none;
     color: #000;
 }
 
-#userArea a{
+#userArea a {
     text-decoration: none;
 }

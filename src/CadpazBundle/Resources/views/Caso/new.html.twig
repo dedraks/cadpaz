@@ -1,10 +1,13 @@
-<div class="meio">
+<div>
 {#<strong>Telefone</strong>#}
 <div class="spacer"></div>
 
 {{ form_start(form) }}
-<select id="cadpazbundle_caso_nome_select"><option value="0">Selecione o tipo de caso ou digite um novo</option></select>
-{{ form_widget(form) }}
+{{ form_errors(form) }}
+
+{{ form_label(form.nome) }} {{ form_widget(form.nome) }}<select id="cadpazbundle_caso_nome_select"><option value="0">Selecione o tipo de caso ou digite um novo</option></select>
+
+
 {{ form_end(form) }}
 <a class="cancel" href="#">Cancelar</a>
 </div>

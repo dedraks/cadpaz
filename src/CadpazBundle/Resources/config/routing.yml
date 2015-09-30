@@ -170,3 +170,9 @@ encaminhamento_new:
     defaults: { _controller: CadpazBundle:Encaminhamento:new }
     options:
         expose: true
+
+encaminhamento_list_json:
+    path:     /encaminhamento/list_json
+    defaults: { _controller: CadpazBundle:Encaminhamento:listJson }
+    options:
+        expose: true

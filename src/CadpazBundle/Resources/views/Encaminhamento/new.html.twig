@@ -6,7 +6,51 @@
 
 <script>
     $("#cadpazbundle_encaminhamento_encaminhado").hide();
-    $("#cadpazbundle_encaminhamento_encaminhado_select").select2();
+    
+    var data = [];
+    $.ajax({
+                url: Routing.generate('encaminhamento_list_json'),
+                //data: {'nome':searchText},
+                success: function(responseText) {
+                    data = $.parseJSON(responseText);
+                    for (var i=0; i<data.length; i++)
+                    {
+                        data[i].text = data[i].encaminhado;
+                        data[i].id = data[i].encaminhado;
+                        //delete data[i].id;
+                    }
+                    $("#cadpazbundle_encaminhamento_encaminhado_select").select2({
+                        tags: true,
+                        data: data,
+                        createTag: function (params) {
+                          return {
+                            id: params.term,
+                            text: params.term,
+                            newOption: true
+                          }
+                        },
+                        templateResult: function (data) {
+                          var $result = $("<span></span>");
+
+                          $result.text(data.text);
+
+                          if (data.newOption) {
+                            $result.append(" <em><strong>(novo)</strong></em>");
+                          }
+
+                          return $result;
+                        }
+                      });
+                      $("#cadpazbundle_encaminhamento_encaminhado_select").on("change", function (e) {
+                          
+                          //alert(e);
+                            $('#cadpazbundle_encaminhamento_encaminhado').val($('#cadpazbundle_encaminhamento_encaminhado_select').select2('val'));
+                        });
+                },
+                type: 'get',
+                dataType: 'json'
+            });
+    
 
     
         function showNewEncaminhamentoResponse(responseText, statusText, xhr, $form)  { 

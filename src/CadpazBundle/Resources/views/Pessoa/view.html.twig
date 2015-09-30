@@ -132,40 +132,49 @@
  
         <div id="tab2" class="tab">
             
-                <strong>Telefones</strong><br />
-                <div id="new_telefone_area"></div>
-                <div id="telefone_area">
+                <strong>Telefones</strong>
+                <div style="float: right">
                 {% if is_granted('ROLE_EDITOR') %}
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
                 <a id="telefone" href="{{ path('telefone_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
                 {% endimage %}
                 {% endif %}
+                </div>
+                <div class="spacer"></div>
+                
+                <div id="new_telefone_area"></div>
+                <div id="telefone_area">
+                
                 {% for telefone in pessoa.telefones %}
-                    <div class="example" style="visibility: visible; width: 96%; padding-bottom: 15px;  background: #ddf;">
+                    <div class="telefone_endereco_secao">
                         Numero: {{ telefone.numero }}<br />
                         Tipo: {{ telefone.tipo }}<br />
-                        Padrão: {% if telefone.padrao %}Sim{% else %}Não{% endif %}<br />
+                        {{ telefone.padrao ? "Telefone padrão<br>" : "" }}
                         Obs: {{ telefone.obs }}
                     </div>
                     <div class="spacer"></div>
                 {% endfor %}
                 </div>
                 <!--<div class="spacer"></div>-->
-                <strong>Endereços</strong><br />
-                <div id="new_endereco_area"></div>
-                <div id="endereco_area">
+                <strong>Endereços</strong>
+                <div style="float: right">
                 {% if is_granted('ROLE_EDITOR') %}
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
                 <a id="endereco" href="{{ path('endereco_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
                 {% endimage %}
                 {% endif %}
+                </div>
+                <div class="spacer"></div>
+                <div id="new_endereco_area"></div>
+                <div id="endereco_area">
+                
                 {% for endereco in pessoa.enderecos %}
-                    <div class="example" style="visibility: visible; width: 96%; word-wrap: break-word;  background: #ddf;">
+                    <div class="telefone_endereco_secao">
                         {{ endereco.nome }}<br />
                         {{ endereco.padrao ? "Endereço padrão<br>" : "" }}
                         {{ endereco.logradouro }}, {{ endereco.numero }}<br />
                         {{ endereco.bairro }}<br />
-                        {{ endereco.complemento }}<br />
+                        {{ endereco.complemento is null ? "" : endereco.complemento ~ "<br>"}}
                         {{ endereco.cep }}<br />
                         {{ endereco.municipio }} - {{ endereco.uf }}<br />
                         {{ endereco.obs }}
@@ -210,7 +219,7 @@
                 {% if is_granted('ROLE_EDITOR') %}
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
                 <a id="caso" href="{{ path('caso_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
-                {% endimage %}
+                {% endimage %}<div class="spacer"></div>
                 {% endif %}
                 <div id="caso_area_list">
                     {% render controller('CadpazBundle:Caso:list', {'pessoa_id': pessoa.id}) %}

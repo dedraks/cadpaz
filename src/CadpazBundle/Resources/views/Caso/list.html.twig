@@ -1,6 +1,6 @@
 {% for caso in casos %}
     {#{% render controller('CadpazBundle:Caso:view', {'id': caso.id}) %}#}
-    <div class="example">
+    <div class="telefone_endereco_secao">
         {% set num = caso.atendimentos|length %}
         <strong><a title="{{ caso.descricao }}" class="casoView" href="{{ path('caso_view', {'id': caso.id}) }}">{{ caso.nome }}</a></strong>{{ num == 0?" - Nenhum atendimento": " - " ~ num ~ " atendimento" }}{{ num>1?"s":"" }}<br>
     </div>

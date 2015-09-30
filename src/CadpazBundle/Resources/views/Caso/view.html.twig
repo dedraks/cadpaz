@@ -3,17 +3,22 @@
         {{ caso.descricao }}<br><br>
         
         <strong>Atendimentos</strong>
-        <div id="new_atendimento_area"></div>
+        
+        <div style="float: right">
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
-        <a id="newAtendimentoLink" href="{{ path('atendimento_new', {'caso_id':caso.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+        <a id="newAtendimentoLink" href="{{ path('atendimento_new', {'caso_id':caso.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
         {% endimage %}
         {% endif %}
+        </div>
+        <div id="new_atendimento_area"></div>
+        <div class="spacer"></div>
         <div id="atendimentos_area">
         {% for atendimento in caso.atendimentos %}
             <hr>
             <strong>Data e hora:</strong> {{ atendimento.dataHora | date('d/m/Y - H:i')}} - Atendente: {{atendimento.user.nomeCompleto}}<br>
             <strong>Histórico:</strong> <br>{{ atendimento.historico | nl2br }}<br>
+            <div class="spacer"></div>
             <strong>Encaminhamento:</strong>
             <div id="encaminhamento_area_a{{atendimento.id}}" style="float: right">
                 {% if atendimento.encaminhamento is null %}
@@ -23,7 +28,7 @@
                     {% endimage %}
                     {% endif %}
                 {% else %}
-                    Encaminhado para: {{ atendimento.encaminhamento.encaminhado }}
+                Encaminhado para <em>{{ atendimento.encaminhamento.encaminhado }}</em>
                 {% endif %}
             </div>
             <div id="novo_encaminhamento_area_a{{atendimento.id}}"></div>

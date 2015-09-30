@@ -126,13 +126,13 @@ class QuestionarioType extends AbstractType
                 'label'=>'Condição de trabalho',
                 'placeholder'=>'Informe'
             ))
-            ->add('despesasMensaisAluguel', 'text', ['required'=>false])
-            ->add('despesasMensaisPrestacaoHabitacao', 'text', ['required'=>false])
-            ->add('despesasMensaisAgua', 'text', ['required'=>false])
-            ->add('despesasMensaisLuz', 'text', ['required'=>false])
-            ->add('despesasMensaisTelefone', 'text', ['required'=>false])
-            ->add('despesasMensaisMedicamentos', 'text', ['required'=>false])
-            ->add('despesasMensaisOutras', 'text', ['required'=>false])
+            ->add('despesasMensaisAluguel', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisPrestacaoHabitacao', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisAgua', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisLuz', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisTelefone', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisMedicamentos', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisOutras', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
             ->add('encaminhamentoAoProjeto', 'choice', array(
                 'choices' => array(
                     'CRAS (Casa da Família)'                    => 'CRAS (Casa da Família)',
