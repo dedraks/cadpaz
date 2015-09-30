@@ -126,13 +126,13 @@ class QuestionarioType extends AbstractType
                 'label'=>'Condição de trabalho',
                 'placeholder'=>'Informe'
             ))
-            ->add('despesasMensaisAluguel', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
-            ->add('despesasMensaisPrestacaoHabitacao', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
-            ->add('despesasMensaisAgua', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
-            ->add('despesasMensaisLuz', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
-            ->add('despesasMensaisTelefone', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
-            ->add('despesasMensaisMedicamentos', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
-            ->add('despesasMensaisOutras', 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisAluguel',             'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisPrestacaoHabitacao',  'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisAgua',                'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisLuz',                 'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisTelefone',            'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisMedicamentos',        'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
+            ->add('despesasMensaisOutras',              'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
             ->add('encaminhamentoAoProjeto', 'choice', array(
                 'choices' => array(
                     'CRAS (Casa da Família)'                    => 'CRAS (Casa da Família)',

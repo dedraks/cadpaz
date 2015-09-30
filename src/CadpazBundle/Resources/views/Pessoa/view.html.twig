@@ -218,7 +218,7 @@
             <div id="caso_area">
                 {% if is_granted('ROLE_EDITOR') %}
                 {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
-                <a id="caso" href="{{ path('caso_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+                <a id="caso" title="Clique para cadastrar um caso" href="{{ path('caso_new', {'pessoa_id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
                 {% endimage %}<div class="spacer"></div>
                 {% endif %}
                 <div id="caso_area_list">
