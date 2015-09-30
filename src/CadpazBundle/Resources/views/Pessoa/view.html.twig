@@ -1,4 +1,4 @@
-<h5>{{ pessoa.nome }} (<a id="closeUser" href="#">fechar</a>)</h5>
+<strong>{{ pessoa.nome }} (<a id="closeUser" href="#">fechar</a>)</strong>
 <div class="tabs">
     <ul class="tab-links">
         <li class="active"><a href="#tab1">Dados Pessoais</a></li>
@@ -317,6 +317,10 @@
     $("#closeUser").click(function(e) {
         e.preventDefault();
         $("#userDetails").slideUp("fast");
+        
+        $("#nome").val(window.searchText);
+        $('#form2').submit();
+        
         $("#example").delay(200).slideDown("fast");
     });
     

@@ -3,12 +3,65 @@
 <div class="spacer"></div>
 
 {{ form_start(form) }}
+<select id="cadpazbundle_caso_nome_select"><option value="0">Selecione o tipo de caso ou digite um novo</option></select>
 {{ form_widget(form) }}
 {{ form_end(form) }}
 <a class="cancel" href="#">Cancelar</a>
 </div>
 {# {{ ro }} #}
 <script>
+        //$('#cadpazbundle_caso_nome').select2();
+        $('#cadpazbundle_caso_nome').hide();
+        
+        var data = [];
+        $.ajax({
+                url: Routing.generate('caso_list_json'),
+                //data: {'nome':searchText},
+                success: function(responseText) {
+                    data = $.parseJSON(responseText);
+                    for (var i=0; i<data.length; i++)
+                    {
+                        data[i].text = data[i].nome;
+                        data[i].id = data[i].nome;
+                        //delete data[i].id;
+                    }
+                    $("#cadpazbundle_caso_nome_select").select2({
+                        tags: true,
+                        data: data,
+                        createTag: function (params) {
+                          return {
+                            id: params.term,
+                            text: params.term,
+                            newOption: true
+                          }
+                        },
+                        templateResult: function (data) {
+                          var $result = $("<span></span>");
+
+                          $result.text(data.text);
+
+                          if (data.newOption) {
+                            $result.append(" <em><strong>(novo)</strong></em>");
+                          }
+
+                          return $result;
+                        }
+                      });
+                      $("#cadpazbundle_caso_nome_select").on("change", function (e) {
+                            $('#cadpazbundle_caso_nome').val($('#cadpazbundle_caso_nome_select').select2('val'));
+                        });
+                },
+                type: 'get',
+                dataType: 'json'
+            });
+        
+        
+        
+        //$("#cadpazbundle_caso_nome").replaceWith( $('<select id="cadpazbundle_caso_nome"><option value="0">Selecione o tipo de caso ou digite um novo</option></select>') );
+        
+        
+        
+
 
         function showNewCasoResponse(responseText, statusText, xhr, $form)  { 
 
@@ -26,6 +79,12 @@
          
         function beforeSubmitCasoForm(formData, jqForm, options) {
             //alert(jqForm[0]);
+            //var texto = $('#cadpazbundle_caso_nome').select2('val');
+            //$('#cadpazbundle_caso_nome').replaceWith( $('<input id="cadpazbundle_caso_nome" name="cadpazbundle_caso[nome]" required="required" type="text">') );            
+            //$('#cadpazbundle_caso_nome').val($('#cadpazbundle_caso_nome_select').select2('val'));
+            //alert("Os dados serão enviados.");
+            
+            
         }
 
         var optionsCaso = {

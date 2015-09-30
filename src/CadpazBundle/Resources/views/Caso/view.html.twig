@@ -1,4 +1,4 @@
-    <div>
+    <div id="atd">
         <strong>{{ caso.nome }}</strong> - (<a id="fecharCaso" href="#">Fechar</a>)<br>
         {{ caso.descricao }}<br><br>
         
@@ -12,13 +12,29 @@
         <div id="atendimentos_area">
         {% for atendimento in caso.atendimentos %}
             <hr>
-            <strong>Data e hora:</strong> {{ atendimento.dataHora | date('d/m/Y - H:i')}}<br>
-                <strong>Histórico:</strong> <br>{{ atendimento.historico | nl2br }}
+            <strong>Data e hora:</strong> {{ atendimento.dataHora | date('d/m/Y - H:i')}} - Atendente: {{atendimento.user.nomeCompleto}}<br>
+            <strong>Histórico:</strong> <br>{{ atendimento.historico | nl2br }}<br>
+            <strong>Encaminhamento:</strong>
+            <div id="encaminhamento_area_a{{atendimento.id}}" style="float: right">
+                {% if atendimento.encaminhamento is null %}
+                    {% if is_granted('ROLE_EDITOR') %}
+                    {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
+                    <a id="a{{atendimento.id}}" title="Encaminhar beneficiário para atendimento" class="enc_link" href="{{ path('encaminhamento_new', {'atendimento_id':atendimento.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+                    {% endimage %}
+                    {% endif %}
+                {% else %}
+                    Encaminhado para: {{ atendimento.encaminhamento.encaminhado }}
+                {% endif %}
+            </div>
+            <div id="novo_encaminhamento_area_a{{atendimento.id}}"></div>
         {% endfor %}
         </div>
     </div>
 
     <script>
+        $('a').qtip();
+        
+        
         jQuery('#fecharCaso').on('click', function(e) {
         
             //$("#userDetails").slideUp('fast');
@@ -42,4 +58,21 @@
                         });
         });
         //
+        
+        
+        $(".enc_link").on('click', function(e){
+            
+            var elemento = "#novo_encaminhamento_area_"+$(this).attr('id');
+            //alert(elemento);
+            
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('href'),
+                method: 'GET',
+                success: function(result) {
+
+                    $(elemento).html(result);
+                }
+            });
+        });
     </script>

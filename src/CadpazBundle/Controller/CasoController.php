@@ -1,6 +1,7 @@
 <?php
 
 namespace CadpazBundle\Controller;
+use \JMS\Serializer\SerializerBuilder;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,6 +50,28 @@ class CasoController extends Controller
             ->find($pessoa_id);
         
         return $this->render('CadpazBundle:Caso:list.html.twig',  array('casos'=>$pessoa->getCasos()));
+    }
+    
+    public function listJsonAction() 
+    {
+        /*$qb = $this->getDoctrine()->getRepository('CadpazBundle:Caso')->createQueryBuilder('c')->groupBy('c.nome');
+
+        $casos = $qb->getQuery()->getResult();*/
+        
+        $casos = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Caso')
+                ->findAllDistinctOrderedByTotal();
+        
+        $teste = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Caso')
+                ->countAll();
+        dump($teste);
+        
+        
+        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+        $json = $serializer->serialize($casos, 'json');
+        dump($json);
+        return new \Symfony\Component\HttpFoundation\JsonResponse($json);
     }
 
     public function viewAction($id)

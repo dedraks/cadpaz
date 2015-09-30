@@ -1,0 +1,93 @@
+<?php
+
+namespace CadpazBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Encaminhamento
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Encaminhamento
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="encaminhado", type="string", length=100)
+     */
+    private $encaminhado;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Atendimento", inversedBy="encaminhamento")
+     * @ORM\JoinColumn(name="atendimento_id", referencedColumnName="id")
+     */
+    protected $atendimento;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set encaminhado
+     *
+     * @param string $encaminhado
+     * @return Encaminhamento
+     */
+    public function setEncaminhado($encaminhado)
+    {
+        $this->encaminhado = $encaminhado;
+
+        return $this;
+    }
+
+    /**
+     * Get encaminhado
+     *
+     * @return string 
+     */
+    public function getEncaminhado()
+    {
+        return $this->encaminhado;
+    }
+
+    /**
+     * Set atendimento
+     *
+     * @param \CadpazBundle\Entity\Atendimento $atendimento
+     * @return Encaminhamento
+     */
+    public function setAtendimento(\CadpazBundle\Entity\Atendimento $atendimento = null)
+    {
+        $this->atendimento = $atendimento;
+
+        return $this;
+    }
+
+    /**
+     * Get atendimento
+     *
+     * @return \CadpazBundle\Entity\Atendimento 
+     */
+    public function getAtendimento()
+    {
+        return $this->atendimento;
+    }
+}

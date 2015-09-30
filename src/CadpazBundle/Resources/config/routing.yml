@@ -143,6 +143,12 @@ caso_view:
     defaults: { _controller: CadpazBundle:Caso:view }
     options:
         expose: true
+        
+caso_list_json:
+    path:     /caso/list_json
+    defaults: { _controller: CadpazBundle:Caso:listJson }
+    options:
+        expose: true    
 #Fim das rotas para o controlador Caso
 
 # Rotas para o controlador Atendimento
@@ -159,3 +165,8 @@ atendimento_view:
         expose: true
 # Fim das rotas para o controlador Atendimento
 
+encaminhamento_new:
+    path:     /encaminhamento/{atendimento_id}/new
+    defaults: { _controller: CadpazBundle:Encaminhamento:new }
+    options:
+        expose: true

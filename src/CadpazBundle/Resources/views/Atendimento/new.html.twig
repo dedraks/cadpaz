@@ -6,18 +6,18 @@
 {{ form_widget(form) }}
 {{ form_end(form) }}
 
-<a id="cancelarNovoAtendimento" href="#">Cancelar</a>
+<a id="cancelarNovoAtendimento" href="#">Cancelar</a></div>
 
-</div>
+
+
 
 <script>
-    
+    $("#encaminhamento").hide();
         //window.casoAtendimentos = $("#atendimentos_area").html();
     
+
+    
         function showNewAtendimentoResponse(responseText, statusText, xhr, $form)  { 
-
-
-
 
                 $("#caso_area").html(responseText);
                 //$("#userDetails").hide();

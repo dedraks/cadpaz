@@ -52,7 +52,7 @@ class Endereco
     /**
      * @var string
      *
-     * @ORM\Column(name="complemento", type="string", length=50)
+     * @ORM\Column(name="complemento", type="string", length=50, nullable=true)
      */
     private $complemento;
 

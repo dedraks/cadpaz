@@ -1,0 +1,39 @@
+{# CadpazBundle:View:Encaminhamento:new.html.twig #}
+{{ form_start(form) }}
+<select id="cadpazbundle_encaminhamento_encaminhado_select"><option value="0">Selecione o encaminhamento ou digite um novo</option></select>
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+<script>
+    $("#cadpazbundle_encaminhamento_encaminhado").hide();
+    $("#cadpazbundle_encaminhamento_encaminhado_select").select2();
+
+    
+        function showNewEncaminhamentoResponse(responseText, statusText, xhr, $form)  { 
+
+                //$("#encaminhamento_area_a"+{{atendimento_id}}).html(responseText);
+                    $("#caso_area").html(responseText);
+                    $("#novo_encaminhamento_area_a" + {{atendimento_id}}).html('');
+            }
+
+        var optionsEncaminhamento = {
+          success: showNewEncaminhamentoResponse,
+          type: 'post',
+          url: Routing.generate('encaminhamento_new',{'atendimento_id':{{atendimento_id}}})
+        };
+        // bind form using 'ajaxForm' 
+        $('#newEncaminhamentoForm').ajaxForm(optionsEncaminhamento);
+        
+        
+        
+        /*jQuery('#cancelarNovoAtendimento').on('click', function(e) {
+        
+            //alert(window.casoAtendimentos);
+        
+            //$("#userDetails").slideUp('fast');
+            $("#new_atendimento_area").html("");
+            //$("#userDetails").slideDown('fast');
+
+            e.preventDefault();
+        });*/
+</script>

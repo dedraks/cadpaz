@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Caso
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CadpazBundle\Entity\CasoRepository")
  */
 class Caso
 {

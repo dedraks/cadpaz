@@ -19,7 +19,7 @@ class EnderecoType extends AbstractType
             ->add('padrao', 'checkbox', ['required' => false, 'disabled'=>$options['ro']])
             ->add('logradouro')
             ->add('numero')
-            ->add('complemento')
+            ->add('complemento', 'text', ['required' => false])
             ->add('bairro')
             ->add('municipio')
             ->add('cep')

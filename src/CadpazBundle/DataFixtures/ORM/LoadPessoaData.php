@@ -13,6 +13,7 @@
     use CadpazBundle\Entity\Caso;
     use CadpazBundle\Entity\User;
     use CadpazBundle\Entity\Estado;
+    use CadpazBundle\Entity\Encaminhamento;
 
     class LoadPessoaData implements FixtureInterface
     {
@@ -58,8 +59,25 @@
                 $manager->persist($estado);
             }
             
+            /*
+            $enc_items = [
+                'Defensoria Pública',
+                'CEJUS',
+                'Fórum',
+                'Cartório',
+                'Mediação - PUC Contagem',
+                'Advogado Particular',
+                'SAJ - PUC Contagem',
+                'Consulta Jurídica',
+            ];
+            foreach($enc_items as $enc_item)
+            {
+                $encaminhamento = new Encaminhamento();
+                $encaminhamento->setEncaminhado($enc_item);
+                $manager->persist($encaminhamento);
+            }*/
             
-            
+            /*
             $pessoa = new Pessoa();
             $pessoa->setNome('João Carlos da Silva');
             $pessoa->setCpf('11111111111');
@@ -234,7 +252,7 @@
             $pessoa->setRg($rg);        
             $manager->persist($rg);
             $manager->persist($pessoa);
-
+            */
             
             
             
@@ -248,8 +266,8 @@
 
             $user1 = new User() ;
             $user1->setEmail("user1@gmail.com") ;
-            $user1->setUsername("user1") ;
-            $user1->setPlainPassword("123") ;
+            $user1->setUsername("user") ;
+            $user1->setPlainPassword("password") ;
             $user1->setEnabled(true) ;
             //$user1->setRoles( array(User::ROLE_USER) ) ;
             $user1->addRole('ROLE_USER');

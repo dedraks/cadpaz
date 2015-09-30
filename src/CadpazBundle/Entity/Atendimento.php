@@ -47,6 +47,11 @@ class Atendimento
      */
     protected $caso;
     
+    /**
+     * @ORM\OneToOne(targetEntity="Encaminhamento", mappedBy="atendimento")
+     */
+    protected $encaminhamento;
+    
 
     /**
      * Get id
@@ -148,5 +153,28 @@ class Atendimento
     public function getCaso()
     {
         return $this->caso;
+    }
+
+    /**
+     * Set encaminhamento
+     *
+     * @param \CadpazBundle\Entity\Encaminhamento $encaminhamento
+     * @return Atendimento
+     */
+    public function setEncaminhamento(\CadpazBundle\Entity\Encaminhamento $encaminhamento = null)
+    {
+        $this->encaminhamento = $encaminhamento;
+
+        return $this;
+    }
+
+    /**
+     * Get encaminhamento
+     *
+     * @return \CadpazBundle\Entity\Encaminhamento 
+     */
+    public function getEncaminhamento()
+    {
+        return $this->encaminhamento;
     }
 }
