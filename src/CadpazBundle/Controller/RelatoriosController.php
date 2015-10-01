@@ -42,14 +42,7 @@ class RelatoriosController extends Controller
             'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.0f}',),
             'showInLegend'  => true
         ));
-        $data = array(
-            array('Firefox', 45.0),
-            array('IE', 26.8),
-            array('Chrome', 12.8),
-            array('Safari', 8.5),
-            array('Opera', 6.2),
-            array('Others', 0.7),
-        );
+
         $data = $casos_array;
         
         //dump($data);
