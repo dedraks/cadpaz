@@ -19,6 +19,13 @@
     <br />
     Nome: {{ pessoa.nome }}<br />
     Data de nascimento: {{ pessoa.dataNascimento|date('d/m/Y') }}<br />
+    {% set difference = date(pessoa.dataNascimento|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
+    {% set idade = difference.y %}
+    Idade atual: {{ idade  }}<br>
+    {% set difference = date(pessoa.dataNascimento|date('Y/m/d')).diff(date(pessoa.dataCadastro|date('Y/m/d'))) %}
+    {% set idade = difference.y %}
+    Idade quando foi cadastrado: {{ idade }}<br>
+    
     Email: {{ pessoa.email }}<br />
     Sexo:
         {% if pessoa.sexo == 'M' %}

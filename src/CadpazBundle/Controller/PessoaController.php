@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \JMS\Serializer\SerializerBuilder;
 
+
+
 use CadpazBundle\Entity\Pessoa;
 use CadpazBundle\Entity\Titulo;
 use CadpazBundle\Entity\RG;
@@ -198,6 +200,21 @@ class PessoaController extends Controller
         $pessoa = $this->getDoctrine()
             ->getRepository('CadpazBundle:Pessoa')
             ->find($id);
+
+        
+        
+        /*
+        $nasc = $pessoa->getDataNascimento();
+        $hoje = new \DateTime();
+        $interval = $hoje->diff($nasc);
+        $idade = $interval->y;
+        $pessoa->idadeAtual = $idade;
+        
+        $dataCadastro = $pessoa->getDataCadastro();
+        $inter = $dataCadastro->diff($nasc);
+        $idadec = $inter->y;
+        $pessoa->idadeQuandoCadastrado = $idadec;
+        */
         
         return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
     }

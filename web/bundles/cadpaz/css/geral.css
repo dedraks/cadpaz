@@ -551,3 +551,7 @@ textarea {
 #userArea a {
     text-decoration: none;
 }
+
+.tabela_pequena {
+    font-size: small;
+}

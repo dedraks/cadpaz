@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Ob\HighchartsBundle\ObHighchartsBundle(),
             new CadpazBundle\CadpazBundle(),
         );
 

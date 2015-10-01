@@ -1,0 +1,31 @@
+
+<script type="text/javascript">
+    {{ chart(chart) }}
+</script>
+
+<div style="text-align: center"><h3>Encaminhamentos</h3></div>
+<div class="spacer"></div>
+<div style="clear: both"></div>
+
+<div style="float: left; width: 30%">
+{#Encaminhamentos:<br>#}
+<table id="tbl_enc" class="display compact">
+    <thead class="tabela_pequena">
+        <tr>
+            <th>Encaminhado para</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody class="tabela_pequena">
+{% for encaminhamento in encaminhamentos %}
+    <tr>
+        <td>{{ encaminhamento.encaminhado }}</td><td> {{ encaminhamento.total }}</td> 
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+</div>
+    <div style="float: right; width: 70%">
+<div id="piechart_encaminhamentos" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+</div>
+    <div style="clear: both"></div>

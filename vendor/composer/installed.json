@@ -694,12 +694,12 @@
         "version_normalized": "2.6.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/AsseticBundle.git",
+            "url": "https://github.com/symfony/assetic-bundle.git",
             "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/422b0add2110f0cf9bc7a873a386ea053f4a89f0",
+            "url": "https://api.github.com/repos/symfony/assetic-bundle/zipball/422b0add2110f0cf9bc7a873a386ea053f4a89f0",
             "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0",
             "shasum": ""
         },
@@ -761,12 +761,12 @@
         "version_normalized": "2.7.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/MonologBundle.git",
+            "url": "https://github.com/symfony/monolog-bundle.git",
             "reference": "9320b6863404c70ebe111e9040dab96f251de7ac"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/MonologBundle/zipball/9320b6863404c70ebe111e9040dab96f251de7ac",
+            "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/9320b6863404c70ebe111e9040dab96f251de7ac",
             "reference": "9320b6863404c70ebe111e9040dab96f251de7ac",
             "shasum": ""
         },
@@ -877,12 +877,12 @@
         "version_normalized": "2.3.8.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/SwiftmailerBundle.git",
+            "url": "https://github.com/symfony/swiftmailer-bundle.git",
             "reference": "970b13d01871207e81d17b17ddda025e7e21e797"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/SwiftmailerBundle/zipball/970b13d01871207e81d17b17ddda025e7e21e797",
+            "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/970b13d01871207e81d17b17ddda025e7e21e797",
             "reference": "970b13d01871207e81d17b17ddda025e7e21e797",
             "shasum": ""
         },
@@ -2283,7 +2283,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/35589cb0e31d5f678af7fdf551a94fc003e3a768",
+            "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/d5b28c367d393f9d9fbc48c4138b2a74d51c0c83",
             "reference": "35589cb0e31d5f678af7fdf551a94fc003e3a768",
             "shasum": ""
         },
@@ -2339,6 +2339,230 @@
         "homepage": "http://friendsofsymfony.github.com",
         "keywords": [
             "User management"
+        ]
+    },
+    {
+        "name": "zendframework/zend-stdlib",
+        "version": "2.3.0",
+        "version_normalized": "2.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/zendframework/zend-stdlib.git",
+            "reference": "426b5396e89e7da2db9678bc9a0b57865f84fe0f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/426b5396e89e7da2db9678bc9a0b57865f84fe0f",
+            "reference": "426b5396e89e7da2db9678bc9a0b57865f84fe0f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.23"
+        },
+        "require-dev": {
+            "fabpot/php-cs-fixer": "1.7.*",
+            "phpunit/phpunit": "~4.0",
+            "satooshi/php-coveralls": "dev-master",
+            "zendframework/zend-eventmanager": "self.version",
+            "zendframework/zend-filter": "self.version",
+            "zendframework/zend-serializer": "self.version",
+            "zendframework/zend-servicemanager": "self.version"
+        },
+        "suggest": {
+            "zendframework/zend-eventmanager": "To support aggregate hydrator usage",
+            "zendframework/zend-filter": "To support naming strategy hydrator usage",
+            "zendframework/zend-serializer": "Zend\\Serializer component",
+            "zendframework/zend-servicemanager": "To support hydrator plugin manager usage"
+        },
+        "time": "2014-03-12 16:10:15",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.2-dev",
+                "dev-develop": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Zend\\Stdlib\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "homepage": "https://github.com/zendframework/zend-stdlib",
+        "keywords": [
+            "stdlib",
+            "zf2"
+        ]
+    },
+    {
+        "name": "zendframework/zend-json",
+        "version": "2.3.0",
+        "version_normalized": "2.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/zendframework/zend-json.git",
+            "reference": "cf8e594a8a6516d06c25a3dc07e3be462fbea84d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/zendframework/zend-json/zipball/cf8e594a8a6516d06c25a3dc07e3be462fbea84d",
+            "reference": "cf8e594a8a6516d06c25a3dc07e3be462fbea84d",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.23",
+            "zendframework/zend-stdlib": "self.version"
+        },
+        "require-dev": {
+            "fabpot/php-cs-fixer": "1.7.*",
+            "phpunit/phpunit": "~4.0",
+            "satooshi/php-coveralls": "dev-master",
+            "zendframework/zend-http": "self.version",
+            "zendframework/zend-server": "self.version"
+        },
+        "suggest": {
+            "zendframework/zend-http": "Zend\\Http component",
+            "zendframework/zend-server": "Zend\\Server component",
+            "zendframework/zendxml": "To support Zend\\Json\\Json::fromXml() usage"
+        },
+        "time": "2014-03-12 16:10:15",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.2-dev",
+                "dev-develop": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Zend\\Json\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "provides convenience methods for serializing native PHP to JSON and decoding JSON to native PHP",
+        "homepage": "https://github.com/zendframework/zend-json",
+        "keywords": [
+            "json",
+            "zf2"
+        ]
+    },
+    {
+        "name": "ob/highcharts-bundle",
+        "version": "1.2",
+        "version_normalized": "1.2.0.0",
+        "target-dir": "Ob/HighchartsBundle",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/marcaube/ObHighchartsBundle.git",
+            "reference": "cce67aa209f2a8b14db520c8e50a15cd5f5c23d0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/marcaube/ObHighchartsBundle/zipball/cce67aa209f2a8b14db520c8e50a15cd5f5c23d0",
+            "reference": "cce67aa209f2a8b14db520c8e50a15cd5f5c23d0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0",
+            "symfony/symfony": "~2.3",
+            "zendframework/zend-json": "2.3.0"
+        },
+        "time": "2014-08-04 23:56:54",
+        "type": "symfony-bundle",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Ob\\HighchartsBundle": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Marc Aubé"
+            }
+        ],
+        "description": "Symfony2 Bundle that ease the use of highcharts to display rich graph and charts in your app",
+        "homepage": "https://github.com/marcaube/ObHighchartsBundle",
+        "keywords": [
+            "Symfony2",
+            "chart",
+            "charting",
+            "charts",
+            "graph",
+            "graphs",
+            "highcharts",
+            "marcaube",
+            "ob"
+        ]
+    },
+    {
+        "name": "twig/extensions",
+        "version": "v1.3.0",
+        "version_normalized": "1.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/twigphp/Twig-extensions.git",
+            "reference": "449e3c8a9ffad7c2479c7864557275a32b037499"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/449e3c8a9ffad7c2479c7864557275a32b037499",
+            "reference": "449e3c8a9ffad7c2479c7864557275a32b037499",
+            "shasum": ""
+        },
+        "require": {
+            "twig/twig": "~1.20|~2.0"
+        },
+        "require-dev": {
+            "symfony/translation": "~2.3"
+        },
+        "suggest": {
+            "symfony/translation": "Allow the time_diff output to be translated"
+        },
+        "time": "2015-08-22 16:38:35",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Twig_Extensions_": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Common additional features for Twig that do not directly belong in core",
+        "homepage": "http://twig.sensiolabs.org/doc/extensions/index.html",
+        "keywords": [
+            "i18n",
+            "text"
         ]
     }
 ]

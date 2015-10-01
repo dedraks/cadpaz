@@ -176,3 +176,21 @@ encaminhamento_list_json:
     defaults: { _controller: CadpazBundle:Encaminhamento:listJson }
     options:
         expose: true
+
+relatorios_index:
+    path:     /relatorios/index
+    defaults: { _controller: CadpazBundle:Relatorios:index }
+    options:
+        expose: true
+
+relatorios_casos:
+    path:     /relatorios/casos
+    defaults: { _controller: CadpazBundle:Relatorios:casos }
+    options:
+        expose: true
+        
+relatorios_encaminhamentos:
+    path:     /relatorios/casos
+    defaults: { _controller: CadpazBundle:Relatorios:encaminhamentos }
+    options:
+        expose: true

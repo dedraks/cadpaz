@@ -8,3 +8,8 @@ services:
         class: CadpazBundle\Form\UserType
         tags:
             - { name: form.type, alias: app_user_registration }
+
+    twig.extension.date:
+        class: Twig_Extensions_Extension_Date
+        tags:
+            - { name: twig.extension }
