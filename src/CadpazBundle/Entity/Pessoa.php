@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Pessoa
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CadpazBundle\Entity\PessoaRepository")
  * @UniqueEntity("cpf")
  */
 class Pessoa

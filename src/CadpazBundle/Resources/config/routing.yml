@@ -194,3 +194,9 @@ relatorios_encaminhamentos:
     defaults: { _controller: CadpazBundle:Relatorios:encaminhamentos }
     options:
         expose: true
+
+configuracoes_index:
+    path:     /config/index
+    defaults: { _controller: CadpazBundle:Configuracoes:index }
+    options:
+        expose: true

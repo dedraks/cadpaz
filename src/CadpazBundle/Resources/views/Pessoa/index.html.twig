@@ -42,7 +42,7 @@
                 </a>
                 (<a id="userAreaChangePwdLink" href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
                 (<a href="{{ path('fos_user_security_logout') }}">Sair</a>)
-                <div id="relatoriosLink" style="float: right"><a href="{{path('relatorios_index')}}">Relatórios</a></div>
+                <div id="relatoriosArea" style="float: right"><a class="menuLink" href="{{path('configuracoes_index')}}">Configurações</a> | <a class="menuLink" href="{{path('relatorios_index')}}">Relatórios</a></div>
             </div>
         {% else %}
             Efetuar <a id="userLoginLink" href="{{ path('fos_user_security_login') }}">login</a>
@@ -139,10 +139,11 @@
         }); 
         
         
-        $("#relatoriosLink").on('click', function(e) {
+        $(".menuLink").on('click', function(e) {
             e.preventDefault();
             $.ajax({
-                            url: Routing.generate('relatorios_index'),
+                            //url: Routing.generate('relatorios_index'),
+                            url: $(this).attr('href'),
                             method: 'GET',
                             //data: {'cpf': $("#cpf").val()},
                             success: function(result) {

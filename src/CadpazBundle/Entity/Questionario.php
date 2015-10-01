@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Questionario
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CadpazBundle\Entity\QuestionarioRepository")
  */
 class Questionario
 {

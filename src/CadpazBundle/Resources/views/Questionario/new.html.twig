@@ -7,7 +7,7 @@
     {{ form_start(form) }}
     {{ form_errors(form) }}
     
-<div id="questionario_1" class="example" style="width: 96%;">
+<div id="questionario_1">
     <strong>COMPOSIÇÃO FAMILIAR / HABITAÇÃO</strong><hr>
     <strong>Como você mora atualmente</strong><br>
     {{ form_label(form.moradia) }}
@@ -89,7 +89,7 @@
 </div>
 <!--<div class="spacer"></div>-->
 
-<div id="questionario_2" class="example"> 
+<div id="questionario_2"> 
     <strong>Escolaridade</strong>
     <hr>
     {{ form_label(form.estudaAtualmente) }}
@@ -114,7 +114,7 @@
 </div>
 <!--<div class="spacer"></div>-->
 
-<div id="questionario_3" class="example"> 
+<div id="questionario_3"> 
     <strong>Saúde</strong><hr>
     <strong>Tem alguma deficiência</strong><br>
     {{ form_label(form.deficienciaFisica) }}
@@ -171,7 +171,7 @@
 </div>
 <!--<div class="spacer"></div>-->
 
-<div id="questionario_4" class="example"> 
+<div id="questionario_4"> 
     <strong>SITUAÇÃO ECONÔMICA</strong><hr>
     <strong>Renda familiar aproximada (soma das rendas de todas as pessoas que moram com você)</strong><br>
     {{ form_label(form.rendaFamiliar) }}
@@ -239,7 +239,7 @@
 </div>
 <!--<div class="spacer"></div>-->
 
-<div id="questionario_5" class="example"> 
+<div id="questionario_5"> 
     <strong>ENCAMINHAMENTO AO PROJETO</strong><hr>
     <strong>Por quem foi encaminhado ao projeto</strong><br>
     {{ form_label(form.encaminhamentoAoProjeto) }}
@@ -253,14 +253,17 @@
 </div>
 <!--<div class="spacer"></div>-->
 
-<div id="questionario_6" class="example"> 
+<div id="questionario_6"> 
     <strong>OBSERVAÇÕES (Fatos informados pelo beneficiário)</strong><hr>
     {{ form_label(form.observacoes) }}
     {{ form_errors(form.observacoes) }}
     {{ form_widget(form.observacoes) }}
 </div>
+
+<hr>
 <div class="spacer"></div>
 <div class="spacer"></div>
+
 <a href="#" id="pagina_voltar" class="btn">Voltar</a>
 <a href="#" id="pagina_avancar" class="btn">Avançar</a>
 <a id="cancelar" class="btn" href="#">Cancelar</a>
@@ -271,8 +274,7 @@
     {{ form_row(form.save) }}
     {{ form_end(form) }}
 
-<div class="spacer"></div>
-<div class="spacer"></div>
+
 
 
 
