@@ -1,7 +1,0 @@
-@media print {
-    footer {page-break-after: always;};
-    .relButtons {
-        display: none;
-        visibility: hidden;
-    }
-}
