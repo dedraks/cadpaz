@@ -1,0 +1,36 @@
+
+<script type="text/javascript">
+    {{ chart(chart) }}
+</script>
+
+
+<div style="width: 100%">
+Total de casos atendidos: {{ total_casos }}<br>
+</div>
+<div class="spacer"></div>
+<div style="clear: both"></div>
+    
+<div style="float: left; width: 35%">
+Casos por tipo:<br>
+<table id="tbl_cas" class="display compact">
+    <thead class="tabela_pequena">
+        <tr>
+            <th>Tipo</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody class="tabela_pequena">
+        
+{% for caso in casos %}
+    <tr>
+        <td>{{ caso.nome }}</td><td> {{ caso.total }}</td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+</div>
+
+<div style="float: right; width: 65%">
+<div id="piechart_casos" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+</div>
+    <div style="clear: both"></div>

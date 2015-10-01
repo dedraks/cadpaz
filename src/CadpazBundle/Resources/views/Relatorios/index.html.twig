@@ -1,0 +1,59 @@
+{#<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>#}
+
+
+<id id="relatoriosInicio"></div>
+
+
+<div id="relatoriosArea">
+    <span style="font-weight: bold; font-size: x-large;">Relatório de uso</span>
+    <hr>
+    <p>Relatório dos atendimentos feitos no sistema.</p>
+    <footer><hr></footer>
+    
+    
+{% render controller('CadpazBundle:Relatorios:casos') %}
+<footer><hr></footer>
+
+
+{% render controller('CadpazBundle:Relatorios:encaminhamentos') %}
+<footer><hr></footer>
+</div>
+
+<div class="relButtons">
+<a href="#" class="printRel">Imprimir Relatório</a><br>
+<a href="#" class="scrollToTop">Início da página</a>
+</div>
+
+<script>
+    $('html, body').animate({
+            scrollTop: $("#relatoriosInicio").offset().top
+        }, 2000);
+    
+    $('.scrollToTop').on('click', function(e) {
+        e.preventDefault();
+        
+        $('html, body').animate({
+            scrollTop: $("#relatoriosInicio").offset().top
+        }, 2000);
+    });
+    
+    function printContent(el){
+        var restorepage = $('body').html();
+        var printcontent = $('#' + el).clone();
+        $('body').empty().html(printcontent);
+        window.print();
+        $('body').html(restorepage);
+        }
+    
+    $('.printRel').on('click', function(e) {
+        e.preventDefault();
+        printContent('relatoriosArea');
+    });
+    
+    $('#tbl_cas, #tbl_enc').DataTable({
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        "searching": false
+    });
+</script>

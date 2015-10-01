@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Cadpaz - Cadastro de Pessoas{% endblock %}
+{% block title %}Cadpaz{% endblock %}
 {% block stylesheets %}
     {% stylesheets 'bundles/cadpaz/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -42,6 +42,7 @@
                 </a>
                 (<a id="userAreaChangePwdLink" href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
                 (<a href="{{ path('fos_user_security_logout') }}">Sair</a>)
+                <div id="relatoriosLink" style="float: right"><a href="{{path('relatorios_index')}}">Relatórios</a></div>
             </div>
         {% else %}
             Efetuar <a id="userLoginLink" href="{{ path('fos_user_security_login') }}">login</a>
@@ -75,12 +76,18 @@
     {% javascripts '@CadpazBundle/Resources/public/plugins/datepicker/js/*' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    {% javascripts '@CadpazBundle/Resources/public/plugins/highcharts/js/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     {# <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script> #}
     
+    {# <script src="//code.highcharts.com/4.1.8/highcharts.js"></script> #}
+{#<script src="//code.highcharts.com/4.1.8/modules/exporting.js"></script>#}
     
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    
+{# <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script> #}
 
    
     
@@ -128,6 +135,20 @@
             $('#form1').ajaxForm(options); 
             $('#form2').ajaxForm(options); 
         }); 
+        
+        
+        $("#relatoriosLink").on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                            url: Routing.generate('relatorios_index'),
+                            method: 'GET',
+                            //data: {'cpf': $("#cpf").val()},
+                            success: function(result) {
+                                $("#dataArea").html(result);
+                                $("#userDetails").slideUp();
+                            }
+                        });
+        });
         
         /*function showRequest(formData, jqForm, options)
         {
