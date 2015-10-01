@@ -7,29 +7,29 @@
 {#<div style="width: 100%">
 Total de casos atendidos: {{ total_casos }}<br>
 </div>#}
-<div style="text-align: center"><h3>Como foi encaminhado ao projeto</h3></div>
+<div style="text-align: center"><h3>Origens</h3></div>
 <div class="spacer"></div>
 <div style="clear: both"></div>
     
 <div style="float: left; width: 35%">
 {#Casos por tipo:<br>#}
-<table id="tbl_cas" class="display compact">
+<table id="tbl_ori" class="display compact">
     <thead class="tabela_pequena">
         <tr>
             <th>Encaminhamento</th>
-            <th>Total</th>
+            <th>Percentual</th>
         </tr>
     </thead>
     <tbody class="tabela_pequena">
         
 {% for origem in origens %}
     <tr>
-        <td>{{ origem.origem }}</td><td> {{ origem.total }}</td>
+        <td>{{ origem.origem }}</td><td> {{ (origem.total/total_origens*100)|number_format(1) }}%</td>
     </tr>
 {% endfor %}
-    <tr>
+    {#<tr>
         <td>Total geral</td><td>{{ total_origens }}</td>
-    </tr>
+    </tr>#}
     </tbody>
 </table>
 </div>
@@ -37,4 +37,4 @@ Total de casos atendidos: {{ total_casos }}<br>
 <div style="float: right; width: 65%">
 <div id="piechart_origens" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 </div>
-    <div style="clear: both"></div>
+<div style="clear: both"></div>

@@ -98,12 +98,15 @@ class RelatoriosController extends Controller
         $origens = $this->getDoctrine()
                 ->getRepository('CadpazBundle:Questionario')
                 ->findAllOriginsDistinctOrderedByTotal();
-        //$total_casos = count($casos);
+        $total_origens = count($origens);
         $origens_array = array();
         foreach($origens as $origem) 
         {
             $origens_array[] =
-                    [$origem["origem"], intval($origem["total"])];
+                    [
+                        $origem["origem"], 
+                        (intval($origem["total"])/$total_origens) * 100,
+                    ];
         }
         
         
@@ -113,7 +116,7 @@ class RelatoriosController extends Controller
         $ob->plotOptions->pie(array(
             'allowPointSelect'  => true,
             'cursor'    => 'pointer',
-            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.0f}',),
+            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.1f}%',),
             'showInLegend'  => true
         ));
         $data = $origens_array;

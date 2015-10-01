@@ -23,12 +23,12 @@
 <footer><hr></footer>
 
 
-{% render controller('CadpazBundle:Relatorios:idades') %}
-<footer><hr></footer>
+{# {% render controller('CadpazBundle:Relatorios:idades') %}
+<footer><hr></footer> #}
 
 </div>
 
-<div class="relButtons">
+<div id="outro" class="relButtons">
 <a href="#" class="printRel">Imprimir Relatório</a><br>
 <a href="#" class="scrollToTop">Início da página</a>
 </div>
@@ -48,7 +48,7 @@
     
     function printContent(el){
         var restorepage = $('body').html();
-        var printcontent = $('#' + el).clone();
+        var printcontent = $(el).clone();
         $('body').empty().html(printcontent);
         window.print();
         $('body').html(restorepage);
@@ -56,10 +56,11 @@
     
     $('.printRel').on('click', function(e) {
         e.preventDefault();
-        printContent('relatoriosArea');
+        printContent('#relatoriosArea');
+        //alert($('#relatoriosArea').html());
     });
     
-    $('#tbl_cas, #tbl_enc').DataTable({
+    $('#tbl_cas, #tbl_enc, #tbl_ori').DataTable({
         "paging":   false,
         "ordering": false,
         "info":     false,
