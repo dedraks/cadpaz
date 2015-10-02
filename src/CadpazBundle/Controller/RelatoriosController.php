@@ -151,37 +151,79 @@ class RelatoriosController extends Controller
             FROM CadpazBundle:Pessoa p'
         );
 
-        $products = $query->getResult();
+        $pessoas = $query->getResult();
+        $total = count($pessoas);
         
+        $idades_array = [
+            "Menos de 18" => 0,
+            "18-30" => 0,
+            "31-40" => 0,
+            "41-50" => 0,
+            "51-60" => 0,
+            "Mais de 60" => 0,
+        ];
         
-        //$total_casos = count($casos);
-        $idades_array = array();
-        foreach($idades as $idade) 
+        foreach ($pessoas as $pessoa)
         {
-            $idades_array[] =
-                    [$idade["idade"], intval($idade["total"])];
+            $dataCadastro = $pessoa["dataCadastro"];
+            $inter = $dataCadastro->diff($pessoa["dataNascimento"]);
+            $idadec = $inter->y;
+            
+            
+            switch (true)
+            {
+                case ($idadec < 18):
+                    $idades_array["Menos de 18"]++;
+                break;
+                case ($idadec <= 30):
+                    $idades_array["18-30"]++;
+                break;
+                case ($idadec <= 40):
+                    $idades_array["31-40"]++;
+                break;
+                case ($idadec <= 50):
+                    $idades_array["41-50"]++;
+                break;
+                case ($idadec <= 60):
+                    $idades_array["51-60"]++;
+                break;
+                default:
+                    $idades_array["Mais de 60"]++;
+                break;
+            }                
         }
+        
+        dump($idades_array);
+        
         
         
         $ob = new Highchart();
         $ob->chart->renderTo('piechart_idades');
-        $ob->title->text('Como foi encaminhado para o projeto');
+        $ob->title->text('Idade dos atendidos');
         $ob->plotOptions->pie(array(
             'allowPointSelect'  => true,
             'cursor'    => 'pointer',
-            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.0f}',),
+            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.1f}%',),
             'showInLegend'  => true
         ));
-        $data = $idades_array;
         
-        //dump($data);
+        
+        $data = array();
+        foreach (array_keys($idades_array) as $key)
+        {
+            $data[]=
+                [$key,  $idades_array[$key]/$total*100 ]
+            ;
+        }
+        
+        dump($data);
         //dump($casos_array);
         
         $ob->series(array(array('type' => 'pie','name' => 'Idade', 'data' => $data)));
 
                 return $this->render('CadpazBundle:Relatorios:idades.html.twig', array(
                     'chart' => $ob,
-                    'origens' => $idades,
+                    //'idades' => $idades,
                     //'total_origens' => count($origens)
                 ));
     }
@@ -215,8 +257,8 @@ class RelatoriosController extends Controller
                     [$sexo["sexo"], (intval($sexo["total"])/$total) * 100 ];
         }
         
-        dump($sexos);
-        dump($total);
+        //dump($sexos);
+        //dump($total);
         
         $ob = new Highchart();
         $ob->chart->renderTo('piechart_sexos');
@@ -240,18 +282,78 @@ class RelatoriosController extends Controller
                 ));
     }
     
+    
+    public function coresAction()
+    {
+        $pessoas = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Pessoa')
+                ->findAll();
+        $total = count($pessoas);
+        unset($pessoas);
+        
+        
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT
+                p.corInformada as cor, count(p.corInformada) as total
+            FROM
+                CadpazBundle:Pessoa p
+            GROUP BY
+                cor
+                '
+        );
+        
+        $cores = $query->getResult();
+        dump($cores);
+        
+        
+        
+        
+        $cores_array = array();
+        foreach($cores as $cor) 
+        {
+            $c = intval($cor["total"]);
+        
+            
+            $cores_array[] =
+                    [$cor["cor"], ($c/$total) * 100 ];
+        }
+        dump($total);
+        dump($cores_array);
+        //dump($sexos);
+        //dump($total);
+        
+        $ob = new Highchart();
+        $ob->chart->renderTo('piechart_cores');
+        $ob->title->text('Cor/Raça dos atendidos');
+        $ob->plotOptions->pie(array(
+            'allowPointSelect'  => true,
+            'cursor'    => 'pointer',
+            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.1f}%',),
+            'showInLegend'  => true
+        ));
+        $data = $cores_array;
+        
+        //dump($data);
+        //dump($casos_array);
+        
+        $ob->series(array(array('type' => 'pie','name' => 'Sexos', 'data' => $data)));
+
+                return $this->render('CadpazBundle:Relatorios:cores.html.twig', array(
+                    'chart' => $ob,
+                    'cores' => $cores,
+                    'total' => $total
+                ));
+    }
+    
+    
     public function atendimentosPorAtendente()
     {
         
     }
     
     
-    
-    public function pessoaCoresAction()
-    {
-        
-    }
-    
+   
     public function pessoaNumFilhosAction()
     {
         

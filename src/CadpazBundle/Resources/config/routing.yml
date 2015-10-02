@@ -195,11 +195,23 @@ relatorios_encaminhamentos:
     options:
         expose: true
         
+relatorios_idades:
+    path:     /relatorios/idades
+    defaults: { _controller: CadpazBundle:Relatorios:idades }
+    options:
+        expose: true
+        
 relatorios_sexos:
     path:     /relatorios/sexos
     defaults: { _controller: CadpazBundle:Relatorios:sexos }
     options:
         expose: true    
+
+relatorios_cores:
+    path:     /relatorios/cores
+    defaults: { _controller: CadpazBundle:Relatorios:cores }
+    options:
+        expose: true
 
 configuracoes_index:
     path:     /config/index
