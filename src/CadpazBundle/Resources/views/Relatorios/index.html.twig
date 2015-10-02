@@ -22,9 +22,13 @@
 {% render controller('CadpazBundle:Relatorios:origens') %}
 <footer><hr></footer>
 
+{#
+ {% render controller('CadpazBundle:Relatorios:idades') %}
+<footer><hr></footer> 
+#}
 
-{# {% render controller('CadpazBundle:Relatorios:idades') %}
-<footer><hr></footer> #}
+{% render controller('CadpazBundle:Relatorios:sexos') %}
+<footer><hr></footer> 
 
 </div>
 
@@ -60,7 +64,7 @@
         //alert($('#relatoriosArea').html());
     });
     
-    $('#tbl_cas, #tbl_enc, #tbl_ori').DataTable({
+    $('#tbl_cas, #tbl_enc, #tbl_ori, #tbl_sex').DataTable({
         "paging":   false,
         "ordering": false,
         "info":     false,

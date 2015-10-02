@@ -194,6 +194,12 @@ relatorios_encaminhamentos:
     defaults: { _controller: CadpazBundle:Relatorios:encaminhamentos }
     options:
         expose: true
+        
+relatorios_sexos:
+    path:     /relatorios/sexos
+    defaults: { _controller: CadpazBundle:Relatorios:sexos }
+    options:
+        expose: true    
 
 configuracoes_index:
     path:     /config/index

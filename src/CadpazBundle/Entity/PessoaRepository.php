@@ -74,12 +74,12 @@ class PessoaRepository extends EntityRepository
                     'SELECT  
 
             case 
-            when DATEDIFF(YEAR, c.datanascimento, c.dataCadastro) <18  then "0-18"
-            when DATEDIFF(YEAR, c.datanascimento, c.dataCadastro) <=30 then "18-30"
-            when DATEDIFF(YEAR, c.datanascimento, c.dataCadastro) <=40 then "31-40"
-            when DATEDIFF(YEAR, c.datanascimento, c.dataCadastro) <=50 then "41-50"
-            when DATEDIFF(YEAR, c.datanascimento, c.dataCadastro) <=60 then "51-60"
-            when DATEDIFF(YEAR, c.datanascimento, c.dataCadastro) >60  then "Mais de 60"
+            when DATEDIFF( c.datanascimento, c.dataCadastro) <18  then "0-18"
+            when DATEDIFF( c.datanascimento, c.dataCadastro) <=30 then "18-30"
+            when DATEDIFF( c.datanascimento, c.dataCadastro) <=40 then "31-40"
+            when DATEDIFF( c.datanascimento, c.dataCadastro) <=50 then "41-50"
+            when DATEDIFF( c.datanascimento, c.dataCadastro) <=60 then "51-60"
+            when DATEDIFF( c.datanascimento, c.dataCadastro) >60  then "Mais de 60"
             else ">40"
             end
 
@@ -93,5 +93,16 @@ class PessoaRepository extends EntityRepository
             ORDER BY idade ASC'
             )
             ->getResult();
+    }
+    
+    public function findAllGrouppedBySexo()
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                    'SELECT p.sexo as sexo, COUNT(p.nome) as total FROM CadpazBundle:Pessoa p group by sexo'
+            )
+            ->getResult();
+        
+       
     }
 }

@@ -135,9 +135,20 @@ class RelatoriosController extends Controller
     
     public function idadesAction()
     {
-        $idades = $this->getDoctrine()
+        /*$idades = $this->getDoctrine()
                 ->getRepository('CadpazBundle:Pessoa')
-                ->findAllAgesOrderedByTotal();
+                ->findAllAgesOrderedByTotal();*/
+        
+        
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT p.dataNascimento, p.dataCadastro
+            FROM CadpazBundle:Pessoa p'
+        );
+
+        $products = $query->getResult();
+        
+        
         //$total_casos = count($casos);
         $idades_array = array();
         foreach($idades as $idade) 
@@ -170,15 +181,66 @@ class RelatoriosController extends Controller
                 ));
     }
     
+    public function sexosAction()
+    {
+        $sexos = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Pessoa')
+                ->findAllGrouppedBySexo();
+        
+        $total = 0;
+        for ($i=0;$i<count($sexos);$i++)
+        {
+            $total += $sexos[$i]["total"];
+            if ($sexos[$i]["sexo"] == "M")
+            {
+                $sexos[$i]["sexo"] = "Masculino";
+            }
+            elseif ($sexos[$i]["sexo"] == "F") {
+                $sexos[$i]["sexo"] = "Feminino";
+            }
+            else {
+                $sexos[$i]["sexo"] = "Outros";
+            }
+        }
+        
+        $sexos_array = array();
+        foreach($sexos as $sexo) 
+        {
+            $sexos_array[] =
+                    [$sexo["sexo"], (intval($sexo["total"])/$total) * 100 ];
+        }
+        
+        dump($sexos);
+        dump($total);
+        
+        $ob = new Highchart();
+        $ob->chart->renderTo('piechart_sexos');
+        $ob->title->text('Sexo dos atendidos');
+        $ob->plotOptions->pie(array(
+            'allowPointSelect'  => true,
+            'cursor'    => 'pointer',
+            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.1f}%',),
+            'showInLegend'  => true
+        ));
+        $data = $sexos_array;
+        
+        //dump($data);
+        //dump($casos_array);
+        
+        $ob->series(array(array('type' => 'pie','name' => 'Sexos', 'data' => $data)));
+
+                return $this->render('CadpazBundle:Relatorios:sexos.html.twig', array(
+                    'chart' => $ob,
+                    'sexos' => $sexos,
+                ));
+    }
+    
     public function atendimentosPorAtendente()
     {
         
     }
     
-    public function pessoaSexosAction()
-    {
-        
-    }
+    
     
     public function pessoaCoresAction()
     {
