@@ -29,7 +29,7 @@ class RelatoriosController extends Controller
         foreach($casos as $caso) 
         {
             $casos_array[] =
-                    [$caso["nome"], intval($caso["total"])];
+                    [$caso["nome"], intval($caso["total"])/$total_casos*100  ];
         }
         
         
@@ -39,7 +39,7 @@ class RelatoriosController extends Controller
         $ob->plotOptions->pie(array(
             'allowPointSelect'  => true,
             'cursor'    => 'pointer',
-            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.0f}',),
+            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.1f}%',),
             'showInLegend'  => true
         ));
 
@@ -61,23 +61,28 @@ class RelatoriosController extends Controller
     {
         $encaminhamentos = $this->getDoctrine()
                 ->getRepository('CadpazBundle:Encaminhamento')
+                ->findAll();
+        $total_encaminhamentos = count($encaminhamentos);
+        
+        $encaminhamentos = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Encaminhamento')
                 ->findAllDistinctOrderedByTotal();
         //$total_casos = count($casos);
         $encaminhamentos_array = array();
         foreach($encaminhamentos as $encaminhamento) 
         {
             $encaminhamentos_array[] =
-                    [$encaminhamento["encaminhado"], intval($encaminhamento["total"])];
+                    [$encaminhamento["encaminhado"], intval($encaminhamento["total"])/$total_encaminhamentos*100 ];
         }
         
         
         $ob = new Highchart();
         $ob->chart->renderTo('piechart_encaminhamentos');
-        $ob->title->text('Tipos de encaminhamentos');
+        $ob->title->text('Encaminhado para');
         $ob->plotOptions->pie(array(
             'allowPointSelect'  => true,
             'cursor'    => 'pointer',
-            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.0f}',),
+            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.1f}%',),
             'showInLegend'  => true
         ));
         $data = $encaminhamentos_array;
