@@ -3,12 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Relatorios/index.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Controller/RelatoriosController.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Relatorios/encaminhamentos.html.twig</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Endereco/new.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Relatorios/sexos.html.twig</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Configuracoes/index.html.twig</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Form/CasoType.php</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Controller/ConfiguracoesController.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Relatorios/idades.html.twig</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Entity/Caso.php</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Resources/views/Caso/new.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Relatorios/cores.html.twig</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/config/routing.yml</file>
         </group>
     </open-files>
 </project-private>
