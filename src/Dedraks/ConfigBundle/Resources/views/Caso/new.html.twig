@@ -1,0 +1,24 @@
+{# empty Twig template #}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+
+
+<script>
+    
+    var c="{{create}}";
+    
+    var url = (c==='sim') ? Routing.generate('configuracoes_caso_tipo_new') : Routing.generate('configuracoes_caso_tipo_edit', {'id':{{id}}});
+    
+    //alert(url);
+    
+    $('#newTipoCasoForm').ajaxForm({
+        url: Routing.generate('configuracoes_caso_tipo_new'),
+        type: 'post',
+        success: function(responseText) {
+            $("#dataArea").html(responseText);
+            window.configPopup.close();
+        }
+    });
+</script>

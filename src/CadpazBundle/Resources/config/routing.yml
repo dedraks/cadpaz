@@ -218,3 +218,21 @@ configuracoes_index:
     defaults: { _controller: CadpazBundle:Configuracoes:index }
     options:
         expose: true
+
+configuracoes_caso_tipo_new:
+    path:     /config/caso/new
+    defaults: { _controller: CadpazBundle:Configuracoes:newCasoTipo }
+    options:
+        expose: true
+
+configuracoes_caso_tipo_edit:
+    path:     /config/caso/{id}/edit
+    defaults: { _controller: CadpazBundle:Configuracoes:editCasoTipo }
+    options:
+        expose: true
+
+configuracoes_caso_tipo_delete:
+    path:     /config/caso/{id}/delete
+    defaults: { _controller: CadpazBundle:Configuracoes:deleteCasoTipo }
+    options:
+        expose: true

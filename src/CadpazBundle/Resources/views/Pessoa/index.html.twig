@@ -1,3 +1,4 @@
+{# CadpazBundle/Resources/view/Pessoa/index.html.twig #}
 {% extends "::base.html.twig" %}
 
 {% block title %}Cadpaz{% endblock %}
@@ -42,7 +43,7 @@
                 </a>
                 (<a id="userAreaChangePwdLink" href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
                 (<a href="{{ path('fos_user_security_logout') }}">Sair</a>)
-                <div id="menuArea" style="float: right"><a class="menuLink" href="{{path('configuracoes_index')}}">Configurações</a> | <a class="menuLink" href="{{path('relatorios_index')}}">Relatórios</a></div>
+                <div id="menuArea" style="float: right"><a class="menuLink" id="confLink" href="{{path('configuracoes_index')}}">Configurações</a> | <a class="menuLink" href="{{path('relatorios_index')}}">Relatórios</a></div>
             </div>
         {% else %}
             Efetuar <a id="userLoginLink" href="{{ path('fos_user_security_login') }}">login</a>

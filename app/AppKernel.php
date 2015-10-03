@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Ob\HighchartsBundle\ObHighchartsBundle(),
             new CadpazBundle\CadpazBundle(),
+            new Dedraks\ConfigBundle\DedraksConfigBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

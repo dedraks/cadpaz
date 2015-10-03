@@ -59,13 +59,15 @@ class CasoController extends Controller
         $casos = $qb->getQuery()->getResult();*/
         
         $casos = $this->getDoctrine()
-                ->getRepository('CadpazBundle:Caso')
-                ->findAllDistinctOrderedByTotal();
+                ->getRepository('DedraksConfigBundle:Caso')
+                //->findAllDistinctOrderedByTotal();
+                ->findAll();
+        dump($casos);
         
-        $teste = $this->getDoctrine()
+        /*$teste = $this->getDoctrine()
                 ->getRepository('CadpazBundle:Caso')
                 ->countAll();
-        dump($teste);
+        dump($teste);*/
         
         
         $serializer = \JMS\Serializer\SerializerBuilder::create()->build();

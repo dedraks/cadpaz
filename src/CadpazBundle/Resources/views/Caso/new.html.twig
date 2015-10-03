@@ -5,7 +5,7 @@
 {{ form_start(form) }}
 {{ form_errors(form) }}
 
-{{ form_label(form.nome) }} {{ form_widget(form.nome) }}<select id="cadpazbundle_caso_nome_select"><option value="0">Selecione o tipo de caso ou digite um novo</option></select>
+{{ form_label(form.nome) }} {{ form_widget(form.nome) }}<select id="cadpazbundle_caso_nome_select"><option value="0">Selecione o tipo de caso</option></select>
 
 
 {{ form_end(form) }}
@@ -24,14 +24,15 @@
                     data = $.parseJSON(responseText);
                     for (var i=0; i<data.length; i++)
                     {
-                        data[i].text = data[i].nome;
-                        data[i].id = data[i].nome;
+                        data[i].text = data[i].tipo;
+                        data[i].id = data[i].tipo;
                         //delete data[i].id;
                     }
                     $("#cadpazbundle_caso_nome_select").select2({
-                        tags: true,
+                        //tags: true,
                         data: data,
-                        createTag: function (params) {
+                         width: '100%',
+                        /*createTag: function (params) {
                           return {
                             id: params.term,
                             text: params.term,
@@ -48,7 +49,7 @@
                           }
 
                           return $result;
-                        }
+                        }*/
                       });
                       $("#cadpazbundle_caso_nome_select").on("change", function (e) {
                             $('#cadpazbundle_caso_nome').val($('#cadpazbundle_caso_nome_select').select2('val'));
