@@ -345,8 +345,70 @@ class RelatoriosController extends Controller
                     'total' => $total
                 ));
     }
-    
-    
+ 
+    public function rendaFamiliarAction()
+    {
+        $questionarios = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Questionario')
+                ->findAll();
+        $total = count($questionarios);
+        unset($questionarios);
+        
+        
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT 
+                q.rendaFamiliar as renda, count(q.id) as total 
+            FROM
+                CadpazBundle:Questionario q
+            GROUP BY
+                renda'
+                
+        );
+        
+        $rendas = $query->getResult();
+        //dump($cores);
+        
+        
+        
+        
+        $rendas_array = array();
+        foreach($rendas as $renda) 
+        {
+            $c = intval($renda["total"]);
+        
+            
+            $rendas_array[] =
+                    [$renda["renda"], ($c/$total) * 100 ];
+        }
+        //dump($total);
+        //dump($rendas_array);
+        
+        
+        $ob = new Highchart();
+        $ob->chart->renderTo('piechart_rendas');
+        $ob->title->text('Faixa de renda dos atendidos');
+        $ob->plotOptions->pie(array(
+            'allowPointSelect'  => true,
+            'cursor'    => 'pointer',
+            'dataLabels'    => array('enabled' => true, 'format' => '<b>{point.name}</b>: {point.y:.1f}%',),
+            'showInLegend'  => true
+        ));
+        $data = $rendas_array;
+        
+        //dump($data);
+        //dump($casos_array);
+        
+        $ob->series(array(array('type' => 'pie','name' => 'Renda', 'data' => $data)));
+
+                return $this->render('CadpazBundle:Relatorios:rendas.html.twig', array(
+                    'chart' => $ob,
+                    'rendas' => $rendas,
+                    'total' => $total
+                ));
+    }
+
+
     public function atendimentosPorAtendente()
     {
         

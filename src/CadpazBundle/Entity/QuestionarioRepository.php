@@ -21,4 +21,13 @@ class QuestionarioRepository extends EntityRepository
             )
             ->getResult();
     }
+    
+    public function findAllRendasDistinctOrderedByTotal()
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                    'SELECT q.rendaFamiliar as renda, count(q.id) as total from CadpazBundle:Questionario q group by renda'
+            )
+            ->getResult();
+    }
 }
