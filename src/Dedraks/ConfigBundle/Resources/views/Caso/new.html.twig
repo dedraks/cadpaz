@@ -7,14 +7,21 @@
 
 <script>
     
-    var c="{{create}}";
+    {#//var c="{{create}}";#}
+
+    {% if id is defined %}
+        var url = Routing.generate('configuracoes_caso_tipo_edit', {'id':{{id}}});
+    {% else %}
+        var url = Routing.generate('configuracoes_caso_tipo_new');
+    {% endif %}
     
-    var url = (c==='sim') ? Routing.generate('configuracoes_caso_tipo_new') : Routing.generate('configuracoes_caso_tipo_edit', {'id':{{id}}});
+    {# var url = (c==='sim') ? Routing.generate('configuracoes_caso_tipo_new') : Routing.generate('configuracoes_caso_tipo_edit', {'id':{{id}}}); #}
     
     //alert(url);
     
+    
     $('#newTipoCasoForm').ajaxForm({
-        url: Routing.generate('configuracoes_caso_tipo_new'),
+        url: url,
         type: 'post',
         success: function(responseText) {
             $("#dataArea").html(responseText);

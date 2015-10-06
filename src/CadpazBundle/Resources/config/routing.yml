@@ -129,6 +129,18 @@ questionario_new:
     defaults: { _controller: CadpazBundle:Questionario:new }
     options:
         expose: true
+        
+questionario_save_to_session:
+    path:     /questionario/sesssave
+    defaults: { _controller: CadpazBundle:Questionario:saveToSession }
+    options:
+        expose: true
+        
+questionario_restore_from_session:
+    path:     /questionario/sessrestore
+    defaults: { _controller: CadpazBundle:Questionario:restoreFromSession }
+    options:
+        expose: true
 # Fim das rotas para o controlador Questionario
 
 # Rotas para o controador Caso
@@ -215,7 +227,7 @@ relatorios_cores:
 
 configuracoes_index:
     path:     /config/index
-    defaults: { _controller: CadpazBundle:Configuracoes:index }
+    defaults: { _controller: DedraksConfigBundle:Default:index }
     options:
         expose: true
 

@@ -13,16 +13,7 @@ use Dedraks\ConfigBundle\Form\CasoType;
 
 class ConfiguracoesController extends Controller
 {
-    public function indexAction(Request $request)
-    {        
-        $casos = $this->getDoctrine()
-            ->getRepository('DedraksConfigBundle:Caso')
-            ->findAll();
-        
-        return $this->render('CadpazBundle:Configuracoes:index.html.twig', array(
-            'casos' => $casos
-        ));    
-    }
+    
     
     public function newCasoTipoAction(Request $request)
     {
@@ -35,42 +26,57 @@ class ConfiguracoesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($caso);
             $em->flush();
-           
-            
             
             return $this->forward('CadpazBundle:Configuracoes:index');
         }
         
-        
         return $this->render('DedraksConfigBundle:Caso:new.html.twig',array(
             'form' => $form->createView(),
-            'create' => 'sim'
             )
         );   
     }
     
     public function editCasoTipoAction(Request $request, $id)
     {
+        // Obtém uma instância do objeto com o id informado
         $caso = $this->getDoctrine()
             ->getRepository('DedraksConfigBundle:Caso')
             ->find($id);
         
+        // Guarda o atributo tipo (nome) do objeto
+        $tipo = $caso->getTipo();
+        
+        // Gera o formulário
         $form = $this->createForm(new CasoType(), $caso);
         
+        // Trata os dados enviados pelo formulário
         $form->handleRequest($request);
+        
+        // Verifica se o formulário é válido
         if ($form->isValid()) {
+            
+            // Obtém uma lista de todos os casos já cadastrados com o nome antigo
+            $casos = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Caso')
+                ->findBy(['nome'=>$tipo]);
+            
+            // Percorre a lista de todos os casos e atualiza o nome (tipo)
+            foreach($casos as $c)
+            {
+                $c->setNome($caso->getTipo());
+            }
+            
+            // Atualiza o tipo (nome) da opção
             $em = $this->getDoctrine()->getManager();
-            //$em->persist($caso);
-            //$em->merge($caso);
             $em->flush();
             
+            // Exibe a lista de opções
             return $this->forward('CadpazBundle:Configuracoes:index');
         }
         
-        
+        // Exibe o formulário
         return $this->render('DedraksConfigBundle:Caso:new.html.twig',array(
             'form' => $form->createView(),
-            'create' => "não",
             'id'=>$id
             )
         );   
@@ -81,14 +87,11 @@ class ConfiguracoesController extends Controller
         $caso = $this->getDoctrine()
             ->getRepository('DedraksConfigBundle:Caso')
             ->find($id);
-        dump($id);
         
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($caso);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($caso);
+        $em->flush();
            
-            
-            
-            return $this->forward('CadpazBundle:Configuracoes:index');
+        return $this->forward('CadpazBundle:Configuracoes:index');
     }
 }

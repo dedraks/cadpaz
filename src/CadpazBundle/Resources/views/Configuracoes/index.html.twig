@@ -1,7 +1,8 @@
 <div style="text-align: center">
-    <h1>Configuracoes</h1>
+    <h1>Configurações</h1>
 </div>
 
+<hr>
 <h2>Tipos de casos</h2>
 
 <div id="newTipoCasoArea" class="example" style="display: none; width: 400px; background: #FFF">
@@ -36,12 +37,21 @@
         <tr>
             <td>{{ caso.tipo }}</td>
             <td title="{{caso.descricao}}">{{ caso.descricao[:40] ~ '...' }}</td>
-            <td id="{{caso.id}}"><a  class="configCasoLink" href="#editar">Editar</a> - <a class="configCasoLink" href="#remover">Remover</a></td>
+            <td id="{{caso.id}}">
+                {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
+                <a class="configCasoLink" href="#editar"><img src="{{ asset_url }}" alt="Remover" /></a>
+                {% endimage %}
+                - 
+                {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+                <a class="configCasoLink" href="#remover"><img src="{{ asset_url }}" alt="Remover" /></a></td>
+                {% endimage %}
         </tr>
     {% endfor %}
     </tbody>
 </table>
-
+    <hr>
+    
+    
 <script>
     $('#casosTable').DataTable( {
         "paging":   false,
@@ -73,7 +83,7 @@
                 url: Routing.generate('configuracoes_caso_tipo_edit',{'id':id}),
                 success: function(responseText) {
                     
-                    alert(responseText);
+                    //alert(responseText);
                     
 
                     $('#newTipoCasoArea').html(responseText);
@@ -87,12 +97,28 @@
                 }
             });
         } else if ($(this).attr('href') === '#remover') {
-            $.ajax({
-                url: Routing.generate('configuracoes_caso_tipo_delete',{'id':id}),
-                success: function(responseText) {
-                    
+            Ply.dialog("confirm", "Tem certeza?")
+            .done(function (ui) {
+                // OK
+                    })
+            .fail(function (ui) {
+                // Cancel
+            })
+            .always(function (ui) {
+                if (ui.state) {
+                    // Clicked "OK"
+                    $.ajax({
+                                    url: Routing.generate('configuracoes_caso_tipo_delete',{'id':id}),
+                                    success: function(responseText) {
+                                        
 
-                    $("#dataArea").html(responseText);
+                                        $("#dataArea").html(responseText);
+                                    }
+                                });
+                }
+                else {
+                    // Clicked "Cancel"
+                    //   details: `ui.by` — "cancel", "overlay", "esc", "x"
                 }
             });
         }
