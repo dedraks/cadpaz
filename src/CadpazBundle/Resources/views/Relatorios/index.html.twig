@@ -4,7 +4,8 @@
 <id id="relatoriosInicio"></div>
 
 
-<div id="relatoriosArea">
+<div id="relatoriosArea" class="example" style="width: 97%">
+    <div style="background: #FFF">
     <span style="font-weight: bold; font-size: x-large;">Relatório de uso</span>
     <hr>
     <p>Relatório dos atendimentos feitos no sistema.</p>
@@ -14,12 +15,10 @@
 {% render controller('CadpazBundle:Relatorios:casos') %}
 <footer><hr></footer>
 
-
-{% render controller('CadpazBundle:Relatorios:encaminhamentos') %}
+{% render controller('CadpazBundle:Relatorios:origens') %}
 <footer><hr></footer>
 
-
-{% render controller('CadpazBundle:Relatorios:origens') %}
+{% render controller('CadpazBundle:Relatorios:encaminhamentos') %}
 <footer><hr></footer>
 
 {% render controller('CadpazBundle:Relatorios:rendaFamiliar') %}
@@ -36,9 +35,12 @@
 <footer><hr></footer> 
 
 </div>
+</div>
 
 <div id="outro" class="relButtons">
-<a href="#" class="printRel">Imprimir Relatório</a><br>
+    {% image '@CadpazBundle/Resources/public/images/print-icon2.png' %}
+        <a title="Imprimir relatório" href="#" class="printRel"><img src="{{ asset_url }}" alt="Remover" /></a></td>
+    {% endimage %}
 <a href="#" class="scrollToTop">Início da página</a>
 </div>
 
@@ -75,4 +77,10 @@
         "info":     false,
         "searching": false
     });
+    
+    $('a[title]').qtip({position: {
+        my: 'top right',  // Position my top left...
+        at: 'top left', // at the bottom right of...);
+        target: $('#outro')
+    }});
 </script>

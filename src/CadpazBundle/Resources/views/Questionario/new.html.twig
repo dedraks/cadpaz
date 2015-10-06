@@ -280,7 +280,7 @@
 
 
 <script>
-    
+
     $.ajax({
         url: Routing.generate('questionario_restore_from_session'),
         type: 'GET',
@@ -301,6 +301,25 @@
                 $('#cadpazbundle_questionario_moraComParentesAmigosColegas').prop('checked',response.mora_com_parentes_amigos_colegas==="true"?true:false);
                 $('#cadpazbundle_questionario_moraComOutraSituacao').prop('checked',response.mora_com_outra_situacao==="true"?true:false);
                 
+                if (response.mora_sozinho==="true") {
+                    $("#cadpazbundle_questionario_moraComFilhos").prop('disabled', true);
+                    $("#cadpazbundle_questionario_moraComFilhos").prop('checked', false);
+                    $("#cadpazbundle_questionario_moraComPaiMae").prop('disabled', true);
+                    $("#cadpazbundle_questionario_moraComPaiMae").prop('checked', false);
+                    $("#cadpazbundle_questionario_moraComIrmaos").prop('disabled', true);
+                    $("#cadpazbundle_questionario_moraComIrmaos").prop('checked', false);
+                    $("#cadpazbundle_questionario_moraComConjuge").prop('disabled', true);
+                    $("#cadpazbundle_questionario_moraComConjuge").prop('checked', false);
+                    $("#cadpazbundle_questionario_moraComParentesAmigosColegas").prop('disabled', true);
+                    $("#cadpazbundle_questionario_moraComParentesAmigosColegas").prop('checked', false);
+                    $("#cadpazbundle_questionario_moraComOutraSituacao").prop('disabled', true);
+                    $("#cadpazbundle_questionario_moraComOutraSituacao").prop('checked', false);
+
+                    $("#cadpazbundle_questionario_quantasPessoasMoramNaCasa").val(1);
+                    $("#cadpazbundle_questionario_quantasPessoasMoramNaCasa").prop("readonly", true);
+                }
+                
+                
                 $('#cadpazbundle_questionario_quantasPessoasMoramNaCasa').val(response.quantas_pessoas_moram_na_casa);
                 $('#cadpazbundle_questionario_numeroDeFilhos').val(response.numero_de_filhos);
                 $('#cadpazbundle_questionario_moradiaTemColetaDeLixo').prop('checked', response.moradia_tem_coleta_de_lixo==="true"?true:false);
@@ -312,11 +331,22 @@
                 $('#cadpazbundle_questionario_moradiaTemEletricidade').prop('checked', response.moradia_tem_eletricidade==="true"?true:false);
                 $('#cadpazbundle_questionario_tipoDeMoradia').val(response.tipo_de_moradia);
                 
+                
+            
+            
+            
+            
+            
+            
+            
                 $("#cadpazbundle_questionario_moradia").select2({width: '100%'});
                 $('#cadpazbundle_questionario_tipoDeMoradia').select2({width: '100%'});
+                $("#cadpazbundle_questionario_escolaridade").select2({width:'100%'});
+                $('#cadpazbundle_questionario_rendaFamiliar').select2({width:'100%'});
+                $('#cadpazbundle_questionario_condicaoDeTrabalho').select2({width:'100%'});
+                $('#cadpazbundle_questionario_encaminhamentoAoProjeto').select2({width:'100%'});
+                $('#cadpazbundle_questionario_comoFicouSabendoDoProjeto').select2({width:'100%'});
                 
-                //$('#cadpazbundle_questionario_moraSozinho').change('change');
-                //$('#cadpazbundle_questionario_moraSozinho').change('click');
             }
         }
     });
@@ -430,37 +460,78 @@
            'pessoa_id':'{{id}}'
        };
        
+       ops.page = pagina;
        
-       if (pagina===1)
+       var ss = "#cadpazbundle_questionario_";
+       switch (pagina)
        {
-           ops.moradia = $("#cadpazbundle_questionario_moradia").val();
-           ops.moraSozinho = $('#cadpazbundle_questionario_moraSozinho').is(':checked');
-           ops.moraComFilhos = $('#cadpazbundle_questionario_moraComFilhos').is(':checked');
-           ops.moraComPaiMae = $('#cadpazbundle_questionario_moraComPaiMae').is(':checked');
-           ops.moraComIrmaos = $('#cadpazbundle_questionario_moraComIrmaos').is(':checked');
-           ops.moraComConjuge = $('#cadpazbundle_questionario_moraComConjuge').is(':checked');
-           ops.moraComParentesAmigosColegas = $('#cadpazbundle_questionario_moraComParentesAmigosColegas').is(':checked');
-           ops.moraComOutraSituacao = $('#cadpazbundle_questionario_moraComOutraSituacao').is(':checked');
-           ops.quantasPessoasMoramNaCasa = $('#cadpazbundle_questionario_quantasPessoasMoramNaCasa').val();
-           ops.numeroDeFilhos = $('#cadpazbundle_questionario_numeroDeFilhos').val();
-           ops.moradiaTemColetaDeLixo = $('#cadpazbundle_questionario_moradiaTemColetaDeLixo').is(':checked');
-           ops.moradiaTemRedeDeEsgoto = $('#cadpazbundle_questionario_moradiaTemRedeDeEsgoto').is(':checked');
-           ops.moradiaTemRuaPavimentada = $('#cadpazbundle_questionario_moradiaTemRuaPavimentada').is(':checked');
-           ops.moradiaSituadaEmZonaRural = $('#cadpazbundle_questionario_moraComOutraSituacao').is(':checked');
-           ops.moradiaTemAguaEncanada = $('#cadpazbundle_questionario_moradiaTemAguaEncanada').is(':checked');
-           ops.moradiaSituadaEmComunidadeQuilombolaOuIndigena = $('#cadpazbundle_questionario_moradiaSituadaEmComunidadeQuilombolaOuIndigena').is(':checked');
-           ops.moradiaTemEletricidade = $('#cadpazbundle_questionario_moradiaTemEletricidade').is(':checked');
-           ops.tipoDeMoradia = $('#cadpazbundle_questionario_tipoDeMoradia').val();
-           
-           
-           ops.page = 1;
-           
-           
-           $.ajax({
-               url: Routing.generate('questionario_save_to_session',ops),
-               type: 'POST'
-           });
+            case 1:
+                ops.moradia = $("#cadpazbundle_questionario_moradia").val();
+                ops.moraSozinho = $('#cadpazbundle_questionario_moraSozinho').is(':checked');
+                ops.moraComFilhos = $('#cadpazbundle_questionario_moraComFilhos').is(':checked');
+                ops.moraComPaiMae = $('#cadpazbundle_questionario_moraComPaiMae').is(':checked');
+                ops.moraComIrmaos = $('#cadpazbundle_questionario_moraComIrmaos').is(':checked');
+                ops.moraComConjuge = $('#cadpazbundle_questionario_moraComConjuge').is(':checked');
+                ops.moraComParentesAmigosColegas = $('#cadpazbundle_questionario_moraComParentesAmigosColegas').is(':checked');
+                ops.moraComOutraSituacao = $('#cadpazbundle_questionario_moraComOutraSituacao').is(':checked');
+                ops.quantasPessoasMoramNaCasa = $('#cadpazbundle_questionario_quantasPessoasMoramNaCasa').val();
+                ops.numeroDeFilhos = $('#cadpazbundle_questionario_numeroDeFilhos').val();
+                ops.moradiaTemColetaDeLixo = $('#cadpazbundle_questionario_moradiaTemColetaDeLixo').is(':checked');
+                ops.moradiaTemRedeDeEsgoto = $('#cadpazbundle_questionario_moradiaTemRedeDeEsgoto').is(':checked');
+                ops.moradiaTemRuaPavimentada = $('#cadpazbundle_questionario_moradiaTemRuaPavimentada').is(':checked');
+                ops.moradiaSituadaEmZonaRural = $('#cadpazbundle_questionario_moraComOutraSituacao').is(':checked');
+                ops.moradiaTemAguaEncanada = $('#cadpazbundle_questionario_moradiaTemAguaEncanada').is(':checked');
+                ops.moradiaSituadaEmComunidadeQuilombolaOuIndigena = $('#cadpazbundle_questionario_moradiaSituadaEmComunidadeQuilombolaOuIndigena').is(':checked');
+                ops.moradiaTemEletricidade = $('#cadpazbundle_questionario_moradiaTemEletricidade').is(':checked');
+                ops.tipoDeMoradia = $('#cadpazbundle_questionario_tipoDeMoradia').val();
+
+                //ops.page = 1;
+            break;
+            case 2:
+                ops.escolaridade                  = $("#cadpazbundle_questionario_escolaridade").val();
+                ops.estudaAtualmente              = $("#cadpazbundle_questionario_estudaAtualmente").is(':checked');;
+                ops.temInteresseEmVoltarAEstudar  = $("#cadpazbundle_questionario_temInteresseEmVoltarAEstudar").is(':checked');;
+                ops.temFilhosEmIdadeEscolar       = $("#cadpazbundle_questionario_temFilhosEmIdadeEscolar").is(':checked');;
+                ops.temFilhosMatriculadosEmEscola = $("#temFilhosMatriculadosEmEscola").is(':checked');;
+                
+                //ops.page = 2;
+            break;
+            case 3:
+                ops.deficienciaFisica                  = $(ss+"deficienciaFisica").is(':checked');
+                ops.deficienciaAuditiva                = $(ss+"deficienciaAuditiva").is(':checked');
+                ops.deficienciaMental                  = $(ss+"deficienciaMental").is(':checked');
+                ops.deficienciaVisual                  = $(ss+"deficienciaVisual").is(':checked');
+                ops.fezOuFazAcompanhamentoNeurologico  = $(ss+"fezOuFazAcompanhamentoNeurologico").is(':checked');
+                ops.fezOuFazAcompanhamentoPsicologico  = $(ss+"fezOuFazAcompanhamentoPsicologico").is(':checked');
+                ops.fezOuFazOutrosAcompanhamentos      = $(ss+"fezOuFazOutrosAcompanhamentos").is(':checked');
+                ops.fezOuFazOutrosAcompnhamentosQuais  = $(ss+"fezOuFazOutrosAcompnhamentosQuais").val();
+                ops.fazUsoDeMedicacaoConstante         = $(ss+"fazUsoDeMedicacaoConstante").is(':checked');
+                ops.redebeMedicacaoDaFarmaciaDistrital = $(ss+"redebeMedicacaoDaFarmaciaDistrital").is(':checked');
+                ops.domicilioCobertoPorUBSOuPSF        = $(ss+"domicilioCobertoPorUBSOuPSF").is(':checked');
+                ops.pessoaIdosaOuGestanteNaFamilia     = $(ss+"pessoaIdosaOuGestanteNaFamilia").is(':checked');
+                
+                //ops.page = 3;
+            break;
+            case 4:
+                
+                //ops.page = 4;
+            break;
+            case 5:
+                
+                //ops.page = 5;
+            break;
+            case 6:
+                
+                //ops.page = 6;
+            break;
+            default:
+            break;
        }
+       
+        $.ajax({
+            url: Routing.generate('questionario_save_to_session',ops),
+            type: 'POST'
+        });
        
        
        if (pagina >= pagina_max) {
