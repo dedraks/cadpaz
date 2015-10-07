@@ -12,9 +12,11 @@ $(document).ready(function() {
         ajaxStop: function() { $body.removeClass("loading"); }    
     });
             
-    jQuery(function($){
+    //jQuery(function($){
         $("#cpf").mask("999.999.999-99",{placeholder:"___.___.___-__"});
-    });
+    //});
+    
+    
     
     /*
     var myTimer = setTimeout(function(){
