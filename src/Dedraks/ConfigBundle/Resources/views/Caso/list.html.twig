@@ -1,0 +1,56 @@
+<div id="configCasosArea">
+
+<span style="font-weight: bold; font-size: large;">Tipos de casos</span><br>
+
+<div id="newTipoCasoArea" class="example" style="display: none; width: 400px; background: #FFF">
+    <table>
+    <tr>
+        <td>Tipo</td>
+        <td><input id="tipoCasoInput" type="text"></td>
+    </tr>
+    <tr>
+        <td>Descrição</td>
+        <td><input id="descricaoCasoInput" type="text"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <a href="#" id="newTipoCasoLink">Cadastrar</a>
+        </td>
+    </tr>
+    </table>
+</div>
+<div style="text-align: right; padding-right: 20px; float: right">
+    {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
+        <a href="#" id="openNewTipoCasoLink"><img src="{{ asset_url }}" alt="Adicionar" /></a></td>
+    {% endimage %}
+</div>
+
+
+<table id="casosTable" class="cell-border">
+    <thead>
+        <tr>
+            <th>Tipo de caso</th>
+            <th>Descrição</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for caso in casos %}
+        <tr>
+            <td>{{ caso.tipo }}</td>
+            <td title="{{caso.descricao}}">{{ caso.descricao[:50] ~ '...' }}</td>
+            <td id="{{caso.id}}">
+                {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
+                <a class="configCasoLink" href="#editar" title="Editar"><img src="{{ asset_url }}" alt="Editar" /></a>
+                {% endimage %}
+                - 
+                {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+                <a class="configCasoLink" href="#remover" title="Remover"><img src="{{ asset_url }}" alt="Editar" /></a></td>
+                {% endimage %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</div>
+    

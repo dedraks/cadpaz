@@ -330,3 +330,18 @@ $( "#form1" ).submit(function( event ) {
 });*/
     
 
+// Verifica, a cada 5 minutos se o usuário ainda está logado 
+(function Forever(){
+    
+    $.ajax({
+        url: '/login',
+        success: function(responseText) {
+            
+            if (responseText.search('<a href="/login">Entrar</a>') !== -1) {
+                //window.location.reload();
+            }
+        }
+    });
+    
+    setTimeout(Forever,300000);
+})();

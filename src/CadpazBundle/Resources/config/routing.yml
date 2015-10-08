@@ -225,11 +225,11 @@ relatorios_cores:
     options:
         expose: true
 
-configuracoes_index:
-    path:     /config/index
-    defaults: { _controller: DedraksConfigBundle:Default:index }
-    options:
-        expose: true
+#configuracoes_index:
+#    path:     /config/index
+#    defaults: { _controller: DedraksConfigBundle:Default:index }
+#    options:
+#        expose: true
 
 configuracoes_caso_tipo_new:
     path:     /config/caso/new

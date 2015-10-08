@@ -8,12 +8,10 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {        
-        $casos = $this->getDoctrine()
-            ->getRepository('DedraksConfigBundle:Caso')
-            ->findAll();
         
-        return $this->render('CadpazBundle:Configuracoes:index.html.twig', array(
-            'casos' => $casos
+        
+        return $this->render('DedraksConfigBundle:Default:index.html.twig', array(
+            //
         ));    
     }
 }

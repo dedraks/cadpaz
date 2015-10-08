@@ -1,6 +1,6 @@
 <?php
 
-namespace CadpazBundle\Controller;
+namespace Dedraks\ConfigBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,16 @@ use Dedraks\ConfigBundle\Form\CasoType;
  *
  * @author carlos
  */
-class CasoController extends Controller 
+class CasoTipoController extends Controller 
 {
-    
+    public function indexAction()
+    {
+        $casos = $this->getDoctrine()
+            ->getRepository('DedraksConfigBundle:Caso')
+            ->findAll();
+        
+        return $this->render('DedraksConfigBundle:Caso:list.html.twig', array(
+            'casos' => $casos
+        ));    
+    }
 }

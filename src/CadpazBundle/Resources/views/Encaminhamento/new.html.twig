@@ -1,12 +1,18 @@
 {# CadpazBundle:View:Encaminhamento:new.html.twig #}
 {{ form_start(form) }}
-<select id="cadpazbundle_encaminhamento_encaminhado_select"><option value="0">Selecione o encaminhamento ou digite um novo</option></select>
+{# <select id="cadpazbundle_encaminhamento_encaminhado_select"><option value="0">Selecione o encaminhamento ou digite um novo</option></select> #}
 {{ form_widget(form) }}
 {{ form_end(form) }}
 
 <script>
-    $("#cadpazbundle_encaminhamento_encaminhado").hide();
+    $("#cadpazbundle_encaminhamento_encaminhado").select2({
+        width: '100%',
+        language: 'pt_BR'
+    });
     
+//    $("#cadpazbundle_encaminhamento_encaminhado").hide();
+    
+    /*
     var data = [];
     $.ajax({
                 url: Routing.generate('encaminhamento_list_json'),
@@ -50,7 +56,7 @@
                 type: 'get',
                 dataType: 'json'
             });
-    
+            */
 
     
         function showNewEncaminhamentoResponse(responseText, statusText, xhr, $form)  { 

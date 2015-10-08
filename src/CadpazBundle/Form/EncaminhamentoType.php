@@ -15,7 +15,11 @@ class EncaminhamentoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('encaminhado')
+            ->add('encaminhado', 'entity', ['class' => 'DedraksConfigBundle:Encaminhamento',
+                'choice_label' => 'nome',
+                //'expanded' => true,
+                'multiple' => false
+                ])
             //->add('atendimento')
             ->add('save', 'submit', ['label' => 'Salvar'])
         ;
