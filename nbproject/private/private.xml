@@ -8,7 +8,6 @@
             <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Resources/views/Encaminhamento/list.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Controller/CasoTipoController.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Entity/Questionario.php</file>
-            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Controller/ConfiguracoesController.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/config/routing.yml</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Form/QuestionarioType.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Controller/PessoaController.php</file>
@@ -16,15 +15,15 @@
             <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Form/EncaminhamentoType.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Form/AtendimentoType.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Caso/new.html.twig</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Pessoa/index.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Form/CasoType.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Relatorios/idades.html.twig</file>
-            <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Resources/views/Default/index.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Relatorios/index.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Controller/DefaultController.php</file>
+            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/public/css/print.css</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Entity/Caso.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Form/CasoType.php</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Relatorios/origens.html.twig</file>
-            <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Resources/views/Caso/list.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Resources/config/routing.yml</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Resources/views/Origem/list.html.twig</file>
             <file>file:/home/carlos/Documentos/cadpaz/src/Dedraks/ConfigBundle/Resources/views/Caso/new.html.twig</file>
