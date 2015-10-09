@@ -8,16 +8,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 
 
-use Dedraks\ConfigBundle\Entity\Caso;
-use Dedraks\ConfigBundle\Form\CasoType;
- 
+use Dedraks\ConfigBundle\Entity\Origem;
+use Dedraks\ConfigBundle\Form\OrigemType;
 
 /**
  * Description of CasoController
  *
  * @author carlos
  */
-class CasoTipoController extends Controller 
+class OrigemController extends Controller 
 {
     public function indexAction(Request $request)
     {
@@ -26,18 +25,18 @@ class CasoTipoController extends Controller
         
         dump($expandir);
         
-        if ($expandir === 'caso')
+        if ($expandir === 'origem')
             $expandir = true;
         else
             $expandir = false;
         
-        $casos = $this->getDoctrine()
-            ->getRepository('DedraksConfigBundle:Caso')
+        $origens = $this->getDoctrine()
+            ->getRepository('DedraksConfigBundle:Origem')
             ->findAll();
         
-        return $this->render('DedraksConfigBundle:Caso:list.html.twig', array(
-            'casos'    => $casos,
+        return $this->render('DedraksConfigBundle:Origem:list.html.twig', array(
+            'origens'    => $origens,
             'expandir' => $expandir
-        ));    
+        ));  
     }
 }

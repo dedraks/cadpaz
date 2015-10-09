@@ -1,3 +1,13 @@
 dedraks_config_homepage:
     path:     /config/index
     defaults: { _controller: DedraksConfigBundle:Default:index }
+
+# Rotas do controlador Caso
+# fim
+
+# Rotas do controlador Origem
+#dedraks_config_origem:
+#fim
+
+# Rotas do controlador Encaminhamento
+# fim

@@ -27,7 +27,9 @@ class ConfiguracoesController extends Controller
             $em->persist($caso);
             $em->flush();
             
-            return $this->forward('CadpazBundle:Configuracoes:index');
+            return $this->forward('DedraksConfigBundle:Default:index',
+                    ['expand'=>'caso']
+                    );
         }
         
         return $this->render('DedraksConfigBundle:Caso:new.html.twig',array(
@@ -71,7 +73,9 @@ class ConfiguracoesController extends Controller
             $em->flush();
             
             // Exibe a lista de opções
-            return $this->forward('CadpazBundle:Configuracoes:index');
+            return $this->forward('DedraksConfigBundle:Default:index',
+                    ['expand'=>'caso']
+                    );
         }
         
         // Exibe o formulário
@@ -92,6 +96,8 @@ class ConfiguracoesController extends Controller
         $em->remove($caso);
         $em->flush();
            
-        return $this->forward('CadpazBundle:Configuracoes:index');
+        return $this->forward('DedraksConfigBundle:Default:index',
+                ['expand'=>'caso']
+                );
     }
 }

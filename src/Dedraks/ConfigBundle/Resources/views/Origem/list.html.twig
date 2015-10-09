@@ -1,51 +1,52 @@
-<div id="configCasosArea">
+{# Dedraks:ConfigBundle:views:Origem:list.html.twig #}
+<div id="configOrigensArea">
 
-<span style="font-weight: bold; font-size: large;">Tipos de casos</span><br>
+<span style="font-weight: bold; font-size: large;">Origens (Quem enviou o cliente para atendimento)</span><br>
 
-<div id="newTipoCasoArea" class="example" style="display: none; width: 400px; background: #FFF">
+<div id="newOrigemArea" class="example" style="display: none; width: 400px; background: #FFF">
     <table>
     <tr>
-        <td>Tipo</td>
-        <td><input id="tipoCasoInput" type="text"></td>
+        <td>Nome</td>
+        <td><input id="nomeOrigemInput" type="text"></td>
     </tr>
     <tr>
         <td>Descrição</td>
-        <td><input id="descricaoCasoInput" type="text"></td>
+        <td><input id="descricaoOrigemInput" type="text"></td>
     </tr>
     <tr>
         <td colspan="2">
-            <a href="#" id="newTipoCasoLink">Cadastrar</a>
+            <a href="#" id="newOrigemLink">Cadastrar</a>
         </td>
     </tr>
     </table>
 </div>
 <div style="text-align: right; padding-right: 20px; float: right">
     {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
-        <a href="#" id="openNewTipoCasoLink"><img src="{{ asset_url }}" alt="Adicionar" /></a></td>
+        <a href="#" id="openNewOrigemLink"><img src="{{ asset_url }}" alt="Adicionar" /></a></td>
     {% endimage %}
 </div>
 
 
-<table id="casosTable" class="cell-border">
+<table id="origensTable" class="cell-border">
     <thead>
         <tr>
-            <th>Tipo de caso</th>
+            <th>Nome</th>
             <th>Descrição</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-    {% for caso in casos %}
+    {% for origem in origens %}
         <tr>
-            <td>{{ caso.tipo }}</td>
-            <td title="{{caso.descricao}}">{{ caso.descricao[:50] ~ '...' }}</td>
-            <td id="{{caso.id}}">
+            <td>{{ origem.nome }}</td>
+            <td title="{{origem.descricao}}">{{ origem.descricao[:50] ~ '...' }}</td>
+            <td id="{{origem.id}}">
                 {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
-                <a class="configCasoLink" href="#editar" title="Editar"><img src="{{ asset_url }}" alt="Editar" /></a>
+                <a class="configOrigemLink" href="#editar" title="Editar"><img src="{{ asset_url }}" alt="Editar" /></a>
                 {% endimage %}
                 - 
                 {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
-                <a class="configCasoLink" href="#remover" title="Remover"><img src="{{ asset_url }}" alt="Editar" /></a></td>
+                <a class="configOrigemLink" href="#remover" title="Remover"><img src="{{ asset_url }}" alt="Editar" /></a></td>
                 {% endimage %}
         </tr>
     {% endfor %}
@@ -56,29 +57,29 @@
     
 
 <script>
-    $('#casosTable').DataTable( {
+    $('#origensTable').DataTable( {
         "paging":   false,
         "ordering": false,
         "info":     false,
         "searching":   false
     });
     
-    $(".configCasoLink").on('click',function(e){
+    $(".configOrigemLink").on('click',function(e){
         e.preventDefault();
         var id=$(this).closest('td').attr('id');
         //alert(id);
         if ($(this).attr('href') === '#editar') {
             $.ajax({
-                url: Routing.generate('configuracoes_caso_tipo_edit',{'id':id}),
+                //url: Routing.generate('configuracoes_caso_tipo_edit',{'id':id}),
                 success: function(responseText) {
                     
                     //alert(responseText);
                     
 
-                    $('#newTipoCasoArea').html(responseText);
+                    $('#newOrigemArea').html(responseText);
 
 
-                    window.configPopup = $('#newTipoCasoArea').bPopup({
+                    window.configPopup = $('#newOrigemArea').bPopup({
                             speed: 650,
                             transition: 'slideIn',
                             transitionClose: 'slideBack',
@@ -97,7 +98,7 @@
                 if (ui.state) {
                     // Clicked "OK"
                     $.ajax({
-                                    url: Routing.generate('configuracoes_caso_tipo_delete',{'id':id}),
+                                    //url: Routing.generate('configuracoes_caso_tipo_delete',{'id':id}),
                                     success: function(responseText) {
                                         
 
@@ -115,19 +116,19 @@
         e.preventDefault();
     });
     
-    $("#openNewTipoCasoLink").on("click", function(e) {
+    $("#openNewOrigemLink").on("click", function(e) {
         
         e.preventDefault();
         
         $.ajax({
-            url: Routing.generate('configuracoes_caso_tipo_new'),
+            //url: Routing.generate('configuracoes_caso_tipo_new'),
             success: function(responseText) {
                 
                 
-                $('#newTipoCasoArea').html(responseText);
+                $('#newOrigemArea').html(responseText);
                 
                 
-                window.configPopup = $('#newTipoCasoArea').bPopup({
+                window.configPopup = $('#newOrigemArea').bPopup({
                         speed: 650,
                         transition: 'slideIn',
                         transitionClose: 'slideBack'
@@ -140,5 +141,5 @@
 </script>
 
 {% if not expandir %}
-    <script>$('#configCasosArea').addClass('oculto');</script>
+    <script>$('#configOrigensArea').addClass('oculto');</script>
 {% endif %}    

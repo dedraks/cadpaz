@@ -14,143 +14,51 @@
 <a href="#" id="openConfigEncaminhamentosArea" class="btn">Encaminhamentos</a>
 <div class="spacer"></div>
 
+
+
 <hr>
 
-{% render controller('DedraksConfigBundle:CasoTipo:index') %}    
-    
-    
+
+{{ render(controller('DedraksConfigBundle:CasoTipo:index', {'expandir':expandir})) }}    
+
+{{ render(controller('DedraksConfigBundle:Origem:index', {'expandir':expandir})) }} 
+
+{{ render(controller('DedraksConfigBundle:Encaminhamento:index', {'expandir':expandir})) }}    
+
+
     </div>
 </div>
     
     
 <script>
-    $('#casosTable').DataTable( {
-        "paging":   false,
-        "ordering": false,
-        "info":     false,
-        "searching":   false
-    });
-    
-    /*$('#casosTable tr').click(function(e) {
-        
-        e.preventDefault();
-        
-        var href = $(this).find("a").attr("href");
-
-        if(href) {
-
-
-            alert(href);
-            
-            //$.ajax({url: href, success: function(result){  }});
-        }
-    });*/
-    $(".configCasoLink").on('click',function(e){
-        e.preventDefault();
-        var id=$(this).closest('td').attr('id');
-        //alert(id);
-        if ($(this).attr('href') === '#editar') {
-            $.ajax({
-                url: Routing.generate('configuracoes_caso_tipo_edit',{'id':id}),
-                success: function(responseText) {
-                    
-                    //alert(responseText);
-                    
-
-                    $('#newTipoCasoArea').html(responseText);
-
-
-                    window.configPopup = $('#newTipoCasoArea').bPopup({
-                            speed: 650,
-                            transition: 'slideIn',
-                            transitionClose: 'slideBack',
-                        });
-                }
-            });
-        } else if ($(this).attr('href') === '#remover') {
-            Ply.dialog("confirm", "Tem certeza?")
-            .done(function (ui) {
-                // OK
-                    })
-            .fail(function (ui) {
-                // Cancel
-            })
-            .always(function (ui) {
-                if (ui.state) {
-                    // Clicked "OK"
-                    $.ajax({
-                                    url: Routing.generate('configuracoes_caso_tipo_delete',{'id':id}),
-                                    success: function(responseText) {
-                                        
-
-                                        $("#dataArea").html(responseText);
-                                    }
-                                });
-                }
-                else {
-                    // Clicked "Cancel"
-                    //   details: `ui.by` — "cancel", "overlay", "esc", "x"
-                }
-            });
-        }
-        
-        e.preventDefault();
-    });
-    
-    $("#openNewTipoCasoLink").on("click", function(e) {
-        
-        e.preventDefault();
-        
-        $.ajax({
-            url: Routing.generate('configuracoes_caso_tipo_new'),
-            success: function(responseText) {
-                
-                
-                $('#newTipoCasoArea').html(responseText);
-                
-                
-                window.configPopup = $('#newTipoCasoArea').bPopup({
-                        speed: 650,
-                        transition: 'slideIn',
-                        transitionClose: 'slideBack',
-                    });
-            }
-        });
-        
-        
-    });
-    
-    
-    
-    
-   /* 
-    $("#newTipoCasoLink").on('click', function(e) {
-        e.preventDefault();
        
-        $.ajax({
-            url: Routing.generate('configuracoes_caso_tipo_new'),
-            type: 'POST',
-            data: {
-                'tipo': $('#tipoCasoInput').val(),
-                'descricao': $('#descricaoCasoInput').val()
-            },
-            success: function(response) {
-                if (response === 'ok')
-                {
-                    $('#confLink')[0].click();
-                }
-            }
-        });
-    });
-    */
-   
-   
     $('#openConfigCasosArea').on('click', function(e) {
         e.preventDefault();
         $('#configCasosArea').toggleClass('oculto');
+        
+        $('#configOrigensArea').addClass('oculto');
+        $('#configEncaminhamentosArea').addClass('oculto');
+    });
+    
+    $('#openConfigOrigensArea').on('click', function(e) {
+        e.preventDefault();
+        $('#configOrigensArea').toggleClass('oculto');
+        
+        $('#configCasosArea').addClass('oculto');
+        $('#configEncaminhamentosArea').addClass('oculto');
+    });
+    
+    $('#openConfigEncaminhamentosArea').on('click', function(e) {
+        e.preventDefault();
+        //alert('clicou');
+        $('#configEncaminhamentosArea').toggleClass('oculto');
+        
+        $('#configOrigensArea').addClass('oculto');
+        $('#configCasosArea').addClass('oculto');
     });
    
-    $('#configCasosArea').addClass('oculto');
+    
+        //$('#configCasosArea').addClass('oculto');
    
     $('td[title]').qtip();
     $('a[title]').qtip();

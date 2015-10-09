@@ -435,7 +435,7 @@ class Questionario
     /**
      * @var string
      *
-     * @ORM\Column(name="comoFicouSabendoDoProjeto", type="string", length=100)
+     * @ORM\Column(name="comoFicouSabendoDoProjeto", type="string", length=100, nullable=true)
      */
     private $comoFicouSabendoDoProjeto;
     // Exibir ComboBox com opções pré definidas

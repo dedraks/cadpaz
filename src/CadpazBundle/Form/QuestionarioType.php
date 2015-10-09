@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use Doctrine\ORM\EntityRepository;
+
 class QuestionarioType extends AbstractType
 {
     /**
@@ -133,7 +135,7 @@ class QuestionarioType extends AbstractType
             ->add('despesasMensaisTelefone',            'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
             ->add('despesasMensaisMedicamentos',        'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
             ->add('despesasMensaisOutras',              'money', ['required'=>false,'currency'=>'BRL','attr'=> ['class'=>'money_input']])
-            ->add('encaminhamentoAoProjeto', 'choice', array(
+            /*->add('encaminhamentoAoProjeto', 'choice', array(
                 'choices' => array(
                     'CRAS (Casa da Família)'                    => 'CRAS (Casa da Família)',
                     'Igrejas, Pastorais'                        => 'Igrejas, Pastorais',
@@ -150,8 +152,17 @@ class QuestionarioType extends AbstractType
                     ),
                 'label'=>'Encaminhamento ao projeto',
                 'placeholder' => 'Informe'
-            ))
-            ->add('comoFicouSabendoDoProjeto', 'choice', array(
+            ))*/
+            ->add('encaminhamentoAoProjeto', 'entity', ['class' => 'DedraksConfigBundle:Origem',
+                'choice_label' => 'nome',
+                //'expanded' => true,
+                'multiple' => false,
+                'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('o')
+                            ->orderBy('o.nome', 'ASC');
+                    },
+                ])
+            /*->add('comoFicouSabendoDoProjeto', 'choice', array(
                 'choices' => array(
                     'Jornal'                        => 'Jornal',
                     'Igrejas'                       => 'Igrejas',
@@ -166,7 +177,7 @@ class QuestionarioType extends AbstractType
                     ),
                 'label'=>'Como ficou sabendo do projeto',
                 'placeholder'=>'Informe'
-            ))
+            ))*/
             ->add('observacoes')
             //->add('pessoa')
             ->add('save', 'submit', array('label' => 'Salvar'))

@@ -95,21 +95,21 @@
     {{ questionario.participaOuRecebeNaoRespondeu ? "Nao respondeu<br>" : "" }}
     Condição de trabalho: {{ questionario.condicaoDeTrabalho }}<br>
     Despesas mensais<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;Aluguel: {{ questionario.despesasMensaisAluguel }}<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;Prestação de habitação: {{ questionario.despesasMensaisPrestacaoHabitacao }}<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;Conta de água: {{ questionario.despesasMensaisAgua }}<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;Conta de luz: {{ questionario.despesasMensaisLuz }}<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;Conta de telefone: {{ questionario.despesasMensaisTelefone }}<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;Medicamentos: {{ questionario.despesasMensaisMedicamentos }}<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;Outras despesas: {{ questionario.despesasMensaisOutras }}<br>
-    &nbsp;&nbsp;Total das despesas: {{ questionario.despesasMensaisAluguel + questionario.despesasMensaisPrestacaoHabitacao + questionario.despesasMensaisAgua + questionario.despesasMensaisLuz + questionario.despesasMensaisTelefone + questionario.despesasMensaisMedicamentos + questionario.despesasMensaisOutras}}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Aluguel: R$ {{ questionario.despesasMensaisAluguel|number_format(2,',','.') }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Prestação de habitação: R$ {{ questionario.despesasMensaisPrestacaoHabitacao|number_format(2,',','.') }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Conta de água: R$ {{ questionario.despesasMensaisAgua|number_format(2,',','.') }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Conta de luz: R$ {{ questionario.despesasMensaisLuz|number_format(2,',','.') }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Conta de telefone: R$ {{ questionario.despesasMensaisTelefone|number_format(2,',','.') }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Medicamentos: R$ {{ questionario.despesasMensaisMedicamentos|number_format(2,',','.') }}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Outras despesas: R$ {{ questionario.despesasMensaisOutras|number_format(2,',','.') }}<br>
+    &nbsp;&nbsp;Total das despesas: R$ {{ (questionario.despesasMensaisAluguel + questionario.despesasMensaisPrestacaoHabitacao + questionario.despesasMensaisAgua + questionario.despesasMensaisLuz + questionario.despesasMensaisTelefone + questionario.despesasMensaisMedicamentos + questionario.despesasMensaisOutras)|number_format(2,',','.')}}<br>
 </div>
 <div class="spacer"></div>
 
 <div class="questionario_secao">
     <strong>Encaminhamento ao projeto</strong><br>
     Por quem foi encaminhado ao projeto: {{ questionario.encaminhamentoAoProjeto }}<br>
-    Como ficou sabendo do projeto: {{ questionario.comoFicouSabendoDoProjeto }}
+    {#Como ficou sabendo do projeto: {{ questionario.comoFicouSabendoDoProjeto }}#}
 </div>
 <div class="spacer"></div>
 

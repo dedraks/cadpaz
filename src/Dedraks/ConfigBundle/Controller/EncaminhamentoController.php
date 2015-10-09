@@ -8,16 +8,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 
 
-use Dedraks\ConfigBundle\Entity\Caso;
-use Dedraks\ConfigBundle\Form\CasoType;
- 
+use Dedraks\ConfigBundle\Entity\Encaminhamento;
+use Dedraks\ConfigBundle\Form\EncaminhamentoType;
 
 /**
  * Description of CasoController
  *
  * @author carlos
  */
-class CasoTipoController extends Controller 
+class EncaminhamentoController extends Controller 
 {
     public function indexAction(Request $request)
     {
@@ -26,18 +25,18 @@ class CasoTipoController extends Controller
         
         dump($expandir);
         
-        if ($expandir === 'caso')
+        if ($expandir === 'encaminhamento')
             $expandir = true;
         else
             $expandir = false;
         
-        $casos = $this->getDoctrine()
-            ->getRepository('DedraksConfigBundle:Caso')
+        $encaminhamentos = $this->getDoctrine()
+            ->getRepository('DedraksConfigBundle:Encaminhamento')
             ->findAll();
         
-        return $this->render('DedraksConfigBundle:Caso:list.html.twig', array(
-            'casos'    => $casos,
+        return $this->render('DedraksConfigBundle:Encaminhamento:list.html.twig', array(
+            'encaminhamentos'    => $encaminhamentos,
             'expandir' => $expandir
-        ));    
+        ));  
     }
 }
