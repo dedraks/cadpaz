@@ -1,0 +1,3 @@
+dedraks_user_manager_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: DedraksUserManagerBundle:Default:index }

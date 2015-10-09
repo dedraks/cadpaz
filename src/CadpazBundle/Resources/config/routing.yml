@@ -1,3 +1,7 @@
+cadpaz_config_user:
+    resource: "@CadpazBundle/Resources/config/routing/user.yml"
+    prefix:   /config/user
+
 # Rotas para o controlador Pessoa
 pessoa_index:
     path:     /
