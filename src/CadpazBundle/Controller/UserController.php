@@ -41,6 +41,7 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            //$entity->setEnabled(true);
             $em->persist($entity);
             $em->flush();
 

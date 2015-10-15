@@ -19,7 +19,7 @@
 
 
 <div id="container" style="min-height: 500px">
-    <div id="titleArea">
+    <div id="titleArea" style="width: 825px;">
         <div id="title">Cadpaz</div>
     </div>
     <div class="spacer" ></div>
@@ -31,7 +31,7 @@
     
     
     
-    <div id="userArea">
+    <div id="userArea" style="width: 825px;">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div>Olá
                 <a id="userAreaEditLink" href="{{ path('fos_user_profile_edit') }}">
@@ -65,13 +65,13 @@
     <div id="dataArea"></div>
     
     
-    <div id="userDetails" class="example"></div>
+    <div id="userDetails" class="example" style="width: 825px;"></div>
     
     <div class="spacer"></div>
     
     <div id="rodape" class="example" style="vertical-align: bottom; width: 825px;">
                 <div style="background: #FFF; text-align: right; font-size: small">
-                    Desenvolvimento: Carlos Alberto Borges Garcia Jr - dedraks@gmail.com
+                    <strong>Desenvolvimento:</strong> Carlos Alberto Borges Garcia Jr - dedraks@gmail.com
                 </div>
             </div>
 </div>

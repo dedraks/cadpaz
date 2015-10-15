@@ -9,14 +9,11 @@
 
 <div class="spacer"></div>
 &nbsp;
-<a href="#" id="openConfigCasosArea" class="btn">Casos</a>
-<a href="#" id="openConfigOrigensArea" class="btn">Origens</a>
-<a href="#" id="openConfigEncaminhamentosArea" class="btn">Encaminhamentos</a>
+<a href="#" id="openConfigCasosArea" class="btn2">Casos</a> | 
+<a href="#" id="openConfigOrigensArea" class="btn2">Origens</a> | 
+<a href="#" id="openConfigEncaminhamentosArea" class="btn2">Encaminhamentos</a>
+<a href="#" id="openConfigUsuariosArea" class="btn2">Usuários</a>
 <div class="spacer"></div>
-
-
-
-<hr>
 
 
 {{ render(controller('DedraksConfigBundle:CasoTipo:index', {'expandir':expandir})) }}    
@@ -57,8 +54,14 @@
         $('#configCasosArea').addClass('oculto');
     });
    
-    
-        //$('#configCasosArea').addClass('oculto');
+    $('#openConfigUsuariosArea').on('click', function(e) {
+        e.preventDefault();
+        //alert('clicou');
+        $('#configUsuariosArea').toggleClass('oculto');
+        
+        $('#configOrigensArea').addClass('oculto');
+        $('#configCasosArea').addClass('oculto');
+    });
    
     $('td[title]').qtip();
     $('a[title]').qtip();

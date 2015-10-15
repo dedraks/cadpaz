@@ -16,6 +16,8 @@ class UserType extends AbstractType
     {
         $builder
             ->add('nomeCompleto')
+            ->add('groups')
+            ->add('enabled', 'checkbox', ['required'=>false, 'label'=>'Habilitado'])
         ;
     }
     
@@ -25,7 +27,8 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CadpazBundle\Entity\User'
+            'data_class' => 'CadpazBundle\Entity\User',
+            'attr' => ['id' => 'userForm']
         ));
     }
 
