@@ -19,14 +19,25 @@ class UserController extends Controller
      * Lists all User entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $expandir = $request->get('expandir');
+        
+        
+        dump($expandir);
+        
+        if ($expandir === 'origem')
+            $expandir = true;
+        else
+            $expandir = false;
+        
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('CadpazBundle:User')->findAll();
 
         return $this->render('CadpazBundle:User:index.html.twig', array(
             'entities' => $entities,
+            'expandir' => $expandir
         ));
     }
     /**

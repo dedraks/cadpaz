@@ -1,36 +1,47 @@
-{% extends '::base.html.twig' %}
+<div id="configUsuariosArea">
+<span style="font-weight: bold; font-size: large;">Usuários do sistema</span><br>
 
-{% block body -%}
-    <h1>User list</h1>
 
-    <table class="records_list">
+<div id="newUserArea" class="example" style="display: none; width: 400px; background: #FFF"></div>
+
+<div style="text-align: right; padding-right: 20px; float: right">
+    {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
+        <a href="{{ path('config_user_new') }}" id="openNewUserLink"><img src="{{ asset_url }}" alt="Adicionar" /></a></td>
+    {% endimage %}
+</div>
+
+    <table class="records_list" id="usersTable">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nomecompleto</th>
-                <th>Actions</th>
+                <th>Username</th>
+                <th>Nome Completo</th>
+                <th>Grupo</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('config_user_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                {#<td><a href="{{ path('config_user_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
+                <td>{{ entity.username }}</td>
                 <td>{{ entity.nomeCompleto }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('config_user_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('config_user_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                <td>{% for group in entity.groups %} {{ group }} {% endfor %}</td>
+                <td id="{{ entity.id }}">
+                    {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
+                    <a class="editUserLink" href="{{path('config_user_edit', { 'id': entity.id })}}" title="Editar"><img src="{{ asset_url }}" alt="Editar" /></a>
+                    {% endimage %}
+                    | 
+                    {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+                    <a class="deleteUserLink" href="#remover" title="Remover"><img src="{{ asset_url }}" alt="Editar" /></a></td>
+                    {% endimage %}
+                        {#<a href="{{ path('config_user_edit', { 'id': entity.id }) }}">editar</a>#}
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
+        {#
         <ul>
         <li>
             <a href="{{ path('config_user_new') }}">
@@ -38,4 +49,56 @@
             </a>
         </li>
     </ul>
-    {% endblock %}
+        #}
+</div>
+
+<script>
+    $('#usersTable').DataTable({
+        'paging'    : false,
+        'ordering'  : false,
+        'info'      : false,
+        'searching' : false
+    });
+
+    $('.editUserLink').on('click', function(e) {
+        e.preventDefault();
+        
+        var link = $(this).attr('href');
+        
+        $.ajax({
+            url: link,
+            success: function(responseText) {
+                $('#newUserArea').html(responseText);
+                window.configPopup = $('#newUserArea').bPopup({
+                            speed: 650,
+                            transition: 'slideIn',
+                            transitionClose: 'slideBack',
+                        });
+            }
+        });
+        
+        
+    });
+    
+    
+    $('#openNewUserLink').on('click', function(e) {
+        e.preventDefault();
+        
+        $.ajax({
+            url: $(this).attr('href'),
+            success: function(responseText) {
+                $('#newUserArea').html(responseText);
+                window.configPopup = $('#newUserArea').bPopup({
+                            speed: 650,
+                            transition: 'slideIn',
+                            transitionClose: 'slideBack',
+                        });
+            }
+        });
+    });
+</script>
+                
+                
+{% if not expandir %}
+    <script>$('#configUsuariosArea').addClass('oculto');</script>
+{% endif %}    

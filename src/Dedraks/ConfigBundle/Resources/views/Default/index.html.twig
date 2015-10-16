@@ -22,19 +22,20 @@
 
 {{ render(controller('DedraksConfigBundle:Encaminhamento:index', {'expandir':expandir})) }}    
 
+{{ render(controller('CadpazBundle:User:index', {'expandir':expandir})) }}
 
     </div>
 </div>
     
     
 <script>
-       
     $('#openConfigCasosArea').on('click', function(e) {
         e.preventDefault();
         $('#configCasosArea').toggleClass('oculto');
         
         $('#configOrigensArea').addClass('oculto');
         $('#configEncaminhamentosArea').addClass('oculto');
+        $('#configUsuariosArea').addClass('oculto');
     });
     
     $('#openConfigOrigensArea').on('click', function(e) {
@@ -43,6 +44,7 @@
         
         $('#configCasosArea').addClass('oculto');
         $('#configEncaminhamentosArea').addClass('oculto');
+        $('#configUsuariosArea').addClass('oculto');
     });
     
     $('#openConfigEncaminhamentosArea').on('click', function(e) {
@@ -52,6 +54,7 @@
         
         $('#configOrigensArea').addClass('oculto');
         $('#configCasosArea').addClass('oculto');
+        $('#configUsuariosArea').addClass('oculto');
     });
    
     $('#openConfigUsuariosArea').on('click', function(e) {
@@ -61,6 +64,7 @@
         
         $('#configOrigensArea').addClass('oculto');
         $('#configCasosArea').addClass('oculto');
+        $('#configEncaminhamentosArea').addClass('oculto');
     });
    
     $('td[title]').qtip();

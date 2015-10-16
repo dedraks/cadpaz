@@ -1,11 +1,12 @@
-{% extends '::base.html.twig' %}
 
-{% block body -%}
-    <h1>User edit</h1>
+<div style="text-align: center">
+<span style="font-weight: bold; font-size: large;">Editar usuário</span><br>
+</div>
+<br>
 
-    {{ form(edit_form) }}
+{{ form(edit_form) }}
 
-        <ul class="record_actions">
+{#        <ul class="record_actions">
     <li>
         <a href="{{ path('config_user') }}">
             Back to the list
@@ -13,4 +14,4 @@
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
-{% endblock %}
+#}
