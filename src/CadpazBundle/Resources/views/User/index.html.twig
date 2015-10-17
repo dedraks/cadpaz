@@ -32,7 +32,7 @@
                     {% endimage %}
                     | 
                     {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
-                    <a class="deleteUserLink" href="#remover" title="Remover"><img src="{{ asset_url }}" alt="Editar" /></a></td>
+                    <a class="deleteUserLink" href="{{path('config_user_delete',{'id':entity.id})}}" title="Remover"><img src="{{ asset_url }}" alt="Editar" /></a></td>
                     {% endimage %}
                         {#<a href="{{ path('config_user_edit', { 'id': entity.id }) }}">editar</a>#}
                 </td>
@@ -76,6 +76,39 @@
                         });
             }
         });
+        
+        
+    });
+    
+    $('.deleteUserLink').on('click', function(e) {
+        e.preventDefault();
+        
+        var link = $(this).attr('href');
+        
+        Ply.dialog("confirm", "Tem certeza?")
+            .done(function (ui) {
+                // OK
+                    })
+            .fail(function (ui) {
+                // Cancel
+            })
+            .always(function (ui) {
+                if (ui.state) {
+                    // Clicked "OK"
+                    
+                    $.ajax({
+                        url: link,
+                        success: function(responseText) {
+                            $('#dataArea').html(responseText);
+                        }
+                    });
+                }
+                else {
+                    // Clicked "Cancel"
+                    //   details: `ui.by` — "cancel", "overlay", "esc", "x"
+                }
+            });
+        
         
         
     });

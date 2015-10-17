@@ -26,7 +26,7 @@ class UserController extends Controller
         
         dump($expandir);
         
-        if ($expandir === 'origem')
+        if ($expandir === 'user')
             $expandir = true;
         else
             $expandir = false;
@@ -56,7 +56,8 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('config_user_show', array('id' => $entity->getId())));
+            //return $this->redirect($this->generateUrl('config_user_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('dedraks_config_homepage',['expand'=>'user']));
         }
 
         return $this->render('CadpazBundle:User:new.html.twig', array(
@@ -184,7 +185,8 @@ class UserController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('config_user_edit', array('id' => $id)));
+            //return $this->redirect($this->generateUrl('config_user_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('dedraks_config_homepage',['expand'=>'user']));
         }
 
         return $this->render('CadpazBundle:User:edit.html.twig', array(
@@ -199,6 +201,14 @@ class UserController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('CadpazBundle:User')->find($id);
+        $em->remove($entity);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('dedraks_config_homepage',['expand'=>'user']));
+        
+        /*
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -214,7 +224,7 @@ class UserController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('config_user'));
+        return $this->redirect($this->generateUrl('config_user'));*/
     }
 
     /**

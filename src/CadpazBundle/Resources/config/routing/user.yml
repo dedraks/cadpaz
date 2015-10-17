@@ -27,4 +27,4 @@ config_user_update:
 config_user_delete:
     path:     /{id}/delete
     defaults: { _controller: "CadpazBundle:User:delete" }
-    methods:  [POST, DELETE]
+    #methods:  [POST, DELETE]
