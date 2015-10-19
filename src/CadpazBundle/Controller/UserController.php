@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use CadpazBundle\Entity\User;
 use CadpazBundle\Form\UserType;
 
+use CadpazBundle\Entity\Group;
+
 /**
  * User controller.
  *
@@ -24,7 +26,7 @@ class UserController extends Controller
         $expandir = $request->get('expandir');
         
         
-        dump($expandir);
+        //dump($expandir);
         
         if ($expandir === 'user')
             $expandir = true;
@@ -35,9 +37,20 @@ class UserController extends Controller
 
         $entities = $em->getRepository('CadpazBundle:User')->findAll();
 
+        $count = 0;
+        foreach($entities as $entity) 
+        {
+            if ($entity->hasGroup('Administradores'))
+            {
+                $count ++;
+            }
+        }
+        
+        
         return $this->render('CadpazBundle:User:index.html.twig', array(
             'entities' => $entities,
-            'expandir' => $expandir
+            'expandir' => $expandir,
+            'totalAdministradores' => $count
         ));
     }
     /**

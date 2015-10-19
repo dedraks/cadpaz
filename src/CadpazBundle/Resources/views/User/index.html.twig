@@ -10,31 +10,35 @@
     {% endimage %}
 </div>
 
-    <table class="records_list" id="usersTable">
+{#Total Administradores: {{ totalAdministradores }}#}
+<input id="mostrarInativos" type='checkbox' /> Exibir usuários inativos
+
+    <table class="display_compact" id="usersTable">
         <thead>
             <tr>
                 <th>Username</th>
                 <th>Nome Completo</th>
+                <th>Email</th>
                 <th>Grupo</th>
-                <th>Ações</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
-            <tr>
+            {{entity.enabled? '<tr>' : '<tr class="disabledUser" style="background: #DFDFDF;">'}}
                 {#<td><a href="{{ path('config_user_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
                 <td>{{ entity.username }}</td>
                 <td>{{ entity.nomeCompleto }}</td>
+                <td>{{ entity.email }}</td>
                 <td>{% for group in entity.groups %} {{ group }} {% endfor %}</td>
                 <td id="{{ entity.id }}">
                     {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
                     <a class="editUserLink" href="{{path('config_user_edit', { 'id': entity.id })}}" title="Editar"><img src="{{ asset_url }}" alt="Editar" /></a>
                     {% endimage %}
-                    | 
+                    {#| 
                     {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
                     <a class="deleteUserLink" href="{{path('config_user_delete',{'id':entity.id})}}" title="Remover"><img src="{{ asset_url }}" alt="Editar" /></a></td>
-                    {% endimage %}
-                        {#<a href="{{ path('config_user_edit', { 'id': entity.id }) }}">editar</a>#}
+                    {% endimage %}#}
                 </td>
             </tr>
         {% endfor %}
@@ -83,6 +87,11 @@
     $('.deleteUserLink').on('click', function(e) {
         e.preventDefault();
         
+        if ({{totalAdministradores}} <2 ) {
+            Ply.dialog('alert','Não é possível remover o único administrador do sistema');
+            return;
+        }
+        
         var link = $(this).attr('href');
         
         Ply.dialog("confirm", "Tem certeza?")
@@ -129,6 +138,17 @@
             }
         });
     });
+    
+    $("#mostrarInativos").change(function() {
+        
+        //alert('click');
+        if (this.checked) {
+            $('.disabledUser').show('slow');
+        } else {
+            $('.disabledUser').hide('slow');
+        }
+    });
+    $('.disabledUser').hide();
 </script>
                 
                 
