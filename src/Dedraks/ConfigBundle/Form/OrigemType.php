@@ -17,6 +17,7 @@ class OrigemType extends AbstractType
         $builder
             ->add('nome')
             ->add('descricao')
+            ->add('save', 'submit', ['label'=>'salvar'])
         ;
     }
     
@@ -26,7 +27,8 @@ class OrigemType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Dedraks\ConfigBundle\Entity\Origem'
+            'data_class' => 'Dedraks\ConfigBundle\Entity\Origem',
+            'attr' => ['id' => 'newOrigemForm']
         ));
     }
 

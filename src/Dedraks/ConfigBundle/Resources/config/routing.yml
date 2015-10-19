@@ -6,7 +6,23 @@ dedraks_config_homepage:
 # fim
 
 # Rotas do controlador Origem
-#dedraks_config_origem:
+dedraks_config_origem_new:
+    path:     /config/origem/new
+    defaults: { _controller: DedraksConfigBundle:Origem:new }
+    options:
+        expose: true
+        
+dedraks_config_origem_edit:
+    path:     /config/origem/{id}/edit
+    defaults: { _controller: DedraksConfigBundle:Origem:edit }
+    options:
+        expose: true
+        
+dedraks_config_origem_delete:
+    path:     /config/origem/{id}/delete
+    defaults: { _controller: DedraksConfigBundle:Origem:delete }
+    options:
+        expose: true
 #fim
 
 # Rotas do controlador Encaminhamento

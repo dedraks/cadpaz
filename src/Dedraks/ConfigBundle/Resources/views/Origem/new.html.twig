@@ -1,0 +1,21 @@
+{# Dedraks/ConfigBundle/Resources/view/Origem/new.html.twig #}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+<script>
+    {% if id is defined %}
+        var url = Routing.generate('dedraks_config_origem_edit', {'id':{{id}}});
+    {% else %}
+        var url = Routing.generate('dedraks_config_origem_new');
+    {% endif %}
+    
+    $('#newOrigemForm').ajaxForm({
+        url: url,
+        type: 'post',
+        success: function(responseText) {
+            $("#dataArea").html(responseText);
+            window.configPopup.close();
+        }
+    });
+</script>

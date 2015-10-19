@@ -253,8 +253,8 @@ configuracoes_caso_tipo_delete:
     options:
         expose: true
         
-configuracoes_origem_new:
-    path:     /config/origem/new
-    defaults: { _controller: CadpazBundle:Configuracoes:new }
-    options:
-        expose: true
+#configuracoes_origem_new:
+#    path:     /config/origem/new
+#    defaults: { _controller: CadpazBundle:Configuracoes:new }
+#    options:
+#        expose: true

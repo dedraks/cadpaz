@@ -70,7 +70,7 @@
         //alert(id);
         if ($(this).attr('href') === '#editar') {
             $.ajax({
-                //url: Routing.generate('configuracoes_caso_tipo_edit',{'id':id}),
+                url: Routing.generate('dedraks_config_origem_edit',{'id':id}),
                 success: function(responseText) {
                     
                     //alert(responseText);
@@ -98,7 +98,7 @@
                 if (ui.state) {
                     // Clicked "OK"
                     $.ajax({
-                                    //url: Routing.generate('configuracoes_caso_tipo_delete',{'id':id}),
+                                    url: Routing.generate('dedraks_config_origem_delete',{'id':id}),
                                     success: function(responseText) {
                                         
 
@@ -121,7 +121,7 @@
         e.preventDefault();
         
         $.ajax({
-            url: Routing.generate('configuracoes_origem_new'),
+            url: Routing.generate('dedraks_config_origem_new'),
             success: function(responseText) {
                 
                 

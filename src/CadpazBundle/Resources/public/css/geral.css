@@ -562,3 +562,8 @@ textarea {
 .oculto {
     display: none;
 }
+
+.notSelected {
+    background: #e0e0e0;
+    background-color: #999;
+}
