@@ -5,22 +5,8 @@
 <span style="font-weight: bold; font-size: large;">Encaminhamentos (Para onde o cliente foi encaminhado)</span><br>
 
 <div id="newEncaminhamentoArea" class="example" style="display: none; width: 400px; background: #FFF">
-    <table>
-    <tr>
-        <td>Nome</td>
-        <td><input id="nomeEncaminhamentoInput" type="text"></td>
-    </tr>
-    <tr>
-        <td>Descrição</td>
-        <td><input id="descricaoEncaminhamentoInput" type="text"></td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <a href="#" id="newEncaminhamentoLink">Cadastrar</a>
-        </td>
-    </tr>
-    </table>
 </div>
+
 <div style="text-align: right; padding-right: 20px; float: right">
     {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a href="#" id="openNewEncaminhamentoLink"><img src="{{ asset_url }}" alt="Adicionar" /></a></td>
@@ -71,7 +57,7 @@
         //alert(id);
         if ($(this).attr('href') === '#editar') {
             $.ajax({
-                //url: Routing.generate('configuracoes_caso_tipo_edit',{'id':id}),
+                url: Routing.generate('dedraks_config_encaminhamento_edit',{'id':id}),
                 success: function(responseText) {
                     
                     //alert(responseText);
@@ -99,7 +85,7 @@
                 if (ui.state) {
                     // Clicked "OK"
                     $.ajax({
-                                    //url: Routing.generate('configuracoes_caso_tipo_delete',{'id':id}),
+                                    url: Routing.generate('dedraks_config_encaminhamento_delete',{'id':id}),
                                     success: function(responseText) {
                                         
 
@@ -120,14 +106,12 @@
     $("#openNewEncaminhamentoLink").on("click", function(e) {
         
         e.preventDefault();
-        
+       
         $.ajax({
-            //url: Routing.generate('configuracoes_caso_tipo_new'),
+            url: Routing.generate('dedraks_config_encaminhamento_new'),
             success: function(responseText) {
                 
-                
                 $('#newEncaminhamentoArea').html(responseText);
-                
                 
                 window.configPopup = $('#newEncaminhamentoArea').bPopup({
                         speed: 650,
@@ -136,7 +120,6 @@
                     });
             }
         });
-        
         
     });
 </script>

@@ -26,4 +26,21 @@ dedraks_config_origem_delete:
 #fim
 
 # Rotas do controlador Encaminhamento
+dedraks_config_encaminhamento_new:
+    path:     /config/encaminhamento/new
+    defaults: { _controller: DedraksConfigBundle:Encaminhamento:new }
+    options:
+        expose: true
+        
+dedraks_config_encaminhamento_edit:
+    path:     /config/encaminhamento/{id}/edit
+    defaults: { _controller: DedraksConfigBundle:Encaminhamento:edit }
+    options:
+        expose: true
+        
+dedraks_config_encaminhamento_delete:
+    path:     /config/encaminhamento/{id}/delete
+    defaults: { _controller: DedraksConfigBundle:Encaminhamento:delete }
+    options:
+        expose: true
 # fim

@@ -17,6 +17,7 @@ class EncaminhamentoType extends AbstractType
         $builder
             ->add('nome')
             ->add('descricao')
+            ->add('save', 'submit', ['label'=>'salvar'])
         ;
     }
     
@@ -26,7 +27,8 @@ class EncaminhamentoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Dedraks\ConfigBundle\Entity\Encaminhamento'
+            'data_class' => 'Dedraks\ConfigBundle\Entity\Encaminhamento',
+            'attr' => ['id' => 'newEncaminhamentoTipoForm']
         ));
     }
 

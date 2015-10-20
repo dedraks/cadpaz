@@ -9,15 +9,13 @@
     
     {#//var c="{{create}}";#}
 
+
     {% if id is defined %}
-        var url = Routing.generate('configuracoes_encaminhamento_tipo_edit', {'id':{{id}}});
+        var url = Routing.generate('dedraks_config_encaminhamento_edit', {'id':{{id}}});
     {% else %}
-        var url = Routing.generate('configuracoes_encaminhamento_tipo_new');
+        var url = Routing.generate('dedraks_config_encaminhamento_new');
     {% endif %}
     
-    {# var url = (c==='sim') ? Routing.generate('configuracoes_caso_tipo_new') : Routing.generate('configuracoes_caso_tipo_edit', {'id':{{id}}}); #}
-    
-    //alert(url);
     
     
     $('#newEncaminhamentoTipoForm').ajaxForm({
