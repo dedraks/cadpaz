@@ -3,17 +3,149 @@
 namespace CadpazBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use Ob\HighchartsBundle\Highcharts\Highchart;
 
 class RelatoriosController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $data = array();
+        
+        $customForm = $this->createFormBuilder($data, ['attr' => ['id' => 'customRelForm']])
+            ->add('camposSelect', 'choice', array(
+                'label' => ' ', 
+                'multiple'=>true, 
+                'choices'=>array(
+                    'nome' => 'Nome',
+                    'sexo' => 'Sexo',
+                    'cor' => 'Cor informada',
+                    'estadoCivil' => 'Estado civil',
+                    'email' => 'Email',
+                    'telefone' => 'Telefone',
+                    'endereco' => 'Endereço',
+                )
+            ))
+            ->add('save', 'submit', array('label' => 'Create Post'))
+        ->getForm();
+        
+        $padraoForm = $this->createFormBuilder($data, ['attr' => ['id' => 'padraoRelForm']])
+            ->add('casos', 'checkbox', array('label' => 'Tipos de Casos', 'required'=>false))
+            ->add('origens', 'checkbox', array('label' => 'Origens (quem enviou o cliente para atendimento)', 'required'=>false))
+            ->add('encaminhamentos', 'checkbox', array('label' => 'Encaminhamentos (para onde o cliente foi encaminhado)', 'required'=>false))
+            ->add('renda', 'checkbox', array('label' => 'Renda familiar', 'required'=>false))
+            ->add('idade', 'checkbox', array('label' => 'Idade', 'required'=>false))
+            ->add('sexo', 'checkbox', array('label' => 'Sexo', 'required'=>false))
+            ->add('cor', 'checkbox', array('label' => 'Cor', 'required'=>false))
+            ->add('save', 'submit', array('label' => 'Create Post'))
+        ->getForm();
+        
+
+        if ($request->isMethod('POST')) {
+            $customForm->handleRequest($request);
+
+            // $data is a simply array with your form fields 
+            // like "query" and "category" as defined above.
+            $data = $customForm->getData();
+            
+            $pessoas = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Pessoa')
+            ->findAll();
+
+            $res = array();
+            
+            $i = 0;
+            $campos = array();
+            foreach($pessoas as $pessoa)
+            {
+                foreach ($data['camposSelect'] as $campo)
+                {
+                    switch ($campo)
+                    {
+                        case 'nome':
+                            $res[$i]['nome'] = $pessoa->getNome();
+                            $campos['nome'] = '';
+                        break;
+                        case 'sexo':
+                            $res[$i]['sexo'] = $pessoa->getSexo();
+                            $campos['sexo'] = '';
+                        break;
+                        case 'cor':
+                            $res[$i]['cor'] = $pessoa->getCorInformada();
+                            $campos['cor'] = '';
+                        break;
+                        case 'estadoCivil':
+                            $res[$i]['estadoCivil'] = $pessoa->getEstadoCivil();
+                            $campos['estadoCivil'] = '';
+                        break;
+                        case 'email':
+                            $res[$i]['email'] = $pessoa->getEmail();
+                            $campos['email'] = '';
+                        break;
+                        case 'telefone':
+                            $campos['telefone'] = '';
+                            $res[$i]['telefone'] = '';
+                            foreach($pessoa->getTelefones() as $telefone)
+                            {
+                                $res[$i]['telefone'] = $telefone->getPadrao() ? $telefone->getNumero() : '';
+                                if ($telefone->getPadrao()) break;
+                            }
+                        break;
+                        case 'endereco':
+                            $campos['endereco'] = '';
+                            $res[$i]['endereco'] = '';
+                            foreach($pessoa->getEnderecos() as $endereco)
+                            {
+                                $res[$i]['endereco'] = $endereco->getPadrao() ? $endereco->getNome() . ': ' . $endereco->getLogradouro() . ', ' . $endereco->getNumero() . ' - ' . $endereco->getBairro() . ' - ' . $endereco->getComplemento() . ' - ' . $endereco->getMunicipio() . ' - CEP: ' . $endereco->getCep() . ' - ' . $endereco->getUf() : '';
+                                if ($endereco->getPadrao()) break;
+                            }
+                        break;
+                    }
+                }
+                $i += 1;
+            }
+            
+            dump($res);
+            
+                
+            return $this->render('CadpazBundle:Relatorios:custom.html.twig', array(
+                    'dados' => $res,
+                    'campos' => $campos
+                ));
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
+        $form = $this->createForm(new \CadpazBundle\Form\RelatorioCustomType(), $data);
+        
+        $form->handleRequest($request);
+        dump($request);
+        
+        dump($form);
+        
+        if ($form->isSubmitted()) {
+            
+            dump($form->getData());
+            
+            return new Response('a');
+        }
+        */
+        
         return $this->render('CadpazBundle:Relatorios:index.html.twig', array(
-                    
+                    'customForm' => $customForm->createView(),
+                    'padraoForm' => $padraoForm->createView()
                 ));
     }
+    
     
     public function casosAction()
     {

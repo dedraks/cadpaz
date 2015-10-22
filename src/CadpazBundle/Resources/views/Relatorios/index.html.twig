@@ -1,11 +1,35 @@
-{#<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>#}
+{# CadpazBundle/Resources/views/Relatorios/index.html.twig #}
 
 
 <id id="relatoriosInicio"></div>
 
 
 <div id="relatoriosArea" class="example" style="width: 825px">
-    <div style="background: #FFF; text-align: center">
+    <div style="background: #FFF; text-align: center" id="relatoriosDados">
+  
+        Relatórios padrão<br>
+        <div style="border: 1px solid; border-color: #E2E2E2; text-align: left">
+        {{ form(padraoForm) }}
+        </div>
+        
+        
+        
+        <hr>
+        Relatorios personalizados<br>
+        {{ form(customForm) }}
+        
+        
+        Filtros
+        {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
+            <a href="#" id="adicionarFiltro"><img src="{{ asset_url }}" alt="Adicionar" /></a></td>
+        {% endimage %}<br>
+        
+        
+        <hr>
+        
+        
+{#
+        
     <span style="font-weight: bold; font-size: x-large;">Relatório de uso</span>
     <hr>
     <p>Relatório dos atendimentos feitos no sistema.</p>
@@ -34,12 +58,14 @@
 {% render controller('CadpazBundle:Relatorios:cores') %}
 <footer><hr></footer> 
 
+#}
+
 </div>
 </div>
 
 <div class="spacer"></div>
 
-
+{#
 <div id="outro" class="example" style="width: 825px">
     <div style="background: #FFF">
     {% image '@CadpazBundle/Resources/public/images/print-icon2.png' %}
@@ -48,6 +74,7 @@
 <a href="#" class="scrollToTop">Início da página</a>
     </div>
 </div>
+#}
 
 <script>
     $('html, body').animate({
@@ -88,4 +115,110 @@
         at: 'top left', // at the bottom right of...);
         target: $('#outro')
     }});
+
+
+
+
+    $('#relCasos').change(function() {
+        if (this.checked) {
+            $('#relCasosOpcoes').show();
+        }
+        else {
+            $('#relCasosOpcoes').hide();
+        }
+    });
+    $('#relOrigens').change(function() {
+        if (this.checked) {
+            $('#relOrigensOpcoes').show();
+        }
+        else {
+            $('#relOrigensOpcoes').hide();
+        }
+    });
+    $('#relEncaminhamentos').change(function() {
+        if (this.checked) {
+            $('#relEncaminhamentosOpcoes').show();
+        }
+        else {
+            $('#relEncaminhamentosOpcoes').hide();
+        }
+    });
+    $('#relRenda').change(function() {
+        if (this.checked) {
+            $('#relRendaOpcoes').show();
+        }
+        else {
+            $('#relRendaOpcoes').hide();
+        }
+    });
+    $('#relIdades').change(function() {
+        if (this.checked) {
+            $('#relIdadesOpcoes').show();
+        }
+        else {
+            $('#relIdadesOpcoes').hide();
+        }
+    });
+    $('#relCor').change(function() {
+        if (this.checked) {
+            $('#relCorOpcoes').show();
+        }
+        else {
+            $('#relCorOpcoes').hide();
+        }
+    });
+    $('#relSexo').change(function() {
+        if (this.checked) {
+            $('#relSexoOpcoes').show();
+        }
+        else {
+            $('#relSexoOpcoes').hide();
+        }
+    });
+    
+    
+    
+    
+    $("#form_camposSelect").select2({
+        width: '100%',
+        multiple: 'multiple',
+        placeholder: "Clique para adicionar os campos desejados",
+    });
+    
+    $('#customRelForm').ajaxForm({
+        url: Routing.generate('relatorios_index'),
+        success: function(responseText) {
+            //alert(responseText);
+            $('#relatoriosDados').html(responseText);
+        }
+    });
+    
+    
+    var incCampo = 0;
+    var incFiltro = 0;
+    $('#adicionarCampo').on('click', function(e) {
+        e.preventDefault();
+        
+        
+        
+        
+        
+        /*
+        var data = {
+            '1': 'Nome',
+            '2': 'Telefone',
+            '3': 'Endereço',
+            '4': 'Data de nascimento',
+        }
+
+        var s = $("<select id='campo[" + (incCampo++) + "]' />");
+
+        for(var val in data) {
+            $('<option />', {value: val, text: data[val]}).appendTo(s);
+        }
+
+        s.appendTo('#camposArea');
+        s.select2();
+        */
+    });
 </script>

@@ -1,0 +1,34 @@
+{% if relatorios.casos is defined %}
+    {% render controller('CadpazBundle:Relatorios:casos') %}
+    <footer><hr></footer>
+{% endif %}
+
+{% if relatorios.origens is defined %}
+    {% render controller('CadpazBundle:Relatorios:origens') %}
+    <footer><hr></footer>
+{% endif %}
+
+{% if relatorios.encaminhamentos is defined %}
+    {% render controller('CadpazBundle:Relatorios:encaminhamentos') %}
+    <footer><hr></footer>
+{% endif %}
+
+{% if relatorios.rendaFamiliar is defined %}
+    {% render controller('CadpazBundle:Relatorios:rendaFamiliar') %}
+    <footer><hr></footer>
+{% endif %}
+
+{% if relatorios.idades is defined %}
+    {% render controller('CadpazBundle:Relatorios:idades') %}
+   <footer><hr></footer> 
+{% endif %}
+
+{% if relatorios.sexos is defined %}
+    {% render controller('CadpazBundle:Relatorios:sexos') %}
+    <footer><hr></footer> 
+{% endif %}
+
+{% if relatorios.cores is defined %}
+    {% render controller('CadpazBundle:Relatorios:cores') %}
+    <footer><hr></footer> 
+{% endif %}

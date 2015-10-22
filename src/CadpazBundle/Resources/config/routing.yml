@@ -229,6 +229,12 @@ relatorios_cores:
     options:
         expose: true
 
+relatorios_custom:
+    path:     /relatorios/custom
+    defaults: { _controller: CadpazBundle:Relatorios:custom }
+    options:
+        expose: true
+
 #configuracoes_index:
 #    path:     /config/index
 #    defaults: { _controller: DedraksConfigBundle:Default:index }
