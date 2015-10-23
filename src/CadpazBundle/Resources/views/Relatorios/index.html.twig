@@ -24,7 +24,7 @@
             <a href="#" id="adicionarFiltro"><img src="{{ asset_url }}" alt="Adicionar" /></a></td>
         {% endimage %}<br>
         
-        
+        <div id="filtrosArea"></div>
         <hr>
         
         
@@ -194,31 +194,35 @@
     });
     
     
-    var incCampo = 0;
+    $('#form_sexoFitro').hide();
     var incFiltro = 0;
-    $('#adicionarCampo').on('click', function(e) {
+    $('#adicionarFiltro').on('click', function(e) {
         e.preventDefault();
+       
+        var condicaoData = {
+            '0': '',
+            '1': 'Sexo',
+            '2': 'Idade',
+            '3': 'Renda familiar'
+        }
         
-        
-        
-        
-        
-        /*
-        var data = {
-            '1': 'Nome',
-            '2': 'Telefone',
-            '3': 'Endereço',
-            '4': 'Data de nascimento',
+
+        var s = $("<select id='campo[" + (incFiltro++) + "]' />");
+
+        for(var val in condicaoData) {
+            $('<option />', {value: val, text: condicaoData[val]}).appendTo(s);
         }
 
-        var s = $("<select id='campo[" + (incCampo++) + "]' />");
-
-        for(var val in data) {
-            $('<option />', {value: val, text: data[val]}).appendTo(s);
-        }
-
-        s.appendTo('#camposArea');
-        s.select2();
-        */
+        s.appendTo('#customRelForm');
+        //s.select2();
+        s.on('change', function(e) {
+            var option = $(this).find('option:selected');
+            if(option.val()===1 || option.val()==='1')
+            {
+                $('#form_sexoFitro').show();
+            }
+        });
+        
     });
+
 </script>

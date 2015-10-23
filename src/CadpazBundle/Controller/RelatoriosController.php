@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use CadpazBundle\Form\EventListener\AddFieldSubscriber;
+
 use Ob\HighchartsBundle\Highcharts\Highchart;
 
 class RelatoriosController extends Controller
@@ -20,7 +22,11 @@ class RelatoriosController extends Controller
                 'multiple'=>true, 
                 'choices'=>array(
                     'nome' => 'Nome',
+                    'nomeMae' => 'Nome da mãe',
                     'sexo' => 'Sexo',
+                    'dataNascimento' => 'Data de nascimento',
+                    'idade_a' => 'Idade atual',
+                    'idade_c' => 'Idade quando foi atendido',
                     'cor' => 'Cor informada',
                     'estadoCivil' => 'Estado civil',
                     'email' => 'Email',
@@ -28,7 +34,10 @@ class RelatoriosController extends Controller
                     'endereco' => 'Endereço',
                 )
             ))
-            ->add('save', 'submit', array('label' => 'Create Post'))
+                
+            ->add('filtro', 'text', ['required'=>false])
+                
+            ->add('save', 'submit', array('label' => 'Exibir relatório'))
         ->getForm();
         
         $padraoForm = $this->createFormBuilder($data, ['attr' => ['id' => 'padraoRelForm']])
@@ -39,81 +48,136 @@ class RelatoriosController extends Controller
             ->add('idade', 'checkbox', array('label' => 'Idade', 'required'=>false))
             ->add('sexo', 'checkbox', array('label' => 'Sexo', 'required'=>false))
             ->add('cor', 'checkbox', array('label' => 'Cor', 'required'=>false))
-            ->add('save', 'submit', array('label' => 'Create Post'))
+            ->add('save', 'submit', array('label' => 'Exibir relatório'))
         ->getForm();
         
 
         if ($request->isMethod('POST')) {
             $customForm->handleRequest($request);
-
-            // $data is a simply array with your form fields 
-            // like "query" and "category" as defined above.
-            $data = $customForm->getData();
+            $padraoForm->handleRequest($request);
             
-            $pessoas = $this->getDoctrine()
-            ->getRepository('CadpazBundle:Pessoa')
-            ->findAll();
 
-            $res = array();
-            
-            $i = 0;
-            $campos = array();
-            foreach($pessoas as $pessoa)
+            if ($customForm->isValid())
             {
-                foreach ($data['camposSelect'] as $campo)
-                {
-                    switch ($campo)
-                    {
-                        case 'nome':
-                            $res[$i]['nome'] = $pessoa->getNome();
-                            $campos['nome'] = '';
-                        break;
-                        case 'sexo':
-                            $res[$i]['sexo'] = $pessoa->getSexo();
-                            $campos['sexo'] = '';
-                        break;
-                        case 'cor':
-                            $res[$i]['cor'] = $pessoa->getCorInformada();
-                            $campos['cor'] = '';
-                        break;
-                        case 'estadoCivil':
-                            $res[$i]['estadoCivil'] = $pessoa->getEstadoCivil();
-                            $campos['estadoCivil'] = '';
-                        break;
-                        case 'email':
-                            $res[$i]['email'] = $pessoa->getEmail();
-                            $campos['email'] = '';
-                        break;
-                        case 'telefone':
-                            $campos['telefone'] = '';
-                            $res[$i]['telefone'] = '';
-                            foreach($pessoa->getTelefones() as $telefone)
-                            {
-                                $res[$i]['telefone'] = $telefone->getPadrao() ? $telefone->getNumero() : '';
-                                if ($telefone->getPadrao()) break;
-                            }
-                        break;
-                        case 'endereco':
-                            $campos['endereco'] = '';
-                            $res[$i]['endereco'] = '';
-                            foreach($pessoa->getEnderecos() as $endereco)
-                            {
-                                $res[$i]['endereco'] = $endereco->getPadrao() ? $endereco->getNome() . ': ' . $endereco->getLogradouro() . ', ' . $endereco->getNumero() . ' - ' . $endereco->getBairro() . ' - ' . $endereco->getComplemento() . ' - ' . $endereco->getMunicipio() . ' - CEP: ' . $endereco->getCep() . ' - ' . $endereco->getUf() : '';
-                                if ($endereco->getPadrao()) break;
-                            }
-                        break;
-                    }
-                }
-                $i += 1;
-            }
-            
-            dump($res);
-            
+                // $data is a simply array with your form fields 
+                // like "query" and "category" as defined above.
+                $data = $customForm->getData();
+                dump($data);
                 
-            return $this->render('CadpazBundle:Relatorios:custom.html.twig', array(
-                    'dados' => $res,
-                    'campos' => $campos
-                ));
+                $filtros = $this->parseFiltro($data['filtro']);
+                //dump($filtros);
+
+                $pessoas = $this->getDoctrine()
+                ->getRepository('CadpazBundle:Pessoa')
+                ->findAll();
+
+                $res = array();
+
+                $i = 0;
+                $campos = array();
+                $adicionar = true;
+                foreach($pessoas as $pessoa)
+                {
+                    $adicionar = true;
+                    foreach($filtros as $filtro)
+                    {
+                        $f = trim($filtro[0]);
+                        
+                        dump($f);
+                        switch ($f)
+                        {
+                            case 'sexo':
+                                dump('entrou');
+                                $s = trim($filtro[1]);
+                                $s = trim($s,"'");
+                                dump($s);
+                                dump($pessoa->getSexo());
+                                if ( $pessoa->getSexo() != $s)
+                                    $adicionar = false;
+                            break;
+                        }
+                    }
+                    
+                    if (!$adicionar) continue;
+                    
+                    foreach ($data['camposSelect'] as $campo)
+                    {
+                        switch ($campo)
+                        {
+                            case 'nome':
+                                $res[$i]['nome'] = $pessoa->getNome();
+                                $campos['nome'] = '';
+                            break;
+                            case 'nomeMae':
+                                $res[$i]['nomeMae'] = $pessoa->getNomeMae();
+                                $campos['nomeMae'] = '';
+                            break;
+                            case 'sexo':
+                                $res[$i]['sexo'] = $pessoa->getSexo();
+                                $campos['sexo'] = '';
+                            break;
+                            case 'dataNascimento':
+                                $res[$i]['dataNascimento'] = $pessoa->getDataNascimento();
+                                $campos['dataNascimento'] = '';
+                            break;
+                            case 'idade_c':
+                                $res[$i]['idade_c'] = $pessoa->getSexo();
+                                $res[$i]['dataNascimento'] = $pessoa->getDataNascimento();
+                                $res[$i]['dataCadastro'] = $pessoa->getDataCadastro();
+                                $campos['idade_c'] = '';
+                            break;
+                            case 'idade_a':
+                                $res[$i]['idade_a'] = $pessoa->getSexo();
+                                $res[$i]['dataNascimento'] = $pessoa->getDataNascimento();
+                                $campos['idade_a'] = '';
+                            break;
+                            case 'cor':
+                                $res[$i]['cor'] = $pessoa->getCorInformada();
+                                $campos['cor'] = '';
+                            break;
+                            case 'estadoCivil':
+                                $res[$i]['estadoCivil'] = $pessoa->getEstadoCivil();
+                                $campos['estadoCivil'] = '';
+                            break;
+                            case 'email':
+                                $res[$i]['email'] = $pessoa->getEmail();
+                                $campos['email'] = '';
+                            break;
+                            case 'telefone':
+                                $campos['telefone'] = '';
+                                $res[$i]['telefone'] = '';
+                                foreach($pessoa->getTelefones() as $telefone)
+                                {
+                                    $res[$i]['telefone'] = $telefone->getPadrao() ? $telefone->getNumero() : '';
+                                    if ($telefone->getPadrao()) break;
+                                }
+                            break;
+                            case 'endereco':
+                                $campos['endereco'] = '';
+                                $res[$i]['endereco'] = '';
+                                foreach($pessoa->getEnderecos() as $endereco)
+                                {
+                                    $res[$i]['endereco'] = $endereco->getPadrao() ? $endereco->getNome() . ': ' . $endereco->getLogradouro() . ', ' . $endereco->getNumero() . ' - ' . $endereco->getBairro() . ' - ' . $endereco->getComplemento() . ' - ' . $endereco->getMunicipio() . ' - CEP: ' . $endereco->getCep() . ' - ' . $endereco->getUf() : '';
+                                    if ($endereco->getPadrao()) break;
+                                }
+                            break;
+                        }
+                    }
+                    $i += 1;
+                }
+
+                dump($res);
+
+
+                return $this->render('CadpazBundle:Relatorios:custom.html.twig', array(
+                        'dados' => $res,
+                        'campos' => $campos
+                    ));
+            }
+            elseif ($padraoForm->isValid()) 
+            {
+            
+            }
         }
         
         
@@ -554,4 +618,36 @@ class RelatoriosController extends Controller
     }
     
     
+    private function parseFiltro($str)
+    {
+        
+        $filtros_adicionados = array();
+        $filtros = explode('&', $str);
+        
+        foreach($filtros as $filtro)
+        {
+            if (strpos($filtro, '>=')) {
+                $filtros_adicionados[] = array(explode('>=', $filtro)[0], explode('>=', $filtro)[1], '>=');
+            }
+            elseif (strpos($filtro, '<=')) {
+                $filtros_adicionados[] = array(explode('<=', $filtro)[0], explode('<=', $filtro)[1], '<=');
+            }
+            elseif (strpos($filtro, '!=')) {
+                $filtros_adicionados[] = array(explode('!=', $filtro)[0], explode('!=', $filtro)[1], '!=');
+            }
+            elseif (strpos($filtro, '='))
+            {
+                $filtros_adicionados[] = array(explode('=', $filtro)[0], explode('=', $filtro)[1], '=');
+            }
+            elseif (strpos($filtro, '>')) {
+                $filtros_adicionados[] = array(explode('>', $filtro)[0], explode('>', $filtro)[1], '>');
+            }
+            elseif (strpos($filtro, '<')) {
+                $filtros_adicionados[] = array(explode('<', $filtro)[0], explode('<', $filtro)[1], '<');
+            }
+        }
+        
+        
+        return $filtros_adicionados;
+    }
 }

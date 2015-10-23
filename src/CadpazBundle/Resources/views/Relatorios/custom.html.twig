@@ -1,8 +1,23 @@
+{% set texto = "" %}
+{% if campos.nome is defined %}{% set texto = texto ~ "nome, " %}{% endif %}
+{% if campos.sexo is defined %}{% set texto = texto ~ "sexo, " %}{% endif %}
+{% if campos.idade_c is defined %}{% set texto = texto ~ "idade quando atendido, " %}{% endif %}
+<div>
+    Relatório do sistema<br>
+    Exibindo {{ texto }} de todos os clientes.
+    
+    
+</div>
+
 <table id="tbl_custom" class="display compact" style="width: 100%">
     <thead class="tabela_pequena">
         <tr>
             {% if campos.nome is defined %}<th>Nome</th>{% endif %}
+            {% if campos.nomeMae is defined %}<th>Nome da mãe</th>{% endif %}
             {% if campos.sexo is defined %}<th>Sexo</th>{% endif %}
+            {% if campos.dataNascimento is defined %}<th>Data de nascimento</th>{% endif %}
+            {% if campos.idade_a is defined %}<th>Idade atual</th>{% endif %}
+            {% if campos.idade_c is defined %}<th>Idade no atendimento</th>{% endif %}
             {% if campos.cor is defined %}<th>Cor</th>{% endif %}
             {% if campos.estadoCivil is defined %}<th>Est. Civil</th>{% endif %}
             {% if (campos.email) is defined %}<th>Email</th>{% endif %}
@@ -14,13 +29,17 @@
         
 {% for d in dados %}
     <tr>
-        {% if (campos.nome) is defined %}<td>{{d.nome}}</td>{% endif %}
-        {% if (campos.sexo) is defined %}<td>{{d.sexo}}</td>{% endif %}
-        {% if (campos.cor) is defined %}<td>{{d.cor}}</td>{% endif %}
-        {% if (campos.estadoCivil) is defined %}<td>{{d.estadoCivil}}</td>{% endif %}
-        {% if (campos.email) is defined %}<td>{{d.email}}</td>{% endif %}
-        {% if (campos.telefone) is defined %}<td>{{d.telefone}}</td>{% endif %}
-        {% if (campos.endereco) is defined %}<td>{{d.endereco}}</td>{% endif %}
+        {% if campos.nome is defined %}<td>{{d.nome}}</td>{% endif %}
+        {% if campos.nomeMae is defined %}<td>{{d.nomeMae}}</td>{% endif %}
+        {% if campos.sexo is defined %}<td>{{d.sexo}}</td>{% endif %}
+        {% if campos.dataNascimento is defined %}<td>{{d.dataNascimento | date('d/m/Y')}}</td>{% endif %}
+        {% if campos.idade_a is defined %}{% set difference = date(d.dataNascimento|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}<td>{{difference.y}}</td>{%endif%}
+        {% if campos.idade_c is defined %}{% set difference = date(d.dataNascimento|date('Y/m/d')).diff(date(d.dataCadastro|date('Y/m/d'))) %}<td>{{difference.y}}</td>{% endif %}
+        {% if campos.cor is defined %}<td>{{d.cor}}</td>{% endif %}
+        {% if campos.estadoCivil is defined %}<td>{{d.estadoCivil}}</td>{% endif %}
+        {% if campos.email is defined %}<td>{{d.email}}</td>{% endif %}
+        {% if campos.telefone is defined %}<td>{{d.telefone}}</td>{% endif %}
+        {% if campos.endereco is defined %}<td>{{d.endereco}}</td>{% endif %}
     </tr>
 {% endfor %}
     
