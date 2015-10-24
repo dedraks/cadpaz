@@ -56,6 +56,7 @@ $(document).ready(function() {
                             //data: {'cpf': $("#cpf").val()},
                             success: function(result) {
                                 $("#dataArea").html(result);
+                                $("#dataArea").show();
                                 $("#userDetails").slideUp();
                             }
                         });

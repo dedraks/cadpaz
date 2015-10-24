@@ -29,6 +29,7 @@ class RelatoriosController extends Controller
                     'idade_c' => 'Idade quando foi atendido',
                     'cor' => 'Cor informada',
                     'estadoCivil' => 'Estado civil',
+                    'rendaFamiliar' => 'Renda familiar',
                     'email' => 'Email',
                     'telefone' => 'Telefone',
                     'endereco' => 'Endereço',
@@ -78,27 +79,7 @@ class RelatoriosController extends Controller
                 $adicionar = true;
                 foreach($pessoas as $pessoa)
                 {
-                    $adicionar = true;
-                    foreach($filtros as $filtro)
-                    {
-                        $f = trim($filtro[0]);
-                        
-                        dump($f);
-                        switch ($f)
-                        {
-                            case 'sexo':
-                                dump('entrou');
-                                $s = trim($filtro[1]);
-                                $s = trim($s,"'");
-                                dump($s);
-                                dump($pessoa->getSexo());
-                                if ( $pessoa->getSexo() != $s)
-                                    $adicionar = false;
-                            break;
-                        }
-                    }
-                    
-                    if (!$adicionar) continue;
+                    if (!$this->verificaFiltros($pessoa, $filtros)) continue;
                     
                     foreach ($data['camposSelect'] as $campo)
                     {
@@ -139,6 +120,14 @@ class RelatoriosController extends Controller
                                 $res[$i]['estadoCivil'] = $pessoa->getEstadoCivil();
                                 $campos['estadoCivil'] = '';
                             break;
+                            case 'rendaFamiliar':
+                                $res[$i]['rendaFamiliar'] = 'Questionário não respondido';
+                                if ( ! is_null($pessoa->getQuestionario()))
+                                {
+                                    $res[$i]['rendaFamiliar'] = $pessoa->getQuestionario()->getRendaFamiliar();
+                                }
+                                $campos['rendaFamiliar'] = '';
+                            break;
                             case 'email':
                                 $res[$i]['email'] = $pessoa->getEmail();
                                 $campos['email'] = '';
@@ -169,14 +158,40 @@ class RelatoriosController extends Controller
                 dump($res);
 
 
+                if (count($res)<1)
+                {
+                    return $this->render('CadpazBundle:Relatorios:empty.html.twig', array(
+
+                    ));
+                }
+                
+                $texto = $this->geraTexto($campos, $filtros);
+                
                 return $this->render('CadpazBundle:Relatorios:custom.html.twig', array(
                         'dados' => $res,
-                        'campos' => $campos
+                        'campos' => $campos,
+                        'texto'  => $texto
                     ));
             }
             elseif ($padraoForm->isValid()) 
             {
-            
+                $relatorios = array();
+                
+                $data = $padraoForm->getData();
+                
+                foreach (array_keys($data) as $key)
+                {
+                    if ($data[$key])
+                        $relatorios[$key]=true;
+                }
+                
+                dump($data);
+                dump($relatorios);
+                
+                
+                return $this->render('CadpazBundle:Relatorios:padrao.html.twig', array(
+                        'relatorios' => $relatorios
+                    ));
             }
         }
         
@@ -405,22 +420,34 @@ class RelatoriosController extends Controller
         
         
         $data = array();
+        $idades = array();
         foreach (array_keys($idades_array) as $key)
         {
             $data[]=
                 [$key,  $idades_array[$key]/$total*100 ]
             ;
+            
+            $idades[]=
+                [
+                    'idade' =>  $key,
+                    'total' => $idades_array[$key]
+                ]
+            ;
         }
         
+
+        
+        
+        
         dump($data);
-        //dump($casos_array);
+        dump($idades_array);
         
         $ob->series(array(array('type' => 'pie','name' => 'Idade', 'data' => $data)));
-
+                
                 return $this->render('CadpazBundle:Relatorios:idades.html.twig', array(
                     'chart' => $ob,
-                    //'idades' => $idades,
-                    //'total_origens' => count($origens)
+                    'idades' => $idades,
+                    'total' => count($idades_array)
                 ));
     }
     
@@ -649,5 +676,169 @@ class RelatoriosController extends Controller
         
         
         return $filtros_adicionados;
+    }
+    
+    
+    private function verificaFiltros(\CadpazBundle\Entity\Pessoa $pessoa, $filtros)
+    {
+        foreach($filtros as $filtro)
+        {
+            $criterio = trim($filtro[0]);
+            $valor = trim($filtro[1]);
+            $valor = trim($valor,"'");        
+            $operador = trim($filtro[2]);
+            
+            dump($criterio);
+            switch ($criterio)
+            {
+                case 'sexo':
+                    dump($pessoa->getSexo());
+                    if ( $pessoa->getSexo() != $valor)
+                        return false;
+                break;
+                case 'idadeAtual':
+                    $agora = new \DateTime();
+                    $dataNascimento = $pessoa->getDataNascimento();
+                    $idade = date_diff($agora, $dataNascimento)->y;
+                    
+                    switch ($operador)
+                    {
+                        case '=':
+                            if ( ! ($idade == $valor) )
+                                return false;
+                        break;
+                        case '!=':
+                            if ( ! ($idade != $valor) )
+                                return false;
+                        break;
+                        case '>=':
+                            if ( ! ($idade >= $valor) )
+                                return false;
+                        break;
+                        case '<=':
+                            if ( ! ($idade <= $valor) )
+                                return false;
+                        break;
+                        case '>':
+                            if ( ! ($idade > $valor) )
+                                return false;
+                        break;
+                        case '<':
+                            if ( ! ($idade < $valor) )
+                                return false;
+                        break;
+                    }
+                    
+                break;
+                case 'idadeAtendimento':
+                break;
+                case 'cor':
+                break;
+                case 'rendaFamiliar':
+                    $questionario = $pessoa->getQuestionario();
+                    if (is_null($questionario))
+                        return false;
+                    $rendaFamiliar = $questionario->getRendaFamiliar();
+                    dump($rendaFamiliar);
+                    switch ($operador)
+                    {
+                        case '=':
+                            switch ($valor)
+                            {
+                                case 1:
+                                    if (! ($rendaFamiliar == 'Até 1 salário mínimo'))
+                                        return false;
+                                break;
+                                case 2:
+                                    if (! ($rendaFamiliar == '1 a 2 salários mínimos'))
+                                        return false;
+                                break;
+                                case 3:
+                                    if (! ($rendaFamiliar == '3 a 5 salários mínimos'))
+                                        return false;
+                                break;
+                                case 4:
+                                    if (! ($rendaFamiliar == '6 a 10 salários mínimos'))
+                                        return false;
+                                break;
+                                case 5:
+                                    if (! ($rendaFamiliar == '11 a 30 salários mínimos'))
+                                        return false;
+                                break;
+                                case 6:
+                                    if (! ($rendaFamiliar == 'Acima de 30 salários mínimos'))
+                                        return false;
+                                break;
+                                case 7:
+                                    if (! ($rendaFamiliar == 'Nenuma renda'))
+                                        return false;
+                                break;
+                            }
+                        break;
+                    }
+                break;
+            }
+        }
+        
+        return true;
+    }
+    
+    private function geraTexto($campos, $filtros)
+    {
+        $texto = "Exbindo ";
+        foreach ( array_keys($campos) as $campo) 
+        {   
+            $texto .= $campo . ", ";
+        }
+        $texto = rtrim($texto);
+        $texto = rtrim($texto, ',');
+       
+        
+        $texto = str_replace('nomeMae', 'nome da mãe', $texto);
+        $texto = str_replace('dataNascimento', 'data de nascimento', $texto);
+        $texto = str_replace('idade_a', 'idade atual', $texto);
+        $texto = str_replace('idade_c', 'idade quando foi atendido', $texto);
+        $texto = str_replace('estadoCivil', 'estado civil', $texto);
+        $texto = str_replace('endereco', 'endereço', $texto);
+        
+        $texto = $this->str_lreplace(',', ' e', $texto);
+        
+        $texto .= ' de todos os clientes';
+        
+        if (count($filtros)>0)
+        {
+            $texto .= " com ";
+            
+            foreach ($filtros as $filtro)
+            {
+                $texto .= $filtro[0] . ' ' . $filtro[2] . ' ' . $filtro[1] . ' e ';
+                
+                
+            }
+            
+            $texto = $this->str_lreplace('e ', '.', $texto);
+        }
+        else
+        {
+            $texto .= '.';
+        }
+        
+        
+        
+        
+        $texto = str_replace('idadeAtual', 'idade atual', $texto);
+        $texto = str_replace('=', 'igual a', $texto);
+        $texto = str_replace('!=', 'diferente de', $texto);
+        $texto = str_replace('>', 'maior que', $texto);
+        $texto = str_replace('<', 'menor que', $texto);
+        $texto = str_replace('>=', 'maior que ou igual a', $texto);
+        $texto = str_replace('<=', 'menor que ou igual a', $texto);
+        
+        return $texto;
+    }
+    
+    function str_lreplace($search, $replace, $subject)
+    {
+        return preg_replace('~(.*)' . preg_quote($search, '~') . '~', '$1' . $replace, $subject, 1);
     }
 }

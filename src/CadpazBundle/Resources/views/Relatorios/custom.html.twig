@@ -1,10 +1,7 @@
-{% set texto = "" %}
-{% if campos.nome is defined %}{% set texto = texto ~ "nome, " %}{% endif %}
-{% if campos.sexo is defined %}{% set texto = texto ~ "sexo, " %}{% endif %}
-{% if campos.idade_c is defined %}{% set texto = texto ~ "idade quando atendido, " %}{% endif %}
+<div id="relatoriosArea">
 <div>
     Relatório do sistema<br>
-    Exibindo {{ texto }} de todos os clientes.
+    {{ texto }}
     
     
 </div>
@@ -20,6 +17,7 @@
             {% if campos.idade_c is defined %}<th>Idade no atendimento</th>{% endif %}
             {% if campos.cor is defined %}<th>Cor</th>{% endif %}
             {% if campos.estadoCivil is defined %}<th>Est. Civil</th>{% endif %}
+            {% if campos.rendaFamiliar is defined %}<th>Renda familiar</th>{% endif %}
             {% if (campos.email) is defined %}<th>Email</th>{% endif %}
             {% if (campos.telefone) is defined %}<th>Telefone</th>{% endif %}
             {% if (campos.endereco) is defined %}<th>Endereco</th>{% endif %}
@@ -37,6 +35,7 @@
         {% if campos.idade_c is defined %}{% set difference = date(d.dataNascimento|date('Y/m/d')).diff(date(d.dataCadastro|date('Y/m/d'))) %}<td>{{difference.y}}</td>{% endif %}
         {% if campos.cor is defined %}<td>{{d.cor}}</td>{% endif %}
         {% if campos.estadoCivil is defined %}<td>{{d.estadoCivil}}</td>{% endif %}
+        {% if campos.rendaFamiliar is defined %}<td>{{d.rendaFamiliar}}</td>{% endif %}
         {% if campos.email is defined %}<td>{{d.email}}</td>{% endif %}
         {% if campos.telefone is defined %}<td>{{d.telefone}}</td>{% endif %}
         {% if campos.endereco is defined %}<td>{{d.endereco}}</td>{% endif %}
@@ -45,10 +44,44 @@
     
     </tbody>
 </table>
+</div>
+
+<div class="relButtons">
+    <a href="#" id="printRel">Imprimir</a>
+</div>
 
 <script>
     $('#tbl_custom').DataTable({
         paging: false,
-        searching: false
+        searching: false,
+        info: false,
+        colReorder: true
+    });
+    
+    
+    function printContent(el){
+        var restorepage = $('body').html();
+        var printcontent = $(el).clone();
+        $('body').empty().html(printcontent);
+        window.print();
+        $('body').html(restorepage);
+        }
+        
+        $('#printRel').on('click', function(e) {
+        e.preventDefault();
+       
+        var x = window.open();
+        $('.relButtons').hide();
+        x.document.open();
+        x.document.write( $('#relatoriosArea').clone().html() );
+        x.document.close();
+        x.print();
+        $('.relButtons').show();
+        
+        /*$('.relButtons').hide();
+        printContent('#relatoriosArea');
+        $('.relButtons').show();*/
+       
+        //alert($('#relatoriosArea').html());
     });
 </script>

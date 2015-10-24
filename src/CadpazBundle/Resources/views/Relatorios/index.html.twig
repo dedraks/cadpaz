@@ -192,6 +192,14 @@
             $('#relatoriosDados').html(responseText);
         }
     });
+    $('#padraoRelForm').ajaxForm({
+        url: Routing.generate('relatorios_index'),
+        success: function(responseText) {
+            //alert(responseText);
+            $('#relatoriosDados').html(responseText);
+        }
+    });
+    
     
     
     $('#form_sexoFitro').hide();

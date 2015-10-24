@@ -12,6 +12,30 @@
     
 
 
+<div>
+
+<table id="tbl_ori" class="display compact">
+    <thead class="tabela_pequena">
+        <tr>
+            <th>Idade</th>
+
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody class="tabela_pequena">
+        
+{% for idade in idades %}
+    <tr>
+  
+        <td>{{ idade.idade }}</td><td> {{ idade.total }}</td>
+    </tr>
+{% endfor %}
+
+    </tbody>
+</table>
+</div>
+
+
 
 <div>
 <div id="piechart_idades" style="min-width: 400px; height: 400px; margin: 0 auto"></div>

@@ -129,14 +129,14 @@ class PessoaController extends Controller
         //sleep(1);
         //dump($pessoa);
         // Renderiza um template com os clientes encontrados
-        return $this->render('CadpazBundle:Pessoa:list.html.twig', array('pessoas' => $pessoas));
+        return $this->render('CadpazBundle:Pessoa:list.html.twig', ['pessoas' => $pessoas]);
         
-        
+        /*
         // Converte o resultado da consulta para json e retorna
         $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
         $json = $serializer->serialize($pessoa, 'json');
         //dump($json);
-        return new \Symfony\Component\HttpFoundation\JsonResponse($json);
+        return new \Symfony\Component\HttpFoundation\JsonResponse($json);*/
     }
     
     /**
@@ -163,7 +163,8 @@ class PessoaController extends Controller
         // Instancia um objeto do tipo Pessoa
         $pessoa = new Pessoa();
         $pessoa->setCpf($cpf);
-        dump($pessoa);
+        dump($pessoa); 
+        
         
         // Chama a funcao para criar o formulário
         //$form = $this->createPessoaForm($pessoa, $cpf);

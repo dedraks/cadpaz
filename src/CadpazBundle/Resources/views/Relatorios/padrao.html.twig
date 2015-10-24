@@ -1,3 +1,5 @@
+Relatórios do sistema
+
 {% if relatorios.casos is defined %}
     {% render controller('CadpazBundle:Relatorios:casos') %}
     <footer><hr></footer>
@@ -13,22 +15,22 @@
     <footer><hr></footer>
 {% endif %}
 
-{% if relatorios.rendaFamiliar is defined %}
+{% if relatorios.renda is defined %}
     {% render controller('CadpazBundle:Relatorios:rendaFamiliar') %}
     <footer><hr></footer>
 {% endif %}
 
-{% if relatorios.idades is defined %}
+{% if relatorios.idade is defined %}
     {% render controller('CadpazBundle:Relatorios:idades') %}
    <footer><hr></footer> 
 {% endif %}
 
-{% if relatorios.sexos is defined %}
+{% if relatorios.sexo is defined %}
     {% render controller('CadpazBundle:Relatorios:sexos') %}
     <footer><hr></footer> 
 {% endif %}
 
-{% if relatorios.cores is defined %}
+{% if relatorios.cor is defined %}
     {% render controller('CadpazBundle:Relatorios:cores') %}
     <footer><hr></footer> 
 {% endif %}

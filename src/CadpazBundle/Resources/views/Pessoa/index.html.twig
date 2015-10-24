@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
     
-    
+    <style>body{display:none}</style>
     {#<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />#}
 
 {% endblock %}
@@ -110,15 +110,16 @@
 
 
     {# Código principal da aplicação aqui #}
-    {% javascripts '@AppBundle/Resources/public/js/*' %}
+    {% javascripts '@AppBundle/Resources/public/js/app.js' %}
         <script src="{{ asset_url }}"></script> {# app.js #}
     {% endjavascripts %}
 
 
    
-    
-    
-    
-    
-    
+    <script>
+        $(window).load(function() {
+            // When the page has loaded
+            $("body").fadeIn(2000);
+        });
+    </script>
 {% endblock %}
