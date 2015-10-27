@@ -19,12 +19,12 @@
         {{ form(customForm) }}
         
         
-        Filtros
+       
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
             <a href="#" id="adicionarFiltro"><img src="{{ asset_url }}" alt="Adicionar" /></a></td>
         {% endimage %}<br>
         
-        <div id="filtrosArea"></div>
+        <div id="filtrosArea" class="example" style="display: none; width: 320px; background: rgba(100,100,100,1.0);"></div>
         <hr>
         
         
@@ -35,30 +35,6 @@
     <p>Relatório dos atendimentos feitos no sistema.</p>
     <footer><hr></footer>
     
-    
-{% render controller('CadpazBundle:Relatorios:casos') %}
-<footer><hr></footer>
-
-{% render controller('CadpazBundle:Relatorios:origens') %}
-<footer><hr></footer>
-
-{% render controller('CadpazBundle:Relatorios:encaminhamentos') %}
-<footer><hr></footer>
-
-{% render controller('CadpazBundle:Relatorios:rendaFamiliar') %}
-<footer><hr></footer>
-
- {% render controller('CadpazBundle:Relatorios:idades') %}
-<footer><hr></footer> 
-
-
-{% render controller('CadpazBundle:Relatorios:sexos') %}
-<footer><hr></footer> 
-
-{% render controller('CadpazBundle:Relatorios:cores') %}
-<footer><hr></footer> 
-
-#}
 
 </div>
 </div>
@@ -207,30 +183,19 @@
     $('#adicionarFiltro').on('click', function(e) {
         e.preventDefault();
        
-        var condicaoData = {
-            '0': '',
-            '1': 'Sexo',
-            '2': 'Idade',
-            '3': 'Renda familiar'
-        }
-        
-
-        var s = $("<select id='campo[" + (incFiltro++) + "]' />");
-
-        for(var val in condicaoData) {
-            $('<option />', {value: val, text: condicaoData[val]}).appendTo(s);
-        }
-
-        s.appendTo('#customRelForm');
-        //s.select2();
-        s.on('change', function(e) {
-            var option = $(this).find('option:selected');
-            if(option.val()===1 || option.val()==='1')
-            {
-                $('#form_sexoFitro').show();
-            }
-        });
-        
+       $.ajax({
+           url: Routing.generate('relatorios_filtros'),
+           success: function(responseText) {
+               $('#filtrosArea').html(responseText);
+               window.popup = $('#filtrosArea').bPopup({
+                            speed: 650,
+                            transition: 'slideIn',
+                            transitionClose: 'slideBack',
+                            zindex: 9999
+                        });
+           }
+       });
+       
     });
 
 </script>

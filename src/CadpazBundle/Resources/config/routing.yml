@@ -234,6 +234,12 @@ relatorios_custom:
     defaults: { _controller: CadpazBundle:Relatorios:custom }
     options:
         expose: true
+        
+relatorios_filtros:
+    path:     /relatorios/filtros
+    defaults: { _controller: CadpazBundle:Relatorios:filtros }
+    options:
+        expose: true
 
 #configuracoes_index:
 #    path:     /config/index

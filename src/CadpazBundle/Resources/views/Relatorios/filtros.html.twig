@@ -1,0 +1,33 @@
+<div style="padding: 5px; background: #FFF;">
+    {{ form(form) }}
+    
+</div>
+
+<script>
+    /*$('#form_criterio').select2();
+    //$('#form_comparacao').select2();*/
+    
+    
+    $('button').click( function() {
+        window.popup.close();
+        var txt = '';
+        if ($('#form_filtro').val() !== '')
+            txt = $('#form_filtro').val() + ' & ';
+        
+        
+        
+        
+        txt += $('#form_criterio').val();
+        txt += $('#form_comparacao').val();
+        txt += $('#form_valor').val();
+        
+        $('#form_filtro').val(txt);
+        
+        var txt2 = '';
+        txt2 +=  $('#form_criterio :selected').text() + ' ';
+        txt2 +=  $('#form_comparacao :selected').text() + ' ';
+        txt2 +=  $('#form_valor').val();
+        
+        $('#form_filtroMostrar').val( txt2 );
+    });
+</script>

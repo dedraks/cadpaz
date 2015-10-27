@@ -33,10 +33,15 @@ class RelatoriosController extends Controller
                     'email' => 'Email',
                     'telefone' => 'Telefone',
                     'endereco' => 'Endereço',
+                    'origem' => 'Origem',
+                    'beneficios' => 'Benefícios Sociais',
                 )
             ))
                 
-            ->add('filtro', 'text', ['required'=>false])
+            ->add('filtro', 'text', ['required'=>false,'label'=> ' ', 
+                'attr' =>  ['style'=>'width: 100%'] ])
+            
+            ->add('filtroMostrar', 'text', ['required'=>false,'label'=>'Filtros'])
                 
             ->add('save', 'submit', array('label' => 'Exibir relatório'))
         ->getForm();
@@ -81,6 +86,7 @@ class RelatoriosController extends Controller
                 {
                     if (!$this->verificaFiltros($pessoa, $filtros)) continue;
                     
+                    $questionario = $pessoa->getQuestionario();
                     foreach ($data['camposSelect'] as $campo)
                     {
                         switch ($campo)
@@ -149,6 +155,31 @@ class RelatoriosController extends Controller
                                     $res[$i]['endereco'] = $endereco->getPadrao() ? $endereco->getNome() . ': ' . $endereco->getLogradouro() . ', ' . $endereco->getNumero() . ' - ' . $endereco->getBairro() . ' - ' . $endereco->getComplemento() . ' - ' . $endereco->getMunicipio() . ' - CEP: ' . $endereco->getCep() . ' - ' . $endereco->getUf() : '';
                                     if ($endereco->getPadrao()) break;
                                 }
+                            break;
+                            case 'origem':
+                                $res[$i]['origem'] = 'Questionário não respondido';
+                                if ( ! is_null($pessoa->getQuestionario()))
+                                {
+                                    $res[$i]['origem'] = $pessoa->getQuestionario()->getEncaminhamentoAoProjeto();
+                                }
+                                $campos['origem'] = '';
+                            break;
+                            case 'beneficios':
+                                $res[$i]['beneficios'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    $beneficios = array();
+                                    $beneficios['peti'] = $questionario->getParticipaOuRecebePETIBolsaCriancaCidada();
+                                    $beneficios['agenteJovem'] = $questionario->getParticipaOuRecebeAgenteJovem();
+                                    $beneficios['bolsaFamilia'] = $questionario->getParticipaOuRecebeBolsaFamilia();
+                                    $beneficios['bcp'] = $questionario->getParticipaOuRecebeBCP();
+                                    $beneficios['naoRespondeu'] = $questionario->getParticipaOuRecebeNaoRespondeu();
+                                    $beneficios['naoSabe'] = $questionario->getParticipaOuRecebeNaoSabe();
+                                    $beneficios['naoRecebe'] = ! ($beneficios['peti'] || $beneficios['agenteJovem'] || $beneficios['bolsaFamilia'] || $beneficios['bcp'] || $beneficios['naoSabe'] || $beneficios['naoRespondeu'] );
+                                    
+                                    $res[$i]['beneficios'] = $beneficios;
+                                }
+                                $campos['beneficios'] = '';
                             break;
                         }
                     }
@@ -631,6 +662,40 @@ class RelatoriosController extends Controller
                 ));
     }
 
+    public function filtrosAction()
+    {
+        $data = array();
+        $fitroForm = $this->createFormBuilder($data, ['attr' => ['id' => 'filtroRelForm']])
+            ->add('criterio', 'choice', array(
+                'label' => 'Critério',
+                'placeholder' => 'Selecione o critério',
+                'choices' => array(
+                    'cor' => 'Cor informada',
+                    'idadeAtual' => 'Idade atual',
+                    'idadeAtendimento' => 'Idade quando foi atendido',
+                    'sexo' => 'Sexo',
+                )))
+            ->add('comparacao', 'choice', array(
+                'label' => 'Comparação',
+                'placeholder' => 'Selecione o comparador',
+                'choices' => array(
+                    '=' => 'Igual a',
+                    '!=' => 'Diferente de',
+                    '>' => 'Maior que',
+                    '>=' => 'Maior que ou igual a',
+                    '<' => 'Menor que',
+                    '<=' => 'Menor que ou igual a',
+                )
+            ))
+            ->add('valor')
+            ->add('save', 'button', ['label'=>'Adicionar'])
+        ->getForm();
+        
+        return $this->render('CadpazBundle:Relatorios:filtros.html.twig', array(
+            'form' => $fitroForm->createView()
+        ));
+    }
+    
 
     public function atendimentosPorAtendente()
     {
@@ -678,7 +743,117 @@ class RelatoriosController extends Controller
         return $filtros_adicionados;
     }
     
-    
+    /**
+     * 
+     * @param \CadpazBundle\Entity\Pessoa $pessoa
+     * @param type $filtros
+     * @return boolean
+     * 
+     * Filtros ativos:
+     *      sexo:
+     *          critério de comparação aceito '='
+     *          valores de comparação: 'M', 'F', ou 'O'
+     *          uso: sexo='M'
+     * 
+     *      idadeAtual:
+     *          critérios de comparação aceitos: = != < <= > >=
+     *          valores de comparação: número
+     *          uso: idadeAtual>30
+     * 
+     *      idadeAtendimento:
+     * 
+     *      cor:
+     *          criterios de comparação aceitos = !=
+     *          calores de comparação: string
+     *          uso: cor=pardo
+     *               cor!=negro
+     * 
+     *      rendaFamiliar:
+     * 
+     *      possuiRG:
+     * 
+     *      possuiTituloEleitoral:
+     * 
+     *      possuiPIS:
+     * 
+     *      possuiCTPS:
+     * 
+     *      possuiCertidaoDeNascimento:
+     * 
+     *      possuiCertidaoDeCasamento:
+     * 
+     *      possuiCartaoDeVacina:
+     * 
+     *      EstadoCivil:
+     * 
+     *      dataDeCadastro:
+     * 
+     *      tipoDeMoradia:
+     * 
+     *      moraComSozinho:
+     * 
+     *      moraComFilhos:
+     * 
+     *      moraComPaiMae:
+     * 
+     *      moraComIrmaos:
+     * 
+     *      moraComConjuge:
+     * 
+     *      moraComParentesAmigos:
+     * 
+     *      moraComOutraSituacao:
+     * 
+     *      numeroDePessoasNaCasa:
+     * 
+     *      numeroDeFilhos:
+     * 
+     *      moradiaTemColetaDeLixo:
+     * 
+     *      moradiaTemRedeDeEsgoto:
+     * 
+     *      moradiaTemAguaEncanada:
+     * 
+     *      moradiaTemEletricidade:
+     * 
+     *      moradiaTemRuaPavimentada:
+     * 
+     *      moradiaSituadaEmZonaRural:
+     * 
+     *      moradiaSituadaEmQuilombola:
+     * 
+     *      tipoMoradia2:
+     * 
+     *      estudaAtualmente:
+     * 
+     *      temInteresseEmVoltarAEstudar:
+     * 
+     *      temFilhosEmIdadeEscolar:
+     * 
+     *      temFilhosMatriculadosEmEscola:
+     * 
+     *      temDeficiencia:
+     * 
+     *      fazAcompanhamento:
+     * 
+     *      usaMedicaoConstante:
+     * 
+     *      recebeMedicacaoDaFarmaciaDistrital:
+     * 
+     *      domicilioCobertoPorUBS:
+     * 
+     *      idosoOuGestanteNaFamilia:
+     * 
+     *      recebeBeneficioSocial:
+     * 
+     *      condicaoDeTrabalho:
+     * 
+     *      despesasMensais:
+     * 
+     *      origem:
+     * 
+     *      encaminhado:
+     */
     private function verificaFiltros(\CadpazBundle\Entity\Pessoa $pessoa, $filtros)
     {
         foreach($filtros as $filtro)
@@ -693,7 +868,7 @@ class RelatoriosController extends Controller
             {
                 case 'sexo':
                     dump($pessoa->getSexo());
-                    if ( $pessoa->getSexo() != $valor)
+                    if ( strtolower($pessoa->getSexo()) != strtolower($valor))
                         return false;
                 break;
                 case 'idadeAtual':
@@ -733,6 +908,16 @@ class RelatoriosController extends Controller
                 case 'idadeAtendimento':
                 break;
                 case 'cor':
+                    if ($operador == '=') 
+                    {
+                        if (strtolower($pessoa->getCorInformada()) != strtolower($valor))
+                            return false;
+                    }
+                    elseif ($operador == '!=') 
+                    {
+                        if (strtolower($pessoa->getCorInformada()) == strtolower($valor))
+                            return false;
+                    }
                 break;
                 case 'rendaFamiliar':
                     $questionario = $pessoa->getQuestionario();
@@ -782,6 +967,8 @@ class RelatoriosController extends Controller
         
         return true;
     }
+    
+    
     
     private function geraTexto($campos, $filtros)
     {
@@ -841,4 +1028,5 @@ class RelatoriosController extends Controller
     {
         return preg_replace('~(.*)' . preg_quote($search, '~') . '~', '$1' . $replace, $subject, 1);
     }
+
 }
