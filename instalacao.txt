@@ -1,0 +1,9 @@
+Deve-se executar os passos abaixo para instalar o sistema
+
+composer remove friendsofsymfony/user-bundle
+composer remove jms/serializer-bundle
+composer remove friendsofsymfony/jsrouting-bundle
+
+composer require friendsofsymfony/user-bundle "~2.0@dev"
+composer require "jms/serializer-bundle" "^1.0"
+composer require "friendsofsymfony/jsrouting-bundle" "^1.5"

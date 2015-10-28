@@ -688,7 +688,7 @@ class RelatoriosController extends Controller
                 )
             ))
             ->add('valor')
-            ->add('save', 'button', ['label'=>'Adicionar'])
+            ->add('save', 'submit', ['label'=>'Adicionar'])
         ->getForm();
         
         return $this->render('CadpazBundle:Relatorios:filtros.html.twig', array(

@@ -8,7 +8,61 @@
     //$('#form_comparacao').select2();*/
     
     
-    $('button').click( function() {
+    $('#form_criterio').on('change', function() {
+    
+        //alert('chanc');
+    
+        var cval = $('#form_criterio').val();
+    
+        if (cval === 'cor')
+        {
+            $("#form_valor").replaceWith('<select id="form_valor" name="form[valor]">' +
+                  '<option value="pardo">Pardo</option>' +
+                  '<option value="negro">Negro</option>' +
+                  '<option value="branco">Branco</option>' +
+                  '<option value="indigena">Indígena</option>' +
+                  '<option value="amarelo">Amarelo</option>' +
+                '</select>');
+            
+            $("#form_comparacao").replaceWith('<select id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">Igual a</option>' +
+                  '<option value="!=">Deferente de</option>' +
+                '</select>');
+        }
+        else if (cval === 'idadeAtual' || cval === 'idadeAtendimento')
+        {
+            $("#form_valor").replaceWith('<input type="number" id="form_valor" name="form[valor]">'); 
+            
+            $("#form_comparacao").replaceWith('<select id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">Igual a</option>' +
+                  '<option value="!=">Deferente de</option>' +
+                  '<option value=">">Maior que</option>' +
+                  '<option value=">=">Maior que ou igual a</option>' +
+                  '<option value="<">Menor que</option>' +
+                  '<option value="<=">Menor que ou igual a</option>' +
+                '</select>');
+        }
+        else if (cval == 'sexo')
+        {
+            $("#form_valor").replaceWith('<select id="form_valor" name="form[valor]">' +
+                  '<option value="M">Masculino</option>' +
+                  '<option value="F">Feminino</option>' +
+                  '<option value="O">Outro</option>' +
+                '</select>');
+                
+            $("#form_comparacao").replaceWith('<select id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">Igual a</option>' +
+                  '<option value="!=">Deferente de</option>' +
+                '</select>');
+        }
+    });
+    
+    
+    
+    
+    
+    $('#filtroRelForm').submit( function(e) {
+        e.preventDefault();
         window.popup.close();
         var txt = '';
         if ($('#form_filtro').val() !== '')
