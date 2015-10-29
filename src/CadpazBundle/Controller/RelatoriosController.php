@@ -152,16 +152,16 @@ class RelatoriosController extends Controller
                             break;
                             case 'telefone':
                                 $campos['telefone'] = '';
-                                $res[$i]['telefone'] = '';
+                                $res[$i]['telefone'] = 'Não cadastrado';
                                 foreach($pessoa->getTelefones() as $telefone)
                                 {
                                     $res[$i]['telefone'] = $telefone->getPadrao() ? $telefone->getNumero() : '';
-                                    if ($telefone->getPadrao()) break;
+                                    if ($telefone->getPadrao()) break; 
                                 }
                             break;
                             case 'endereco':
                                 $campos['endereco'] = '';
-                                $res[$i]['endereco'] = '';
+                                $res[$i]['endereco'] = 'Não cadastrado';
                                 foreach($pessoa->getEnderecos() as $endereco)
                                 {
                                     $res[$i]['endereco'] = $endereco->getPadrao() ? $endereco->getNome() . ': ' . $endereco->getLogradouro() . ', ' . $endereco->getNumero() . ' - ' . $endereco->getBairro() . ' - ' . $endereco->getComplemento() . ' - ' . $endereco->getMunicipio() . ' - CEP: ' . $endereco->getCep() . ' - ' . $endereco->getUf() : '';
@@ -181,15 +181,48 @@ class RelatoriosController extends Controller
                                 if ( ! is_null($questionario) )
                                 {
                                     $beneficios = array();
-                                    $beneficios['peti'] = $questionario->getParticipaOuRecebePETIBolsaCriancaCidada();
-                                    $beneficios['agenteJovem'] = $questionario->getParticipaOuRecebeAgenteJovem();
-                                    $beneficios['bolsaFamilia'] = $questionario->getParticipaOuRecebeBolsaFamilia();
-                                    $beneficios['bcp'] = $questionario->getParticipaOuRecebeBCP();
-                                    $beneficios['naoRespondeu'] = $questionario->getParticipaOuRecebeNaoRespondeu();
-                                    $beneficios['naoSabe'] = $questionario->getParticipaOuRecebeNaoSabe();
-                                    $beneficios['naoRecebe'] = ! ($beneficios['peti'] || $beneficios['agenteJovem'] || $beneficios['bolsaFamilia'] || $beneficios['bcp'] || $beneficios['naoSabe'] || $beneficios['naoRespondeu'] );
+                                    
+                                    $naorecebe = true;
+                                    
+                                    if ($questionario->getParticipaOuRecebeNaoSabe()) {
+                                        $beneficios[] = 'Não Sabe';
+                                        $naorecebe = false;
+                                    }
+                                    else if ($questionario->getParticipaOuRecebeNaoRespondeu()) {
+                                        $beneficios[] = 'Não Respondeu';
+                                        $naorecebe = false;
+                                    }
+                                    else 
+                                    {
+                                        if ($questionario->getParticipaOuRecebePETIBolsaCriancaCidada()) {
+                                            $beneficios[] = 'PETI - Bolsa Criança Cidadã';
+                                            $naorecebe = false;
+                                        }
+
+                                        if ($questionario->getParticipaOuRecebeAgenteJovem()) {
+                                            $beneficios[] = 'Agente Jovem';
+                                            $naorecebe = false;
+                                        }
+
+                                        if ($questionario->getParticipaOuRecebeBolsaFamilia()) {
+                                            $beneficios[] = 'Bolsa Família';
+                                            $naorecebe = false;
+                                        }
+
+                                        if ($questionario->getParticipaOuRecebeBCP()) {
+                                            $beneficios[] = 'BCP';
+                                            $naorecebe = false;
+                                        }
+                                    }
+                                    
+                                    if ($naorecebe)
+                                        $beneficios[] = 'Não Recebe';
                                     
                                     $res[$i]['beneficios'] = $beneficios;
+                                }
+                                else
+                                {
+                                    $res[$i]['beneficios'] = ['Questionário não respondido'];
                                 }
                                 $campos['beneficios'] = '';
                             break;

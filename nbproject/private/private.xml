@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Relatorios/index.html.twig</file>
-            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/public/css/geral.css</file>
-            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Controller/RelatoriosController.php</file>
-            <file>file:/home/carlos/Documentos/cadpaz/src/CadpazBundle/Resources/views/Relatorios/filtros.html.twig</file>
+            <file>file:/C:/Users/carlos/Documents/cadpaz/src/CadpazBundle/Resources/views/Relatorios/index.html.twig</file>
+            <file>file:/C:/Users/carlos/Documents/cadpaz/src/CadpazBundle/Controller/RelatoriosController.php</file>
+            <file>file:/C:/Users/carlos/Documents/cadpaz/src/CadpazBundle/Util/StringUtils.php</file>
+            <file>file:/C:/Users/carlos/Documents/cadpaz/src/CadpazBundle/Form/QuestionarioType.php</file>
+            <file>file:/C:/Users/carlos/Documents/cadpaz/src/CadpazBundle/Resources/views/Relatorios/filtros.html.twig</file>
+            <file>file:/C:/Users/carlos/Documents/cadpaz/src/CadpazBundle/Resources/views/Relatorios/custom.html.twig</file>
         </group>
     </open-files>
 </project-private>

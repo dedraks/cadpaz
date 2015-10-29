@@ -1,0 +1,14 @@
+{% for endereco in enderecos %}
+                    <div class="telefone_endereco_secao">
+                        {{ endereco.nome }}<br />
+                        {{ endereco.padrao ? "Endereço padrão<br>" : "" }}
+                        {{ endereco.logradouro }}, {{ endereco.numero }}<br />
+                        {{ endereco.bairro }}<br />
+                        {{ endereco.complemento is null ? "" : endereco.complemento ~ "<br>"}}
+                        {{ endereco.cep }}<br />
+                        {{ endereco.municipio }} - {{ endereco.uf }}<br />
+                        {{ endereco.obs }}
+                        {% set end = 1 %}
+                    </div>
+                     <div class="spacer"></div>
+                {% endfor %}

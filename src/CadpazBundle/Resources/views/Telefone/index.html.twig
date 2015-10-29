@@ -1,0 +1,9 @@
+{% for telefone in telefones %}
+                    <div class="telefone_endereco_secao">
+                        Numero: {{ telefone.numero }}<br />
+                        Tipo: {{ telefone.tipo }}<br />
+                        {{ telefone.padrao ? "Telefone padrão<br>" : "" }}
+                        Obs: {{ telefone.obs }}
+                    </div>
+                    <div class="spacer"></div>
+                {% endfor %}
