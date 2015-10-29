@@ -203,7 +203,7 @@
                             zindex: 9999,
                             onClose: function() {
                                 content.empty();
-                                $("#filtroRelForm").remove();
+                                //$("#filtroRelForm").remove();
                             }
                         });
            }
@@ -213,11 +213,15 @@
     
     var textoFiltros = '';
 
-    $('#form_limparFiltros').on('click', function(e) {
-        e.preventDefault();
+    function limpaFiltros() {
         textoFiltros = '';
         $('#form_filtro').val(textoFiltros);
         $('#filtrosMostrar').html( textoFiltros );
+    }
+
+    $('#form_limparFiltros').on('click', function(e) {
+        e.preventDefault();
+        limpaFiltros();
     });
 
 
