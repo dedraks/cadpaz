@@ -156,7 +156,7 @@ class RelatoriosController extends Controller
                                 foreach($pessoa->getTelefones() as $telefone)
                                 {
                                     $res[$i]['telefone'] = $telefone->getPadrao() ? $telefone->getNumero() : '';
-                                    if ($telefone->getPadrao()) break;
+                                    if ($telefone->getPadrao()) break; 
                                 }
                             break;
                             case 'endereco':
