@@ -13,14 +13,14 @@
     
 </div>
 
-<table id="tbl_custom" class="order-column" style="width: 100%">
+<table id="tbl_custom" class="relatorios" style="width: 100%">
     <thead>
         <tr>
             {% if campos.nome is defined %}<th style="min-width: 30%">Nome</th>{% endif %}
             {% if campos.nomeMae is defined %}<th>Nome da mãe</th>{% endif %}
-            {% if campos.sexo is defined %}<th>Sexo</th>{% endif %}
+            {% if campos.sexo is defined %}<th style="max-width: 10%">Sexo</th>{% endif %}
             {% if campos.dataNascimento is defined %}<th>Data de nascimento</th>{% endif %}
-            {% if campos.idade_a is defined %}<th>Idade atual</th>{% endif %}
+            {% if campos.idade_a is defined %}<th style="max-width: 10%">Idade atual</th>{% endif %}
             {% if campos.idade_c is defined %}<th>Idade no atendimento</th>{% endif %}
             {% if campos.cor is defined %}<th>Cor</th>{% endif %}
             {% if campos.estadoCivil is defined %}<th>Est. Civil</th>{% endif %}
@@ -83,9 +83,9 @@
 </div>
 
 
-    <div class="printLogo">
-        <hr>
-        <span style="font-weight: bold;">CadPaz - Desenvolvimento: Carlos Alberto Borges Garcia - dedraks@gmail.com</span>
+    <div class="rodape">
+        
+        <span style="font-weight: bold;">CadPaz - Desenvolvimento:</span> Carlos Alberto Borges Garcia - dedraks@gmail.com</span>
     </div>
 
 <script>
@@ -111,7 +111,12 @@
         var x = window.open();
         $('.relButtons').hide();
         x.document.open();
-        x.document.write( $('#relatoriosArea').clone().html() );
+        
+        var head = '<head>' + $('head').clone().html() + '</head>';
+        var body = '<body>' + $('#relatoriosArea').clone().html() + '</body>'
+        head = head.replace('none','block');
+        
+        x.document.write( head + body );
         x.document.close();
         x.print();
         $('.relButtons').show();
