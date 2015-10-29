@@ -53,18 +53,22 @@
         {% if campos.origem is defined %}<td>{{d.origem}}</td>{% endif %}
         {% if campos.beneficios is defined %}
             <td>
-                {% if d.beneficios is iterable %}
-                    {{ d.beneficios.peti ? 'PETI, ' : '' }}
-                    {{ d.beneficios.agenteJovem ? 'Agente Jovem, ' : '' }}
-                    {{ d.beneficios.bolsaFamilia ? 'Bolsa Familia, ' : '' }}
-                    {{ d.beneficios.bcp ? 'BCP, ' : '' }}
+                {#{% if d.beneficios is iterable %}
+                    {{ d.beneficios.peti ? 'PETI ' : '' }}
+                    {{ d.beneficios.agenteJovem ? 'Agente Jovem ' : '' }}
+                    {{ d.beneficios.bolsaFamilia ? 'Bolsa Familia ' : '' }}
+                    {{ d.beneficios.bcp ? 'BCP ' : '' }}
                     {{ d.beneficios.naoRespondeu ? 'Não respondeu' : '' }}
                     {{ d.beneficios.naoSabe ? 'Não sabe' : '' }}
                     {{ d.beneficios.naoRecebe ? 'Não recebe' : '' }}
+                    
                 {% else %}
                     {{ d.beneficios }}
-                {% endif %}
-                        
+                {% endif %}#}
+                {% for beneficio in d.beneficios %}
+                    {{ beneficio }}
+                    {% if not loop.last %}, {% endif %}
+                {% endfor %}
             </td>
         {% endif %}
     </tr>

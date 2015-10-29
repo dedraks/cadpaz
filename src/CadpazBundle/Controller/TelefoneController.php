@@ -10,6 +10,17 @@ use CadpazBundle\Form\TelefoneType;
 
 class TelefoneController extends Controller
 {
+    public function indexAction($pessoa_id)
+    {
+        $pessoa = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Pessoa')
+            ->find($pessoa_id);
+        
+        $telefones = $pessoa->getTelefones();
+        
+        return $this->render('CadpazBundle:Telefone:index.html.twig',  array('telefones'=>$telefones));
+    }
+    
     public function newAction(Request $request, $pessoa_id)
     {
         $pessoa = $this->getDoctrine()
@@ -56,7 +67,7 @@ class TelefoneController extends Controller
             
             //dump($pessoa);
 
-            return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
+            return $this->render('CadpazBundle:Telefone:index.html.twig',  array('telefones'=>$pessoa->getTelefones()));
         }
         
         

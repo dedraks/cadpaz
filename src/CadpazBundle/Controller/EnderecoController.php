@@ -10,6 +10,17 @@ use CadpazBundle\Form\EnderecoType;
 
 class EnderecoController extends Controller
 {
+    public function indexAction($pessoa_id)
+    {
+        $pessoa = $this->getDoctrine()
+            ->getRepository('CadpazBundle:Pessoa')
+            ->find($pessoa_id);
+        
+        $enderecos = $pessoa->getEnderecos();
+        
+        return $this->render('CadpazBundle:Endereco:index.html.twig',  array('enderecos'=>$enderecos));
+    }
+
     public function viewAction()
     {
         return $this->render('CadpazBundle:Endereco:view.html.twig', array(
@@ -59,7 +70,7 @@ class EnderecoController extends Controller
             
             //dump($pessoa);
 
-            return $this->render('CadpazBundle:Pessoa:view.html.twig',  array('pessoa'=>$pessoa));
+            return $this->render('CadpazBundle:Endereco:index.html.twig',  array('enderecos'=>$pessoa->getEnderecos()));
         }
         
         

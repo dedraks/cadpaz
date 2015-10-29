@@ -15,11 +15,8 @@
 
 
 
-                $("#userDetails").html(responseText);
-                //$("#userDetails").hide();
-                //$("#userDetails").css('visibility','visible');
-                //$("#userDetails").slideUp(400);
-                //$("#userDetails").delay(600).slideDown(400);
+                //$("#userDetails").html(responseText);
+                $("#telefone_area").html(responseText);
             }
          
         function beforeSubmitTelefoneForm(formData, jqForm, options) {
@@ -40,7 +37,6 @@
             //$("#userDetails").slideUp('fast');
             $("#userDetails").html(window.userDetails);
             //$("#userDetails").slideDown('fast');
-
             e.preventDefault();
         });
         jQuery(function($){
