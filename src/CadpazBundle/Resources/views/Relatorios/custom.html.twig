@@ -1,15 +1,22 @@
 <div id="relatoriosArea">
 <div>
+    
+    <div class="printLogo">
+        <span style="font-size: xx-large; font-weight: bold;">CadPaz</span><br>
+        <span style="font-size: large; font-weight: bold;">Casa da Paz</span>
+        <hr>
+    </div>
+    
     Relatório do sistema<br>
     {{ texto }}
-    
+    <hr class="printLogo">
     
 </div>
 
-<table id="tbl_custom" class="display compact" style="width: 100%">
-    <thead class="tabela_pequena">
+<table id="tbl_custom" class="order-column" style="width: 100%">
+    <thead>
         <tr>
-            {% if campos.nome is defined %}<th>Nome</th>{% endif %}
+            {% if campos.nome is defined %}<th style="min-width: 30%">Nome</th>{% endif %}
             {% if campos.nomeMae is defined %}<th>Nome da mãe</th>{% endif %}
             {% if campos.sexo is defined %}<th>Sexo</th>{% endif %}
             {% if campos.dataNascimento is defined %}<th>Data de nascimento</th>{% endif %}
@@ -17,15 +24,16 @@
             {% if campos.idade_c is defined %}<th>Idade no atendimento</th>{% endif %}
             {% if campos.cor is defined %}<th>Cor</th>{% endif %}
             {% if campos.estadoCivil is defined %}<th>Est. Civil</th>{% endif %}
+            {% if campos.moradia is defined %}<th>Moradia</th>{% endif %}
             {% if campos.rendaFamiliar is defined %}<th>Renda familiar</th>{% endif %}
             {% if (campos.email) is defined %}<th>Email</th>{% endif %}
             {% if (campos.telefone) is defined %}<th>Telefone</th>{% endif %}
-            {% if (campos.endereco) is defined %}<th>Endereco</th>{% endif %}
+            {% if (campos.endereco) is defined %}<th style="min-width: 30%">Endereco</th>{% endif %}
             {% if (campos.origem) is defined %}<th>Origem</th>{% endif %}
             {% if (campos.beneficios) is defined %}<th>Benefícios Sociais</th>{% endif %}
         </tr>
     </thead>
-    <tbody class="tabela_pequena">
+    <tbody>
         
 {% for d in dados %}
     <tr>
@@ -37,6 +45,7 @@
         {% if campos.idade_c is defined %}{% set difference = date(d.dataNascimento|date('Y/m/d')).diff(date(d.dataCadastro|date('Y/m/d'))) %}<td>{{difference.y}}</td>{% endif %}
         {% if campos.cor is defined %}<td>{{d.cor}}</td>{% endif %}
         {% if campos.estadoCivil is defined %}<td>{{d.estadoCivil}}</td>{% endif %}
+        {% if campos.moradia is defined %}<td>{{d.moradia}}</td>{% endif %}
         {% if campos.rendaFamiliar is defined %}<td>{{d.rendaFamiliar}}</td>{% endif %}
         {% if campos.email is defined %}<td>{{d.email}}</td>{% endif %}
         {% if campos.telefone is defined %}<td>{{d.telefone}}</td>{% endif %}
@@ -68,6 +77,12 @@
 <div class="relButtons">
     <a href="#" id="printRel">Imprimir</a>
 </div>
+
+
+    <div class="printLogo">
+        <hr>
+        <span style="font-weight: bold;">CadPaz - Desenvolvimento: Carlos Alberto Borges Garcia - dedraks@gmail.com</span>
+    </div>
 
 <script>
     $('#tbl_custom').DataTable({

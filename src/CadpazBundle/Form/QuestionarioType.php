@@ -26,7 +26,7 @@ class QuestionarioType extends AbstractType
                     'Cedida'                =>'Cedida',
                     'Outra'                 =>'Outra'
                 ),
-                'label'=>'Tipo de moradia',
+                'label'=>'Moradia',
                 'placeholder'=>'Informe'
             ))
             ->add('moraSozinho', 'checkbox', ['required'=>false])
@@ -36,8 +36,8 @@ class QuestionarioType extends AbstractType
             ->add('moraComConjuge', 'checkbox', ['required'=>false])
             ->add('moraComParentesAmigosColegas', 'checkbox', ['label'=>'Mora com parentes e/ou amigos e/ou colegas', 'required'=>false])
             ->add('moraComOutraSituacao', 'checkbox', ['label'=>'Outra situação', 'required'=>false])
-            ->add('quantasPessoasMoramNaCasa')
-            ->add('numeroDeFilhos')
+            ->add('quantasPessoasMoramNaCasa', null, ['attr'=>['min'=>1]])
+            ->add('numeroDeFilhos', null, ['attr'=>['min'=>0,'max'=>20]])
             ->add('moradiaTemColetaDeLixo', 'checkbox', ['required'=>false])
             ->add('moradiaTemRedeDeEsgoto', 'checkbox', ['required'=>false])
             ->add('moradiaTemRuaPavimentada', 'checkbox', ['required'=>false])

@@ -1,6 +1,5 @@
 <div style="padding: 5px; background: #FFF;">
     {{ form(form) }}
-    
 </div>
 
 <script>
@@ -10,50 +9,226 @@
     
     $('#form_criterio').on('change', function() {
     
-        //alert('chanc');
+        
     
         var cval = $('#form_criterio').val();
     
+        //alert(cval);
+    
         if (cval === 'cor')
         {
-            $("#form_valor").replaceWith('<select id="form_valor" name="form[valor]">' +
-                  '<option value="pardo">Pardo</option>' +
-                  '<option value="negro">Negro</option>' +
-                  '<option value="branco">Branco</option>' +
-                  '<option value="indigena">Indígena</option>' +
+            $("#form_valor").replaceWith('<select style="width: 100%" id="form_valor" name="form[valor]">' +
                   '<option value="amarelo">Amarelo</option>' +
+                  '<option value="branco">Branco</option>' +
+                  '<option value="indígena">Indígena</option>' +
+                  '<option value="negro">Negro</option>' +
+                  '<option value="pardo">Pardo</option>' +
+                  '<option value="não informado">Não informado</option>' +
                 '</select>');
             
-            $("#form_comparacao").replaceWith('<select id="form_comparacao" name="form[comparacao]">' +
-                  '<option value="=">Igual a</option>' +
-                  '<option value="!=">Deferente de</option>' +
+            $("#form_comparacao").replaceWith('<select style="width: 100%" id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">igual a</option>' +
+                  '<option value="!=">diferente de</option>' +
                 '</select>');
         }
         else if (cval === 'idadeAtual' || cval === 'idadeAtendimento')
         {
-            $("#form_valor").replaceWith('<input type="number" id="form_valor" name="form[valor]">'); 
+            $("#form_valor").replaceWith('<input type="number" min="0" max="120" id="form_valor" name="form[valor]">'); 
             
-            $("#form_comparacao").replaceWith('<select id="form_comparacao" name="form[comparacao]">' +
-                  '<option value="=">Igual a</option>' +
-                  '<option value="!=">Deferente de</option>' +
-                  '<option value=">">Maior que</option>' +
-                  '<option value=">=">Maior que ou igual a</option>' +
-                  '<option value="<">Menor que</option>' +
-                  '<option value="<=">Menor que ou igual a</option>' +
+            $("#form_comparacao").replaceWith('<select style="width: 100%" id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">igual a</option>' +
+                  '<option value="!=">diferente de</option>' +
+                  '<option value=">">maior que</option>' +
+                  '<option value=">=">maior que ou igual a</option>' +
+                  '<option value="<">menor que</option>' +
+                  '<option value="<=">menor que ou igual a</option>' +
                 '</select>');
         }
-        else if (cval == 'sexo')
+        else if (cval === 'sexo')
         {
-            $("#form_valor").replaceWith('<select id="form_valor" name="form[valor]">' +
+            $("#form_valor").replaceWith('<select style="width: 100%" id="form_valor" name="form[valor]">' +
                   '<option value="M">Masculino</option>' +
                   '<option value="F">Feminino</option>' +
                   '<option value="O">Outro</option>' +
                 '</select>');
                 
-            $("#form_comparacao").replaceWith('<select id="form_comparacao" name="form[comparacao]">' +
-                  '<option value="=">Igual a</option>' +
-                  '<option value="!=">Deferente de</option>' +
+            $("#form_comparacao").replaceWith('<select style="width: 100%" id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">igual a</option>' +
+                  '<option value="!=">diferente de</option>' +
                 '</select>');
+        }
+        else if (cval === 'estadoCivil')
+        {
+            $("#form_valor").replaceWith('<select style="width: 100%" id="form_valor" name="form[valor]">' +
+                  '<option value="Casado">Casado</option>' +
+                  '<option value="Solteiro">Solteiro</option>' +
+                  '<option value="União Estável">União Estável</option>' +
+                  '<option value="Separado/Divorciado">Separado/Divorciado</option>' +
+                  '<option value="Outros">Outros</option>' +
+                '</select>');
+                
+            $("#form_comparacao").replaceWith('<select style="width: 100%" id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">igual a</option>' +
+                  '<option value="!=">diferente de</option>' +
+                '</select>');
+        }
+        else if (cval === 'moradia')
+        {
+            $("#form_valor").replaceWith('<select style="width: 100%" id="form_valor" name="form[valor]">' +
+                  '<option value="Própria quitada">Própria quitada</option>' +
+                  '<option value="Própria financiada">Própria financiada</option>' +
+                  '<option value="Aluguada">Aluguada</option>' +
+                  '<option value="Habitação coletiva">Habitação coletiva</option>' +
+                  '<option value="Cedida">Cedida</option>' +
+                  '<option value="Outra">Outra</option>' +
+                '</select>');
+                
+            $("#form_comparacao").replaceWith('<select style="width: 100%" id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">igual a</option>' +
+                  '<option value="!=">diferente de</option>' +
+                '</select>');
+        }
+        else if (cval === 'moraCom')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'quantosMoram')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'numeroDeFilhos')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'coletaDeLixo')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'eletricidade')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'aguaEncanada')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'redeDeEsgoto')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'ruaPavimentada')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'zonaRural')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'quilombola')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'tipoDeMoradia')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'escolaridade')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'estudaAtualmente')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'temInteresseEmVoltarAEstudar')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'temFilhosEmIdadeEscolar')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'temFilhosMatriculadosEmEscola')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'deficiencia')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'acompanhamentos')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'usaMedicacaoConstante')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'recebeFarmacia')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'ubs')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'rendaFamiliar')
+        {
+            $("#form_valor").replaceWith('<select style="width: 100%" id="form_valor" name="form[valor]">' +
+                  '<option value="Até 1 salário mínimo">Até 1 salário mínimo</option>' +
+                  '<option value="1 a 2 salários mínimos">1 a 2 salários mínimos</option>' +
+                  '<option value="3 a 5 salários mínimos">3 a 5 salários mínimos</option>' +
+                  '<option value="6 a 10 salários mínimos">6 a 10 salários mínimos</option>' +
+                  '<option value="11 a 30 salários mínimos">11 a 30 salários mínimos</option>' +
+                  '<option value="Acima de 30 salários mínimos">Acima de 30 salários mínimos</option>' +
+                  '<option value="Nenuma renda">Nenuma renda</option>' +
+                '</select>');
+                
+            $("#form_comparacao").replaceWith('<select style="width: 100%" id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">igual a</option>' +
+                  //'<option value="!=">diferente de</option>' +
+                '</select>');
+        }
+        else if (cval === 'programasSociais')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'condicaoDeTrabalho')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'despesasMensais')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
+        }
+        else if (cval === 'origem')
+        {
+            alert('Ainda não foi implementado!');
+            $("#form_criterio").val("");
         }
     });
     
@@ -73,15 +248,23 @@
         
         txt += $('#form_criterio').val();
         txt += $('#form_comparacao').val();
-        txt += $('#form_valor').val();
+        txt += "'" +  $('#form_valor').val() + "'";
         
         $('#form_filtro').val(txt);
         
-        var txt2 = '';
-        txt2 +=  $('#form_criterio :selected').text() + ' ';
-        txt2 +=  $('#form_comparacao :selected').text() + ' ';
-        txt2 +=  $('#form_valor').val();
         
-        $('#form_filtroMostrar').val( txt2 );
+        if (textoFiltros !== "")
+            textoFiltros += '<br>e<br>';
+        
+        textoFiltros +=  $('#form_criterio :selected').text() + ' ';
+        textoFiltros +=  $('#form_comparacao :selected').text() + ' ';
+        textoFiltros +=  $('#form_valor').val();
+        
+        $('#filtrosMostrar').html( textoFiltros );
+        
+        
+        //$("#form_valor") = null;
+        //$("form_criterio") = null;
+        //$("form_comparacao") = null;
     });
 </script>

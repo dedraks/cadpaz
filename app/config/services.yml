@@ -13,3 +13,6 @@ services:
         class: Twig_Extensions_Extension_Date
         tags:
             - { name: twig.extension }
+    
+    app.stringutils:
+        class: CadpazBundle\Utils\StringUtils

@@ -278,15 +278,16 @@ h2 {
 }
 
 
+/*
 .example thead {
-    /*margin: 50px auto 50px auto;*/
+    
     background: #ddeeff;
     
     
     box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
 }
 .example tbody {
-    /*margin: 50px auto 50px auto;*/
+    
     background: #f0f0f0;
     border: 1px solid;
     
@@ -296,7 +297,7 @@ tr:hover td {
     background:#fff;
         cursor: pointer;
 };
-
+*/
 
 
 #example {
@@ -315,6 +316,7 @@ tr:hover td {
 #example tbody tr:nth-child(odd)		{ background-color:#efefef; }
 #example tbody tr:nth-child(even)	{ background-color:#e0e0e0; }
 
+/*
 #example thead{
     background-color: #f8f8f8;
     cursor: pointer;
@@ -323,7 +325,7 @@ tr:hover td {
 #example tbody{
     background-color: #eee;
     cursor: pointer;
-}
+}*/
 
 /*
 a{
@@ -555,7 +557,7 @@ textarea {
 }
 
 .tabela_pequena {
-    font-size: x-small;
+    font-size: small;
 }
 
 
@@ -567,3 +569,5 @@ textarea {
     background: #e0e0e0;
     background-color: #999;
 }
+
+

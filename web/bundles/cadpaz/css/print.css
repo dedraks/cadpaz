@@ -4,4 +4,35 @@
         display: none;
         visibility: hidden;
     }
+    .printLogo {
+        display: block;
+    }
+    
+    .titulo {
+        font-size: x-large;
+        font-weight: bold;
+    }
+
+    .subtitulo {
+        font-size: large;
+        font-weight: bold;
+    }
+    
+    
+    table
+    {
+       border-collapse:collapse;
+       border: 1px solid;
+    }
+    
+    td, th {
+        border: solid 1px black;
+      }
+    
+}
+
+@media screen {
+    .printLogo {
+        display: none;
+    }
 }

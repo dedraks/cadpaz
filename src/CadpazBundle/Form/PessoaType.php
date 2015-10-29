@@ -56,10 +56,11 @@ class PessoaType extends AbstractType
             ))
             ->add('estadoCivil', 'choice', array(
                 'choices' => array(
-                    'Casado'              =>'Casado',
-                    'Solteiro'            => 'Solteiro',
+                    'Casado'              =>'Casado(a)',
+                    'Solteiro'            => 'Solteiro(a)',
                     'União Estável'       => 'União Estável',
-                    'Separado/Divorciado' => 'Separado/Divorciado',
+                    'Separado/Divorciado' => 'Separado(a)/Divorciado(a)',
+                    'Viúvo'               => 'Viúvo(a)',
                     'Outros'              => 'Outros'
                 ),
                 'multiple' => false,

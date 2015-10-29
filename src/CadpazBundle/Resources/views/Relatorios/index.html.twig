@@ -7,24 +7,32 @@
 <div id="relatoriosArea" class="example" style="width: 825px">
     <div style="background: #FFF; text-align: center" id="relatoriosDados">
   
-        Relatórios padrão<br>
+        <strong>Relatórios padrão</strong><br>
+        
         <div style="border: 1px solid; border-color: #E2E2E2; text-align: left">
+            
+            <input id="selecionarTodos" type="checkbox">
+            <label for="selecionarTodos">Selecionar todos</label><br><br>
+            
         {{ form(padraoForm) }}
         </div>
         
         
         
         <hr>
-        Relatorios personalizados<br>
+        <strong>Relatorios personalizados</strong><br>
         {{ form(customForm) }}
         
-        
+        <strong>Filtros definidos:</strong>
+        <div id="filtrosMostrar" style="font-weight: bold; width: 60%; text-align: left;"></div>
        
+        {#
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
             <a href="#" id="adicionarFiltro"><img src="{{ asset_url }}" alt="Adicionar" /></a></td>
         {% endimage %}<br>
+        #}
         
-        <div id="filtrosArea" class="example" style="display: none; width: 320px; background: rgba(100,100,100,1.0);"></div>
+        <div id="filtrosArea" class="example" style="display: none; width: 400px; background: rgba(100,100,100,1.0);"></div>
         <hr>
         
         
@@ -180,8 +188,9 @@
     
     $('#form_sexoFitro').hide();
     var incFiltro = 0;
-    $('#adicionarFiltro').on('click', function(e) {
+    $('#form_adicionarFiltro').on('click', function(e) {
         e.preventDefault();
+       
        
        $.ajax({
            url: Routing.generate('relatorios_filtros'),
@@ -191,11 +200,47 @@
                             speed: 650,
                             transition: 'slideIn',
                             transitionClose: 'slideBack',
-                            zindex: 9999
+                            zindex: 9999,
+                            onClose: function() {
+                                content.empty();
+                                $("#filtroRelForm").remove();
+                            }
                         });
            }
        });
        
     });
+    
+    var textoFiltros = '';
 
+    $('#form_limparFiltros').on('click', function(e) {
+        e.preventDefault();
+        textoFiltros = '';
+        $('#form_filtro').val(textoFiltros);
+        $('#filtrosMostrar').html( textoFiltros );
+    });
+
+
+
+    $('#selecionarTodos').on('change', function() {
+        
+            $(':checkbox').prop('checked', this.checked);
+            //$("label[for='" + this.id + "']").text("Selecionar nenhum");
+            //alert('');
+    });
+    
+    $(':checkbox').not('#selecionarTodos').on('change', function() {
+        
+        //alert('ok');
+        
+        var tudoCheckado = true;
+        $(':checkbox').not('#selecionarTodos').each(function(index) {
+            
+            
+            if ( ! this.checked)
+                tudoCheckado = false;
+        });
+        
+        $('#selecionarTodos').prop('checked', tudoCheckado);
+    });
 </script>

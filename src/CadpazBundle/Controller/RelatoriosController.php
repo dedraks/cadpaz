@@ -29,6 +29,7 @@ class RelatoriosController extends Controller
                     'idade_c' => 'Idade quando foi atendido',
                     'cor' => 'Cor informada',
                     'estadoCivil' => 'Estado civil',
+                    'moradia' => 'Moradia',
                     'rendaFamiliar' => 'Renda familiar',
                     'email' => 'Email',
                     'telefone' => 'Telefone',
@@ -39,22 +40,25 @@ class RelatoriosController extends Controller
             ))
                 
             ->add('filtro', 'text', ['required'=>false,'label'=> ' ', 
-                'attr' =>  ['style'=>'width: 100%'] ])
+                'attr' =>  ['style'=>'width: 99%'] ])
             
-            ->add('filtroMostrar', 'text', ['required'=>false,'label'=>'Filtros'])
+            ->add('adicionarFiltro', 'button', ['label'=>'Adicionar Filtro',  'attr' =>  ['style'=>'width: 100%'] ])
                 
-            ->add('save', 'submit', array('label' => 'Exibir relatório'))
+            ->add('limparFiltros', 'button', ['label'=>'Limpar Filtros', 'attr' =>  ['style'=>'width: 100%']])
+                
+            ->add('save', 'submit', array('label' => 'Exibir relatório', 'attr' =>  ['style'=>'width: 100%; margin-top: 10px; margin-bottom: 10px']))
+                
         ->getForm();
         
         $padraoForm = $this->createFormBuilder($data, ['attr' => ['id' => 'padraoRelForm']])
-            ->add('casos', 'checkbox', array('label' => 'Tipos de Casos', 'required'=>false))
-            ->add('origens', 'checkbox', array('label' => 'Origens (quem enviou o cliente para atendimento)', 'required'=>false))
-            ->add('encaminhamentos', 'checkbox', array('label' => 'Encaminhamentos (para onde o cliente foi encaminhado)', 'required'=>false))
-            ->add('renda', 'checkbox', array('label' => 'Renda familiar', 'required'=>false))
-            ->add('idade', 'checkbox', array('label' => 'Idade', 'required'=>false))
-            ->add('sexo', 'checkbox', array('label' => 'Sexo', 'required'=>false))
-            ->add('cor', 'checkbox', array('label' => 'Cor', 'required'=>false))
-            ->add('save', 'submit', array('label' => 'Exibir relatório'))
+            ->add('casos', 'checkbox', array('label' => 'Tipos de Casos', 'required'=>false, 'attr'=>['style'=>'float: left']))
+            ->add('origens', 'checkbox', array('label' => 'Origens (quem enviou o cliente para atendimento)', 'required'=>false, 'attr'=>['style'=>'float: left']))
+            ->add('encaminhamentos', 'checkbox', array('label' => 'Encaminhamentos (para onde o cliente foi encaminhado)', 'required'=>false, 'attr'=>['style'=>'float: left']))
+            ->add('renda', 'checkbox', array('label' => 'Renda familiar', 'required'=>false, 'attr'=>['style'=>'float: left']))
+            ->add('idade', 'checkbox', array('label' => 'Idade', 'required'=>false, 'attr'=>['style'=>'float: left']))
+            ->add('sexo', 'checkbox', array('label' => 'Sexo', 'required'=>false, 'attr'=>['style'=>'float: left']))
+            ->add('cor', 'checkbox', array('label' => 'Cor', 'required'=>false, 'attr'=>['style'=>'float: left']))
+            ->add('save', 'submit', array('label' => 'Exibir relatório', 'attr' =>  ['style'=>'width: 100%']))
         ->getForm();
         
 
@@ -126,11 +130,19 @@ class RelatoriosController extends Controller
                                 $res[$i]['estadoCivil'] = $pessoa->getEstadoCivil();
                                 $campos['estadoCivil'] = '';
                             break;
+                            case 'moradia':
+                                $res[$i]['moradia'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    $res[$i]['moradia'] = $questionario->getMoradia();
+                                }
+                                $campos['moradia'] = '';
+                            break;
                             case 'rendaFamiliar':
                                 $res[$i]['rendaFamiliar'] = 'Questionário não respondido';
-                                if ( ! is_null($pessoa->getQuestionario()))
+                                if ( ! is_null($questionario) )
                                 {
-                                    $res[$i]['rendaFamiliar'] = $pessoa->getQuestionario()->getRendaFamiliar();
+                                    $res[$i]['rendaFamiliar'] = $questionario->getRendaFamiliar();
                                 }
                                 $campos['rendaFamiliar'] = '';
                             break;
@@ -669,15 +681,58 @@ class RelatoriosController extends Controller
             ->add('criterio', 'choice', array(
                 'label' => 'Critério',
                 'placeholder' => 'Selecione o critério',
+                'attr' =>  ['style'=>'width: 100%'],
                 'choices' => array(
-                    'cor' => 'Cor informada',
-                    'idadeAtual' => 'Idade atual',
-                    'idadeAtendimento' => 'Idade quando foi atendido',
-                    'sexo' => 'Sexo',
+                    'Pessoal' => array (
+                        'cor'               => 'Cor informada',
+                        'idadeAtual'        => 'Idade atual',
+                        'idadeAtendimento'  => 'Idade quando foi atendido',
+                        'sexo'              => 'Sexo',
+                        'estadoCivil'       => 'Estado civil',
+                    ),
+                    'Moradia' => array (
+                        'moradia'           => 'Moradia',
+                        'moraCom'           => 'Mora com',
+                        'quantosMoram'      => 'Número de pessoas que moram na casa',
+                        'numeroDeFilhos'    => 'Número de filhos',
+                        'coletaDeLixo'      => 'Moradia tem coleta de lixo',
+                        'eletricidade'      => 'Moradia tem eletricidade',
+                        'aguaEncanada'      => 'Moradia tem água encanada',
+                        'redeDeEsgoto'      => 'Moradia tem rede de esgoto',
+                        'ruaPavimentada'    => 'Moradia situada em rua pavimentada',
+                        'zonaRural'         => 'Moradia situada em zona rural',
+                        'quilombola'        => 'Moradia situada em quilombola',
+                        'tipoDeMoradia'     => 'Tipo de moradia',
+                    ),
+                    'Educação' => array (
+                        'escolaridade'      => 'Escolaridade',
+                        'estudaAtualmente'  => 'Estuda atualmente',
+                        'temInteresseEmVoltarAEstudar' => 'Tem interesse em voltar a estudar',
+                        'temFilhosEmIdadeEscolar' => 'Tem filhos em idade escolar',
+                        'temFilhosMatriculadosEmEscola' => 'Tem filhos matriculados em escola',
+                    ),
+                    'Saúde' => array (
+                        'deficiencia'       => 'Possui alguma deficiência',
+                        'acompanhamentos'   => 'Fez ou faz algum acompanhamento',
+                        'usaMedicacaoConstante' => 'Faz uso de mecicação constante',
+                        'recebeFarmacia'        => 'Recebe a medicação da farmácia distrital',
+                        'ubs'   => 'Domicílio coberto por UBS/PSF',
+                        'idosoGestante' => 'Gestante ou idoso na família'
+                    ),
+                    'Renda' => array (
+                        'rendaFamiliar' => 'Renda familiar',
+                        'programasSociais' => 'Recebe bolsa ou participa de algum programa socical',
+                        'condicaoDeTrabalho' => 'Condição de trabalho',
+                        'despesasMensais' => 'Total de despesas mensais',
+                    ),
+                    'Origem' => array (
+                        'origem' => 'Quem encaminhou ao projeto',
+                    )
                 )))
             ->add('comparacao', 'choice', array(
                 'label' => 'Comparação',
                 'placeholder' => 'Selecione o comparador',
+                'attr' =>  ['style'=>'width: 100%'],
                 'choices' => array(
                     '=' => 'Igual a',
                     '!=' => 'Diferente de',
@@ -687,8 +742,8 @@ class RelatoriosController extends Controller
                     '<=' => 'Menor que ou igual a',
                 )
             ))
-            ->add('valor')
-            ->add('save', 'submit', ['label'=>'Adicionar'])
+            ->add('valor', null, array('attr' =>  ['style'=>'width: 98%']))
+            ->add('save', 'submit', ['label'=>'Adicionar', 'attr' =>  ['style'=>'width: 100%; margin-top: 10px']])
         ->getForm();
         
         return $this->render('CadpazBundle:Relatorios:filtros.html.twig', array(
@@ -868,8 +923,16 @@ class RelatoriosController extends Controller
             {
                 case 'sexo':
                     dump($pessoa->getSexo());
-                    if ( strtolower($pessoa->getSexo()) != strtolower($valor))
+                    if ($operador == '=') 
+                    {
+                        if ( strtolower($pessoa->getSexo()) != strtolower($valor))
                         return false;
+                    }
+                    elseif ($operador == '!=') 
+                    {
+                        if ( strtolower($pessoa->getSexo()) == strtolower($valor))
+                        return false;
+                    }
                 break;
                 case 'idadeAtual':
                     $agora = new \DateTime();
@@ -906,6 +969,37 @@ class RelatoriosController extends Controller
                     
                 break;
                 case 'idadeAtendimento':
+                    $dataAtendimento = $pessoa->getDataCadastro();
+                    $dataNascimento = $pessoa->getDataNascimento();
+                    $idade_atendimento = date_diff($dataAtendimento, $dataNascimento)->y;
+                    
+                    switch ($operador)
+                    {
+                        case '=':
+                            if ( ! ($idade_atendimento == $valor) )
+                                return false;
+                        break;
+                        case '!=':
+                            if ( ! ($idade_atendimento != $valor) )
+                                return false;
+                        break;
+                        case '>=':
+                            if ( ! ($idade_atendimento >= $valor) )
+                                return false;
+                        break;
+                        case '<=':
+                            if ( ! ($idade_atendimento <= $valor) )
+                                return false;
+                        break;
+                        case '>':
+                            if ( ! ($idade_atendimento > $valor) )
+                                return false;
+                        break;
+                        case '<':
+                            if ( ! ($idade_atendimento < $valor) )
+                                return false;
+                        break;
+                    }
                 break;
                 case 'cor':
                     if ($operador == '=') 
@@ -919,46 +1013,46 @@ class RelatoriosController extends Controller
                             return false;
                     }
                 break;
+                case 'estadoCivil':
+                    if ($operador == '=') 
+                    {
+                        if (strtolower($pessoa->getEstadoCivil()) != strtolower($valor))
+                            return false;
+                    }
+                    elseif ($operador == '!=') 
+                    {
+                        if (strtolower($pessoa->getEstadoCivil()) == strtolower($valor))
+                            return false;
+                    }
+                break;
+                case 'moradia':
+                    $questionario = $pessoa->getQuestionario();
+                    if (is_null($questionario))
+                        return false;
+                    $moradia = $questionario->getMoradia();
+                    if ($operador == '=') 
+                    {
+                        if (strtolower($moradia) != strtolower($valor))
+                            return false;
+                    }
+                    elseif ($operador == '!=') 
+                    {
+                        if (strtolower($moradia) == strtolower($valor))
+                            return false;
+                    }
+                break;
                 case 'rendaFamiliar':
                     $questionario = $pessoa->getQuestionario();
                     if (is_null($questionario))
                         return false;
                     $rendaFamiliar = $questionario->getRendaFamiliar();
                     dump($rendaFamiliar);
+                    dump($valor);
                     switch ($operador)
                     {
                         case '=':
-                            switch ($valor)
-                            {
-                                case 1:
-                                    if (! ($rendaFamiliar == 'Até 1 salário mínimo'))
+                            if (! ($rendaFamiliar == $valor))
                                         return false;
-                                break;
-                                case 2:
-                                    if (! ($rendaFamiliar == '1 a 2 salários mínimos'))
-                                        return false;
-                                break;
-                                case 3:
-                                    if (! ($rendaFamiliar == '3 a 5 salários mínimos'))
-                                        return false;
-                                break;
-                                case 4:
-                                    if (! ($rendaFamiliar == '6 a 10 salários mínimos'))
-                                        return false;
-                                break;
-                                case 5:
-                                    if (! ($rendaFamiliar == '11 a 30 salários mínimos'))
-                                        return false;
-                                break;
-                                case 6:
-                                    if (! ($rendaFamiliar == 'Acima de 30 salários mínimos'))
-                                        return false;
-                                break;
-                                case 7:
-                                    if (! ($rendaFamiliar == 'Nenuma renda'))
-                                        return false;
-                                break;
-                            }
                         break;
                     }
                 break;
@@ -988,6 +1082,7 @@ class RelatoriosController extends Controller
         $texto = str_replace('estadoCivil', 'estado civil', $texto);
         $texto = str_replace('endereco', 'endereço', $texto);
         
+        //$texto = $this->get('app.stringutils')->LReplace(',', ' e', $texto);
         $texto = $this->str_lreplace(',', ' e', $texto);
         
         $texto .= ' de todos os clientes';
@@ -1003,6 +1098,7 @@ class RelatoriosController extends Controller
                 
             }
             
+            //$texto = $this->get('app.stringutils')->LReplace('e ', '.', $texto);
             $texto = $this->str_lreplace('e ', '.', $texto);
         }
         else
@@ -1010,12 +1106,9 @@ class RelatoriosController extends Controller
             $texto .= '.';
         }
         
-        
-        
-        
         $texto = str_replace('idadeAtual', 'idade atual', $texto);
-        $texto = str_replace('=', 'igual a', $texto);
         $texto = str_replace('!=', 'diferente de', $texto);
+        $texto = str_replace('=', 'igual a', $texto);
         $texto = str_replace('>', 'maior que', $texto);
         $texto = str_replace('<', 'menor que', $texto);
         $texto = str_replace('>=', 'maior que ou igual a', $texto);

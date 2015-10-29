@@ -1,5 +1,17 @@
 Deve-se executar os passos abaixo para instalar o sistema
 
+Abrir o arquivo AppKernel.php e comentar as linhas abaixo:
+
+...
+$bundles = array(
+...
+    new JMS\SerializerBundle\JMSSerializerBundle(),
+    new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+    new FOS\UserBundle\FOSUserBundle(),
+...
+
+
+
 composer remove friendsofsymfony/user-bundle
 composer remove jms/serializer-bundle
 composer remove friendsofsymfony/jsrouting-bundle
@@ -7,3 +19,17 @@ composer remove friendsofsymfony/jsrouting-bundle
 composer require friendsofsymfony/user-bundle "~2.0@dev"
 composer require "jms/serializer-bundle" "^1.0"
 composer require "friendsofsymfony/jsrouting-bundle" "^1.5"
+
+Abrir o arquivo AppKernel.php e descomentar as linhas abaixo:
+
+...
+    // new JMS\SerializerBundle\JMSSerializerBundle(),
+    // new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+    // new FOS\UserBundle\FOSUserBundle(),
+...
+
+
+php app/console doctrine:schema:update --force
+
+php app/console doctrine:fixtures:load
+
