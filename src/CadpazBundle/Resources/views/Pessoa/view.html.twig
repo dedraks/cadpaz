@@ -36,7 +36,7 @@
             Outros
         {% endif %}
     <br />
-    CPF: {{ pessoa.cpf }}<br />
+    CPF: {{ pessoa.cpf }}<br /><br>
     <div id="rg_area">
     RG:
     {% if pessoa.rg is null %}
@@ -63,7 +63,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;Possui. Número não obtido.
         {% endif %}
     {% endif %}
-    </div>
+    </div><br>
     <div id="te_area">
     Título Eleitoral:
     {% if pessoa.titulo is null %}
