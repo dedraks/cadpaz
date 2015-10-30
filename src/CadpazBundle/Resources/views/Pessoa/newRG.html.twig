@@ -1,34 +1,70 @@
 <div class="meio">
 <strong>RG</strong>
-<div class="spacer"></div>
 
+<br>
+<input name="obter" type="radio" value="nao" checked>Apenas registrar que possui RG
+<br>
+<input name="obter" type="radio" value="sim">Obter dados
+<br>
+
+<div id="obterRgArea" style="display: none">
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
+</div>
+<br>
+<a href="#" id="saveRgButton">Salvar</a>
+
+<div class="spacer"></div>
 <a class="cancel" href="#">Cancelar</a>
 </div>
+<div class="spacer"></div>
 
 <script>
+    function validate(formData, jqForm, options) { 
+        // formData is an array of objects representing the name and value of each field 
+        // that will be sent to the server;  it takes the following form: 
+        // 
+        // [ 
+        //     { name:  username, value: valueOfUsernameInput }, 
+        //     { name:  password, value: valueOfPasswordInput } 
+        // ] 
+        // 
+        // To validate, we can examine the contents of this array to see if the 
+        // username and password fields have values.  If either value evaluates 
+        // to false then we return false from this method. 
 
-        function showNewRgResponse(responseText, statusText, xhr, $form)  { 
+        for (var i=0; i < formData.length; i++) { 
+            if (!formData[i].value) { 
+                Ply.dialog("alert", "Todos os campos devem ser preenchidos.");
+                return false; 
+            } 
+        }
+        // All fields contains values
+    }
 
 
+    function showNewRgResponse(responseText, statusText, xhr, $form)  { 
+        //
+        $("#userDetails").html(responseText);    
+    }
 
-
-                $("#userDetails").html(responseText);
-                //$("#userDetails").hide();
-                //$("#userDetails").css('visibility','visible');
-                //$("#userDetails").slideUp(400);
-                //$("#userDetails").delay(600).slideDown(400);
-            }
-
-        var optionsRg = {
+        var optionsRgNaoValidar = {
           success: showNewRgResponse,
+          //beforeSubmit: validate,
           type: 'post',
           url: Routing.generate('pessoa_rg_new',{'id':{{id}}})
         };
+        
+        var optionsRgValidar = {
+            success: showNewRgResponse,
+            beforeSubmit: validate,
+            type: 'post',
+            url: Routing.generate('pessoa_rg_new',{'id':{{id}}})
+        };
+        
         // bind form using 'ajaxForm' 
-        $('#newRgForm').ajaxForm(optionsRg);
+        $('#newRgForm').ajaxForm(optionsRgNaoValidar);
         
         jQuery('.cancel').on('click', function(e) {
         
@@ -37,5 +73,37 @@
             //$("#userDetails").slideDown('fast');
 
             e.preventDefault();
+        });
+        
+        //$("input[name=interview]:checked").val()
+        
+        $('input[name=obter]').on('change', function() {
+            //alert('ok');
+            if ( $("input[name=obter]:checked").val() === 'sim'  ) {
+                $("#obterRgArea").show('slow');
+                $("#cadpazbundle_rg_numero").prop('required',true);
+                $("#cadpazbundle_rg_dataExpedicao").prop('required',true);
+                $("#cadpazbundle_rg_orgaoExpedidor").prop('required',true);
+                
+                $('#newRgForm').ajaxForm(optionsRgValidar);
+            }
+            else {
+                $("#cadpazbundle_rg_numero").val('');
+                $("#cadpazbundle_rg_dataExpedicao").val('');
+                $("#cadpazbundle_rg_orgaoExpedidor").val('');
+                $("#cadpazbundle_rg_numero").prop('required',false);
+                $("#cadpazbundle_rg_dataExpedicao").prop('required',false);
+                $("#cadpazbundle_rg_orgaoExpedidor").prop('required',false);
+                
+
+                $('#newRgForm').ajaxForm(optionsRgNaoValidar);
+                $("#obterRgArea").hide('slow');
+            }
+        });
+        
+        
+        $('#saveRgButton').on('click', function(e) {
+            e.preventDefault();
+            $('#newRgForm').submit();
         });
     </script>

@@ -90,18 +90,46 @@
         }
         else if (cval === 'moraCom')
         {
-            alert('Ainda não foi implementado!');
-            $("#form_criterio").val("");
+            $("#form_valor").replaceWith('<select multiple style="width: 100%" id="form_valor" name="form[valor]">' +
+                  '<option value="Sozinho">Sozinho</option>' +
+                  '<option value="Filhos">Filhos</option>' +
+                  '<option value="Pai/Mae">Pai/Mãe</option>' +
+                  '<option value="Irmãos">Irmãos</option>' +
+                  '<option value="Conjuge">Conjuge</option>' +
+                  '<option value="Parentes/Amigos/Colegas">Parentes/Amigos/Colegas</option>' +
+                  '<option value="Outra situação">Outra situação</option>' +
+                '</select>');
+                
+            $("#form_comparacao").replaceWith('<select style="width: 100%" id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">igual a</option>' +
+                  '<option value="!=">diferente de</option>' +
+                '</select>');
         }
         else if (cval === 'quantosMoram')
         {
-            alert('Ainda não foi implementado!');
-            $("#form_criterio").val("");
+            $("#form_valor").replaceWith('<input type="number" min="0" max="20" id="form_valor" name="form[valor]">'); 
+            
+            $("#form_comparacao").replaceWith('<select style="width: 100%" id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">igual a</option>' +
+                  '<option value="!=">diferente de</option>' +
+                  '<option value=">">maior que</option>' +
+                  '<option value=">=">maior que ou igual a</option>' +
+                  '<option value="<">menor que</option>' +
+                  '<option value="<=">menor que ou igual a</option>' +
+                '</select>');
         }
         else if (cval === 'numeroDeFilhos')
         {
-            alert('Ainda não foi implementado!');
-            $("#form_criterio").val("");
+            $("#form_valor").replaceWith('<input type="number" min="0" max="20" id="form_valor" name="form[valor]">'); 
+            
+            $("#form_comparacao").replaceWith('<select style="width: 100%" id="form_comparacao" name="form[comparacao]">' +
+                  '<option value="=">igual a</option>' +
+                  '<option value="!=">diferente de</option>' +
+                  '<option value=">">maior que</option>' +
+                  '<option value=">=">maior que ou igual a</option>' +
+                  '<option value="<">menor que</option>' +
+                  '<option value="<=">menor que ou igual a</option>' +
+                '</select>');
         }
         else if (cval === 'coletaDeLixo')
         {

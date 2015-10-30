@@ -55,9 +55,13 @@
         {#{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
         <a id="rg_del" class="confirm" href="{{ path('pessoa_rg_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}#}
+        {% if pessoa.rg.numero is not null %}
         &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.rg.numero }}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Data de expedição: {{ pessoa.rg.dataExpedicao | date('d/m/Y') }}<br />
         &nbsp;&nbsp;&nbsp;&nbsp;Órgão expedidor: {{ pessoa.rg.orgaoExpedidor }}<br />
+        {% else %}
+            &nbsp;&nbsp;&nbsp;&nbsp;Possui. Número não obtido.
+        {% endif %}
     {% endif %}
     </div>
     <div id="te_area">

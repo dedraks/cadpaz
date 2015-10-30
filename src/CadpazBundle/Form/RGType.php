@@ -15,7 +15,7 @@ class RGType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numero')
+            ->add('numero', null, ['required'=>false])
             ->add('dataExpedicao', 'date', [
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
@@ -30,10 +30,11 @@ class RGType extends AbstractType
                     'data-date-startView' => '2',
                     'autocomplete' => 'off',
                     'onKeyDown' => 'return false'
-                ]
+                ],
+                'required'=>false
             ])
-            ->add('orgaoExpedidor')
-            ->add('save', 'submit', array('label' => 'Salvar'))
+            ->add('orgaoExpedidor', null, ['required'=>false])
+            //->add('save', 'submit', array('label' => 'Salvar'))
         ;
     }
     

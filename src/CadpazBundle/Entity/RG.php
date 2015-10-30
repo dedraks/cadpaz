@@ -24,21 +24,21 @@ class RG
     /**
      * @var string
      *
-     * @ORM\Column(name="numero", type="string", length=20)
+     * @ORM\Column(name="numero", type="string", length=20, nullable=true)
      */
     private $numero;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataExpedicao", type="date")
+     * @ORM\Column(name="dataExpedicao", type="date", nullable=true)
      */
     private $dataExpedicao;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="orgaoExpedidor", type="string", length=20)
+     * @ORM\Column(name="orgaoExpedidor", type="string", length=20, nullable=true)
      */
     private $orgaoExpedidor;
 

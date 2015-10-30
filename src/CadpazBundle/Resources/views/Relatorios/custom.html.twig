@@ -25,6 +25,9 @@
             {% if campos.cor is defined %}<th>Cor</th>{% endif %}
             {% if campos.estadoCivil is defined %}<th>Est. Civil</th>{% endif %}
             {% if campos.moradia is defined %}<th>Moradia</th>{% endif %}
+            {% if campos.moraCom is defined %}<th>Mora com</th>{% endif %}
+            {% if campos.quantosMoram is defined %}<th>Quantos moram</th>{% endif %}
+            {% if campos.numeroDeFilhos is defined %}<th>Nº filhos</th>{% endif %}
             {% if campos.rendaFamiliar is defined %}<th>Renda familiar</th>{% endif %}
             {% if (campos.email) is defined %}<th>Email</th>{% endif %}
             {% if (campos.telefone) is defined %}<th>Telefone</th>{% endif %}
@@ -46,6 +49,16 @@
         {% if campos.cor is defined %}<td>{{d.cor}}</td>{% endif %}
         {% if campos.estadoCivil is defined %}<td>{{d.estadoCivil}}</td>{% endif %}
         {% if campos.moradia is defined %}<td>{{d.moradia}}</td>{% endif %}
+        {% if campos.moraCom is defined %}
+            <td>
+                {% for moraCom in d.moraCom %}
+                    {{ moraCom }}
+                    {% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+        {% endif %}
+        {% if campos.quantosMoram is defined %}<td>{{d.quantosMoram}}</td>{% endif %}
+        {% if campos.numeroDeFilhos is defined %}<td>{{d.numeroDeFilhos}}</td>{% endif %}
         {% if campos.rendaFamiliar is defined %}<td>{{d.rendaFamiliar}}</td>{% endif %}
         {% if campos.email is defined %}<td>{{d.email}}</td>{% endif %}
         {% if campos.telefone is defined %}<td>{{d.telefone}}</td>{% endif %}
@@ -53,18 +66,6 @@
         {% if campos.origem is defined %}<td>{{d.origem}}</td>{% endif %}
         {% if campos.beneficios is defined %}
             <td>
-                {#{% if d.beneficios is iterable %}
-                    {{ d.beneficios.peti ? 'PETI ' : '' }}
-                    {{ d.beneficios.agenteJovem ? 'Agente Jovem ' : '' }}
-                    {{ d.beneficios.bolsaFamilia ? 'Bolsa Familia ' : '' }}
-                    {{ d.beneficios.bcp ? 'BCP ' : '' }}
-                    {{ d.beneficios.naoRespondeu ? 'Não respondeu' : '' }}
-                    {{ d.beneficios.naoSabe ? 'Não sabe' : '' }}
-                    {{ d.beneficios.naoRecebe ? 'Não recebe' : '' }}
-                    
-                {% else %}
-                    {{ d.beneficios }}
-                {% endif %}#}
                 {% for beneficio in d.beneficios %}
                     {{ beneficio }}
                     {% if not loop.last %}, {% endif %}

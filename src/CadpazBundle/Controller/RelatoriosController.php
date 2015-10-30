@@ -21,21 +21,33 @@ class RelatoriosController extends Controller
                 'label' => ' ', 
                 'multiple'=>true, 
                 'choices'=>array(
-                    'nome' => 'Nome',
-                    'nomeMae' => 'Nome da mãe',
-                    'sexo' => 'Sexo',
-                    'dataNascimento' => 'Data de nascimento',
-                    'idade_a' => 'Idade atual',
-                    'idade_c' => 'Idade quando foi atendido',
-                    'cor' => 'Cor informada',
-                    'estadoCivil' => 'Estado civil',
-                    'moradia' => 'Moradia',
-                    'rendaFamiliar' => 'Renda familiar',
-                    'email' => 'Email',
-                    'telefone' => 'Telefone',
-                    'endereco' => 'Endereço',
-                    'origem' => 'Origem',
-                    'beneficios' => 'Benefícios Sociais',
+                    'Pessoal' =>
+                        [
+                            'nome' => 'Nome',
+                            'nomeMae' => 'Nome da mãe',
+                            'sexo' => 'Sexo',
+                            'dataNascimento' => 'Data de nascimento',
+                            'idade_a' => 'Idade atual',
+                            'idade_c' => 'Idade quando foi atendido',
+                            'cor' => 'Cor informada',
+                            'estadoCivil' => 'Estado civil',
+                            'email' => 'Email',
+                            'telefone' => 'Telefone',
+                            'endereco' => 'Endereço',
+                        ],
+                    'Moradia' =>
+                        [
+                            'moradia' => 'Condição de moradia',
+                            'moraCom' => 'Mora com',
+                            'quantosMoram' => 'Quantos moram na casa',
+                            'numeroDeFilhos' => 'Número de filhos'
+                        ],
+                    'Renda' =>
+                        [
+                            'rendaFamiliar' => 'Renda familiar',
+                            'origem' => 'Origem',
+                            'beneficios' => 'Benefícios Sociais',
+                        ]
                 )
             ))
                 
@@ -137,6 +149,66 @@ class RelatoriosController extends Controller
                                     $res[$i]['moradia'] = $questionario->getMoradia();
                                 }
                                 $campos['moradia'] = '';
+                            break;
+                            case 'moraCom':
+                                $res[$i]['moraCom'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    $moraCom = array();
+                                    
+                                    
+                                    if ($questionario->getMoraSozinho() ) {
+                                        $moraCom[] = 'Sozinho';
+                                    }
+                                    else if ($questionario->getMoraComOutraSituacao() ) {
+                                        $moraCom[] = 'Outra situação';
+                                    }
+                                    else 
+                                    {
+                                        if ($questionario->getMoraComFilhos() ) {
+                                            $moraCom[] = 'Filhos';
+                                        }
+
+                                        if ($questionario->getMoraComPaiMae() ) {
+                                            $moraCom[] = 'Pai/Mãe';
+                                        }
+
+                                        if ($questionario->getMoraComIrmaos() ) {
+                                            $moraCom[] = 'Irmãos';
+                                        }
+
+                                        if ($questionario->getMoraComConjuge() ) {
+                                            $moraCom[] = 'Conjuge';
+                                        }
+                                        
+                                        if ($questionario->getMoraComParentesAmigosColegas() ) {
+                                            $moraCom[] = 'Parentes/Amigos/Colegas';
+                                        }
+                                    }
+                                    
+                                    $res[$i]['moraCom'] = $moraCom;
+                                }
+                                else
+                                {
+                                    $res[$i]['moraCom'] = ['Questionário não respondido'];
+                                }
+                                $campos['moraCom'] = '';
+                            break;
+                            case 'quantosMoram':
+                                $res[$i]['quantosMoram'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    $res[$i]['quantosMoram'] = $questionario->getQuantasPessoasMoramNaCasa();
+                                }
+                                $campos['quantosMoram'] = '';
+                            break;
+                            case 'numeroDeFilhos':
+                                $res[$i]['numeroDeFilhos'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    $res[$i]['numeroDeFilhos'] = $questionario->getNumeroDeFilhos();
+                                }
+                                $campos['numeroDeFilhos'] = '';
                             break;
                             case 'rendaFamiliar':
                                 $res[$i]['rendaFamiliar'] = 'Questionário não respondido';
@@ -972,33 +1044,7 @@ class RelatoriosController extends Controller
                     $dataNascimento = $pessoa->getDataNascimento();
                     $idade = date_diff($agora, $dataNascimento)->y;
                     
-                    switch ($operador)
-                    {
-                        case '=':
-                            if ( ! ($idade == $valor) )
-                                return false;
-                        break;
-                        case '!=':
-                            if ( ! ($idade != $valor) )
-                                return false;
-                        break;
-                        case '>=':
-                            if ( ! ($idade >= $valor) )
-                                return false;
-                        break;
-                        case '<=':
-                            if ( ! ($idade <= $valor) )
-                                return false;
-                        break;
-                        case '>':
-                            if ( ! ($idade > $valor) )
-                                return false;
-                        break;
-                        case '<':
-                            if ( ! ($idade < $valor) )
-                                return false;
-                        break;
-                    }
+                    return $this->verificaValor($idade, $valor, $operador);
                     
                 break;
                 case 'idadeAtendimento':
@@ -1006,33 +1052,7 @@ class RelatoriosController extends Controller
                     $dataNascimento = $pessoa->getDataNascimento();
                     $idade_atendimento = date_diff($dataAtendimento, $dataNascimento)->y;
                     
-                    switch ($operador)
-                    {
-                        case '=':
-                            if ( ! ($idade_atendimento == $valor) )
-                                return false;
-                        break;
-                        case '!=':
-                            if ( ! ($idade_atendimento != $valor) )
-                                return false;
-                        break;
-                        case '>=':
-                            if ( ! ($idade_atendimento >= $valor) )
-                                return false;
-                        break;
-                        case '<=':
-                            if ( ! ($idade_atendimento <= $valor) )
-                                return false;
-                        break;
-                        case '>':
-                            if ( ! ($idade_atendimento > $valor) )
-                                return false;
-                        break;
-                        case '<':
-                            if ( ! ($idade_atendimento < $valor) )
-                                return false;
-                        break;
-                    }
+                    return $this->verificaValor($idade_atendimento, $valor, $operador);
                 break;
                 case 'cor':
                     if ($operador == '=') 
@@ -1074,10 +1094,39 @@ class RelatoriosController extends Controller
                             return false;
                     }
                 break;
+                case 'moraCom':
+                    $questionario = $pessoa->getQuestionario();
+                    $valores = explode(',', $valor);
+                    if (is_null($questionario))
+                        return false;
+                    if ($operador == '=')
+                    {
+                        return $this->verificaMoraCom($questionario, $valor);
+                    }
+                    else if ($operador == '!=')
+                    {
+                        return ! $this->verificaMoraCom($questionario, $valor);
+                    }
+                break;
+                case 'quantosMoram';
+                    $questionario = $pessoa->getQuestionario();
+                    if (is_null($questionario))
+                        return false;
+                    $numero = $questionario->getQuantasPessoasMoramNaCasa();
+                    return $this->verificaValor($numero, $valor, $operador);
+                break;
+                case 'numeroDeFilhos':
+                    $questionario = $pessoa->getQuestionario();
+                    if (is_null($questionario))
+                        return false;
+                    $numero = $questionario->getNumeroDeFilhos();
+                    return $this->verificaValor($numero, $valor, $operador);
+                break;
                 case 'rendaFamiliar':
                     $questionario = $pessoa->getQuestionario();
                     if (is_null($questionario))
                         return false;
+                    
                     $rendaFamiliar = $questionario->getRendaFamiliar();
                     dump($rendaFamiliar);
                     dump($valor);
@@ -1095,6 +1144,43 @@ class RelatoriosController extends Controller
         return true;
     }
     
+    
+    private function verificaMoraCom($questionario, $valor)
+    {
+        switch ($valor)
+                        {
+                            case 'Sozinho':
+                                if (! $questionario->getMoraSozinho())
+                                    return false;
+                            break;
+                            case 'Filhos':
+                                if (! $questionario->getMoraComFilhos() )
+                                    return false;
+                            break;
+                            case 'Pai/Mae':
+                                if (! $questionario->getMoraComPaiMae() )
+                                    return false;
+                            break;
+                            case 'Irmãos':
+                                if (! $questionario->getMoraComIrmaos() )
+                                    return false;
+                            break;
+                            case 'Conjuge':
+                                if (! $questionario->getMoraComConjuge() )
+                                    return false;
+                            break;
+                            case 'Parentes/Amigos/Colegas':
+                                if (! $questionario->getMoraComParentesAmigosColegas() )
+                                    return false;
+                            break;
+                            case 'Outra situação':
+                                if (! $questionario->getMoraComPaiMae() )
+                                    return false;
+                            break;
+                        }
+                        
+        return true;
+    }
     
     
     private function geraTexto($campos, $filtros)
@@ -1153,6 +1239,39 @@ class RelatoriosController extends Controller
     function str_lreplace($search, $replace, $subject)
     {
         return preg_replace('~(.*)' . preg_quote($search, '~') . '~', '$1' . $replace, $subject, 1);
+    }
+
+    public function verificaValor($numero, $valor, $operador)
+    {
+        switch ($operador)
+                    {
+                        case '=':
+                            if ( ! ($numero == $valor) )
+                                return false;
+                        break;
+                        case '!=':
+                            if ( ! ($numero != $valor) )
+                                return false;
+                        break;
+                        case '>=':
+                            if ( ! ($numero >= $valor) )
+                                return false;
+                        break;
+                        case '<=':
+                            if ( ! ($numero <= $valor) )
+                                return false;
+                        break;
+                        case '>':
+                            if ( ! ($numero > $valor) )
+                                return false;
+                        break;
+                        case '<':
+                            if ( ! ($numero < $valor) )
+                                return false;
+                        break;
+                    }
+                    
+        return true;
     }
 
 }
