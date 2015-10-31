@@ -1,21 +1,43 @@
 <div class="meio">
 
-    <strong>Título Eleitoral</strong>
+    <div class="documentoTitulo">Título Eleitoral</div>
+    <div class="documento">
     <div class="spacer"></div>
+
     
+    
+
+<input name="obterTitulo" type="radio" value="nao" checked>Apenas registrar que possui Título eleitoral
+<br>
+<input name="obterTitulo" type="radio" value="sim">Obter dados
+<br>
+
+<div id="obterTituloArea" style="display: none">
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
-
-<a class="cancel" href="#">Cancelar</a>
 </div>
+<br>
+<button type="button" id="saveTituloButton">Salvar</button>
 
+
+<button type="button" class="cancel" href="#">Cancelar</button>
+       <div class="spacer"></div>
+</div>
+</div>
 <script>
+    function validate(formData, jqForm, options)
+    {
+        if (!validateForm(formData, jqForm, options)) {
+            Ply.dialog("alert", "Todos os campos devem ser preenchidos.");
+            return false;
+        }
+        return true;
+    }
+    
+
 
         function showNewTituloResponse(responseText, statusText, xhr, $form)  { 
-
-
-
 
                 $("#userDetails").html(responseText);
                 //$("#userDetails").hide();
@@ -24,13 +46,19 @@
                 //$("#userDetails").delay(600).slideDown(400);
             }
 
-        var optionsTitulo = {
+        var optionsTituloValidar = {
+          success: showNewTituloResponse,
+          beforeSubmit: validate,
+          type: 'post',
+          url: Routing.generate('pessoa_titulo_new',{'id':{{id}}})
+        };
+        var optionsTituloNaoValidar = {
           success: showNewTituloResponse,
           type: 'post',
           url: Routing.generate('pessoa_titulo_new',{'id':{{id}}})
         };
         // bind form using 'ajaxForm' 
-        $('#newTituloForm').ajaxForm(optionsTitulo);
+        $('#newTituloForm').ajaxForm(optionsTituloNaoValidar);
         
         jQuery('.cancel').on('click', function(e) {
         
@@ -44,4 +72,26 @@
 
             $('#cadpazbundle_titulo_uf').select2();
 
+
+        $('input[name=obterTitulo]').on('change', function() {
+            //alert('ok');
+            if ( $("input[name=obterTitulo]:checked").val() === 'sim'  ) {
+                $("#obterTituloArea").show('slow');
+                
+                $('#newTituloForm').ajaxForm(optionsTituloValidar);
+            }
+            else {
+                $("#obterTituloArea").hide('slow');
+                $("input:text").val('');
+                
+                $('#newTituloForm').ajaxForm(optionsTituloNaoValidar);
+                
+            }
+        });
+
+
+        $('#saveTituloButton').on('click', function(e) {
+            e.preventDefault();
+            $('#newTituloForm').submit();
+        });
     </script>

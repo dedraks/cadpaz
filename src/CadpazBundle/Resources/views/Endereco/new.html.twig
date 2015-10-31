@@ -1,5 +1,6 @@
 <div class="meio">
-{#<strong>Telefone</strong>#}
+    <div class="documentoTitulo">Cadastrar endereço</div>
+    <div class="documento">
 <div class="spacer"></div>
 
 {#
@@ -42,11 +43,13 @@
     {{ form_label(form.obs) }}
     {{ form_errors(form.obs) }}
     {{ form_widget(form.obs) }}<br>
-
-{{ form_row(form.save) }}
+    <br>
+    <button type="submit">Salvar</button>
+<button type="button" class="cancel">Cancelar</button>
 {{ form_end(form) }}
 
-<a class="cancel" href="#">Cancelar</a>
+<br>
+</div>
 </div>
 {# {{ ro }} #}
 <script>

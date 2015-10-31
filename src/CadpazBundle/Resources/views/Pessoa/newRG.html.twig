@@ -1,7 +1,8 @@
-<div class="meio" style="background-color: #FBF7AA">
-<strong>RG</strong>
+<div class="meio">
+<div class="documentoTitulo">RG</div>
 
-<br>
+<div class="documento">
+    <div class="spacer"></div>
 <input name="obter" type="radio" value="nao" checked>Apenas registrar que possui RG
 <br>
 <input name="obter" type="radio" value="sim">Obter dados
@@ -17,33 +18,20 @@
 
 
 <button type="button" class="cancel" href="#">Cancelar</button>
-</div>
 <div class="spacer"></div>
+</div>
+</div>
 
 <script>
-    function validate(formData, jqForm, options) { 
-        // formData is an array of objects representing the name and value of each field 
-        // that will be sent to the server;  it takes the following form: 
-        // 
-        // [ 
-        //     { name:  username, value: valueOfUsernameInput }, 
-        //     { name:  password, value: valueOfPasswordInput } 
-        // ] 
-        // 
-        // To validate, we can examine the contents of this array to see if the 
-        // username and password fields have values.  If either value evaluates 
-        // to false then we return false from this method. 
-
-        for (var i=0; i < formData.length; i++) { 
-            if (!formData[i].value) { 
-                Ply.dialog("alert", "Todos os campos devem ser preenchidos.");
-                return false; 
-            } 
+    function validate(formData, jqForm, options)
+    {
+        if (!validateForm(formData, jqForm, options)) {
+            Ply.dialog("alert", "Todos os campos devem ser preenchidos.");
+            return false;
         }
-        // All fields contains values
+        return true;
     }
-
-
+    
     function showNewRgResponse(responseText, statusText, xhr, $form)  { 
         //
         $("#userDetails").html(responseText);    

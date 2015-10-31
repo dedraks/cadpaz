@@ -12,6 +12,12 @@ use Ob\HighchartsBundle\Highcharts\Highchart;
 
 class RelatoriosController extends Controller
 {
+    /**
+     * Exibe formulários para geração de relatórios padrão e personalizados
+     * 
+     * @param Request $request
+     * @return Response
+     */
     public function indexAction(Request $request)
     {
         $data = array();
@@ -24,6 +30,7 @@ class RelatoriosController extends Controller
                     'Pessoal' =>
                         [
                             'nome' => 'Nome',
+                            'cpf' => 'CPF',
                             'nomeMae' => 'Nome da mãe',
                             'sexo' => 'Sexo',
                             'dataNascimento' => 'Data de nascimento',
@@ -35,12 +42,21 @@ class RelatoriosController extends Controller
                             'telefone' => 'Telefone',
                             'endereco' => 'Endereço',
                         ],
-                    'Moradia' =>
+                    'Composição familiar/Habitação' =>
                         [
                             'moradia' => 'Condição de moradia',
                             'moraCom' => 'Mora com',
                             'quantosMoram' => 'Quantos moram na casa',
-                            'numeroDeFilhos' => 'Número de filhos'
+                            'numeroDeFilhos' => 'Número de filhos',
+                            'tipoDeMoradia' => 'Tipo de moradia'
+                        ],
+                    'Educação' =>
+                        [
+                            'escolaridade' => 'Escolaridade',
+                            'estudaAtualmente' => 'Estuda atualmente',
+                            'temInteresseEmVoltarAEstudar' => 'Tem interesse em voltar a estudar',
+                            'temFilhosEmIdadeEscolar' => 'Tem filhos em idade escolar',
+                            'temFilhosMatriculadosEmEscola' => 'Tem filhos matriculados em escola'
                         ],
                     'Renda' =>
                         [
@@ -77,14 +93,13 @@ class RelatoriosController extends Controller
         if ($request->isMethod('POST')) {
             $customForm->handleRequest($request);
             $padraoForm->handleRequest($request);
-            
 
             if ($customForm->isValid())
             {
                 // $data is a simply array with your form fields 
                 // like "query" and "category" as defined above.
                 $data = $customForm->getData();
-                dump($data);
+                //dump($data);
                 
                 $filtros = $this->parseFiltro($data['filtro']);
                 //dump($filtros);
@@ -100,8 +115,10 @@ class RelatoriosController extends Controller
                 $adicionar = true;
                 foreach($pessoas as $pessoa)
                 {
+                    //dump("verificando: ");dump($pessoa); dump($filtros);
                     if (!$this->verificaFiltros($pessoa, $filtros)) continue;
                     
+                    //dump('passou');
                     $questionario = $pessoa->getQuestionario();
                     foreach ($data['camposSelect'] as $campo)
                     {
@@ -110,6 +127,10 @@ class RelatoriosController extends Controller
                             case 'nome':
                                 $res[$i]['nome'] = $pessoa->getNome();
                                 $campos['nome'] = '';
+                            break;
+                            case 'cpf':
+                                $res[$i]['cpf'] = $pessoa->getCpf();
+                                $campos['cpf'] = '';
                             break;
                             case 'nomeMae':
                                 $res[$i]['nomeMae'] = $pessoa->getNomeMae();
@@ -209,6 +230,72 @@ class RelatoriosController extends Controller
                                     $res[$i]['numeroDeFilhos'] = $questionario->getNumeroDeFilhos();
                                 }
                                 $campos['numeroDeFilhos'] = '';
+                            break;
+                            case 'tipoDeMoradia':
+                                $res[$i]['tipoDeMoradia'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    $res[$i]['tipoDeMoradia'] = $questionario->getTipoDeMoradia();
+                                }
+                                $campos['tipoDeMoradia'] = '';
+                            break;
+                            case 'escolaridade':
+                                $res[$i]['escolaridade'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    $res[$i]['escolaridade'] = $questionario->getEscolaridade();
+                                }
+                                $campos['escolaridade'] = '';
+                            break;
+                            case 'estudaAtualmente':
+                                $res[$i]['estudaAtualmente'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    $res[$i]['estudaAtualmente'] = $questionario->getEstudaAtualmente()?"sim":"não";
+                                }
+                                $campos['estudaAtualmente'] = '';
+                            break;
+                            case 'temInteresseEmVoltarAEstudar':
+                                $res[$i]['temInteresseEmVoltarAEstudar'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    if ($questionario->getEstudaAtualmente())
+                                    {
+                                        $res[$i]['temInteresseEmVoltarAEstudar'] = "não aplicável";
+                                    }
+                                    else
+                                    {
+                                        $res[$i]['temInteresseEmVoltarAEstudar'] = $questionario->getTemInteresseEmVoltarAEstudar()?"sim":"não";
+                                    }
+                                    
+                                    //$res[$i]['temInteresseEmVoltarAEstudar'] = $questionario->getEstudaAtualmente()? ($questionario->getTemInteresseEmVoltarAEstudar()?"sim":"não") :"não aplicável";
+                                }
+                                $campos['temInteresseEmVoltarAEstudar'] = '';
+                            break;
+                            case 'temFilhosEmIdadeEscolar':
+                                $res[$i]['temFilhosEmIdadeEscolar'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    $res[$i]['temFilhosEmIdadeEscolar'] = $questionario->getTemFilhosEmIdadeEscolar()?"sim":"não";
+                                }
+                                $campos['temFilhosEmIdadeEscolar'] = '';
+                            break;
+                            case 'temFilhosMatriculadosEmEscola':
+                                $res[$i]['temFilhosMatriculadosEmEscola'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    if ( ! $questionario->getTemFilhosEmIdadeEscolar())
+                                    {
+                                        $res[$i]['temFilhosMatriculadosEmEscola'] = "não aplicável";
+                                    }
+                                    else
+                                    {
+                                        $res[$i]['temFilhosMatriculadosEmEscola'] = $questionario->getTemFilhosMatriculadosEmEscola()?"sim":"não";
+                                    }
+                                    
+                                    //$res[$i]['temInteresseEmVoltarAEstudar'] = $questionario->getEstudaAtualmente()? ($questionario->getTemInteresseEmVoltarAEstudar()?"sim":"não") :"não aplicável";
+                                }
+                                $campos['temFilhosMatriculadosEmEscola'] = '';
                             break;
                             case 'rendaFamiliar':
                                 $res[$i]['rendaFamiliar'] = 'Questionário não respondido';
@@ -373,25 +460,30 @@ class RelatoriosController extends Controller
                 ));
     }
     
-    
+    /**
+     * Exibe gráfico de tipos de casos atendidos
+     * 
+     * @return Response
+     */
     public function casosAction()
     {
         $casos = $this->getDoctrine()
-                ->getRepository('CadpazBundle:Caso')
-                ->findAll();
+            ->getRepository('CadpazBundle:Caso')
+            ->findAll();
+        
         $total_casos = count($casos);
         
         $casos = $this->getDoctrine()
-                ->getRepository('CadpazBundle:Caso')
-                ->findAllDistinctOrderedByTotal();
+            ->getRepository('CadpazBundle:Caso')
+            ->findAllDistinctOrderedByTotal();
+        
         $casos_array = array();
         foreach($casos as $caso) 
         {
             $casos_array[] =
-                    [$caso["nome"], intval($caso["total"])/$total_casos*100  ];
+                [$caso["nome"], intval($caso["total"])/$total_casos*100  ];
         }
-        
-        
+                
         $ob = new Highchart();
         $ob->chart->renderTo('piechart_casos');
         $ob->title->text('Tipos de casos atendidos');
@@ -409,29 +501,35 @@ class RelatoriosController extends Controller
         
         $ob->series(array(array('type' => 'pie','name' => 'Total de casos', 'data' => $data)));
 
-                return $this->render('CadpazBundle:Relatorios:casos.html.twig', array(
-                    'chart' => $ob,
-                    'casos' => $casos,
-                    'total_casos' => $total_casos
-                ));
+        return $this->render('CadpazBundle:Relatorios:casos.html.twig', array(
+            'chart' => $ob,
+            'casos' => $casos,
+            'total_casos' => $total_casos
+        ));
     }
     
+    /**
+     * Exibe gráficos dos encaminhamentos (para onde o cliente foi encaminhado)
+     * 
+     * @return Response
+     */
     public function encaminhamentosAction()
     {
         $encaminhamentos = $this->getDoctrine()
-                ->getRepository('CadpazBundle:Encaminhamento')
-                ->findAll();
+            ->getRepository('CadpazBundle:Encaminhamento')
+            ->findAll();
+        
         $total_encaminhamentos = count($encaminhamentos);
         
         $encaminhamentos = $this->getDoctrine()
-                ->getRepository('CadpazBundle:Encaminhamento')
-                ->findAllDistinctOrderedByTotal();
+            ->getRepository('CadpazBundle:Encaminhamento')
+            ->findAllDistinctOrderedByTotal();
         //$total_casos = count($casos);
         $encaminhamentos_array = array();
         foreach($encaminhamentos as $encaminhamento) 
         {
             $encaminhamentos_array[] =
-                    [$encaminhamento["encaminhado"], intval($encaminhamento["total"])/$total_encaminhamentos*100 ];
+                [$encaminhamento["encaminhado"], intval($encaminhamento["total"])/$total_encaminhamentos*100 ];
         }
         
         
@@ -451,29 +549,41 @@ class RelatoriosController extends Controller
         
         $ob->series(array(array('type' => 'pie','name' => 'Total de casos', 'data' => $data)));
 
-                return $this->render('CadpazBundle:Relatorios:encaminhamentos.html.twig', array(
-                    'chart' => $ob,
-                    'encaminhamentos' => $encaminhamentos,
-                ));
+        return $this->render('CadpazBundle:Relatorios:encaminhamentos.html.twig', array(
+            'chart' => $ob,
+            'encaminhamentos' => $encaminhamentos,
+        ));
     }
     
+    /**
+     * Exibe gráficos das origens (quem enviou o cliente para atendimento)
+     * 
+     * @return Response
+     */
     public function origensAction()
     {
         $origens = $this->getDoctrine()
-                ->getRepository('CadpazBundle:Questionario')
-                ->findAllOriginsDistinctOrderedByTotal();
-        $total_origens = count($origens);
+            ->getRepository('CadpazBundle:Questionario')
+            ->findAllOriginsDistinctOrderedByTotal();
+        
+        
+        
+        
+        $total_origens = count($this->getDoctrine()->getRepository('CadpazBundle:Questionario')->findAll());
         $origens_array = array();
         foreach($origens as $origem) 
         {
             $origens_array[] =
-                    [
-                        $origem["origem"], 
-                        (intval($origem["total"])/$total_origens) * 100,
-                    ];
+                [
+                    $origem["origem"], 
+                    (intval($origem["total"])/$total_origens) * 100,
+                ];
+            
+            
         }
-        
-        
+        //dump($origens_array);
+        //dump('Total: ' . $total_origens);
+                
         $ob = new Highchart();
         $ob->chart->renderTo('piechart_origens');
         $ob->title->text('Como foi encaminhado para o projeto');
@@ -490,13 +600,18 @@ class RelatoriosController extends Controller
         
         $ob->series(array(array('type' => 'pie','name' => 'Total de origens', 'data' => $data)));
 
-                return $this->render('CadpazBundle:Relatorios:origens.html.twig', array(
-                    'chart' => $ob,
-                    'origens' => $origens,
-                    'total_origens' => count($origens)
-                ));
+        return $this->render('CadpazBundle:Relatorios:origens.html.twig', array(
+            'chart' => $ob,
+            'origens' => $origens,
+            'total_origens' => count($origens)
+        ));
     }
     
+    /**
+     * Exibe gráfico com as idades dos clientes
+     * 
+     * @return type
+     */
     public function idadesAction()
     {
         /*$idades = $this->getDoctrine()
@@ -599,6 +714,10 @@ class RelatoriosController extends Controller
                 ));
     }
     
+    /**
+     * 
+     * @return type
+     */
     public function sexosAction()
     {
         $sexos = $this->getDoctrine()
@@ -653,7 +772,10 @@ class RelatoriosController extends Controller
                 ));
     }
     
-    
+    /**
+     * 
+     * @return type
+     */
     public function coresAction()
     {
         $pessoas = $this->getDoctrine()
@@ -717,6 +839,10 @@ class RelatoriosController extends Controller
                 ));
     }
  
+    /**
+     * 
+     * @return type
+     */
     public function rendaFamiliarAction()
     {
         $questionarios = $this->getDoctrine()
@@ -779,6 +905,10 @@ class RelatoriosController extends Controller
                 ));
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function filtrosAction()
     {
         $data = array();
@@ -795,7 +925,7 @@ class RelatoriosController extends Controller
                         'sexo'              => 'Sexo',
                         'estadoCivil'       => 'Estado civil',
                     ),
-                    'Moradia' => array (
+                    'Composição familiar/Habitação' => array (
                         'moradia'           => 'Moradia',
                         'moraCom'           => 'Mora com',
                         'quantosMoram'      => 'Número de pessoas que moram na casa',
@@ -869,15 +999,23 @@ class RelatoriosController extends Controller
         
     }
     
-    
+    /**
+     * Faz o parse da string de filtros
+     * 
+     * @param type $str
+     * @return type
+     */
     private function parseFiltro($str)
     {
+        dump("parseFiltro(".$str.")");
         
         $filtros_adicionados = array();
         $filtros = explode('&', $str);
+        dump($filtros);
         
         foreach($filtros as $filtro)
         {
+            dump($filtro);
             if (strpos($filtro, '>=')) {
                 $filtros_adicionados[] = array(explode('>=', $filtro)[0], explode('>=', $filtro)[1], '>=');
             }
@@ -899,17 +1037,14 @@ class RelatoriosController extends Controller
             }
         }
         
-        
+        dump($filtros_adicionados);
         return $filtros_adicionados;
     }
     
     /**
+     *  Efetua as comparações entre os filtros e a pessoa
      * 
-     * @param \CadpazBundle\Entity\Pessoa $pessoa
-     * @param type $filtros
-     * @return boolean
-     * 
-     * Filtros ativos:
+     *      Filtros ativos:
      *      sexo:
      *          critério de comparação aceito '='
      *          valores de comparação: 'M', 'F', ou 'O'
@@ -1013,17 +1148,37 @@ class RelatoriosController extends Controller
      *      origem:
      * 
      *      encaminhado:
+     * 
+     * @param \CadpazBundle\Entity\Pessoa $pessoa
+     * @param type $filtros
+     * @return boolean
      */
     private function verificaFiltros(\CadpazBundle\Entity\Pessoa $pessoa, $filtros)
-    {
+    {   
         foreach($filtros as $filtro)
         {
+            //dump($filtro);
+            
             $criterio = trim($filtro[0]);
             $valor = trim($filtro[1]);
             $valor = trim($valor,"'");        
             $operador = trim($filtro[2]);
             
-            dump($criterio);
+            dump('-------->' . $criterio . $operador . $valor . '<------------');
+        }
+        
+        
+        
+        foreach($filtros as $filtro)
+        {
+            //dump($filtro);
+            
+            $criterio = trim($filtro[0]);
+            $valor = trim($filtro[1]);
+            $valor = trim($valor,"'");        
+            $operador = trim($filtro[2]);
+            
+            dump($criterio . $operador . $valor);
             switch ($criterio)
             {
                 case 'sexo':
@@ -1044,7 +1199,8 @@ class RelatoriosController extends Controller
                     $dataNascimento = $pessoa->getDataNascimento();
                     $idade = date_diff($agora, $dataNascimento)->y;
                     
-                    return $this->verificaValor($idade, $valor, $operador);
+                    if (!$this->verificaValor($idade, $valor, $operador))
+                            return false;
                     
                 break;
                 case 'idadeAtendimento':
@@ -1052,7 +1208,8 @@ class RelatoriosController extends Controller
                     $dataNascimento = $pessoa->getDataNascimento();
                     $idade_atendimento = date_diff($dataAtendimento, $dataNascimento)->y;
                     
-                    return $this->verificaValor($idade_atendimento, $valor, $operador);
+                    if (!$this->verificaValor($idade, $valor, $operador))
+                            return false;
                 break;
                 case 'cor':
                     if ($operador == '=') 
@@ -1101,11 +1258,13 @@ class RelatoriosController extends Controller
                         return false;
                     if ($operador == '=')
                     {
-                        return $this->verificaMoraCom($questionario, $valor);
+                        if (! $this->verificaMoraCom($questionario, $valor))
+                                return false;
                     }
                     else if ($operador == '!=')
                     {
-                        return ! $this->verificaMoraCom($questionario, $valor);
+                        if ( $this->verificaMoraCom($questionario, $valor))
+                                return false;
                     }
                 break;
                 case 'quantosMoram';
@@ -1113,14 +1272,16 @@ class RelatoriosController extends Controller
                     if (is_null($questionario))
                         return false;
                     $numero = $questionario->getQuantasPessoasMoramNaCasa();
-                    return $this->verificaValor($numero, $valor, $operador);
+                    if (!$this->verificaValor($numero, $valor, $operador))
+                            return false;
                 break;
                 case 'numeroDeFilhos':
                     $questionario = $pessoa->getQuestionario();
                     if (is_null($questionario))
                         return false;
                     $numero = $questionario->getNumeroDeFilhos();
-                    return $this->verificaValor($numero, $valor, $operador);
+                    if (!$this->verificaValor($numero, $valor, $operador))
+                            return false;
                 break;
                 case 'rendaFamiliar':
                     $questionario = $pessoa->getQuestionario();
@@ -1144,7 +1305,13 @@ class RelatoriosController extends Controller
         return true;
     }
     
-    
+    /**
+     * Verfica se valor está entre os dados de moradia do questionário
+     * 
+     * @param type $questionario
+     * @param type $valor
+     * @return boolean
+     */
     private function verificaMoraCom($questionario, $valor)
     {
         switch ($valor)
@@ -1182,7 +1349,13 @@ class RelatoriosController extends Controller
         return true;
     }
     
-    
+    /**
+     * Gera texto de exibição dos campos selecionados e critérios utilizados
+     * 
+     * @param type $campos
+     * @param type $filtros
+     * @return type
+     */
     private function geraTexto($campos, $filtros)
     {
         $texto = "Exbindo ";
@@ -1200,6 +1373,8 @@ class RelatoriosController extends Controller
         $texto = str_replace('idade_c', 'idade quando foi atendido', $texto);
         $texto = str_replace('estadoCivil', 'estado civil', $texto);
         $texto = str_replace('endereco', 'endereço', $texto);
+        $texto = str_replace('cpf', 'CPF', $texto);
+        $texto = str_replace('moradia', 'condição de moradia', $texto);
         
         //$texto = $this->get('app.stringutils')->LReplace(',', ' e', $texto);
         $texto = $this->str_lreplace(',', ' e', $texto);
@@ -1236,40 +1411,56 @@ class RelatoriosController extends Controller
         return $texto;
     }
     
+    /**
+     * Replaces Last Occurence of a String in a String
+     * 
+     * @param type $search
+     * @param type $replace
+     * @param type $subject
+     * @return type
+     */
     function str_lreplace($search, $replace, $subject)
     {
         return preg_replace('~(.*)' . preg_quote($search, '~') . '~', '$1' . $replace, $subject, 1);
     }
 
+    /**
+     * Compara número com valor baseado no operador
+     * 
+     * @param type $numero
+     * @param type $valor
+     * @param type $operador
+     * @return boolean
+     */
     public function verificaValor($numero, $valor, $operador)
     {
         switch ($operador)
-                    {
-                        case '=':
-                            if ( ! ($numero == $valor) )
-                                return false;
-                        break;
-                        case '!=':
-                            if ( ! ($numero != $valor) )
-                                return false;
-                        break;
-                        case '>=':
-                            if ( ! ($numero >= $valor) )
-                                return false;
-                        break;
-                        case '<=':
-                            if ( ! ($numero <= $valor) )
-                                return false;
-                        break;
-                        case '>':
-                            if ( ! ($numero > $valor) )
-                                return false;
-                        break;
-                        case '<':
-                            if ( ! ($numero < $valor) )
-                                return false;
-                        break;
-                    }
+        {
+            case '=':
+                if ( ! ($numero == $valor) )
+                    return false;
+            break;
+            case '!=':
+                if ( ! ($numero != $valor) )
+                    return false;
+            break;
+            case '>=':
+                if ( ! ($numero >= $valor) )
+                    return false;
+            break;
+            case '<=':
+                if ( ! ($numero <= $valor) )
+                    return false;
+            break;
+            case '>':
+                if ( ! ($numero > $valor) )
+                    return false;
+            break;
+            case '<':
+                if ( ! ($numero < $valor) )
+                    return false;
+            break;
+        }
                     
         return true;
     }

@@ -79,7 +79,7 @@ class PessoaType extends AbstractType
                 'multiple' => false,
                 'placeholder' => 'Selecione a cor'
             ))
-            ->add('email', 'text', ['label'=>'Email'])
+            ->add('email', 'email', ['label'=>'Email'])
             ->add('save', 'submit', ['label' => 'Salvar'])
         ;
     }

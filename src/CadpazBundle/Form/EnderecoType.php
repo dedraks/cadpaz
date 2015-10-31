@@ -32,7 +32,7 @@ class EnderecoType extends AbstractType
                 ])
             ->add('obs', 'textarea', ['required'=>false])
             //->add('pessoa')
-            ->add('save', 'submit', ['label' => 'Salvar'])
+            //->add('save', 'submit', ['label' => 'Salvar'])
         ;
     }
     

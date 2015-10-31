@@ -19,16 +19,17 @@ class CTPSType extends AbstractType
 
         
         $builder
-            ->add('numero')
-            ->add('serie')
+            ->add('numero', null, ['required'=>false, 'attr' => ['style' => 'width: 95%']])
+            ->add('serie', null, ['required'=>false, 'attr' => ['style' => 'width: 95%']])
             ->add('uf', 'entity', ['class' => 'CadpazBundle:Estado',
                 'choice_label' => 'nome',
-                //'expanded' => true,
+                'attr' => ['style' => 'width: 97%'],
+                'required'=>false,
                 'multiple' => false,
                 'placeholder' => 'Selecione a UF',
                 'label' => 'UF'
                 ])
-            ->add('save', 'submit', array('label' => 'Salvar'))
+            //->add('save', 'submit', array('label' => 'Salvar'))
         ;
     }
     

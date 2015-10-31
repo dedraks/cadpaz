@@ -522,12 +522,12 @@ body.loading .modal {
 
 .questionario_secao {
     /*border: 1px dotted;*/
-    border-bottom: 1px solid;
+    /*border-bottom: 1px solid;*/
 }
 
 .telefone_endereco_secao {
     /*border: 1px dotted;*/
-    border-top: 1px solid;
+    /*border-top: 1px solid;*/
 }
 
 
@@ -565,4 +565,18 @@ textarea {
     background-color: #999;
 }
 
-
+.documento {
+    border-left: #C0C0C0 5px solid;
+    border-right: #C0C0C0 5px solid;
+    border-bottom: #C0C0C0 5px solid;
+    padding-left: 20px;
+}
+.documentoTitulo {
+    background: #C0C0C0;
+    font-weight: bold;
+    padding-left: 10px;
+}
+.telefoneTitulo {
+    background: #C0C0C0;
+    padding-left: 10px;
+}

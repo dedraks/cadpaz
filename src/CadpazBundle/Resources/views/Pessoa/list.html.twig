@@ -21,15 +21,31 @@
     </script>
 {% else %}
 <table  id="example" class="userList" cellspacing="2" width="100%">
-<thead><tr><th>Nome</th><th>Nome da mãe</th><th>Email</th><th>CPF</th></tr></thead>
+<thead>
+    <tr>
+        <th>Nome</th>
+        <th>Nome da mãe</th>
+        <th>Telefone</th>
+        <th>Email</th>
+        <th>CPF</th>
+    </tr>
+</thead>
 <tbody>
 {% for pessoa in pessoas %}
     <tr id="tr{{ pessoa.id }}">
         <td><a class="trlink" href="{{ path('pessoa_view', {id: pessoa.id}) }}">{{ pessoa.nome }}</a></td>
         <td>{{ pessoa.nomeMae }}</td>
+        <td>
+            {% for telefone in pessoa.telefones %}
+                {{ telefone.padrao ? telefone.numero : '' }}
+            {% endfor %}
+        </td>
         <td>{{ pessoa.email }}</td>
         <td>{{ pessoa.cpf }}</td>
     </tr>
+    
+    
+    
 {% endfor %}
 </tbody>
 </table>

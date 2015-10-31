@@ -12,11 +12,11 @@ class TituloController extends Controller
 {
     public function viewAction($pessoa_id)
     {
-        $ctps = $this->getDoctrine()
+        $titulo = $this->getDoctrine()
             ->getRepository('CadpazBundle:Titulo')
             ->findOneBy(array( 'pessoa' => $pessoa_id));
         
-        return $this->render('CadpazBundle:Titulo:view.html.twig',  array('ctps'=>$ctps));
+        return $this->render('CadpazBundle:Titulo:view.html.twig',  array('titulo'=>$titulo));
     }
     
     public function deleteAction($id)

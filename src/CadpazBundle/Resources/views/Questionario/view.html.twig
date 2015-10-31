@@ -1,5 +1,8 @@
 <div class="questionario_secao">
-    <strong>Composição familiar / Habitação</strong><br>
+    <div class="documentoTitulo">
+    Composição familiar / Habitação
+    </div>
+    <div class="documento">
     Condição: {{ questionario.moradia }}<br>
     {% if questionario.moraSozinho %}
         Mora sozinho
@@ -34,11 +37,13 @@
     Moradia situada em comunidade Quilombola ou Indígena: {% if questionario.moradiaSituadaEmComunidadeQuilombolaOuIndigena %}Sim{% else %}Não{% endif %}<br>
     Moradia tem eletricidade {% if questionario.moradiaTemEletricidade %}Sim{% else %}Não{% endif %}<br>
     Tipo de moradia: {{ questionario.tipoDeMoradia }}<br>
+    </div>
 </div>
 <div class="spacer"></div>
 
 <div class="questionario_secao">
-    <strong>Escolaridade</strong><br>
+    <div class="documentoTitulo">Escolaridade</div>
+    <div class="documento">
     Estuda atualmente: 
     {{ questionario.estudaAtualmente ? "Sim" : "Não" }}<br>
     {% if not questionario.estudaAtualmente %}
@@ -49,11 +54,13 @@
     {% if questionario.temFilhosEmIdadeEscolar %}
         Estão matriculados em escola: {{ questionario.temFilhosMatriculadosEmEscola ? "Sim" : "Não" }}<br>
     {% endif %}
+    </div>
 </div>
 <div class="spacer"></div>
 
 <div class="questionario_secao">
-    <strong>Saúde</strong><br>
+    <div class="documentoTitulo">Saúde</div>
+    <div class="documento">
     {% set deficiente = questionario.deficienciaFisica and questionario.deficienciaAuditiva and questionario.deficienciaMental and deficienciaVisual %}
     Tem alguma deficiência: {{ deficiente ? "Sim" : "Não<br>" }}
     {% if deficiente %}
@@ -76,10 +83,12 @@
     Domicílio coberto por UBS ou PSF: {{ questionario.domicilioCobertoPorUBSOuPSF ? "Sim" : "Não" }}<br>
     Pessoa gestante ou idosa na família: {{ questionario.pessoaIdosaOuGestanteNaFamilia ? "Sim" : "Não" }}<br>
 </div>
+</div>
 <div class="spacer"></div>
 
 <div class="questionario_secao">
-    <strong>Situação Econômica</strong><br>
+    <div class="documentoTitulo">Situação Econômica</div>
+    <div class="documento">
     Renda familiar: {{ questionario.rendaFamiliar }}<br>
     Algum membro da família participa ou recebe os programas/benefícios sociais abaixo:<br>
     {% set programas = questionario.participaOuRecebePETIBolsaCriancaCidada or questionario.participaOuRecebeAgenteJovem or questionario.participaOuRecebeBolsaFamilia or questionario.participaOuRecebeBCP %}
@@ -104,16 +113,21 @@
     &nbsp;&nbsp;&nbsp;&nbsp;Outras despesas: R$ {{ questionario.despesasMensaisOutras|number_format(2,',','.') }}<br>
     &nbsp;&nbsp;Total das despesas: R$ {{ (questionario.despesasMensaisAluguel + questionario.despesasMensaisPrestacaoHabitacao + questionario.despesasMensaisAgua + questionario.despesasMensaisLuz + questionario.despesasMensaisTelefone + questionario.despesasMensaisMedicamentos + questionario.despesasMensaisOutras)|number_format(2,',','.')}}<br>
 </div>
-<div class="spacer"></div>
-
-<div class="questionario_secao">
-    <strong>Encaminhamento ao projeto</strong><br>
-    Por quem foi encaminhado ao projeto: {{ questionario.encaminhamentoAoProjeto }}<br>
-    {#Como ficou sabendo do projeto: {{ questionario.comoFicouSabendoDoProjeto }}#}
 </div>
 <div class="spacer"></div>
 
 <div class="questionario_secao">
-    <strong>Observações</strong><br>
+    <div class="documentoTitulo">Encaminhamento ao projeto</div>
+    <div class="documento">
+    Por quem foi encaminhado ao projeto: {{ questionario.encaminhamentoAoProjeto }}
+    {#Como ficou sabendo do projeto: {{ questionario.comoFicouSabendoDoProjeto }}#}
+    </div>
+</div>
+<div class="spacer"></div>
+
+<div class="questionario_secao">
+    <div class="documentoTitulo">Observações</div>
+    <div class="documento">
     {{ questionario.observacoes }}
+    </div>
 </div>

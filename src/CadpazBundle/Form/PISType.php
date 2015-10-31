@@ -15,11 +15,12 @@ class PISType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numero')
+            ->add('numero', null, ['required'=>false])
             ->add('dataEmissao', 'date', [
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
                 'label' => 'Data de Emissão',
+                'required'=>false,
                 'attr' => [
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',
@@ -32,7 +33,7 @@ class PISType extends AbstractType
                     'onKeyDown' => 'return false'
                 ]
             ])
-            ->add('save', 'submit', array('label' => 'Salvar'))
+            //->add('save', 'submit', array('label' => 'Salvar'))
         ;
     }
     

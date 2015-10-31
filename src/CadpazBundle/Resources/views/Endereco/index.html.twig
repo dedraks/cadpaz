@@ -1,6 +1,9 @@
 {% for endereco in enderecos %}
                     <div class="telefone_endereco_secao">
+                        <div class="telefoneTitulo">
                         {{ endereco.nome }}<br />
+                        </div>
+                        <div class="documento">
                         {{ endereco.padrao ? "Endereço padrão<br>" : "" }}
                         {{ endereco.logradouro }}, {{ endereco.numero }}<br />
                         {{ endereco.bairro }}<br />
@@ -9,6 +12,7 @@
                         {{ endereco.municipio }} - {{ endereco.uf }}<br />
                         {{ endereco.obs }}
                         {% set end = 1 %}
+                        </div>
                     </div>
                      <div class="spacer"></div>
                 {% endfor %}

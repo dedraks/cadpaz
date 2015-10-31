@@ -24,14 +24,14 @@ class PIS
     /**
      * @var string
      *
-     * @ORM\Column(name="numero", type="string", length=20)
+     * @ORM\Column(name="numero", type="string", length=20, nullable=true)
      */
     private $numero;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataEmissao", type="date")
+     * @ORM\Column(name="dataEmissao", type="date", nullable=true)
      */
     private $dataEmissao;
 

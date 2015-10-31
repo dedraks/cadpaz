@@ -17,6 +17,7 @@
     <thead>
         <tr>
             {% if campos.nome is defined %}<th style="min-width: 30%">Nome</th>{% endif %}
+            {% if campos.cpf is defined %}<th style="max-width: 10%">CPF</th>{% endif %}
             {% if campos.nomeMae is defined %}<th>Nome da mãe</th>{% endif %}
             {% if campos.sexo is defined %}<th style="max-width: 10%">Sexo</th>{% endif %}
             {% if campos.dataNascimento is defined %}<th>Data de nascimento</th>{% endif %}
@@ -24,10 +25,16 @@
             {% if campos.idade_c is defined %}<th>Idade no atendimento</th>{% endif %}
             {% if campos.cor is defined %}<th>Cor</th>{% endif %}
             {% if campos.estadoCivil is defined %}<th>Est. Civil</th>{% endif %}
-            {% if campos.moradia is defined %}<th>Moradia</th>{% endif %}
+            {% if campos.moradia is defined %}<th>Condição de moradia</th>{% endif %}
             {% if campos.moraCom is defined %}<th>Mora com</th>{% endif %}
             {% if campos.quantosMoram is defined %}<th>Quantos moram</th>{% endif %}
             {% if campos.numeroDeFilhos is defined %}<th>Nº filhos</th>{% endif %}
+            {% if campos.tipoDeMoradia is defined %}<th>Tipo de moradia</th>{% endif %}
+            {% if campos.escolaridade is defined %}<th>Escolaridade</th>{% endif %}
+            {% if campos.estudaAtualmente is defined %}<th>Estuda atualmente</th>{% endif %}
+            {% if campos.temInteresseEmVoltarAEstudar is defined %}<th>Tem interesse em voltar a estudar</th>{% endif %}
+            {% if campos.temFilhosEmIdadeEscolar is defined %}<th>Tem filhos em idade escolar</th>{% endif %}
+            {% if campos.temFilhosMatriculadosEmEscola is defined %}<th>Tem filhos matriculados em escola</th>{% endif %}
             {% if campos.rendaFamiliar is defined %}<th>Renda familiar</th>{% endif %}
             {% if (campos.email) is defined %}<th>Email</th>{% endif %}
             {% if (campos.telefone) is defined %}<th>Telefone</th>{% endif %}
@@ -41,6 +48,7 @@
 {% for d in dados %}
     <tr>
         {% if campos.nome is defined %}<td>{{d.nome}}</td>{% endif %}
+        {% if campos.cpf is defined %}<td>{{d.cpf}}</td>{% endif %}
         {% if campos.nomeMae is defined %}<td>{{d.nomeMae}}</td>{% endif %}
         {% if campos.sexo is defined %}<td>{{d.sexo}}</td>{% endif %}
         {% if campos.dataNascimento is defined %}<td>{{d.dataNascimento | date('d/m/Y')}}</td>{% endif %}
@@ -59,6 +67,12 @@
         {% endif %}
         {% if campos.quantosMoram is defined %}<td>{{d.quantosMoram}}</td>{% endif %}
         {% if campos.numeroDeFilhos is defined %}<td>{{d.numeroDeFilhos}}</td>{% endif %}
+        {% if campos.tipoDeMoradia is defined %}<td>{{d.tipoDeMoradia}}</td>{% endif %}
+        {% if campos.escolaridade is defined %}<td>{{d.escolaridade}}</td>{% endif %}
+        {% if campos.estudaAtualmente is defined %}<td>{{d.estudaAtualmente}}</td>{% endif %}
+        {% if campos.temInteresseEmVoltarAEstudar is defined %}<td>{{d.temInteresseEmVoltarAEstudar}}</td>{% endif %}
+        {% if campos.temFilhosEmIdadeEscolar is defined %}<td>{{d.temFilhosEmIdadeEscolar}}</td>{% endif %}
+        {% if campos.temFilhosMatriculadosEmEscola is defined %}<td>{{d.temFilhosMatriculadosEmEscola}}</td>{% endif %}
         {% if campos.rendaFamiliar is defined %}<td>{{d.rendaFamiliar}}</td>{% endif %}
         {% if campos.email is defined %}<td>{{d.email}}</td>{% endif %}
         {% if campos.telefone is defined %}<td>{{d.telefone}}</td>{% endif %}

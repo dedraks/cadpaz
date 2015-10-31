@@ -1,18 +1,33 @@
-<div class="meio">
+<div class="meio" style="width: 50%">
 
-     <div style="width: 100%; background: #ddd; font-weight: bold; text-align: center;">CTPS</div>
+      <div class="documentoTitulo">CTPS</div>
 
+      <div class="documento">
     <div class="spacer"></div>
-
+<input name="obter" type="radio" value="nao" checked>Apenas registrar que possui RG
+<br>
+<input name="obter" type="radio" value="sim">Obter dados
+<br><hr>
+<div id="obterCtpsArea" style="display: none">    
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
-
-<a class="cancel" href="#">Cancelar</a>
-
 </div>
-
+<br>
+<button type="button" id="saveCtpsButton">Salvar</button>
+<button type="button" class="cancel">Cancelar</button>
+<div class="spacer"></div>
+</div>
+</div>
 <script>
+    function validate(formData, jqForm, options)
+    {
+        if (!validateForm(formData, jqForm, options)) {
+            Ply.dialog("alert", "Todos os campos devem ser preenchidos.");
+            return false;
+        }
+        return true;
+    }
 
         function showNewCtpsResponse(responseText, statusText, xhr, $form)  { 
 
@@ -26,8 +41,14 @@
                 //$("#userDetails").delay(600).slideDown(400);
             }
 
-        var optionsCtps = {
+        var optionsCtpsNaoValidar = {
           success: showNewCtpsResponse,
+          type: 'post',
+          url: Routing.generate('pessoa_ctps_new',{'id':{{id}}})
+        };
+        var optionsCtpsValidar = {
+          success: showNewCtpsResponse,
+          beforeSubmit: validate,
           type: 'post',
           url: Routing.generate('pessoa_ctps_new',{'id':{{id}}})
         };
@@ -45,5 +66,26 @@
             e.preventDefault();
         });
         
-        $('#cadpazbundle_ctps_uf').select2();
+        //$('#cadpazbundle_ctps_uf').select2();
+        
+        $('input[name=obter]').on('change', function() {
+            //alert('ok');
+            if ( $("input[name=obter]:checked").val() === 'sim'  ) {
+                $("#obterCtpsArea").show('slow');                
+                $('#newCtpsForm').ajaxForm(optionsCtpsValidar);
+            }
+            else {
+                $("#cadpazbundle_ctps_numero").val('');
+                $("#cadpazbundle_ctps_serie").val('');
+                $("#cadpazbundle_ctps_uf").val('');
+
+                $('#newCtpsForm').ajaxForm(optionsCtpsNaoValidar);
+                $("#obterCtpsArea").hide('slow');
+            }
+        });
+        
+        $('#saveCtpsButton').on('click', function(e) {
+            e.preventDefault();
+            $('#newCtpsForm').submit();
+        });
     </script>

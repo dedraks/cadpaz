@@ -15,13 +15,14 @@ class TituloType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numero')
-            ->add('zona')
-            ->add('secao')
+            ->add('numero', null, ['required'=>false])
+            ->add('zona', null, ['required'=>false])
+            ->add('secao', null, ['required'=>false])
             ->add('dataEmissao', 'date', [
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
                 'label' => 'Data de Emissão',
+                'required'=>false,
                 'attr' => [
                     'class' => 'form-control input-inline datepicker',
                     'data-provide' => 'datepicker',
@@ -31,18 +32,18 @@ class TituloType extends AbstractType
                     'data-date-autoclose' => 'true',
                     'data-date-startView' => '2',
                     'autocomplete' => 'off',
-                    'onKeyDown' => 'return false'
+                    'onKeyDown' => 'return false',
                 ]
             ])
-            ->add('municipio')
+            ->add('municipio', null, ['required'=>false])
             ->add('uf', 'entity', ['class' => 'CadpazBundle:Estado',
                 'choice_label' => 'nome',
-                //'expanded' => true,
+                'required'=>false,
                 'multiple' => false,
                 'placeholder' => 'Selecione a UF',
                 'label' => 'UF'
                 ])
-            ->add('save', 'submit', array('label' => 'Salvar'))
+            //->add('save', 'submit', array('label' => 'Salvar'))
             //->setDisabled(true);
         ;
     }

@@ -24,21 +24,21 @@ class CTPS
     /**
      * @var string
      *
-     * @ORM\Column(name="numero", type="string", length=20)
+     * @ORM\Column(name="numero", type="string", length=20, nullable=true)
      */
     private $numero;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="serie", type="string", length=10)
+     * @ORM\Column(name="serie", type="string", length=10, nullable=true)
      */
     private $serie;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="uf", type="string", length=2)
+     * @ORM\Column(name="uf", type="string", length=2, nullable=true)
      */
     private $uf;
 

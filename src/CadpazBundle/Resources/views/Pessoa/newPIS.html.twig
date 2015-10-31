@@ -1,18 +1,36 @@
 <div class="meio">
 
-     <div style="width: 100%; background: #ddd; font-weight: bold; text-align: center;">PIS</div>
+     <div class="documentoTitulo">PIS</div>
 
+     <div class="documento">
     <div class="spacer"></div>
-
+<input name="obter" type="radio" value="nao" checked>Apenas registrar que possui RG
+<br>
+<input name="obter" type="radio" value="sim">Obter dados
+<br>
+    
+<div id="obterPisArea" style="display: none">    
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
-
-<a class="cancel" href="#">Cancelar</a>
-
 </div>
-
+<br>
+<button type="button" id="savePisButton">Salvar</button>
+<button type="button" class="cancel">Cancelar</button>
+<div class="spacer"></div>
+</div>
+</div>
 <script>
+    function validate(formData, jqForm, options)
+    {
+        if (!validateForm(formData, jqForm, options)) {
+            Ply.dialog("alert", "Todos os campos devem ser preenchidos.");
+            return false;
+        }
+        return true;
+    }
+    
+
 
         function showNewPisResponse(responseText, statusText, xhr, $form)  { 
 
@@ -26,13 +44,19 @@
                 //$("#userDetails").delay(600).slideDown(400);
             }
 
-        var optionsPis = {
+        var optionsPisValidar = {
           success: showNewPisResponse,
           type: 'post',
+          beforeSubmit: validate,
           url: Routing.generate('pessoa_pis_new',{'id':{{id}}})
         };
+        var optionsPisNaoValidar = {
+            success: showNewPisResponse,
+            type: 'post',
+            url: Routing.generate('pessoa_pis_new',{'id':{{id}}})
+        };
         // bind form using 'ajaxForm' 
-        $('#newPisForm').ajaxForm(optionsPis);
+        $('#newPisForm').ajaxForm(optionsPisNaoValidar);
         
         
         
@@ -43,5 +67,25 @@
             //$("#userDetails").slideDown('fast');
 
             e.preventDefault();
+        });
+        
+        $('input[name=obter]').on('change', function() {
+            //alert('ok');
+            if ( $("input[name=obter]:checked").val() === 'sim'  ) {
+                $("#obterPisArea").show('slow');                
+                $('#newPisForm').ajaxForm(optionsPisValidar);
+            }
+            else {
+                $("#cadpazbundle_pis_numero").val('');
+                $("#cadpazbundle_pis_dataExpedicao").val('');
+
+                $('#newPisForm').ajaxForm(optionsPisNaoValidar);
+                $("#obterPisArea").hide('slow');
+            }
+        });
+        
+        $('#savePisButton').on('click', function(e) {
+            e.preventDefault();
+            $('#newPisForm').submit();
         });
     </script>

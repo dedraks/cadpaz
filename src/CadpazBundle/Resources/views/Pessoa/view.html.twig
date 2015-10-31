@@ -36,99 +36,127 @@
             Outros
         {% endif %}
     <br />
-    CPF: {{ pessoa.cpf }}<br /><br>
+    CPF: {{ pessoa.cpf }}
+    <div class="spacer"></div>
     <div id="rg_area">
-    RG:
+        {{ pessoa.rg is not null ? '<div class="documentoTitulo">' : '<div>' }}
+            RG:
     {% if pessoa.rg is null %}
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="rg" href="{{ path('pessoa_rg_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
-        {% endif %}
+        {% endif %}</div>
     {% else %}
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="rg" href="{{ path('pessoa_rg_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
         {% endimage %}
-        {% endif %}
-        <br>
+        {% endif %}</div>
+        <div class="documento">
         {#{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
         <a id="rg_del" class="confirm" href="{{ path('pessoa_rg_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}#}
         {% if pessoa.rg.numero is not null %}
-        &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.rg.numero }}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;Data de expedição: {{ pessoa.rg.dataExpedicao | date('d/m/Y') }}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;Órgão expedidor: {{ pessoa.rg.orgaoExpedidor }}<br />
+            Número: {{ pessoa.rg.numero }}<br />
+            Data de expedição: {{ pessoa.rg.dataExpedicao | date('d/m/Y') }}<br />
+            Órgão expedidor: {{ pessoa.rg.orgaoExpedidor }}<br />
         {% else %}
-            &nbsp;&nbsp;&nbsp;&nbsp;Possui. Número não obtido.
+            Possui. Número não obtido.
         {% endif %}
+        </div>
     {% endif %}
-    </div><br>
+    </div>
+    <div class="spacer"></div>
     <div id="te_area">
-    Título Eleitoral:
+        {{ pessoa.titulo is not null ? '<div class="documentoTitulo">' : '<div>' }}
+            Título Eleitoral:
     {% if pessoa.titulo is null %}
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="te" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
-        {% endif %}
+        {% endif %}</div>
+        
     {% else %}
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="te" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
         {% endimage %}
-        {% endif %}
-        <br>
+        {% endif %}</div>
+        
         {#{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
         <a id="te_del" href="{{ path('pessoa_titulo_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}#}
-        &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.titulo.numero | default("Não cadastrado")}}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;Zona: {{ pessoa.titulo.zona | default("Não cadastrado")}}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;Seção: {{ pessoa.titulo.secao | default("Não cadastrado")}}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;Data de emissão: {{ pessoa.titulo.dataEmissao | date('d/m/Y') }}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;Município: {{ pessoa.titulo.municipio | default("Não cadastrado")}}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;UF: {{ pessoa.titulo.uf | default("Não cadastrado")}}<br />
+        <div class="documento">
+        {% if pessoa.titulo.numero is not null %}
+            Número: {{ pessoa.titulo.numero | default("Não cadastrado")}}<br />
+            Zona: {{ pessoa.titulo.zona | default("Não cadastrado")}}<br />
+            Seção: {{ pessoa.titulo.secao | default("Não cadastrado")}}<br />
+            Data de emissão: {{ pessoa.titulo.dataEmissao | date('d/m/Y') }}<br />
+            Município: {{ pessoa.titulo.municipio | default("Não cadastrado")}}<br />
+            UF: {{ pessoa.titulo.uf | default("Não cadastrado")}}<br />
+        {% else %}
+            &nbsp;&nbsp;&nbsp;&nbsp;Possui. Número não obtido.
+        {% endif %}
+        </div>
     {% endif %}
     </div>
+    <div class="spacer"></div>
     <div id="pis_area">
+        {{ pessoa.pis is not null ? '<div class="documentoTitulo">' : '<div>' }}
     PIS:
     {% if pessoa.pis is null %}
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="pis" href="{{ path('pessoa_pis_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
-        {% endif %}
+        {% endif %}</div>
     {% else %}
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="pis" href="{{ path('pessoa_pis_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}
-        {% endif %}
-        &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.pis.numero | default("Não cadastrado")}}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;Data de emissão: {{ pessoa.pis.dataEmissao | date('d/m/Y') }}<br />
+        {% endif %}</div>
+        <div class="documento">
+            {% if pessoa.pis.numero is not null %}
+                Número: {{ pessoa.pis.numero | default("Não cadastrado")}}<br />
+                Data de emissão: {{ pessoa.pis.dataEmissao | date('d/m/Y') }}<br />
+            {% else %}
+                Possui. Número não obtido.
+            {% endif %}
+        </div>
     {% endif %}
     </div>
+    <div class="spacer"></div>
     <div id="ctps_area">
+    {{ pessoa.ctps is not null ? '<div class="documentoTitulo">' : '<div>' }}
     CTPS:
     {% if pessoa.ctps is null %}
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
-        <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+        <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
         {% endimage %}
-        {% endif %}
+        {% endif %}</div>
     {% else %}
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
         <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
         {% endimage %}
-        {% endif %}
-        <br>
+        {% endif %}</div>
+        
         {#{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
         <a id="ctps_del" href="{{ path('pessoa_ctps_del', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
         {% endimage %}#}
-        &nbsp;&nbsp;&nbsp;&nbsp;Número: {{ pessoa.ctps.numero | default("Não cadastrado")}}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;Série: {{ pessoa.ctps.serie | default("Não cadastrado")}}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;UF: {{ pessoa.ctps.uf | default("Não cadastrado")}}<br />
+        <div class="documento">
+        {% if pessoa.ctps.numero is not null %}
+            Número: {{ pessoa.ctps.numero | default("Não cadastrado")}}<br />
+            Série: {{ pessoa.ctps.serie | default("Não cadastrado")}}<br />
+            UF: {{ pessoa.ctps.uf | default("Não cadastrado")}}<br />
+        {% else %}
+            Possui. Número não obtido.
+        {% endif %}
+        </div>
     {% endif %}
     </div>
     Possui certidão de nascimento: {% if pessoa.certidaoNascimento %}Sim{% else %}Não{% endif %}<br />

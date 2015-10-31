@@ -24,42 +24,42 @@ class Titulo
     /**
      * @var string
      *
-     * @ORM\Column(name="numero", type="string", length=20)
+     * @ORM\Column(name="numero", type="string", length=20, nullable=true)
      */
     private $numero;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="zona", type="string", length=10)
+     * @ORM\Column(name="zona", type="string", length=10, nullable=true)
      */
     private $zona;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="secao", type="string", length=10)
+     * @ORM\Column(name="secao", type="string", length=10, nullable=true)
      */
     private $secao;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataEmissao", type="date")
+     * @ORM\Column(name="dataEmissao", type="date", nullable=true)
      */
     private $dataEmissao;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="municipio", type="string", length=50)
+     * @ORM\Column(name="municipio", type="string", length=50, nullable=true)
      */
     private $municipio;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="uf", type="string", length=2)
+     * @ORM\Column(name="uf", type="string", length=2, nullable=true)
      */
     private $uf;
 
