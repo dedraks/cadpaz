@@ -15,22 +15,22 @@ class EnderecoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nome')
-            ->add('padrao', 'checkbox', ['required' => false, 'disabled'=>$options['ro']])
-            ->add('logradouro')
-            ->add('numero')
-            ->add('complemento', 'text', ['required' => false])
-            ->add('bairro')
-            ->add('municipio')
-            ->add('cep')
-            ->add('uf', 'entity', ['class' => 'CadpazBundle:Estado',
+            ->add('nome', null, ['attr'=>['style'=>'width:98%']])
+            ->add('padrao', 'checkbox', ['required' => false, 'disabled'=>$options['ro'], 'label'=>'Padrão'])
+            ->add('logradouro', null, ['attr'=>['style'=>'width:96%']])
+            ->add('numero', null, ['attr'=>['style'=>'width:98%']])
+            ->add('complemento', 'text', ['attr'=>['style'=>'width:96%'],'required' => false])
+            ->add('bairro', null, ['attr'=>['style'=>'width:98%']])
+            ->add('municipio', null, ['attr'=>['style'=>'width:96%']])
+            ->add('cep', null, ['label'=>'CEP', 'attr'=>['style'=>'width:99%']])
+            ->add('uf', 'entity', ['attr'=>['style'=>'width:98%'], 'class' => 'CadpazBundle:Estado', 
                 'choice_label' => 'nome',
                 //'expanded' => true,
                 'multiple' => false,
                 'placeholder' => 'Selecione a UF',
                 'label' => 'UF'
                 ])
-            ->add('obs', 'textarea', ['required'=>false])
+            ->add('obs', 'textarea', ['attr'=>['style'=>'width:96%'],'required'=>false])
             //->add('pessoa')
             //->add('save', 'submit', ['label' => 'Salvar'])
         ;

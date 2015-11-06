@@ -1,11 +1,15 @@
 <div class="meio">
-{#<strong>Telefone</strong>#}
+<div class="documentoTitulo">Cadastrar telefone</div>
+<div class="documento">
 <div class="spacer"></div>
 
 {{ form_start(form) }}
 {{ form_widget(form) }}
+<button type="submit">Salvar</button>
+<button type="button" class="cancel" href="#">Cancelar</button>
 {{ form_end(form) }}
-<a class="cancel" href="#">Cancelar</a>
+<br>
+</div>
 </div>
 {# {{ ro }} #}
 <script>
@@ -39,7 +43,18 @@
             //$("#userDetails").slideDown('fast');
             e.preventDefault();
         });
-        jQuery(function($){
+        
+        
+        var SPMaskBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(99) 0-0000-0000' : '(00) 0000-00009';
+          },
+        spOptions = {
+            onKeyPress: function(val, e, field, options) {
+                field.mask(SPMaskBehavior.apply({}, arguments), options);
+            }
+        };
+        $('#cadpazbundle_telefone_numero').mask(SPMaskBehavior, spOptions);
+        /*jQuery(function($){
                 $("#cadpazbundle_telefone_numero").mask("(99) 099999999");
-            });
+            });*/
     </script>

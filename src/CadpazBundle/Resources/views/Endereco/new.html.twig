@@ -11,38 +11,63 @@
 {{ form_start(form) }}
 {{ form_errors(form) }}
 
-    {{ form_label(form.nome) }}
+    <div style="float: left; width: 48%">
+    {{ form_label(form.nome) }}<br>
     {{ form_errors(form.nome) }}
-    {{ form_widget(form.nome) }}<br>
+    {{ form_widget(form.nome) }}
+    </div>
+    <div style="float: right; width: 48%"><br>
     {{ form_label(form.padrao) }}
     {{ form_errors(form.padrao) }}
-    {{ form_widget(form.padrao) }}<br>
-    {{ form_label(form.cep) }}
+    {{ form_widget(form.padrao) }}
+    </div>
+    <div class="spacer"></div>
+    <div style="float: left; width: 48%">
+    {{ form_label(form.cep) }}<br>
     {{ form_errors(form.cep) }}
-    {{ form_widget(form.cep) }}{% image '@CadpazBundle/Resources/public/images/search_icon.png' %}
+    {{ form_widget(form.cep) }}
+    </div>{#{% image '@CadpazBundle/Resources/public/images/search_icon.png' %}
                 <a id="consultaCEP" href="#"><img src="{{ asset_url }}" alt="Example" /></a><br />
-                {% endimage %}
-    {{ form_label(form.logradouro) }}
+                {% endimage %}#}
+    <div style="float: right; width: 48%">
+    {{ form_label(form.logradouro) }}<br>
     {{ form_errors(form.logradouro) }}
-    {{ form_widget(form.logradouro) }}<br>
-    {{ form_label(form.numero) }}
+    {{ form_widget(form.logradouro) }}
+    </div>
+    <div class="spacer"></div>
+    <div style="float: left; width: 48%">
+    {{ form_label(form.numero) }}<br>
     {{ form_errors(form.numero) }}
-    {{ form_widget(form.numero) }}<br>
-    {{ form_label(form.complemento) }}
+    {{ form_widget(form.numero) }}
+    </div>
+    <div style="float: right; width: 48%">
+    {{ form_label(form.complemento) }}<br>
     {{ form_errors(form.complemento) }}
-    {{ form_widget(form.complemento) }}<br>
-    {{ form_label(form.bairro) }}
+    {{ form_widget(form.complemento) }}
+    </div>
+    <div class="spacer"></div>
+    <div style="float: left; width: 48%">
+    {{ form_label(form.bairro) }}<br>
     {{ form_errors(form.bairro) }}
-    {{ form_widget(form.bairro) }}<br>
-    {{ form_label(form.municipio) }}
+    {{ form_widget(form.bairro) }}
+    </div>
+    <div style="float: right; width: 48%">
+    {{ form_label(form.municipio) }}<br>
     {{ form_errors(form.municipio) }}
-    {{ form_widget(form.municipio) }}<br>
-    {{ form_label(form.uf) }}
+    {{ form_widget(form.municipio) }}
+    </div>
+    <div class="spacer"></div>
+    <div style="float: left; width: 48%">
+    {{ form_label(form.uf) }}<br>
     {{ form_errors(form.uf) }}
-    {{ form_widget(form.uf) }}<br>
+    {{ form_widget(form.uf) }}
+    </div>
+    <div style="float: right; width: 48%">
     {{ form_label(form.obs) }}
     {{ form_errors(form.obs) }}
-    {{ form_widget(form.obs) }}<br>
+    {{ form_widget(form.obs) }}
+    </div>
+    <div class="spacer"></div>
     <br>
     <button type="submit">Salvar</button>
 <button type="button" class="cancel">Cancelar</button>
@@ -85,23 +110,39 @@
             e.preventDefault();
         });
         
-        $("#consultaCEP").on('click', function(e){
-            e.preventDefault();
+        
+        function buscaCEP(cep) {
+            //var result = { 'logradouro'r:'', 'bairro':'', 'cidade':'', 'estado_info.nome':'' };
             $.ajax({
-                url: 'http://api.postmon.com.br/v1/cep/' + $("#cadpazbundle_endereco_cep").val(),
+                url: 'http://api.postmon.com.br/v1/cep/' + cep,
                 method: 'GET',
                 dataType : "jsonp",
-                //data: {'cpf': $("#cpf").val()},
                 success: function(result) {
                     $("#cadpazbundle_endereco_logradouro").val(result.logradouro);
                     $("#cadpazbundle_endereco_bairro").val(result.bairro);
                     $("#cadpazbundle_endereco_municipio").val(result.cidade);
                     $("#cadpazbundle_endereco_uf option:contains(" + result.estado_info.nome + ")").attr('selected', true);
-                    //$("#cadpazbundle_endereco_uf").select2("uf", result.estado_info.nome); 
                 }
             });
+        }
+        
+        $("#consultaCEP").on('click', function(e){
+            e.preventDefault();
+         
+            buscaCEP($("#cadpazbundle_endereco_cep").val());        
         });
         
+        $("#cadpazbundle_endereco_cep").keyup(function(e) {
+            
+            var searchText = $(this).val();
+            
+            if (searchText.length < 9) {
+                return;
+            }
+            
+            buscaCEP(searchText);
+            $('#cadpazbundle_endereco_numero').focus();
+        });
         
         
         function setSelectByText(eID,text)

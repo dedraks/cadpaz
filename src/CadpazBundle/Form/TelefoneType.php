@@ -32,7 +32,7 @@ class TelefoneType extends AbstractType
             ))
             ->add('obs', 'textarea', ['label'=>'Observações','required' => false])
             //->add('pessoa')
-            ->add('save', 'submit', array('label' => 'Salvar'))
+            //->add('save', 'submit', array('label' => 'Salvar'))
         ;
     }
     
