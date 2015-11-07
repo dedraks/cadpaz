@@ -7,7 +7,7 @@
         <hr>
     </div>
     
-    Relatório do sistema<br>
+    <span style="font-size: large; font-weight: bold;">Relatório do sistema</span><br>
     {{ texto }}
     <hr class="printLogo">
     
@@ -36,6 +36,8 @@
             {% if campos.temFilhosEmIdadeEscolar is defined %}<th>Tem filhos em idade escolar</th>{% endif %}
             {% if campos.temFilhosMatriculadosEmEscola is defined %}<th>Tem filhos matriculados em escola</th>{% endif %}
             {% if campos.rendaFamiliar is defined %}<th>Renda familiar</th>{% endif %}
+            {% if campos.condicaoDeTrabalho is defined %}<th>Condição de trabalho</th>{% endif %}
+            {% if campos.despesasMesais is defined %}<th>Despesas mensais</th>{% endif %}
             {% if (campos.email) is defined %}<th>Email</th>{% endif %}
             {% if (campos.telefone) is defined %}<th>Telefone</th>{% endif %}
             {% if (campos.endereco) is defined %}<th style="min-width: 30%">Endereco</th>{% endif %}
@@ -74,6 +76,8 @@
         {% if campos.temFilhosEmIdadeEscolar is defined %}<td>{{d.temFilhosEmIdadeEscolar}}</td>{% endif %}
         {% if campos.temFilhosMatriculadosEmEscola is defined %}<td>{{d.temFilhosMatriculadosEmEscola}}</td>{% endif %}
         {% if campos.rendaFamiliar is defined %}<td>{{d.rendaFamiliar}}</td>{% endif %}
+        {% if campos.despesasMesais is defined %}<td>R${{ d.despesasMesais|number_format(2,',','.') }}</td>{% endif %}
+        {% if campos.condicaoDeTrabalho is defined %}<td>{{d.condicaoDeTrabalho}}</td>{% endif %}
         {% if campos.email is defined %}<td>{{d.email}}</td>{% endif %}
         {% if campos.telefone is defined %}<td>{{d.telefone}}</td>{% endif %}
         {% if campos.endereco is defined %}<td>{{d.endereco}}</td>{% endif %}

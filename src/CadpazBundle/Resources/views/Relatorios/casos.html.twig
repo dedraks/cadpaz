@@ -14,7 +14,7 @@ Total de casos atendidos: {{ total_casos }}<br>
 {#<div style="float: left; width: 35%">#}
 <div>
 {#Casos por tipo:<br>#}
-<table id="tbl_cas" class="display compact">
+<table id="tbl_cas" class="relatorios">
     <thead class="tabela_pequena">
         <tr>
             <th>Tipo de caso</th>
@@ -28,9 +28,9 @@ Total de casos atendidos: {{ total_casos }}<br>
         <td>{{ caso.nome }}</td><td> {{ caso.total }}</td>
     </tr>
 {% endfor %}
-    <tr>
+    {#<tr>
         <td>Total geral</td><td>{{ total_casos }}</td>
-    </tr>
+    </tr>#}
     </tbody>
 </table>
 </div>

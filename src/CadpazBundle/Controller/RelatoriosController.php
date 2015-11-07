@@ -48,6 +48,7 @@ class RelatoriosController extends Controller
                             'moraCom' => 'Mora com',
                             'quantosMoram' => 'Quantos moram na casa',
                             'numeroDeFilhos' => 'Número de filhos',
+                            //'urbanizacao' => 'Urbanização', //
                             'tipoDeMoradia' => 'Tipo de moradia'
                         ],
                     'Educação' =>
@@ -61,8 +62,13 @@ class RelatoriosController extends Controller
                     'Renda' =>
                         [
                             'rendaFamiliar' => 'Renda familiar',
-                            'origem' => 'Origem',
                             'beneficios' => 'Benefícios Sociais',
+                            'condicaoDeTrabalho' => 'Condição de trabalho', //
+                            'despesasMesais' => 'Total de despesas mensais' //
+                        ],
+                    'Outros' =>
+                        [
+                            'origem' => 'Origem (Quem encaminhou o cliente para atendimento?)',
                         ]
                 )
             ))
@@ -384,6 +390,28 @@ class RelatoriosController extends Controller
                                     $res[$i]['beneficios'] = ['Questionário não respondido'];
                                 }
                                 $campos['beneficios'] = '';
+                            break;
+                            case 'condicaoDeTrabalho':
+                                $res[$i]['condicaoDeTrabalho'] = 'Questionário não respondido';
+                                if ( ! is_null($pessoa->getQuestionario()))
+                                {
+                                    $res[$i]['condicaoDeTrabalho'] = $pessoa->getQuestionario()->getCondicaoDeTrabalho();
+                                }
+                                $campos['condicaoDeTrabalho'] = '';
+                            break;
+                            case 'despesasMesais':
+                                $res[$i]['despesasMesais'] = 'Questionário não respondido';
+                                if ( ! is_null($questionario) )
+                                {
+                                    $res[$i]['despesasMesais']  = $questionario->getDespesasMensaisAluguel();
+                                    $res[$i]['despesasMesais'] += $questionario->getDespesasMensaisPrestacaoHabitacao();
+                                    $res[$i]['despesasMesais'] += $questionario->getDespesasMensaisAgua();
+                                    $res[$i]['despesasMesais'] += $questionario->getDespesasMensaisLuz();
+                                    $res[$i]['despesasMesais'] += $questionario->getDespesasMensaisTelefone();
+                                    $res[$i]['despesasMesais'] += $questionario->getDespesasMensaisMedicamentos();
+                                    $res[$i]['despesasMesais'] += $questionario->getDespesasMensaisOutras();
+                                }
+                                $campos['despesasMesais'] = '';
                             break;
                         }
                     }
@@ -1375,6 +1403,8 @@ class RelatoriosController extends Controller
         $texto = str_replace('endereco', 'endereço', $texto);
         $texto = str_replace('cpf', 'CPF', $texto);
         $texto = str_replace('moradia', 'condição de moradia', $texto);
+        $texto = str_replace('condicaoDeTrabalho', 'condição de trabalho', $texto);
+        $texto = str_replace('despesasMesais', 'despesas mensais', $texto);
         
         //$texto = $this->get('app.stringutils')->LReplace(',', ' e', $texto);
         $texto = $this->str_lreplace(',', ' e', $texto);
