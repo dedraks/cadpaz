@@ -1403,8 +1403,20 @@ class RelatoriosController extends Controller
         $texto = str_replace('endereco', 'endereço', $texto);
         $texto = str_replace('cpf', 'CPF', $texto);
         $texto = str_replace('moradia', 'condição de moradia', $texto);
+        $texto = str_replace('moraCom', 'mora com', $texto);
+        $texto = str_replace('quantosMoram', 'quantos moram na casa', $texto);
+        $texto = str_replace('numeroDeFilhos', 'numero de filhos', $texto);
+        $texto = str_replace('tipoDeMoradia', 'tipo de moradia', $texto);
+        $texto = str_replace('estudaAtualmente', 'estuda atualmente', $texto);
+        $texto = str_replace('temInteresseEmVoltarAEstudar', 'tem interesse em voltar a estudar', $texto);
+        $texto = str_replace('temFilhosEmIdadeEscolar', 'tem filhos em idade escolar', $texto);
+        $texto = str_replace('temFilhosMatriculadosEmEscola', 'tem filhos matriculados em escola', $texto);
+        $texto = str_replace('rendaFamiliar', 'renda familiar', $texto);
         $texto = str_replace('condicaoDeTrabalho', 'condição de trabalho', $texto);
         $texto = str_replace('despesasMesais', 'despesas mensais', $texto);
+
+        
+        
         
         //$texto = $this->get('app.stringutils')->LReplace(',', ' e', $texto);
         $texto = $this->str_lreplace(',', ' e', $texto);
