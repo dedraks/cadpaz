@@ -1,4 +1,4 @@
-Deve-se executar os passos abaixo para instalar o sistema
+Deve-se executar os passos abaixo para instalar o sistema para desenvolvimento
 
 Abrir o arquivo AppKernel.php e comentar as linhas abaixo:
 

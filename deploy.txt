@@ -1,0 +1,23 @@
+Para implantar o sistema em um servidor de produção:
+
+Delete os arquvios de log
+
+
+Apague os caches: execute:
+
+php app/console cache:clear --no-warmup
+php app/console cache:clear --no-warmup --env=prod
+
+Instale os assets
+
+php app/console assets:install
+php app/console assets:install --env=prod
+php app/console assets:install web
+php app/console assets:install web --env=prod
+php app/console assetic:dump --no-debug
+
+Exporte o banco de dados local.
+Importe no servidor.
+Configure os parametros em app/config/parameters.yml
+
+Configure o document root da aplicação para dirtetorio/web
