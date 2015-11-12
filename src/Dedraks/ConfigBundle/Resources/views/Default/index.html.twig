@@ -7,15 +7,26 @@
 
 <hr>
 
+
 <div class="spacer"></div>
-&nbsp;
+{#&nbsp;
 <a href="#" id="openConfigCasosArea" class="btn2">Casos</a> | 
 <a href="#" id="openConfigOrigensArea" class="btn2">Origens</a> | 
 <a href="#" id="openConfigEncaminhamentosArea" class="btn2">Encaminhamentos</a>
 <a href="#" id="openConfigUsuariosArea" class="btn2">Usuários</a>
 <div class="spacer"></div>
+#}
 
+<div class="tabs">
+    <ul class="tab-links">
+        <li><a href="#configCasosArea">Casos</a></li>
+        <li><a href="#configOrigensArea">Origens</a></li>
+        <li><a href="#configEncaminhamentosArea">Encaminhamentos</a></li>
+        <li><a href="#configUsuariosArea">Usuários</a></li>
+    </ul><!-- tab-links -->
+</div>
 
+<div>
 {{ render(controller('DedraksConfigBundle:CasoTipo:index', {'expandir':expandir})) }}    
 
 {{ render(controller('DedraksConfigBundle:Origem:index', {'expandir':expandir})) }} 
@@ -23,12 +34,29 @@
 {{ render(controller('DedraksConfigBundle:Encaminhamento:index', {'expandir':expandir})) }}    
 
 {{ render(controller('CadpazBundle:User:index', {'expandir':expandir})) }}
+</div>
 
     </div>
 </div>
     
     
 <script>
+    $('.tabs .tab-links a').on('click', function(e)  {
+        var currentAttrValue = jQuery(this).attr('href');
+        
+        $(currentAttrValue).toggleClass('oculto');
+        $(currentAttrValue).siblings().addClass('oculto');
+        
+        
+ 
+        // Change/remove current tab to active
+        jQuery(this).parent('li').toggleClass('active').siblings().removeClass('active');
+ 
+        e.preventDefault();
+    });
+    
+    
+    /*
     $('#openConfigCasosArea').on('click', function(e) {
         e.preventDefault();
         $('#configCasosArea').toggleClass('oculto');
@@ -66,7 +94,8 @@
         $('#configCasosArea').addClass('oculto');
         $('#configEncaminhamentosArea').addClass('oculto');
     });
-   
+   */
+  
     $('td[title]').qtip();
     $('a[title]').qtip();
 </script>
