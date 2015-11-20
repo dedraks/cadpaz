@@ -418,7 +418,7 @@ class RelatoriosController extends Controller
                     $i += 1;
                 }
 
-                dump($res);
+                //dump($res);
 
 
                 if (count($res)<1)
@@ -448,8 +448,8 @@ class RelatoriosController extends Controller
                         $relatorios[$key]=true;
                 }
                 
-                dump($data);
-                dump($relatorios);
+                //dump($data);
+                //dump($relatorios);
                 
                 
                 return $this->render('CadpazBundle:Relatorios:padrao.html.twig', array(

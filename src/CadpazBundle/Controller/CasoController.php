@@ -62,7 +62,7 @@ class CasoController extends Controller
                 ->getRepository('DedraksConfigBundle:Caso')
                 //->findAllDistinctOrderedByTotal();
                 ->findAll();
-        dump($casos);
+        //dump($casos);
         
         /*$teste = $this->getDoctrine()
                 ->getRepository('CadpazBundle:Caso')
@@ -72,7 +72,7 @@ class CasoController extends Controller
         
         $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
         $json = $serializer->serialize($casos, 'json');
-        dump($json);
+        //dump($json);
         return new \Symfony\Component\HttpFoundation\JsonResponse($json);
     }
 

@@ -57,7 +57,7 @@ class EncaminhamentoController extends Controller
         $encaminhamentos = $this->getDoctrine()
                 ->getRepository('CadpazBundle:Encaminhamento')
                 ->findAllDistinctOrderedByTotal();
-        dump($encaminhamentos);
+        //dump($encaminhamentos);
         
         /*$teste = $this->getDoctrine()
                 ->getRepository('CadpazBundle:Caso')
@@ -67,7 +67,7 @@ class EncaminhamentoController extends Controller
         
         $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
         $json = $serializer->serialize($encaminhamentos, 'json');
-        dump($json);
+        //dump($json);
         return new \Symfony\Component\HttpFoundation\JsonResponse($json);
     }
 }

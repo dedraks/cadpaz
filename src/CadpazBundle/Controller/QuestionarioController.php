@@ -20,7 +20,7 @@ class QuestionarioController extends Controller
             ->getRepository('CadpazBundle:Questionario')
             ->find($id);
         
-        dump($questionario);
+        //dump($questionario);
         
         return $this->render('CadpazBundle:Questionario:view.html.twig',  array('questionario'=>$questionario));
     }
@@ -71,7 +71,7 @@ class QuestionarioController extends Controller
             $questionario->setPessoa($pessoa);
         }
         
-        dump($request);
+        //dump($request);
         
         
         if (intval($request->get('page')) === 1 ) {
@@ -190,14 +190,14 @@ class QuestionarioController extends Controller
         
         $questionario = $session->get('questionario');
         
-        dump($questionario);
+        //dump($questionario);
         
         
         
         // Converte o resultado da consulta para json e retorna
         $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
         $json = $serializer->serialize($questionario, 'json');
-        dump($json);
+        //dump($json);
         
         if ($json === 'null') {
             $json = '{

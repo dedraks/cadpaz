@@ -163,7 +163,7 @@ class PessoaController extends Controller
         // Instancia um objeto do tipo Pessoa
         $pessoa = new Pessoa();
         $pessoa->setCpf($cpf);
-        dump($pessoa); 
+        //dump($pessoa); 
         
         
         // Chama a funcao para criar o formulário
@@ -233,8 +233,8 @@ class PessoaController extends Controller
                 ->getRepository('CadpazBundle:Pessoa')
                 ->find($id);
         
-        dump($id);
-        dump($pessoa);
+        //dump($id);
+        //dump($pessoa);
         $cpf = $pessoa->getCpf();
         
         // Chama a funcao para criar o formulário

@@ -9,8 +9,13 @@
     {% stylesheets '@CadpazBundle/Resources/public/plugins/datepicker/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
-    
-    <style>body{display:none}</style>
+    <style>
+	body{display:none;}
+	#username { width: 98%; }
+	#password { width: 98%; }
+	#_submit { width: 100%; }
+	#userAreaEdit a { display: none; }
+    </style>
 
 {% endblock %}
 
@@ -34,7 +39,7 @@
     
     
    
-    <div id="userAreaEdit" class="example" style="display: none; width: 500px; background: #FFF;"></div>
+    <div id="userAreaEdit" class="example" style="display: none; width: 340px; background: #FFF;"></div>
    
     
     
@@ -51,7 +56,9 @@
                 </a>
                 (<a id="userAreaChangePwdLink" href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
                 (<a href="{{ path('fos_user_security_logout') }}">Sair</a>)
-                <div id="menuArea" style="float: right"><a class="menuLink" id="confLink" href="{{path('dedraks_config_homepage')}}">Configurações</a> | <a class="menuLink" href="{{path('relatorios_index')}}">Relatórios</a></div>
+		{% if is_granted('ROLE_ADMIN') %}
+                	<div id="menuArea" style="float: right"><a class="menuLink" id="confLink" href="{{path('dedraks_config_homepage')}}">Configurações</a> | <a class="menuLink" href="{{path('relatorios_index')}}">Relatórios</a></div>
+		{% endif %}
             </div>
         {% else %}
             Efetuar <a id="userLoginLink" href="{{ path('fos_user_security_login') }}">login</a>
