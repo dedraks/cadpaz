@@ -24,7 +24,7 @@ class CasoTipoController extends Controller
         $expandir = $request->get('expandir');
         
         
-        dump($expandir);
+        //dump($expandir);
         
         if ($expandir === 'caso')
             $expandir = true;

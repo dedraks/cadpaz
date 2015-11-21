@@ -23,7 +23,7 @@ class EncaminhamentoController extends Controller
         $expandir = $request->get('expandir');
         
         
-        dump($expandir);
+        //dump($expandir);
         
         if ($expandir === 'encaminhamento')
             $expandir = true;

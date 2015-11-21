@@ -1,7 +1,10 @@
 {% for endereco in enderecos %}
                     <div class="telefone_endereco_secao">
                         <div class="telefoneTitulo">
-                        {{ endereco.nome }}<br />
+                        {{ endereco.nome }}
+{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+        <a id="end_del" href="{{ path('endereco_delete', {'id':endereco.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+        {% endimage %}
                         </div>
                         <div class="documento">
                         {{ endereco.padrao ? "Endereço padrão<br>" : "" }}
@@ -16,3 +19,10 @@
                     </div>
                      <div class="spacer"></div>
                 {% endfor %}
+
+<script>
+	$('#end_del').on('click', function(e){
+		e.preventDefault();
+		//alert('clicou');
+	});
+</script>

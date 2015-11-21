@@ -14,7 +14,7 @@ class TelefoneType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        dump($options);
+        //dump($options);
         
         $builder
             ->add('padrao', 'checkbox', ['required' => false, 'disabled'=>$options['ro']])

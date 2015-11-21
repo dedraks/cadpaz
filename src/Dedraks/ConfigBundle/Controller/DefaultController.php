@@ -14,7 +14,7 @@ class DefaultController extends Controller
         if (is_null($expand))
             $expand = 'vazio';
         
-        dump($expand);
+        //dump($expand);
         
         return $this->render('DedraksConfigBundle:Default:index.html.twig', array(
             'expandir'=>$expand

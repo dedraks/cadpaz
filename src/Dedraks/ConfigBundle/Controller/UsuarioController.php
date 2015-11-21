@@ -23,7 +23,7 @@ class UsuarioController extends Controller
         $expandir = $request->get('expandir');
         
         
-        dump($expandir);
+        //dump($expandir);
         
         if ($expandir === 'usuario')
         {

@@ -72,26 +72,21 @@ class RelatoriosController extends Controller
                         ]
                 )
             ))
-                
             ->add('filtro', 'text', ['required'=>false,'label'=> ' ', 
-                'attr' =>  ['style'=>'width: 99%'] ])
-            
+                'attr' =>  ['style'=>'width: 99%; display: none'] ])            
             ->add('adicionarFiltro', 'button', ['label'=>'Adicionar Filtro',  'attr' =>  ['style'=>'width: 100%'] ])
-                
             ->add('limparFiltros', 'button', ['label'=>'Limpar Filtros', 'attr' =>  ['style'=>'width: 100%']])
-                
             ->add('save', 'submit', array('label' => 'Exibir relatório', 'attr' =>  ['style'=>'width: 100%; margin-top: 10px; margin-bottom: 10px']))
-                
         ->getForm();
         
-        $padraoForm = $this->createFormBuilder($data, ['attr' => ['id' => 'padraoRelForm']])
-            ->add('casos', 'checkbox', array('label' => 'Tipos de Casos', 'required'=>false, 'attr'=>['style'=>'float: left']))
-            ->add('origens', 'checkbox', array('label' => 'Origens (quem enviou o cliente para atendimento)', 'required'=>false, 'attr'=>['style'=>'float: left']))
-            ->add('encaminhamentos', 'checkbox', array('label' => 'Encaminhamentos (para onde o cliente foi encaminhado)', 'required'=>false, 'attr'=>['style'=>'float: left']))
-            ->add('renda', 'checkbox', array('label' => 'Renda familiar', 'required'=>false, 'attr'=>['style'=>'float: left']))
-            ->add('idade', 'checkbox', array('label' => 'Idade', 'required'=>false, 'attr'=>['style'=>'float: left']))
-            ->add('sexo', 'checkbox', array('label' => 'Sexo', 'required'=>false, 'attr'=>['style'=>'float: left']))
-            ->add('cor', 'checkbox', array('label' => 'Cor', 'required'=>false, 'attr'=>['style'=>'float: left']))
+        $padraoForm = $this->createFormBuilder($data, ['attr' => ['id' => 'padraoRelForm', 'style'=>'align: left; position: relative;']])
+            ->add('casos', 'checkbox', array('label' => 'Tipos de Casos', 'required'=>false))
+            ->add('origens', 'checkbox', array('label' => 'Origens (quem enviou o cliente para atendimento)', 'required'=>false))
+            ->add('encaminhamentos', 'checkbox', array('label' => 'Encaminhamentos (para onde o cliente foi encaminhado)', 'required'=>false))
+            ->add('renda', 'checkbox', array('label' => 'Renda familiar', 'required'=>false))
+            ->add('idade', 'checkbox', array('label' => 'Idade', 'required'=>false))
+            ->add('sexo', 'checkbox', array('label' => 'Sexo', 'required'=>false))
+            ->add('cor', 'checkbox', array('label' => 'Cor', 'required'=>false))
             ->add('save', 'submit', array('label' => 'Exibir relatório', 'attr' =>  ['style'=>'width: 100%']))
         ->getForm();
         
@@ -470,13 +465,13 @@ class RelatoriosController extends Controller
         $form = $this->createForm(new \CadpazBundle\Form\RelatorioCustomType(), $data);
         
         $form->handleRequest($request);
-        dump($request);
+        //dump($request);
         
-        dump($form);
+        //dump($form);
         
         if ($form->isSubmitted()) {
             
-            dump($form->getData());
+            //dump($form->getData());
             
             return new Response('a');
         }
@@ -695,7 +690,7 @@ class RelatoriosController extends Controller
             }                
         }
         
-        dump($idades_array);
+        //dump($idades_array);
         
         
         
@@ -730,8 +725,8 @@ class RelatoriosController extends Controller
         
         
         
-        dump($data);
-        dump($idades_array);
+        //dump($data);
+        //dump($idades_array);
         
         $ob->series(array(array('type' => 'pie','name' => 'Idade', 'data' => $data)));
                 
@@ -825,7 +820,7 @@ class RelatoriosController extends Controller
         );
         
         $cores = $query->getResult();
-        dump($cores);
+        //dump($cores);
         
         
         
@@ -839,8 +834,8 @@ class RelatoriosController extends Controller
             $cores_array[] =
                     [$cor["cor"], ($c/$total) * 100 ];
         }
-        dump($total);
-        dump($cores_array);
+        //dump($total);
+        //dump($cores_array);
         //dump($sexos);
         //dump($total);
         
@@ -1035,15 +1030,15 @@ class RelatoriosController extends Controller
      */
     private function parseFiltro($str)
     {
-        dump("parseFiltro(".$str.")");
+        //dump("parseFiltro(".$str.")");
         
         $filtros_adicionados = array();
         $filtros = explode('&', $str);
-        dump($filtros);
+        //dump($filtros);
         
         foreach($filtros as $filtro)
         {
-            dump($filtro);
+            //dump($filtro);
             if (strpos($filtro, '>=')) {
                 $filtros_adicionados[] = array(explode('>=', $filtro)[0], explode('>=', $filtro)[1], '>=');
             }
@@ -1065,7 +1060,7 @@ class RelatoriosController extends Controller
             }
         }
         
-        dump($filtros_adicionados);
+        //dump($filtros_adicionados);
         return $filtros_adicionados;
     }
     
@@ -1192,7 +1187,7 @@ class RelatoriosController extends Controller
             $valor = trim($valor,"'");        
             $operador = trim($filtro[2]);
             
-            dump('-------->' . $criterio . $operador . $valor . '<------------');
+            //dump('-------->' . $criterio . $operador . $valor . '<------------');
         }
         
         
@@ -1206,11 +1201,11 @@ class RelatoriosController extends Controller
             $valor = trim($valor,"'");        
             $operador = trim($filtro[2]);
             
-            dump($criterio . $operador . $valor);
+            //dump($criterio . $operador . $valor);
             switch ($criterio)
             {
                 case 'sexo':
-                    dump($pessoa->getSexo());
+                    //dump($pessoa->getSexo());
                     if ($operador == '=') 
                     {
                         if ( strtolower($pessoa->getSexo()) != strtolower($valor))
@@ -1317,8 +1312,8 @@ class RelatoriosController extends Controller
                         return false;
                     
                     $rendaFamiliar = $questionario->getRendaFamiliar();
-                    dump($rendaFamiliar);
-                    dump($valor);
+                    //dump($rendaFamiliar);
+                    //dump($valor);
                     switch ($operador)
                     {
                         case '=':

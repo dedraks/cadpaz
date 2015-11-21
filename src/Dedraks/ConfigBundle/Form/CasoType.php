@@ -15,9 +15,9 @@ class CasoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tipo')
+            ->add('tipo', null, ['attr'=>['style'=>'width: 99%; margin-bottom: 10px;']])
             ->add('descricao')
-            ->add('save', 'submit', ['label'=>'salvar'])
+            ->add('save', 'submit', ['label'=>'salvar', 'attr'=>['style'=>'width: 100%; margin-top: 10px;']])
         ;
     }
     

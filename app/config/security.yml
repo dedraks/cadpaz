@@ -30,4 +30,3 @@ security:
         - { path: ^/pessoa,     role: ROLE_USER }
         - { path: ^/config,     role: ROLE_ADMIN }
         - { path: ^/relatorios, role: ROLE_ADMIN }
-        #- { path: ^/, role: ROLE_VIEWER }

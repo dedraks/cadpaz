@@ -22,8 +22,12 @@ class OrigemController extends Controller
     {
         $expandir = $request->get('expandir');
         
-        
-        dump($expandir);
+        try {
+           dump($expandir);
+	}
+	catch(Exception $e)
+	{
+	}
         
         if ($expandir === 'origem')
             $expandir = true;

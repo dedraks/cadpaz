@@ -14,9 +14,38 @@
             <input id="selecionarTodos" type="checkbox">
             <label for="selecionarTodos">Selecionar todos</label><br><br>
             
-        {{ form(padraoForm) }}
+        {{ form_start(padraoForm) }}
+
+	{{ form_widget(padraoForm.casos) }}
+	{{ form_label(padraoForm.casos) }}
+	{{ form_errors(padraoForm.casos) }}
+	<br>
+	{{ form_widget(padraoForm.origens) }}
+	{{ form_label(padraoForm.origens) }}
+	{{ form_errors(padraoForm.origens) }}
+	<br>
+	{{ form_widget(padraoForm.encaminhamentos) }}
+	{{ form_label(padraoForm.encaminhamentos) }}
+	{{ form_errors(padraoForm.encaminhamentos) }}
+	<br>
+	{{ form_widget(padraoForm.renda) }}
+	{{ form_label(padraoForm.renda) }}
+	{{ form_errors(padraoForm.renda) }}
+	<br>
+	{{ form_widget(padraoForm.idade) }}
+	{{ form_label(padraoForm.idade) }}
+	{{ form_errors(padraoForm.idade) }}
+	<br>
+	{{ form_widget(padraoForm.sexo) }}
+	{{ form_label(padraoForm.sexo) }}
+	{{ form_errors(padraoForm.sexo) }}
+	<br>
+	{{ form_widget(padraoForm.cor) }}
+	{{ form_label(padraoForm.cor) }}
+	{{ form_errors(padraoForm.cor) }}
+	<br>
+	{{ form_end(padraoForm) }}
         </div>
-        
         
         
         <hr>
