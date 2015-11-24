@@ -41,7 +41,7 @@
     <div id="rg_area">
         {{ pessoa.rg is not null ? '<div class="documentoTitulo">' : '<div>' }}
             RG:
-    {% if pessoa.rg is null %}
+    {% if pessoa.rg is null %}Não possui
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="rg" href="{{ path('pessoa_rg_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
@@ -71,7 +71,7 @@
     <div id="te_area">
         {{ pessoa.titulo is not null ? '<div class="documentoTitulo">' : '<div>' }}
             Título Eleitoral:
-    {% if pessoa.titulo is null %}
+    {% if pessoa.titulo is null %}Não possui
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="te" href="{{ path('pessoa_titulo_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
@@ -106,7 +106,7 @@
     <div id="pis_area">
         {{ pessoa.pis is not null ? '<div class="documentoTitulo">' : '<div>' }}
     PIS:
-    {% if pessoa.pis is null %}
+    {% if pessoa.pis is null %}Não possui
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="pis" href="{{ path('pessoa_pis_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
@@ -132,7 +132,7 @@
     <div id="ctps_area">
     {{ pessoa.ctps is not null ? '<div class="documentoTitulo">' : '<div>' }}
     CTPS:
-    {% if pessoa.ctps is null %}
+    {% if pessoa.ctps is null %}Não possui
         {% if is_granted('ROLE_EDITOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="ctps" href="{{ path('pessoa_ctps_new', {'id':pessoa.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>

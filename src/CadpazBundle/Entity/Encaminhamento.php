@@ -27,6 +27,14 @@ class Encaminhamento
      * @ORM\Column(name="encaminhado", type="string", length=100)
      */
     private $encaminhado;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observacoes", type="text", nullable=true)
+     */
+    private $observacoes;
     
     /**
      * @ORM\OneToOne(targetEntity="Atendimento", inversedBy="encaminhamento")
@@ -89,5 +97,28 @@ class Encaminhamento
     public function getAtendimento()
     {
         return $this->atendimento;
+    }
+
+    /**
+     * Set observacoes
+     *
+     * @param string $observacoes
+     * @return Encaminhamento
+     */
+    public function setObservacoes($observacoes)
+    {
+        $this->observacoes = $observacoes;
+
+        return $this;
+    }
+
+    /**
+     * Get observacoes
+     *
+     * @return string 
+     */
+    public function getObservacoes()
+    {
+        return $this->observacoes;
     }
 }

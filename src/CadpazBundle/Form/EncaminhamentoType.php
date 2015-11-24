@@ -20,7 +20,7 @@ class EncaminhamentoType extends AbstractType
                 //'expanded' => true,
                 'multiple' => false
                 ])
-            //->add('atendimento')
+            ->add('observacoes', null, ['required'=>false, 'label'=>'Observações (opcional)'])
             ->add('save', 'submit', ['label' => 'Salvar'])
         ;
     }

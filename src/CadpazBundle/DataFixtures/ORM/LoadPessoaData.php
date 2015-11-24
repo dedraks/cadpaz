@@ -69,6 +69,11 @@
             $edtgroup = new Group('Editores');
             $edtgroup->setRoles(array());
             $edtgroup->addRole('ROLE_EDITOR'); 
+
+            // Cria o grupo de Mediadores
+            $mdagroup = new Group('Mediadores');
+            $mdagroup->setRoles(array());
+            $mdagroup->addRole('ROLE_MEDIATOR'); 
             
             // Cria o grupo de Visualizadores
             $vsgroup = new Group('Visualizadores');
@@ -85,6 +90,7 @@
             
             $manager->persist($admgroup);
             $manager->persist($edtgroup);
+            $manager->persist($mdagroup);
             $manager->persist($vsgroup);
             
             $manager->persist($admin);

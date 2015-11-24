@@ -1,11 +1,13 @@
     <div id="atd">
-        <strong>{{ caso.nome }}</strong> - (<a id="fecharCaso" href="#">Fechar</a>)<br>
-        {{ caso.descricao }}<br><br>
+	<div class="telefoneTituloa">
+        <strong>{{ caso.nome }}</strong> - (<a id="fecharCaso" href="#">Fechar</a>)</div>
+	<div class="documentoa">
+        <br>{{ caso.descricao }}<br><hr>
         
         <strong>Atendimentos</strong>
         
         <div style="float: right">
-        {% if is_granted('ROLE_EDITOR') %}
+        {% if is_granted('ROLE_MEDIATOR') %}
         {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
         <a id="newAtendimentoLink" href="{{ path('atendimento_new', {'caso_id':caso.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
         {% endimage %}
@@ -16,23 +18,30 @@
         <div id="atendimentos_area">
         {% for atendimento in caso.atendimentos %}
             <hr>
+		<div>
             <strong>Data e hora:</strong> {{ atendimento.dataHora | date('d/m/Y - H:i')}} - <strong>Atendente:</strong> {{atendimento.user.nomeCompleto}}<br>
             <strong>Histórico:</strong> <br>{{ atendimento.historico | nl2br }}<br>
             <div class="spacer"></div>
             <strong>Encaminhamento:</strong>
-            <div id="encaminhamento_area_a{{atendimento.id}}" style="float: right">
+            <div id="encaminhamento_area_a{{atendimento.id}}" style="text-align: right">
                 {% if atendimento.encaminhamento is null %}
-                    {% if is_granted('ROLE_EDITOR') %}
-                    {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
-                    <a id="a{{atendimento.id}}" title="Encaminhar beneficiário para atendimento" class="enc_link" href="{{ path('encaminhamento_new', {'atendimento_id':atendimento.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
-                    {% endimage %}
+                    {% if is_granted('ROLE_MEDIATOR') %}
+                        {% image '@CadpazBundle/Resources/public/images/button_add2.png' %}
+                            <a id="a{{atendimento.id}}" title="Encaminhar beneficiário para atendimento" class="enc_link" href="{{ path('encaminhamento_new', {'atendimento_id':atendimento.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+                        {% endimage %}
                     {% endif %}
                 {% else %}
-                Encaminhado para <em>{{ atendimento.encaminhamento.encaminhado }}</em>
+			<div>
+                    Encaminhado para <em>{{ atendimento.encaminhamento.encaminhado }}</em>
+                   {% if atendimento.encaminhamento.observacoes is not null %}(<span style="font-size: small">{{atendimento.encaminhamento.observacoes}}</span>){% endif %}
+			</div>
                 {% endif %}
+
             </div>
             <div id="novo_encaminhamento_area_a{{atendimento.id}}"></div>
+		</div>
         {% endfor %}
+        </div>
         </div>
     </div>
 
