@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -120,10 +120,10 @@ class Client implements ServerClient
         }
 
         $headers = $httpRequest->getHeaders();
-        $headers->addHeaders(array(
+        $headers->addHeaders([
             'Content-Type' => 'application/json',
             'Accept'       => 'application/json',
-        ));
+        ]);
 
         if (!$headers->get('User-Agent')) {
             $headers->addHeaderLine('User-Agent', 'Zend_Json_Server_Client');
@@ -158,7 +158,7 @@ class Client implements ServerClient
      * @return mixed Method call results.
      * @throws Exception\ErrorException When remote call fails.
      */
-    public function call($method, $params = array())
+    public function call($method, $params = [])
     {
         $request = $this->createRequest($method, $params);
 
