@@ -399,13 +399,6 @@ a:visited{
 }
 
 
-
-
-
-
-
-
-
 /*----- Tabs -----*/
 .tabs {
     width:100%;
@@ -472,10 +465,6 @@ li.active a, li.active a:hover {
 }
 
 
-
-
-
-
 /* Start by setting display:none to make this hidden.
    Then we position it in relation to the viewport window
    with position:fixed. Width, height, top and left speak
@@ -515,10 +504,8 @@ body.loading {
 /* Anytime the body has the loading class, our
    modal element will be visible */
 body.loading .modal {
-    //display: block;
+    /*display: block;*/
 }
-
-
 
 .questionario_secao {
     /*border: 1px dotted;*/
@@ -529,9 +516,6 @@ body.loading .modal {
     /*border: 1px dotted;*/
     /*border-top: 1px solid;*/
 }
-
-
-
 
 textarea {
     resize: none;
