@@ -36,7 +36,7 @@
             Outros
         {% endif %}
     <br />
-    CPF: {{ pessoa.cpf }}
+    CPF: <span class="pessoaViewCpf">{{ pessoa.cpf }}</span>
     <div class="spacer"></div>
     <div id="rg_area">
         {{ pessoa.rg is not null ? '<div class="documentoTitulo">' : '<div>' }}
@@ -361,4 +361,6 @@
         $('a[title]').qtip();
 
     });
+    
+    $(".pessoaViewCpf").mask("###.###.###-##");
 </script>

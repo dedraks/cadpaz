@@ -86,6 +86,11 @@ pessoa_ctps_del:
     options:
         expose: true
 
+pessoa_print:
+    path:     /pessoa/{id}/print
+    defaults: { _controller: CadpazBundle:Pessoa:print }
+    options:
+        expose: true
 # Fim das rotas para o controlador Pessoa
 
 # Rotas para o controlador CTPS

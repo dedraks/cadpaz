@@ -22,7 +22,7 @@
 {% else %}
 <table  id="example" class="userList" cellspacing="2" width="100%">
 <thead>
-    <tr>
+    <tr style="background: #dfdfdf">
         <th>Nome</th>
         <th>Nome da mãe</th>
         <th>Telefone</th>
@@ -32,7 +32,7 @@
 </thead>
 <tbody>
 {% for pessoa in pessoas %}
-    <tr id="tr{{ pessoa.id }}">
+    <tr id="tr{{ pessoa.id }}" class="tabela_pequena">
         <td><a class="trlink" href="{{ path('pessoa_view', {id: pessoa.id}) }}">{{ pessoa.nome }}</a></td>
         <td>{{ pessoa.nomeMae }}</td>
         <td>
@@ -41,7 +41,7 @@
             {% endfor %}
         </td>
         <td>{{ pessoa.email }}</td>
-        <td>{{ pessoa.cpf }}</td>
+        <td class="tdCpf">{{ pessoa.cpf }}</td>
     </tr>
     
     
@@ -81,5 +81,8 @@
             }});
         }
     });
+    
+    
+    $(".tdCpf").mask("###.###.###-##");
 </script>
 {% endif %}

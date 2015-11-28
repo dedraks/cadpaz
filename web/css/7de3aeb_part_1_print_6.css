@@ -1,0 +1,55 @@
+@media print {
+    footer {page-break-after: always;};
+    .relButtons {
+        display: none;
+        visibility: hidden;
+    }
+    .printLogo {
+        display: block;
+    }
+    
+    .rodape {
+        font-size: small;
+        text-align: right;
+        display: block;
+    }
+    
+    .titulo {
+        font-size: x-large;
+        font-weight: bold;
+    }
+
+    .subtitulo {
+        font-size: large;
+        font-weight: bold;
+    }
+    
+    
+    table
+    {
+       
+    }
+    
+    thead {
+        background-color: #c0c0c0;
+    }
+    
+    tbody {
+        font-size: small;
+    }
+    
+    
+    
+    td { border-bottom: 1px dotted;}
+}
+
+@media screen {
+    .printLogo {
+        display: none;
+    }
+    
+    .rodape
+    {
+        display: none;
+    }
+}
