@@ -311,14 +311,13 @@
                 if (ui.state) {
                     // Clicked "OK"
                     $.ajax({
-                            url: $href,
-                                //method: 'POST',
-                                //data: {'cpf': $("#cpf").val()},
-                                success: function(result) {
-
-                                    $("#userDetails").html(result);
-                                }
-                        });
+                        url: $href,
+                        //method: 'POST',
+                        //data: {'cpf': $("#cpf").val()},
+                        success: function(result) {
+                            $("#userDetails").html(result);
+                        }
+                    });
                 }
                 else {
                     // Clicked "Cancel"
@@ -326,23 +325,20 @@
                 }
             });
        
-        
-        
-
         e.preventDefault();
     });
     
     $("#editlink").click(function(e) {
-                        e.preventDefault();
-                        $.ajax({
-                            url: $(this).attr('href'),
-                            method: 'POST',
-                            //data: {'cpf': $("#cpf").val()},
-                            success: function(result) {
-                                $("#userDetails").html(result);
-                            }
-                        });
-                    });
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('href'),
+            method: 'POST',
+            //data: {'cpf': $("#cpf").val()},
+            success: function(result) {
+                $("#userDetails").html(result);
+            }
+        });
+    });
                     
     $("#closeUser").click(function(e) {
         e.preventDefault();

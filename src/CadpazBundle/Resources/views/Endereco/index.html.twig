@@ -1,27 +1,36 @@
 {% for endereco in enderecos %}
-                    <div class="telefone_endereco_secao">
-                        <div class="telefoneTitulo">
-                        {{ endereco.nome }}
-{% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
-        <a id="end_del" href="{{ path('endereco_delete', {'id':endereco.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
-        {% endimage %}
-                        </div>
-                        <div class="documento">
-                        {{ endereco.padrao ? "Endereço padrão<br>" : "" }}
-                        {{ endereco.logradouro }}, {{ endereco.numero }}<br />
-                        {{ endereco.bairro }}<br />
-                        {{ endereco.complemento is null ? "" : endereco.complemento ~ "<br>"}}
-                        {{ endereco.cep }}<br />
-                        {{ endereco.municipio }} - {{ endereco.uf }}<br />
-                        {{ endereco.obs }}
-                        {% set end = 1 %}
-                        </div>
-                    </div>
-                     <div class="spacer"></div>
-                {% endfor %}
+    <div class="telefone_endereco_secao">
+        <div class="telefoneTitulo">
+            {{ endereco.nome }} | 
+            {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
+                <a class="end_edit" href="{{ path('endereco_delete', {'id':endereco.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
+            {% endimage %}
+            {% image '@CadpazBundle/Resources/public/images/button_delete2.png' %}
+                <a class="end_del" href="{{ path('endereco_delete', {'id':endereco.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a><br />
+            {% endimage %}
+        </div>
+        <div class="documento">
+            {{ endereco.padrao ? "Endereço padrão<br>" : "" }}
+            {{ endereco.logradouro }}, {{ endereco.numero }}<br />
+            {{ endereco.bairro }}<br />
+            {% if endereco.complemento is not null %}
+                {{ endereco.complemento }} <br>
+            {% endif %}
+            {{ endereco.cep }}<br />
+            {{ endereco.municipio }} - {{ endereco.uf }}<br />
+            {{ endereco.obs }}
+            {% set end = 1 %}
+        </div>
+    </div>
+    <div class="spacer"></div>
+{% endfor %}
 
 <script>
-	$('#end_del').on('click', function(e){
+	$('.end_edit').on('click', function(e){
+		e.preventDefault();
+		//alert('clicou');
+	});
+        $('.end_del').on('click', function(e){
 		e.preventDefault();
 		//alert('clicou');
 	});
