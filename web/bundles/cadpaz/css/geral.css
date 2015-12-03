@@ -302,10 +302,7 @@ h2 {
 .relatorios tbody tr:nth-child(odd)	{ background-color:#efefef; }
 .relatorios tbody tr:nth-child(even)	{ background-color:#d0d0d0; }
 
-
-
 #example {
-
     /*visibility: hidden;*/
     width: 100%;
     padding: 15px;
@@ -317,10 +314,15 @@ h2 {
     box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
     margin-top: 15px;
 }
+
 #example tbody tr:nth-child(odd)		{ background-color:#efefef; }
 #example tbody tr:nth-child(even)	{ background-color:#e0e0e0; }
 
-
+#example tbody tr:hover {
+    background-color: #ffff99;
+    cursor: pointer;
+    /*font-weight: bold;*/
+}
 
 /*
 a{
@@ -498,13 +500,13 @@ li.active a, li.active a:hover {
 body.loading {
     overflow: hidden;   
     
-    cursor: wait;
+    /*cursor: wait;*/
 }
 
 /* Anytime the body has the loading class, our
    modal element will be visible */
 body.loading .modal {
-    /*display: block;*/
+    display: block;
 }
 
 .questionario_secao {

@@ -1,7 +1,7 @@
 {% for endereco in enderecos %}
     <div class="telefone_endereco_secao">
         <div class="telefoneTitulo">
-            {{ endereco.nome }} | 
+            {{ endereco.nome }}
             {% image '@CadpazBundle/Resources/public/images/button_edit2.png' %}
                 <a class="end_edit" href="{{ path('endereco_delete', {'id':endereco.id}) }}"><img src="{{ asset_url }}" alt="Example" /></a>
             {% endimage %}

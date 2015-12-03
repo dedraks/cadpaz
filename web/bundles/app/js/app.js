@@ -339,7 +339,7 @@ $( "#form1" ).submit(function( event ) {
         success: function(responseText) {
             
             if (responseText.search('<a href="/login">Entrar</a>') !== -1) {
-                //window.location.reload();
+                window.location.reload();
             }
         }
     });
