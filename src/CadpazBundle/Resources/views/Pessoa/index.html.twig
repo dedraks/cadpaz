@@ -57,7 +57,15 @@
                 (<a id="userAreaChangePwdLink" href="{{ path('fos_user_change_password') }}">Alterar senha</a>)
                 (<a href="{{ path('fos_user_security_logout') }}">Sair</a>)
 		{% if is_granted('ROLE_ADMIN') %}
-                	<div id="menuArea" style="float: right"><a class="menuLink" id="confLink" href="{{path('dedraks_config_homepage')}}">Configurações</a> | <a class="menuLink" href="{{path('relatorios_index')}}">Relatórios</a></div>
+                	<div id="menuArea" style="float: right">
+                            {% image '@CadpazBundle/Resources/public/images/button_config2.png' %}
+                                <a class="menuLink" href="{{path('dedraks_config_homepage')}}"><img src="{{ asset_url }}" title="Configurações" /></a>
+                            {% endimage %} &nbsp;
+                            {% image '@CadpazBundle/Resources/public/images/button_chart2.png' %}
+                                <a class="menuLink" id="confLink" href="{{path('relatorios_index')}}"><img src="{{ asset_url }}" title="Relatórios" /></a>
+                            {% endimage %}
+                            {#<a class="menuLink" id="confLink" href="{{path('dedraks_config_homepage')}}">Configurações</a> | <a class="menuLink" href="{{path('relatorios_index')}}">Relatórios</a>#}
+                        </div>
 		{% endif %}
             </div>
         {% else %}
